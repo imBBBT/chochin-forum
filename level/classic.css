@@ -1,0 +1,1569 @@
+/* --- 상단 슬림 헤더 배너 (Classic Top Banner) --- */
+.classic-top-banner {
+  position: absolute;
+  top: 6.8vw;
+  left: 50vw;
+  width: 95.5%;
+  height: 5.2vw;
+  transform: translateX(-50%);
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.8rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-sizing: border-box;
+  z-index: 4;
+}
+
+.classic-title-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.classic-banner-title {
+  font-family: 'Paperozi', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.4rem, 3.5vw, 4.2rem);
+  line-height: 1;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 16px rgba(255, 255, 255, 0.35);
+}
+
+.classic-banner-badge {
+  font-family: 'Paperozi', sans-serif;
+  font-size: clamp(0.72rem, 0.88vw, 0.95rem);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1rem;
+  padding: 0.2rem 0.7rem;
+  letter-spacing: 0.02em;
+}
+
+.classic-mode-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 0.2rem;
+  border-radius: 0.45rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.classic-mode-tab {
+  font-family: 'Paperozi', sans-serif;
+  font-size: clamp(0.78rem, 0.9vw, 0.98rem);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  padding: 0.25rem 0.85rem;
+  border-radius: 0.35rem;
+  transition: all 0.2s ease;
+}
+
+.classic-mode-tab.active {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+}
+
+.classic-mode-tab:not(.active):hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+html, body {
+  height: 100vh;
+  overflow: hidden !important;
+}
+
+/* --- Overlay Backdrop --- */
+.detail-overlay-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: transparent;
+  z-index: 90;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.detail-overlay-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+}
+
+/* --- 리스트 컨테이너 (50% 대폭 확대 60fps 듀얼 패널) --- */
+.classic-list-box {
+  position: fixed !important;
+  top: 164px !important;
+  bottom: 24px !important;
+  left: 50% !important;
+  right: auto !important;
+  width: 68vw !important;
+  max-width: 1300px !important;
+  min-width: 340px;
+  height: auto !important;
+  max-height: calc(100vh - 192px) !important;
+  transform: translateX(-50%) !important;
+  border-radius: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  overflow: hidden;
+  padding: 0;
+  background-color: rgba(18, 18, 18, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 0, 0, 0.5);
+  transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 5;
+}
+
+.classic-list-box.has-detail {
+  left: calc(50% - 14px) !important;
+  right: auto !important;
+  width: 47vw !important;
+  max-width: 1080px !important;
+  transform: translateX(-100%) !important;
+}
+
+.classic-list-header {
+  padding: 0.75rem 0.9rem 0.6rem 0.9rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(15, 15, 15, 0.7);
+  flex-shrink: 0;
+}
+
+.classic-list-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
+}
+
+.classic-list-title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.classic-list-main-title {
+  font-family: 'Paperozi', sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.15rem, 1.45vw, 1.65rem);
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.classic-search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: rgba(28, 28, 28, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 0.4rem;
+  padding: 0.4rem 0.7rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.classic-search-box:focus-within {
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.classic-search-icon {
+  width: 1.1rem;
+  height: 1.1rem;
+  fill: rgba(255, 255, 255, 0.45);
+  margin-right: 0.5rem;
+  flex-shrink: 0;
+}
+
+#classic-search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-family: 'Paperozi', sans-serif;
+  font-size: 0.9rem;
+  padding: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#classic-search-input::-webkit-search-decoration,
+#classic-search-input::-webkit-search-cancel-button,
+#classic-search-input::-webkit-search-results-button,
+#classic-search-input::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
+
+#classic-search-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.classic-search-clear {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.95rem;
+  cursor: pointer;
+  padding: 0 0.2rem;
+  line-height: 1;
+  transition: color 0.15s ease;
+}
+
+.classic-search-clear:hover {
+  color: #ffffff;
+}
+
+.classic-tag-filter-section {
+  margin-top: 0.55rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.classic-tag-filter-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.1rem;
+}
+
+.classic-tag-guide-text {
+  font-family: 'Paperozi', sans-serif;
+  font-size: 0.76rem;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.classic-tag-guide-text .guide-inc {
+  color: #2ed573;
+  font-weight: 600;
+}
+
+.classic-tag-guide-text .guide-exc {
+  color: #ff4757;
+  font-weight: 600;
+}
+
+.classic-tag-action-btns {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.classic-tag-toggle-btn {
+  font-family: 'Paperozi', sans-serif;
+  font-size: 0.74rem;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0.25rem;
+  padding: 0.1rem 0.5rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.classic-tag-toggle-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.classic-tag-chips-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  background: rgba(22, 22, 22, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.4rem;
+  padding: 0.4rem 0.6rem;
+  max-height: 8rem;
+  overflow-y: auto;
+  scrollbar-color: #2ed573 rgba(0, 0, 0, 0.4);
+  scrollbar-width: thin;
+  transition: all 0.25s ease;
+}
+
+.classic-tag-chips-wrapper:not(.open) {
+  display: none;
+}
+
+.classic-tag-chips-wrapper::-webkit-scrollbar {
+  width: 6px !important;
+  height: 6px !important;
+  background: transparent !important;
+}
+
+.classic-tag-chips-wrapper::-webkit-scrollbar-button,
+.classic-tag-chips-wrapper::-webkit-scrollbar-button:single-button,
+.classic-tag-chips-wrapper::-webkit-scrollbar-button:start,
+.classic-tag-chips-wrapper::-webkit-scrollbar-button:end {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.classic-tag-chips-wrapper::-webkit-scrollbar-track,
+.classic-tag-chips-wrapper::-webkit-scrollbar-track-piece {
+  background: rgba(0, 0, 0, 0.4) !important;
+  border-radius: 4px !important;
+}
+
+.classic-tag-chips-wrapper::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #2ed573 0%, #1e90ff 100%) !important;
+  border-radius: 4px !important;
+  box-shadow: 0 0 8px rgba(46, 213, 115, 0.5) !important;
+  border: none !important;
+}
+
+.classic-tag-chips-wrapper::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #00ff87 0%, #00d2ff 100%) !important;
+  box-shadow: 0 0 12px rgba(0, 255, 135, 0.85) !important;
+}
+
+.classic-tag-chips-wrapper::-webkit-scrollbar-corner {
+  background: transparent !important;
+}
+
+.classic-tag-category-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+}
+
+.classic-tag-category-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.classic-tag-cat-badge {
+  font-family: 'Paperozi', sans-serif;
+  font-size: 0.73rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 0.25rem;
+  padding: 0.15rem 0.45rem;
+  min-width: 2.6rem;
+  text-align: center;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+  user-select: none;
+}
+
+.classic-tag-chips-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  flex: 1;
+}
+
+.classic-tag-chip {
+  font-family: 'Paperozi', sans-serif;
+  font-size: 0.78rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.classic-tag-chip:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+}
+
+/* Include state: Green */
+.classic-tag-chip.tag-include {
+  background: rgba(46, 213, 115, 0.2);
+  border-color: #2ed573;
+  color: #2ed573;
+  font-weight: 600;
+  box-shadow: 0 0 6px rgba(46, 213, 115, 0.3);
+}
+
+/* Exclude state: Red */
+.classic-tag-chip.tag-exclude {
+  background: rgba(255, 71, 87, 0.2);
+  border-color: #ff4757;
+  color: #ff4757;
+  font-weight: 600;
+  box-shadow: 0 0 6px rgba(255, 71, 87, 0.3);
+}
+
+.classic-level-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.8rem 1rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.classic-level-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.classic-level-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+.classic-level-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  min-height: 8.5rem;
+  padding: 1rem 1.4rem;
+  background: rgba(28, 28, 28, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.65rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease, background 0.2s ease;
+  cursor: pointer;
+}
+
+.classic-level-card:hover {
+  background: rgba(38, 38, 38, 0.98);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.classic-level-card.selected {
+  border-color: rgba(255, 255, 255, 0.45);
+  background: rgba(50, 50, 50, 0.98);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+}
+
+/* rating 카드 테두리 & 글로우 효과 */
+.classic-level-card.card-featured {
+  border: 1px solid rgba(255, 230, 0, 0.65);
+  box-shadow: 0 0 14px rgba(255, 230, 0, 0.35);
+}
+
+.classic-level-card.card-featured:hover {
+  border-color: rgba(255, 230, 0, 0.9);
+  box-shadow: 0 0 18px rgba(255, 230, 0, 0.55);
+}
+
+.classic-level-card.card-legendary {
+  border: 1px solid rgba(255, 0, 255, 0.65);
+  box-shadow: 0 0 14px rgba(255, 0, 255, 0.35);
+}
+
+.classic-level-card.card-legendary:hover {
+  border-color: rgba(255, 0, 255, 0.9);
+  box-shadow: 0 0 18px rgba(255, 0, 255, 0.55);
+}
+
+.classic-level-card.card-mythic {
+  border: 1px solid rgba(0, 255, 255, 0.65);
+  box-shadow: 0 0 14px rgba(0, 255, 255, 0.35);
+}
+
+.classic-level-card.card-mythic:hover {
+  border-color: rgba(0, 255, 255, 0.9);
+  box-shadow: 0 0 18px rgba(0, 255, 255, 0.55);
+}
+
+.classic-level-thumb {
+  flex-shrink: 0;
+  width: 13.5rem;
+  height: 7.6rem;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.classic-level-info {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+}
+
+.classic-level-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  margin-bottom: 0.5rem;
+}
+
+.classic-level-rank {
+  font-family: 'Paperozi', sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.6rem, 2.2vw, 2.4rem);
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.classic-level-title {
+  font-family: 'Paperozi', sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.7rem, 2.3vw, 2.5rem);
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.classic-level-meta {
+  font-family: 'Paperozi', sans-serif;
+  font-weight: 500;
+  font-size: clamp(1.15rem, 1.6vw, 1.7rem);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.classic-level-creator {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.classic-level-separator {
+  margin: 0 0.35rem;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.classic-level-verifier {
+  color: #d0d0d0;
+}
+
+.classic-level-actions {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.45rem;
+  align-self: center;
+}
+
+.classic-level-badge {
+  font-family: 'Paperozi', sans-serif;
+  font-weight: 600;
+  font-size: clamp(0.75rem, 0.95vw, 1rem);
+  color: #e0e0e0;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  line-height: 1.3;
+  transition: all 0.2s ease;
+}
+
+/* Featured: 노란색 테두리 및 글로우 효과 */
+.classic-level-badge.badge-featured {
+  color: #ffe600;
+  background: rgba(255, 230, 0, 0.12);
+  border: 1px solid #ffe600;
+  box-shadow: 0 0 8px rgba(255, 230, 0, 0.7);
+  text-shadow: 0 0 5px rgba(255, 230, 0, 0.7);
+}
+
+/* Legendary: 자홍색 테두리 및 글로우 효과 */
+.classic-level-badge.badge-legendary {
+  color: #ff00ff;
+  background: rgba(255, 0, 255, 0.12);
+  border: 1px solid #ff00ff;
+  box-shadow: 0 0 8px rgba(255, 0, 255, 0.7);
+  text-shadow: 0 0 5px rgba(255, 0, 255, 0.7);
+}
+
+/* Mythic: 청록색 테두리 및 글로우 효과 */
+.classic-level-badge.badge-mythic {
+  color: #00ffff;
+  background: rgba(0, 255, 255, 0.12);
+  border: 1px solid #00ffff;
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.7);
+  text-shadow: 0 0 5px rgba(0, 255, 255, 0.7);
+}
+
+.classic-level-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.classic-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  border: none;
+  border-radius: 0.25rem;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.55);
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.classic-icon-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.classic-icon-btn svg {
+  width: 0.95rem;
+  height: 0.95rem;
+  fill: currentColor;
+}
+
+.classic-level-reorder {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 50%);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.08rem 0.45rem;
+  background: rgba(20, 20, 20, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.35rem;
+  z-index: 2;
+}
+
+.classic-reorder-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.1rem;
+  height: 1.1rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.65rem;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.classic-reorder-btn:hover:not(:disabled) {
+  color: #ffffff;
+}
+
+.classic-reorder-btn:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.classic-reorder-divider {
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 0.7rem;
+  line-height: 1;
+}
+
+.classic-level-empty,
+.classic-level-error {
+  font-family: 'Paperozi', sans-serif;
+  font-weight: 400;
+  font-size: clamp(0.9rem, 1.2vw, 1.2rem);
+  color: rgba(255, 255, 255, 0.6);
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+/* --- 상세 정보 패널 (50% 대폭 확대 듀얼 패널) --- */
+.classic-detail-box {
+  position: fixed !important;
+  top: 164px !important;
+  bottom: 24px !important;
+  left: calc(50% + 14px) !important;
+  right: auto !important;
+  width: 47vw !important;
+  max-width: 1080px !important;
+  min-width: 340px !important;
+  height: auto !important;
+  max-height: calc(100vh - 192px) !important;
+  border-radius: 0.75rem !important;
+  background-color: rgba(18, 18, 18, 0.96) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 0, 0, 0.5) !important;
+  box-sizing: border-box !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+  transform: translateY(15px) scale(0.97) !important;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, visibility 0.35s ease !important;
+  overflow-y: auto !important;
+  padding: 2rem 2.4rem !important;
+  z-index: 10 !important;
+  display: block !important;
+  align-items: stretch !important;
+}
+
+.classic-detail-box.active {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  visibility: visible !important;
+  transform: translateY(0) scale(1) !important;
+}
+
+.classic-detail-box::-webkit-scrollbar {
+  width: 6px;
+}
+
+.classic-detail-box::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 3px;
+}
+
+.detail-header,
+.detail-video-container,
+.detail-info-grid,
+.detail-desc-box,
+.detail-tags-list {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.detail-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+
+.detail-rank {
+  font-family: 'Paperozi', sans-serif;
+  font-size: clamp(1.8rem, 2.6vw, 2.8rem);
+  font-weight: 800;
+  color: #ffe600;
+  text-shadow: 0 0 10px rgba(255, 230, 0, 0.4);
+}
+
+.detail-title {
+  font-family: 'Paperozi', sans-serif;
+  font-size: clamp(1.8rem, 2.6vw, 2.8rem);
+  font-weight: 800;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+}
+
+.detail-close-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.6rem;
+  cursor: pointer;
+  padding: 0.35rem 0.85rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.detail-close-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 71, 87, 0.2);
+  border-color: #ff4757;
+  box-shadow: 0 0 10px rgba(255, 71, 87, 0.4);
+}
+
+.detail-video-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 28vh;
+  border-radius: 0.6rem;
+  overflow: hidden;
+  background: #000;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+}
+
+.detail-video-container iframe,
+.detail-video-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  object-fit: cover;
+}
+
+.detail-no-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(25, 25, 25, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: 'Paperozi', sans-serif;
+  font-size: 0.95rem;
+}
+
+.detail-info-grid {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.detail-info-item {
+  background: rgba(28, 28, 28, 0.85);
+  padding: 0.85rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.detail-info-item:hover {
+  background: rgba(38, 38, 38, 0.95);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.detail-info-label {
+  font-family: 'Paperozi', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 0.45rem;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+.detail-info-value {
+  font-family: 'Paperozi', sans-serif;
+  font-size: 1.55rem;
+  color: #ffffff;
+  font-weight: 800;
+  line-height: 1.35;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-align: center;
+  width: 100%;
+}
+
+.detail-copy-btn {
+  padding: 0.2rem 0.55rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.3rem;
+  color: #fff;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.detail-copy-btn:hover {
+  background: rgba(255, 255, 255, 0.35);
+  transform: scale(1.05);
+}
+
+.detail-desc-box {
+  background: rgba(28, 28, 28, 0.9);
+  padding: 1rem 1.3rem;
+  border-radius: 0.55rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  margin-bottom: 1rem;
+}
+
+.detail-desc-title {
+  font-family: 'Paperozi', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.55);
+  margin-bottom: 0.45rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.detail-desc-text {
+  font-family: 'Paperozi', sans-serif;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.65;
+  white-space: pre-wrap;
+}
+
+.detail-tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.detail-tag-pill {
+  font-family: 'Paperozi', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.85);
+  padding: 0.35rem 0.85rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.detail-tag-pill:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+/* --- CLEAR 뱃지 & 클리어 스타일 --- */
+.classic-level-clear-badge {
+  font-family: 'Paperozi', sans-serif;
+  font-weight: 700;
+  font-size: clamp(0.7rem, 0.85vw, 0.9rem);
+  color: #2ed573;
+  background: rgba(46, 213, 115, 0.14);
+  border: 1px solid #2ed573;
+  box-shadow: 0 0 8px rgba(46, 213, 115, 0.4);
+  text-shadow: 0 0 5px rgba(46, 213, 115, 0.5);
+  border-radius: 0.35rem;
+  padding: 0.2rem 0.55rem;
+  line-height: 1.3;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+/* 클리어한 카드의 경우 rating 글로우 대신 클리어 글로우만 단독 적용 */
+.classic-level-card.card-cleared,
+.classic-level-card.card-featured.card-cleared,
+.classic-level-card.card-legendary.card-cleared,
+.classic-level-card.card-mythic.card-cleared {
+  border: 1px solid rgba(46, 213, 115, 0.7);
+  box-shadow: 0 0 14px rgba(46, 213, 115, 0.45);
+}
+
+.classic-level-card.card-cleared:hover,
+.classic-level-card.card-featured.card-cleared:hover,
+.classic-level-card.card-legendary.card-cleared:hover,
+.classic-level-card.card-mythic.card-cleared:hover {
+  border-color: rgba(46, 213, 115, 0.95);
+  box-shadow: 0 0 18px rgba(46, 213, 115, 0.65);
+}
+
+/* --- Section Dividers --- */
+.level-section-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0.7rem 0 0.3rem 0;
+  padding: 0 0.4rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.level-section-divider .divider-line {
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.level-section-divider .divider-label {
+  font-family: 'Paperozi', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.75rem;
+  border-radius: 0.35rem;
+  white-space: nowrap;
+}
+
+.level-section-divider.divider-main .divider-label {
+  color: #ffe600;
+  background: rgba(255, 230, 0, 0.14);
+  border: 1px solid rgba(255, 230, 0, 0.4);
+  box-shadow: 0 0 10px rgba(255, 230, 0, 0.2);
+}
+
+.level-section-divider.divider-extended .divider-label {
+  color: #00d2ff;
+  background: rgba(0, 210, 255, 0.14);
+  border: 1px solid rgba(0, 210, 255, 0.4);
+  box-shadow: 0 0 10px rgba(0, 210, 255, 0.2);
+}
+
+.level-section-divider.divider-legacy .divider-label {
+  color: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* --- Level PT Badges --- */
+.classic-level-pt-badge {
+  font-family: 'Paperozi', sans-serif;
+  font-weight: 700;
+  font-size: clamp(0.72rem, 0.85vw, 0.9rem);
+  border-radius: 0.35rem;
+  padding: 0.2rem 0.55rem;
+  line-height: 1.3;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  white-space: nowrap;
+}
+
+.classic-level-pt-badge.pt-earned {
+  color: #2ed573;
+  background: rgba(46, 213, 115, 0.15);
+  border: 1px solid #2ed573;
+  box-shadow: 0 0 8px rgba(46, 213, 115, 0.35);
+  text-shadow: 0 0 5px rgba(46, 213, 115, 0.4);
+}
+
+.classic-level-pt-badge.pt-potential {
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* --- 기록 명단 섹션 --- */
+.detail-clears-box {
+  width: 100%;
+  box-sizing: border-box;
+  background: rgba(28, 28, 28, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.55rem;
+  padding: 1.1rem 1.3rem;
+  margin-top: 1rem;
+}
+
+.detail-clears-title {
+  font-family: 'Paperozi', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 0.5rem;
+}
+
+.detail-clears-count {
+  font-family: 'Paperozi', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #2ed573;
+  background: rgba(46, 213, 115, 0.15);
+  border: 1px solid rgba(46, 213, 115, 0.4);
+  padding: 0.15rem 0.65rem;
+  border-radius: 1rem;
+}
+
+.detail-clears-empty {
+  font-family: 'Paperozi', sans-serif;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.4);
+  text-align: center;
+  padding: 1rem 0;
+  margin: 0;
+}
+
+.detail-clears-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.detail-clears-th {
+  font-family: 'Paperozi', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  padding: 0.5rem 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  letter-spacing: 0.02em;
+}
+
+.th-rank {
+  width: 10%;
+}
+
+.th-name {
+  width: 32%;
+}
+
+.th-percent {
+  width: 18%;
+}
+
+.th-date {
+  width: 25%;
+}
+
+.th-link {
+  width: 15%;
+}
+
+.detail-clears-row {
+  transition: background 0.15s ease;
+}
+
+.detail-clears-row:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.detail-clears-row.user-clear {
+  background: rgba(46, 213, 115, 0.14);
+  border-left: 3px solid #2ed573;
+}
+
+.detail-clears-row.user-clear:hover {
+  background: rgba(46, 213, 115, 0.22);
+}
+
+.detail-clears-td {
+  font-family: 'Paperozi', sans-serif;
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.85);
+  text-align: center;
+  padding: 0.5rem 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.detail-clears-row:last-child .detail-clears-td {
+  border-bottom: none;
+}
+
+.td-rank {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.82rem;
+}
+
+.td-name {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.td-date {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+}
+
+.detail-clears-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2rem 0.65rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 0.3rem;
+  color: #ffffff;
+  font-size: 0.82rem;
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.detail-clears-link:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* --- 순위 변동 기록 (Level Rank History) --- */
+.detail-history-box {
+  width: 100%;
+  box-sizing: border-box;
+  background: rgba(30, 30, 30, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  padding: 0.9rem 1.1rem;
+  margin-top: 0.9rem;
+}
+
+.detail-history-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'Paperozi', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.6rem;
+}
+
+.detail-history-count {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.detail-history-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  max-height: 12.5rem;
+  overflow-y: auto;
+}
+
+.detail-history-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.detail-history-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+}
+
+.detail-history-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(20, 20, 20, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.4rem;
+  font-family: 'Paperozi', sans-serif;
+  transition: all 0.2s ease;
+}
+
+/* 1. 순위 상승 (Green / Emerald) */
+.detail-history-item.history-card-rise {
+  background: rgba(46, 213, 115, 0.09);
+  border: 1px solid rgba(46, 213, 115, 0.4);
+  box-shadow: 0 0 8px rgba(46, 213, 115, 0.15);
+}
+.detail-history-badge.badge-type-rise {
+  background: rgba(46, 213, 115, 0.22);
+  border: 1px solid #2ed573;
+  color: #2ed573;
+}
+
+/* 2. 순위 하락 (Red / Crimson) */
+.detail-history-item.history-card-drop {
+  background: rgba(255, 71, 87, 0.09);
+  border: 1px solid rgba(255, 71, 87, 0.4);
+  box-shadow: 0 0 8px rgba(255, 71, 87, 0.15);
+}
+.detail-history-badge.badge-type-drop {
+  background: rgba(255, 71, 87, 0.22);
+  border: 1px solid #ff4757;
+  color: #ff4757;
+}
+
+/* 3. 순위 재평가 (Violet / Purple) */
+.detail-history-item.history-card-re-eval {
+  background: rgba(165, 94, 234, 0.09);
+  border: 1px solid rgba(165, 94, 234, 0.4);
+  box-shadow: 0 0 8px rgba(165, 94, 234, 0.15);
+}
+.detail-history-badge.badge-type-re-eval {
+  background: rgba(165, 94, 234, 0.22);
+  border: 1px solid #a55eea;
+  color: #a55eea;
+}
+
+/* 4. 신규 등록 (Gold / Yellow) */
+.detail-history-item.history-card-add {
+  background: rgba(255, 211, 42, 0.09);
+  border: 1px solid rgba(255, 211, 42, 0.4);
+  box-shadow: 0 0 8px rgba(255, 211, 42, 0.15);
+}
+.detail-history-badge.badge-type-add {
+  background: rgba(255, 211, 42, 0.22);
+  border: 1px solid #ffd32a;
+  color: #ffd32a;
+}
+
+/* 5. 레벨 삭제 (Dark Red) */
+.detail-history-item.history-card-remove {
+  background: rgba(255, 82, 82, 0.09);
+  border: 1px solid rgba(255, 82, 82, 0.4);
+  box-shadow: 0 0 8px rgba(255, 82, 82, 0.15);
+}
+.detail-history-badge.badge-type-remove {
+  background: rgba(255, 82, 82, 0.22);
+  border: 1px solid #ff5252;
+  color: #ff5252;
+}
+
+/* 변동 폭이 1일 때의 어둡고 은은한 톤다운 카드리스트 스타일 */
+.detail-history-item.minor-change {
+  background: rgba(14, 14, 14, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+  opacity: 0.78;
+}
+
+.detail-history-item.minor-change:hover {
+  opacity: 1;
+  background: rgba(24, 24, 24, 0.85);
+}
+
+.detail-history-item.minor-change.history-card-rise {
+  border-color: rgba(46, 213, 115, 0.22);
+}
+.detail-history-item.minor-change.history-card-rise .detail-history-delta {
+  background: rgba(46, 213, 115, 0.1);
+  border-color: rgba(46, 213, 115, 0.3);
+  box-shadow: none;
+}
+.detail-history-item.minor-change.history-card-rise .delta-num {
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: none;
+}
+
+.detail-history-item.minor-change.history-card-drop {
+  border-color: rgba(255, 71, 87, 0.22);
+}
+.detail-history-item.minor-change.history-card-drop .detail-history-delta {
+  background: rgba(255, 71, 87, 0.1);
+  border-color: rgba(255, 71, 87, 0.3);
+  box-shadow: none;
+}
+.detail-history-item.minor-change.history-card-drop .delta-num {
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: none;
+}
+
+.detail-history-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.25rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.detail-history-delta {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 4.1rem;
+  height: 4.1rem;
+  border-radius: 0.6rem;
+  flex-shrink: 0;
+  font-family: 'Paperozi', sans-serif;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.delta-rise {
+  background: rgba(46, 213, 115, 0.16);
+  border: 1.5px solid rgba(46, 213, 115, 0.55);
+  box-shadow: 0 0 14px rgba(46, 213, 115, 0.35);
+}
+.delta-rise .delta-num {
+  color: #ffffff;
+  text-shadow: 0 0 12px #2ed573, 0 0 5px #000000;
+}
+.delta-rise .delta-arrow {
+  color: rgba(46, 213, 115, 0.32);
+}
+
+.delta-drop {
+  background: rgba(255, 71, 87, 0.16);
+  border: 1.5px solid rgba(255, 71, 87, 0.55);
+  box-shadow: 0 0 14px rgba(255, 71, 87, 0.35);
+}
+.delta-drop .delta-num {
+  color: #ffffff;
+  text-shadow: 0 0 12px #ff4757, 0 0 5px #000000;
+}
+.delta-drop .delta-arrow {
+  color: rgba(255, 71, 87, 0.32);
+}
+
+.delta-add {
+  background: rgba(255, 211, 42, 0.16);
+  border: 1.5px solid rgba(255, 211, 42, 0.55);
+  box-shadow: 0 0 14px rgba(255, 211, 42, 0.35);
+}
+.delta-add .delta-num {
+  color: #ffffff;
+  text-shadow: 0 0 12px #ffd32a, 0 0 5px #000000;
+}
+.delta-add .delta-arrow {
+  color: rgba(255, 211, 42, 0.32);
+}
+
+.delta-remove {
+  background: rgba(255, 82, 82, 0.16);
+  border: 1.5px solid rgba(255, 82, 82, 0.55);
+  box-shadow: 0 0 14px rgba(255, 82, 82, 0.35);
+}
+.delta-remove .delta-num {
+  color: #ffffff;
+  text-shadow: 0 0 12px #ff5252, 0 0 5px #000000;
+}
+.delta-remove .delta-arrow {
+  color: rgba(255, 82, 82, 0.32);
+}
+
+.delta-move {
+  background: rgba(165, 94, 234, 0.16);
+  border: 1.5px solid rgba(165, 94, 234, 0.55);
+  box-shadow: 0 0 14px rgba(165, 94, 234, 0.35);
+}
+.delta-move .delta-num {
+  color: #ffffff;
+  text-shadow: 0 0 12px #a55eea, 0 0 5px #000000;
+}
+.delta-move .delta-arrow {
+  color: rgba(165, 94, 234, 0.32);
+}
+
+.delta-num {
+  position: relative;
+  z-index: 2;
+  font-size: 1.5rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.delta-arrow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  font-size: 3.8rem;
+  font-weight: 900;
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+}
+
+.detail-history-header-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.detail-history-fromto {
+  font-family: 'Paperozi', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.1rem 0.5rem;
+  border-radius: 0.3rem;
+  letter-spacing: 0.02em;
+}
+
+.badge-type-default {
+  color: #a4b0be;
+  background: rgba(164, 176, 190, 0.15);
+  border: 1px solid rgba(164, 176, 190, 0.4);
+}
+
+.detail-history-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.detail-history-detail {
+  font-size: 0.84rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.4;
+  word-break: break-all;
+}
+
+.detail-history-time {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.45);
+  margin-top: 0.2rem;
+}
+
+.detail-history-empty {
+  font-family: 'Paperozi', sans-serif;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.4);
+  text-align: center;
+  padding: 0.8rem 0;
+  margin: 0;
+}
+
+/* --- 모바일: 상세 정보 아래에서 위로 슬라이드 (맵팩 스타일) --- */
+@media (max-width: 960px) {
+  .classic-list-box,
+  .classic-list-box.has-detail {
+    left: 50% !important;
+    width: 96vw !important;
+    max-width: 100% !important;
+    transform: translateX(-50%) !important;
+  }
+
+  .classic-detail-box {
+    top: auto !important;
+    bottom: 0 !important;
+    left: 50% !important;
+    right: auto !important;
+    width: 96vw !important;
+    max-width: 100% !important;
+    max-height: calc(100vh - 80px) !important;
+    border-radius: 0.75rem 0.75rem 0 0 !important;
+    padding: 1.6rem 1.2rem !important;
+    background-color: rgba(18, 18, 18, 0.98) !important;
+    transform: translate(-50%, 100%) !important;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, visibility 0.3s ease !important;
+    z-index: 100 !important;
+  }
+
+  .classic-detail-box.active {
+    transform: translate(-50%, 0) !important;
+  }
+}

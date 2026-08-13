@@ -1,0 +1,328 @@
+/* --- Ranking Page Styles --- */
+html, body {
+  height: 100vh;
+  overflow: hidden !important;
+}
+
+/* Unified Main Glass Container */
+.box.ranking-container-box {
+  position: fixed !important;
+  top: 164px !important;
+  bottom: 24px !important;
+  left: 50% !important;
+  width: 88% !important;
+  max-width: 1400px !important;
+  min-width: 340px;
+  height: auto !important;
+  max-height: calc(100vh - 192px) !important;
+  transform: translateX(-50%) !important;
+  border-radius: 0.65rem;
+  background-color: rgba(18, 18, 18, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  overflow: hidden;
+  padding: 0;
+  z-index: 5;
+}
+
+/* Header Section inside Box */
+.ranking-header-section {
+  padding: 0.65rem 1.4rem 0.5rem 1.4rem;
+  background: rgba(15, 15, 15, 0.75);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.ranking-header-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.ranking-main-title {
+  font-family: 'Paperozi', sans-serif !important;
+  font-weight: 800 !important;
+  font-size: clamp(1.15rem, 1.4vw, 1.7rem) !important;
+  color: #ffffff !important;
+  margin: 0 !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.02em !important;
+  text-shadow: none !important;
+}
+
+.ranking-subtitle {
+  font-family: 'Paperozi', sans-serif !important;
+  font-size: clamp(0.72rem, 0.82vw, 0.92rem) !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  margin: 0 !important;
+}
+
+/* Mode Tabs */
+.ranking-mode-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 0.2rem;
+  border-radius: 0.45rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ranking-tab {
+  font-family: 'Paperozi', sans-serif;
+  font-size: clamp(0.8rem, 0.9vw, 1rem);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 0.3rem 0.95rem;
+  border-radius: 0.35rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ranking-tab[data-mode="classic"].active {
+  color: #2ed573 !important;
+  background: rgba(46, 213, 115, 0.18) !important;
+  border-color: #2ed573 !important;
+  box-shadow: 0 0 10px rgba(46, 213, 115, 0.35) !important;
+}
+
+.ranking-tab[data-mode="challenge"].active {
+  color: #00d2ff !important;
+  background: rgba(0, 210, 255, 0.18) !important;
+  border-color: #00d2ff !important;
+  box-shadow: 0 0 10px rgba(0, 210, 255, 0.35) !important;
+}
+
+.ranking-tab[data-mode="platformer"].active {
+  color: #a855f7 !important;
+  background: rgba(168, 85, 247, 0.18) !important;
+  border-color: #a855f7 !important;
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.35) !important;
+}
+
+.ranking-tab[data-mode="hardest"].active {
+  color: #ffe600 !important;
+  background: rgba(255, 230, 0, 0.18) !important;
+  border-color: #ffe600 !important;
+  box-shadow: 0 0 10px rgba(255, 230, 0, 0.35) !important;
+}
+
+.ranking-tab:not(.active):hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Table Header Bar */
+.ranking-table-header {
+  display: grid;
+  grid-template-columns: 7.5rem 16rem 13rem 1fr 12rem;
+  align-items: center;
+  padding: 1.1rem 1.8rem;
+  background: rgba(10, 10, 10, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: 'Paperozi', sans-serif;
+  font-size: 1.12rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.6);
+  flex-shrink: 0;
+}
+
+.ranking-table-header.mode-hardest {
+  grid-template-columns: 8rem 20rem 1fr !important;
+}
+
+/* Ranking List Body */
+.ranking-list-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  box-sizing: border-box;
+}
+
+.ranking-list-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ranking-list-body::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+/* Ranking Row Cards */
+.ranking-row-card {
+  display: grid;
+  grid-template-columns: 7.5rem 16rem 13rem 1fr 12rem;
+  align-items: center;
+  padding: 1.15rem 1.8rem;
+  background: rgba(28, 28, 28, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 0.55rem;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  font-family: 'Paperozi', sans-serif;
+}
+
+.ranking-row-card.mode-hardest {
+  grid-template-columns: 8rem 20rem 1fr !important;
+}
+
+.ranking-row-card:hover {
+  background: rgba(36, 36, 36, 0.95);
+  border-color: rgba(255, 255, 255, 0.22);
+  transform: translateX(5px);
+}
+
+/* Top 3 Podium Highlights */
+.ranking-row-card.rank-1 {
+  background: linear-gradient(135deg, rgba(255, 230, 0, 0.15) 0%, rgba(28, 28, 28, 0.92) 100%) !important;
+  border: 1.5px solid rgba(255, 230, 0, 0.7) !important;
+  box-shadow: 0 0 20px rgba(255, 230, 0, 0.25) !important;
+}
+
+.ranking-row-card.rank-2 {
+  background: linear-gradient(135deg, rgba(180, 210, 235, 0.1) 0%, rgba(28, 28, 28, 0.92) 100%) !important;
+  border: 1.5px solid rgba(180, 210, 235, 0.45) !important;
+  box-shadow: 0 0 18px rgba(180, 210, 235, 0.18) !important;
+}
+
+.ranking-row-card.rank-3 {
+  background: linear-gradient(135deg, rgba(205, 127, 50, 0.15) 0%, rgba(28, 28, 28, 0.92) 100%) !important;
+  border: 1.5px solid rgba(205, 127, 50, 0.6) !important;
+  box-shadow: 0 0 18px rgba(205, 127, 50, 0.2) !important;
+}
+
+/* Current User Highlight */
+.ranking-row-card.is-current-user {
+  border-color: #2ed573 !important;
+  box-shadow: 0 0 22px rgba(46, 213, 115, 0.4) !important;
+}
+
+.rank-badge {
+  font-family: 'Paperozi', sans-serif;
+  font-weight: 800;
+  font-size: 1.35rem;
+  color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.rank-1 .rank-badge { color: #ffe600; font-size: 1.75rem; }
+.rank-2 .rank-badge { color: #c8d8e8; font-size: 1.6rem; }
+.rank-3 .rank-badge { color: #cd7f32; font-size: 1.45rem; }
+
+.player-name {
+  font-family: 'Paperozi', sans-serif;
+  font-weight: 800;
+  font-size: 1.42rem;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.user-me-badge {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #2ed573;
+  background: rgba(46, 213, 115, 0.18);
+  border: 1px solid rgba(46, 213, 115, 0.45);
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.35rem;
+}
+
+.player-pt {
+  font-family: 'Paperozi', sans-serif;
+  font-weight: 800;
+  font-size: 1.38rem;
+  color: #2ed573;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.player-hardest {
+  font-family: 'Paperozi', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.player-clears {
+  font-family: 'Paperozi', sans-serif;
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.ranking-empty-state {
+  font-family: 'Paperozi', sans-serif;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.45);
+  text-align: center;
+  padding: 4rem 1.5rem;
+}
+
+/* --- Mobile Responsive Optimizations for Ranking --- */
+@media (max-width: 960px) {
+  .box.ranking-container-box {
+    width: 96vw !important;
+    max-width: 100% !important;
+    top: 80px !important;
+    bottom: 0.8rem !important;
+    max-height: calc(100vh - 92px) !important;
+  }
+
+  .ranking-header-section {
+    padding: 0.6rem 0.8rem !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.5rem !important;
+  }
+
+  .ranking-table-header {
+    grid-template-columns: 3.2rem 1fr 5.5rem 4rem !important;
+    padding: 0.75rem 0.8rem !important;
+    font-size: 0.9rem !important;
+  }
+
+  .col-hardest {
+    display: none !important;
+  }
+
+  .ranking-row-card {
+    grid-template-columns: 3.2rem 1fr 5.5rem 4rem !important;
+    padding: 0.75rem 0.8rem !important;
+    font-size: 0.9rem !important;
+  }
+
+  .player-hardest {
+    display: none !important;
+  }
+
+  .player-name {
+    font-size: 0.95rem !important;
+  }
+
+  .player-pt {
+    font-size: 0.95rem !important;
+  }
+
+  .player-clears {
+    font-size: 0.9rem !important;
+  }
+}

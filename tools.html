@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="초친 도구 - 맵 무작위 추첨기 및 슬롯형/원형 초친 룰렛 관리 도구" />
+  <title>도구 - 초친 포럼</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="level.css" />
+  <link rel="stylesheet" href="all.css" />
+  <link rel="stylesheet" href="tools.css" />
+</head>
+
+<body>
+  <div class="bg"></div>
+  <header class="header">
+    <span class="header-nickname"></span>
+    <div class="header-main-buttons">
+      <a href="index.html">
+        <button class="button">
+          <span class="icon">홈</span>
+        </button>
+      </a>
+      <a href="level.html">
+        <button class="button">
+          <span class="icon">레벨</span>
+        </button>
+      </a>
+      <a href="maps.html">
+        <button class="button">
+          <span class="icon">맵 팩</span>
+        </button>
+      </a>
+      <a href="ranking.html">
+        <button class="button">
+          <span class="icon">랭킹</span>
+        </button>
+      </a>
+      <a href="tools.html">
+        <button class="button active">
+          <span class="icon">도구</span>
+        </button>
+      </a>
+    </div>
+    <button class="optionbutton"><span class="icon">▼</span></button>
+    <div class="optionmenu">
+      <button class="option-item">계정 선택</button>
+      <button class="option-item">배경 설정</button>
+    </div>
+  </header>
+
+  <main class="tools-main-container">
+    <!-- Banner Box -->
+    <div class="box tools-banner-box">
+      <h1 class="tools-banner-title">도구</h1>
+      <p class="tools-banner-desc">맵 추첨과 룰렛으로 무작위 맵을 뽑아보세요!</p>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="tools-tab-bar">
+      <button class="tools-tab-btn active" data-tab="picker">맵 추첨</button>
+      <button class="tools-tab-btn" data-tab="roulette">룰렛</button>
+    </div>
+
+    <!-- Section 1: Map Picker (맵 뽑기) -->
+    <section id="section-picker" class="tool-section active">
+      <div class="tool-card">
+        <div class="tool-card-title">
+          <span>맵 추첨 조건 설정</span>
+        </div>
+        <div class="picker-controls-grid">
+          <!-- Category Select (Single Select) -->
+          <div class="control-group-box">
+            <span class="control-label">카테고리 (하나 선택)</span>
+            <div class="mode-radio-group">
+              <button class="mode-radio-btn active" data-mode="classic">Classic</button>
+              <button class="mode-radio-btn" data-mode="challenge">Challenge</button>
+              <button class="mode-radio-btn" data-mode="platformer">Platformer</button>
+            </div>
+          </div>
+
+          <!-- Range Select (Multi Select) -->
+          <div class="control-group-box">
+            <span class="control-label">범위 (중복 선택 가능)</span>
+            <div class="range-checkbox-group">
+              <button class="range-chip active" data-range="main">✓ Main (1~10위)</button>
+              <button class="range-chip active" data-range="extended">✓ Extended (11~20위)</button>
+              <button class="range-chip active" data-range="legacy">✓ Legacy (21위~)</button>
+            </div>
+          </div>
+
+          <!-- Exclude Cleared Toggle -->
+          <div class="control-group-box">
+            <span class="control-label">클리어 필터링</span>
+            <div class="toggle-switch-row">
+              <span class="toggle-switch-text">클리어한 맵 제외</span>
+              <label class="switch">
+                <input type="checkbox" id="picker-exclude-cleared">
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Instant Draw Toggle -->
+          <div class="control-group-box">
+            <span class="control-label">추첨 연출</span>
+            <div class="toggle-switch-row">
+              <span class="toggle-switch-text">즉시 뽑기 (연출 스킵)</span>
+              <label class="switch">
+                <input type="checkbox" id="picker-instant-draw">
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <button id="picker-draw-btn" class="draw-action-btn">맵 추첨하기</button>
+      </div>
+
+      <!-- Stage & Result Display Box -->
+      <div class="picker-stage-box">
+        <!-- Initial Placeholder -->
+        <div id="picker-placeholder" class="picker-placeholder">
+          <div class="picker-placeholder-text">조건을 설정한 후 '맵 추첨하기' 버튼을 눌러주세요.</div>
+        </div>
+
+        <!-- Shuffling Ticker Container -->
+        <div id="picker-ticker" class="ticker-container">
+          <div class="ticker-subtext">SELECTING RANDOM MAP...</div>
+          <div id="picker-ticker-text" class="ticker-text">Searching...</div>
+        </div>
+
+        <!-- Drawn Result Card -->
+        <div id="picker-drawn-card" class="drawn-card">
+          <div class="drawn-header-row">
+            <div class="drawn-badge-group">
+              <span id="drawn-rank-badge" class="drawn-rank-badge">#1</span>
+              <span id="drawn-mode-badge" class="drawn-mode-badge">CLASSIC</span>
+              <span id="drawn-rating-badge" class="drawn-mode-badge"
+                style="background:#ffe600; color:#000; display:none;">EXPERT</span>
+            </div>
+            <span id="drawn-clear-status"
+              style="font-family:'Paperozi'; font-weight:800; color:#2ed573; display:none;">✓ CLEAR</span>
+          </div>
+
+          <h2 id="drawn-title" class="drawn-title">Level Title</h2>
+
+          <div class="drawn-meta-row">
+            <span>제작자: <strong id="drawn-creator" style="color:#fff;">-</strong></span>
+            <span>|</span>
+            <span>베리파이어: <strong id="drawn-verifier" style="color:#fff;">-</strong></span>
+          </div>
+
+          <div class="drawn-body-grid">
+            <img id="drawn-thumb" class="drawn-thumb" src="" alt="Thumbnail" />
+
+            <div class="drawn-info-table">
+              <div class="drawn-info-item">
+                <span class="drawn-info-label">맵 ID</span>
+                <div class="drawn-info-val">
+                  <span id="drawn-map-id">-</span>
+                  <button id="drawn-copy-id-btn" class="copy-id-btn">복사</button>
+                </div>
+              </div>
+              <div class="drawn-info-item">
+                <span class="drawn-info-label">음악</span>
+                <div class="drawn-info-val" id="drawn-song-name">-</div>
+              </div>
+              <div class="drawn-info-item">
+                <span class="drawn-info-label">길이 / 아브</span>
+                <div class="drawn-info-val" id="drawn-length-obj">-</div>
+              </div>
+              <div class="drawn-info-item">
+                <span class="drawn-info-label">영상 보기</span>
+                <div class="drawn-info-val">
+                  <a id="drawn-video-link" href="#" target="_blank" rel="noopener noreferrer"
+                    style="color:#ffe600; text-decoration:underline;">YouTube에서 재생 ▶</a>
+                </div>
+              </div>
+              <div class="drawn-info-item">
+                <span class="drawn-info-label">레벨 이동</span>
+                <div class="drawn-info-val">
+                  <a id="drawn-go-to-level" class="go-to-level-btn" href="#">레벨 페이지로 이동 ➔</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Chocin Roulette (초친 룰렛) -->
+    <section id="section-roulette" class="tool-section">
+      <!-- Reel / Wheel Stage Card -->
+      <div class="tool-card roulette-stage-card">
+        <!-- Roulette Type Bar -->
+        <div class="roulette-type-bar">
+          <button class="roulette-type-btn active" data-type="reel">슬롯형 (릴)</button>
+          <button class="roulette-type-btn" data-type="wheel">원형 룰렛 (휠)</button>
+        </div>
+
+        <!-- Mode 1: Horizontal Slot Reel -->
+        <div id="roulette-reel-wrapper" class="roulette-mode-wrapper active">
+          <div class="roulette-pointer"></div>
+          <div class="roulette-pointer-bottom"></div>
+
+          <div class="reel-viewport">
+            <div class="reel-center-line"></div>
+            <div id="roulette-reel-track" class="reel-track">
+              <!-- Items rendered by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Mode 2: Circular Wheel Canvas -->
+        <div id="roulette-wheel-wrapper" class="roulette-mode-wrapper">
+          <div class="wheel-pointer"></div>
+          <div class="wheel-viewport">
+            <canvas id="roulette-canvas" width="440" height="440"></canvas>
+          </div>
+        </div>
+
+        <button id="roulette-spin-btn" class="spin-action-btn">룰렛 돌리기</button>
+      </div>
+
+      <!-- Roulette Pool Manager -->
+      <div class="roulette-mgr-grid">
+        <!-- Left: Available Levels Picker -->
+        <div class="tool-card">
+          <div class="roulette-pool-header">
+            <span style="font-family:'Paperozi'; font-size:1.15rem; font-weight:700; color:#fff;">레벨 검색 및 추가</span>
+            <button id="roulette-add-all-btn" class="mini-btn mini-btn-add">필터된 전체 추가</button>
+          </div>
+
+          <input type="text" id="roulette-search-input" class="search-mini-input" placeholder="레벨 제목, 제작자 검색..." />
+
+          <div style="display:flex; gap:0.4rem; margin-bottom:0.6rem;">
+            <button class="mode-radio-btn active r-mode-btn" data-rmode="classic">Classic</button>
+            <button class="mode-radio-btn r-mode-btn" data-rmode="challenge">Challenge</button>
+            <button class="mode-radio-btn r-mode-btn" data-rmode="platformer">Platformer</button>
+          </div>
+
+          <div class="range-checkbox-group" style="margin-bottom:0.8rem;">
+            <button class="range-chip active r-range-chip" data-rrange="main">✓ Main (1~10위)</button>
+            <button class="range-chip active r-range-chip" data-rrange="extended">✓ Extended (11~20위)</button>
+            <button class="range-chip active r-range-chip" data-rrange="legacy">✓ Legacy (21위~)</button>
+          </div>
+
+          <div id="roulette-available-list" class="mini-level-list">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Right: Active Roulette Pool -->
+        <div class="tool-card">
+          <div class="roulette-pool-header">
+            <div style="display:flex; align-items:center; gap:0.6rem;">
+              <span style="font-family:'Paperozi'; font-size:1.15rem; font-weight:700; color:#fff;">현재 룰렛 목록</span>
+              <span id="roulette-count-badge" class="roulette-badge">0개 레벨</span>
+            </div>
+            <button id="roulette-clear-all-btn" class="mini-btn mini-btn-remove">전체 비우기</button>
+          </div>
+
+          <div id="roulette-active-list" class="mini-level-list">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="shadow"></div>
+
+  <!-- Nickname Input Modal -->
+  <div class="nickname-modal-overlay">
+    <div class="nickname-input-box">
+      <h2>닉네임 설정</h2>
+      <input type="text" id="nickname-input" placeholder="새 닉네임을 입력하세요" />
+      <div class="modal-buttons">
+        <button id="nickname-submit-btn" class="modal-btn">확인</button>
+        <button id="nickname-cancel-btn" class="modal-btn">취소</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Background Settings Modal -->
+  <div class="bg-modal-overlay">
+    <div class="nickname-input-box">
+      <h2>배경 설정</h2>
+      <div class="bg-input-group">
+        <label>배경 유형</label>
+        <div class="switch-container">
+          <span>단색</span>
+          <label class="switch">
+            <input type="checkbox" id="bg-type-toggle" checked>
+            <span class="slider"></span>
+          </label>
+          <span>그라데이션</span>
+        </div>
+      </div>
+      <div class="bg-input-group">
+        <label>시작 색상 (Hex)</label>
+        <div class="color-picker-row">
+          <input type="color" id="bg-color1" value="#404040">
+          <input type="text" id="bg-color1-hex" value="#404040" maxlength="7">
+        </div>
+      </div>
+      <div class="bg-input-group" id="bg-color2-group">
+        <label>끝 색상 (Hex)</label>
+        <div class="color-picker-row">
+          <input type="color" id="bg-color2" value="#202020">
+          <input type="text" id="bg-color2-hex" value="#202020" maxlength="7">
+        </div>
+      </div>
+      <div class="bg-input-group" id="bg-angle-group">
+        <label>그라데이션 각도 (0~360°)</label>
+        <input type="number" id="bg-angle" value="135" min="0" max="360">
+      </div>
+      <div class="modal-buttons">
+        <button id="bg-submit-btn" class="modal-btn">적용</button>
+        <button id="bg-reset-btn" class="modal-btn">초기화</button>
+        <button id="bg-cancel-btn" class="modal-btn">취소</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Roulette Win Result Modal -->
+  <div id="roulette-win-modal" class="roulette-win-modal-overlay">
+    <div class="roulette-win-box">
+      <h2 id="win-modal-title" class="win-map-name">Level Name</h2>
+      <div id="win-modal-meta" class="win-map-creator">by Creator | Verifier</div>
+
+      <div class="win-modal-actions">
+        <button id="win-modal-go-btn" class="win-btn win-btn-go">레벨 페이지로 이동 ➔</button>
+        <button id="win-modal-delete-btn" class="win-btn win-btn-delete">이 레벨 룰렛에서 삭제</button>
+        <button id="win-modal-close-btn" class="win-btn win-btn-close">닫기</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="all.js"></script>
+  <script src="tools.js"></script>
+</body>
+
+</html>

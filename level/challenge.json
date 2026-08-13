@@ -1,0 +1,643 @@
+{
+  "levels": [
+    {
+      "id": 1,
+      "title": "Jam With Wave",
+      "creator": "Timo",
+      "video": "-",
+      "verifier": "Timo",
+      "map": {
+        "mapId": 123869094,
+        "length": "12s",
+        "objects": 2832,
+        "uploadDate": "2025-07-31"
+      },
+      "song": {
+        "name": "Jam with Wave",
+        "artist": "Frums",
+        "id": 10009548
+      },
+      "gameplay": {
+        "mainMode": "Wave",
+        "modeRatio": {
+          "Cube": 100
+        },
+        "speedRatio": {
+          "1x": 100
+        }
+      },
+      "framePerfect": {
+        "total": 0,
+        "fps": {
+          "30": 0,
+          "60": 0,
+          "120": 0,
+          "240": 0
+        }
+      },
+      "tags": [
+        "Wave",
+        "1x",
+        "Short",
+        "Physical",
+        "Low-Effect",
+        "No-Clear"
+      ],
+      "clears": []
+    },
+    {
+      "id": 2,
+      "title": "B1TCH",
+      "creator": "Choco",
+      "verifier": "Choco",
+      "video": "https://www.youtube.com/embed/aoWhyy5VhAo",
+      "rating": "",
+      "map": {
+        "mapId": "129446657",
+        "length": "11s",
+        "objects": 1070,
+        "uploadDate": "2025-12-14"
+      },
+      "song": {
+        "name": "B!tchcrush",
+        "artist": "ImCold",
+        "id": "1221726"
+      },
+      "gameplay": {
+        "modeRatio": {
+          "Cube": 100
+        },
+        "speedRatio": {
+          "1x": 100
+        }
+      },
+      "tags": [
+        "Wave",
+        "1x",
+        "Short",
+        "Physical",
+        "Low-Effect",
+        "No-Clear"
+      ],
+      "clears": []
+    },
+    {
+      "id": 3,
+      "title": "Blink",
+      "creator": "Choco",
+      "video": "https://www.youtube.com/embed/xa4XmXWQfZY",
+      "verifier": "Choco",
+      "map": {
+        "mapId": 129210712,
+        "length": "8s",
+        "objects": 1583,
+        "uploadDate": "2025-12-09"
+      },
+      "song": {
+        "name": "-Invaders-",
+        "artist": "Waterflame",
+        "id": 108415
+      },
+      "gameplay": {
+        "mainMode": "Wave",
+        "modeRatio": {
+          "Cube": 100
+        },
+        "speedRatio": {
+          "1x": 100
+        }
+      },
+      "framePerfect": {
+        "total": 0,
+        "fps": {
+          "30": 0,
+          "60": 0,
+          "120": 0,
+          "240": 0
+        }
+      },
+      "tags": [
+        "Wave",
+        "3x",
+        "Tiny",
+        "Physical",
+        "Low-Effect",
+        "No-Clear"
+      ],
+      "clears": []
+    },
+    {
+      "id": 4,
+      "title": "NABI",
+      "creator": "Choco",
+      "verifier": "Choco",
+      "video": "https://www.youtube.com/embed/geQUwRp99Dc",
+      "map": {
+        "mapId": "131430618",
+        "length": "13s",
+        "objects": 609,
+        "uploadDate": "2026-01-15"
+      },
+      "song": {
+        "name": "You Are Holy",
+        "artist": "ColBreakz",
+        "id": ""
+      },
+      "gameplay": {
+        "modeRatio": {},
+        "speedRatio": {}
+      },
+      "framePerfect": {
+        "fps": {},
+        "total": 0
+      },
+      "tags": [
+        "Ball",
+        "Short",
+        "Physical",
+        "Low-Effect",
+        "One-Mode"
+      ],
+      "clears": []
+    },
+    {
+      "id": 5,
+      "title": "Jiter Click 2",
+      "creator": "Timo",
+      "verifier": "Timo",
+      "video": "-",
+      "map": {
+        "mapId": "121229320",
+        "length": "3s",
+        "objects": 59,
+        "uploadDate": "2025-06-18"
+      },
+      "song": {
+        "name": "YE",
+        "artist": "ephixa",
+        "id": "791974"
+      },
+      "gameplay": {
+        "modeRatio": {
+          "Cube": 100
+        },
+        "speedRatio": {
+          "1x": 100
+        }
+      },
+      "framePerfect": {
+        "fps": {
+          "30": 0,
+          "60": 0,
+          "120": 0,
+          "240": 0
+        },
+        "total": 0
+      },
+      "tags": [
+        "Wave",
+        "1x",
+        "Tiny",
+        "High-CPS",
+        "None-Effect",
+        "No-Clear"
+      ],
+      "clears": [
+        {
+          "player": "Choco",
+          "percent": 100,
+          "date": "2026-01-03"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Furry Wave",
+      "creator": "Timo",
+      "video": "-",
+      "verifier": "Timo",
+      "map": {
+        "mapId": 120821190,
+        "length": "9s",
+        "objects": 784,
+        "uploadDate": "2025-06-12"
+      },
+      "song": {
+        "name": "Violence...",
+        "artist": "ChristianMossuto",
+        "id": "NONG"
+      },
+      "gameplay": {
+        "mainMode": "Wave",
+        "modeRatio": {
+          "Cube": 100
+        },
+        "speedRatio": {
+          "1x": 100
+        }
+      },
+      "framePerfect": {
+        "total": 0,
+        "fps": {
+          "30": 0,
+          "60": 0,
+          "120": 0,
+          "240": 0
+        }
+      },
+      "tags": [
+        "Wave",
+        "2x",
+        "Tiny",
+        "Physical",
+        "None-Effect",
+        "No-Clear"
+      ],
+      "clears": []
+    },
+    {
+      "id": 7,
+      "title": "Funny Duel",
+      "creator": "Timo",
+      "video": "-",
+      "verifier": "Timo",
+      "map": {
+        "mapId": 125058978,
+        "length": "5s",
+        "objects": 505,
+        "uploadDate": "2025-08-23"
+      },
+      "song": {
+        "name": "1077",
+        "artist": "BoomKitty",
+        "id": 566004
+      },
+      "gameplay": {
+        "mainMode": "Any-Mode",
+        "modeRatio": {
+          "Cube": 100
+        },
+        "speedRatio": {
+          "1x": 100
+        }
+      },
+      "framePerfect": {
+        "total": 0,
+        "fps": {
+          "30": 0,
+          "60": 0,
+          "120": 0,
+          "240": 0
+        }
+      },
+      "tags": [
+        "Any-Mode",
+        "Duel",
+        "3x",
+        "Tiny",
+        "Physical",
+        "Sync",
+        "None-Effect",
+        "No-Clear"
+      ],
+      "clears": []
+    },
+    {
+      "id": 8,
+      "title": "Cube Cafe",
+      "creator": "Timo",
+      "video": "-",
+      "verifier": "Timo",
+      "map": {
+        "mapId": 121632308,
+        "length": "11s",
+        "objects": 505,
+        "uploadDate": "2025-06-24"
+      },
+      "song": {
+        "name": "My Ordinart Life",
+        "artist": "The Living Tombstone",
+        "id": 815245
+      },
+      "gameplay": {
+        "mainMode": "Cube",
+        "modeRatio": {
+          "Cube": 100
+        },
+        "speedRatio": {
+          "1x": 100
+        }
+      },
+      "framePerfect": {
+        "total": 0,
+        "fps": {
+          "30": 0,
+          "60": 0,
+          "120": 0,
+          "240": 0
+        }
+      },
+      "tags": [
+        "Cube",
+        "1x",
+        "4x",
+        "Tiny",
+        "Physical",
+        "Sync",
+        "Low-Effect",
+        "No-Clear",
+        "One-Mode"
+      ],
+      "clears": []
+    },
+    {
+      "id": 9,
+      "title": "JP Challenge 1",
+      "creator": "Choco",
+      "video": "-",
+      "verifier": "Choco",
+      "map": {
+        "mapId": 86185234,
+        "length": "18s",
+        "objects": 605,
+        "uploadDate": "2022-11-28"
+      },
+      "song": {
+        "name": "Ocean of Stars",
+        "artist": "Geoplex",
+        "id": 537202
+      },
+      "gameplay": {
+        "mainMode": "Any-Mode",
+        "modeRatio": {
+          "Cube": 100
+        },
+        "speedRatio": {
+          "1x": 100
+        }
+      },
+      "framePerfect": {
+        "total": 0,
+        "fps": {
+          "30": 0,
+          "60": 0,
+          "120": 0,
+          "240": 0
+        }
+      },
+      "tags": [
+        "Any-Mode",
+        "1x",
+        "Short",
+        "Physical",
+        "None-Effect",
+        "No-Clear"
+      ],
+      "clears": []
+    },
+    {
+      "id": 10,
+      "title": "JP Challenge 4",
+      "creator": "Choco",
+      "video": "-",
+      "verifier": "Choco",
+      "map": {
+        "mapId": 87109950,
+        "length": "3s",
+        "objects": 87,
+        "uploadDate": "2022-12-26"
+      },
+      "song": {
+        "name": "Stereo Madness",
+        "artist": "ForeverBound",
+        "id": 0
+      },
+      "gameplay": {
+        "mainMode": "Cube",
+        "modeRatio": {
+          "Cube": 100
+        },
+        "speedRatio": {
+          "1x": 100
+        }
+      },
+      "framePerfect": {
+        "total": 0,
+        "fps": {
+          "30": 0,
+          "60": 0,
+          "120": 0,
+          "240": 0
+        }
+      },
+      "tags": [
+        "Cube",
+        "1x",
+        "Tiny",
+        "Physical",
+        "None-Effect",
+        "No-Clear",
+        "One-Mode"
+      ],
+      "clears": []
+    },
+    {
+      "id": 11,
+      "title": "Swimming Wave",
+      "creator": "Choco",
+      "video": "-",
+      "verifier": "Choco",
+      "map": {
+        "mapId": "123589746",
+        "length": "7s",
+        "objects": 639,
+        "uploadDate": "2025-07-26"
+      },
+      "song": {
+        "name": "FirePower",
+        "artist": "Teminite",
+        "id": 987714
+      },
+      "gameplay": {
+        "mainMode": "Wave",
+        "modeRatio": {
+          "Cube": 100
+        },
+        "speedRatio": {
+          "1x": 100
+        }
+      },
+      "framePerfect": {
+        "total": 0,
+        "fps": {
+          "30": 0,
+          "60": 0,
+          "120": 0,
+          "240": 0
+        }
+      },
+      "tags": [
+        "Wave",
+        "1x",
+        "Tiny",
+        "Physical",
+        "None-Effect",
+        "No-Clear"
+      ],
+      "clears": []
+    },
+    {
+      "id": 12,
+      "title": "JP Challenge 5",
+      "creator": "Choco",
+      "video": "-",
+      "verifier": "Choco",
+      "map": {
+        "mapId": "90569476",
+        "length": "15s",
+        "objects": 250,
+        "uploadDate": "2023-05-07"
+      },
+      "song": {
+        "name": "Stereo Madness",
+        "artist": "ForverBound",
+        "id": 0
+      },
+      "gameplay": {
+        "mainMode": "UFO",
+        "modeRatio": {
+          "Cube": 100
+        },
+        "speedRatio": {
+          "1x": 100
+        }
+      },
+      "framePerfect": {
+        "total": 0,
+        "fps": {
+          "30": 0,
+          "60": 0,
+          "120": 0,
+          "240": 0
+        }
+      },
+      "tags": [
+        "UFO",
+        "1x",
+        "Short",
+        "High-CPS",
+        "None-Effect",
+        "No-Clear",
+        "One-Mode"
+      ],
+      "clears": []
+    },
+    {
+      "id": 13,
+      "title": "LT Tresure",
+      "creator": "Light",
+      "video": "-",
+      "verifier": "Light",
+      "map": {
+        "mapId": "84536624",
+        "length": "16s",
+        "objects": 166,
+        "uploadDate": "2022-10-11"
+      },
+      "song": {
+        "name": "Stereo Madness",
+        "artist": "ForverBound",
+        "id": 0
+      },
+      "gameplay": {
+        "mainMode": "Cube",
+        "modeRatio": {
+          "Cube": 100
+        },
+        "speedRatio": {
+          "1x": 100
+        }
+      },
+      "framePerfect": {
+        "total": 0,
+        "fps": {
+          "30": 0,
+          "60": 0,
+          "120": 0,
+          "240": 0
+        }
+      },
+      "tags": [
+        "Cube",
+        "1x",
+        "Short",
+        "Physical",
+        "None-Effect",
+        "No-Clear"
+      ],
+      "clears": []
+    }
+  ],
+  "history": [
+    {
+      "time": "2026-01-17 22:14",
+      "type": "add",
+      "title": "NABI",
+      "detail": "4위에 새로운 레벨이 등록되었습니다."
+    },
+    {
+      "time": "2026-01-17 22:14",
+      "type": "move",
+      "title": "LT Tresure",
+      "detail": "새로운 레벨 추가로 인해 순위가 12위에서 13위로 하락하였습니다."
+    },
+    {
+      "time": "2026-01-17 22:14",
+      "type": "move",
+      "title": "JP Challenge 5",
+      "detail": "새로운 레벨 추가로 인해 순위가 11위에서 12위로 하락하였습니다."
+    },
+    {
+      "time": "2026-01-17 22:14",
+      "type": "move",
+      "title": "Swimming Wave",
+      "detail": "새로운 레벨 추가로 인해 순위가 10위에서 11위로 하락하였습니다."
+    },
+    {
+      "time": "2026-01-17 22:14",
+      "type": "move",
+      "title": "JP Challenge 4",
+      "detail": "새로운 레벨 추가로 인해 순위가 9위에서 10위로 하락하였습니다."
+    },
+    {
+      "time": "2026-01-17 22:14",
+      "type": "move",
+      "title": "JP Challenge 1",
+      "detail": "새로운 레벨 추가로 인해 순위가 8위에서 9위로 하락하였습니다."
+    },
+    {
+      "time": "2026-01-17 22:14",
+      "type": "move",
+      "title": "Cube Cafe",
+      "detail": "새로운 레벨 추가로 인해 순위가 7위에서 8위로 하락하였습니다."
+    },
+    {
+      "time": "2026-01-17 22:14",
+      "type": "move",
+      "title": "Funny Duel",
+      "detail": "새로운 레벨 추가로 인해 순위가 6위에서 7위로 하락하였습니다."
+    },
+    {
+      "time": "2026-01-17 22:14",
+      "type": "move",
+      "title": "Furry Wave",
+      "detail": "새로운 레벨 추가로 인해 순위가 5위에서 6위로 하락하였습니다."
+    },
+    {
+      "time": "2026-01-17 22:14",
+      "type": "move",
+      "title": "Jiter Click 2",
+      "detail": "새로운 레벨 추가로 인해 순위가 4위에서 5위로 하락하였습니다."
+    }
+  ]
+}

@@ -1,0 +1,711 @@
+{
+  "packs": [
+    {
+      "id": "pack 1",
+      "title": "Treasure Pack I",
+      "tier": "Tier 1",
+      "description": "엣날 라이트가 만든 레벨을 해보세요!",
+      "levels": [
+        {
+          "name": "LT EP7",
+          "author": "Light"
+        },
+        {
+          "name": "LT EP2",
+          "author": "Light"
+        },
+        {
+          "name": "LT EP6",
+          "author": "Light"
+        }
+      ],
+      "clears": [
+        {
+          "player": "Choco",
+          "date": "2026-02-09"
+        }
+      ]
+    },
+    {
+      "id": "pack 2",
+      "title": "Adventure Pack I",
+      "tier": "Tier 1",
+      "description": "초코의 JPA 시리즈를 해보세요!",
+      "levels": [
+        {
+          "name": "JPA EP1",
+          "author": "Choco"
+        },
+        {
+          "name": "JPA EP7",
+          "author": "Choco"
+        },
+        {
+          "name": "JPA EP2",
+          "author": "Choco"
+        }
+      ],
+      "clears": [
+        {
+          "player": "Choco",
+          "date": "2026-01-15"
+        }
+      ]
+    },
+    {
+      "id": "pack 3",
+      "title": "Adventure Pack II",
+      "tier": "Tier 1",
+      "description": "초코의 또 다른 JPA 시리즈를 해보세요!",
+      "levels": [
+        {
+          "name": "JPA EP8",
+          "author": "Choco"
+        },
+        {
+          "name": "JPA EP4",
+          "author": "Choco"
+        },
+        {
+          "name": "JPA EP5",
+          "author": "Choco"
+        }
+      ],
+      "clears": [
+        {
+          "player": "Choco",
+          "date": "2026-01-15"
+        }
+      ]
+    },
+    {
+      "id": "pack 4",
+      "title": "Egg Pack",
+      "tier": "Tier 1",
+      "description": "달걀 콘테스트에 사용된 맵들을 해보세요!",
+      "levels": [
+        {
+          "name": "Egg Layout",
+          "author": "Light"
+        },
+        {
+          "name": "Glide Festival",
+          "author": "Choco"
+        }
+      ],
+      "clears": [
+        {
+          "player": "Choco",
+          "date": "2026-01-19"
+        }
+      ]
+    },
+    {
+      "id": "pack 12",
+      "title": "Treasure Pack II",
+      "tier": "Tier 1",
+      "description": "옛날 라이트가 만든 레벨을 해보세요! (2)",
+      "levels": [
+        {
+          "name": "LT EP8",
+          "author": "Light"
+        },
+        {
+          "name": "LT EP4",
+          "author": "Light"
+        },
+        {
+          "name": "LT EP5",
+          "author": "Light"
+        }
+      ],
+      "clears": [
+        {
+          "player": "Choco",
+          "date": "2026-02-05"
+        }
+      ]
+    },
+    {
+      "id": "pack 5",
+      "title": "Japanese Pack I",
+      "tier": "Tier 2",
+      "description": "일본 노래로 구성된 맵을 해보세요!",
+      "levels": [
+        {
+          "name": "Which One?",
+          "author": "Choco"
+        },
+        {
+          "name": "FlipBook",
+          "author": "Choco"
+        },
+        {
+          "name": "PPPP",
+          "author": "Choco"
+        },
+        {
+          "name": "Endless Dreaming",
+          "author": "Light"
+        }
+      ],
+      "clears": []
+    },
+    {
+      "id": "pack 6",
+      "title": "Troll Pack",
+      "tier": "Tier 2",
+      "description": "찌끄레기같은 맵들을 쳐 즐겨보세요!",
+      "levels": [
+        {
+          "name": "Stereo MadnesS EX",
+          "author": "Choco & Timo"
+        },
+        {
+          "name": "Just Test Map",
+          "author": "Choco"
+        },
+        {
+          "name": "Trolled",
+          "author": "Light"
+        }
+      ],
+      "clears": []
+    },
+    {
+      "id": "pack 7",
+      "title": "Wave Pack",
+      "tier": "Tier 2",
+      "description": "웨이브 원툴인 맵들을 해보세요!",
+      "levels": [
+        {
+          "name": "chocubed",
+          "author": "Light"
+        },
+        {
+          "name": "BOOBAWAVEBA",
+          "author": "Choco"
+        },
+        {
+          "name": "Reaper Wave",
+          "author": "Timo"
+        }
+      ],
+      "clears": []
+    },
+    {
+      "id": "pack 14",
+      "title": "Beginner Pack",
+      "tier": "Tier 2",
+      "description": "이 맵들을 클리어함으로서 실력 상승을 느껴보세요! (장담은 못함)",
+      "levels": [
+        {
+          "name": "FlipBook",
+          "author": "Choco"
+        },
+        {
+          "name": "Reaper Wave",
+          "author": "Timo"
+        },
+        {
+          "name": "PPPP",
+          "author": "Choco"
+        }
+      ],
+      "clears": [
+        {
+          "player": "Choco",
+          "date": "2026-04-07"
+        }
+      ]
+    },
+    {
+      "id": "pack 15",
+      "title": "Joke Pack",
+      "tier": "Tier 2",
+      "description": "예능용 맵들을 해보세요!",
+      "levels": [
+        {
+          "name": "Stereo MadnesS EX",
+          "author": "Choco & Timo"
+        },
+        {
+          "name": "Sa Sip IL",
+          "author": "Choco"
+        },
+        {
+          "name": "Just Test Map",
+          "author": "Choco"
+        }
+      ],
+      "clears": []
+    },
+    {
+      "id": "pack 8",
+      "title": "Inspired Pack",
+      "tier": "Tier 3",
+      "description": "다른 맵들을 모티브로 만들어진 맵들을 해보세요!",
+      "levels": [
+        {
+          "name": "Stereo MadnesS EX",
+          "author": "Choco & Timo"
+        },
+        {
+          "name": "chocubed",
+          "author": "Light"
+        },
+        {
+          "name": "nullscube",
+          "author": "Timo"
+        },
+        {
+          "name": "BOOBAWAVEBA",
+          "author": "Choco"
+        }
+      ],
+      "clears": []
+    },
+    {
+      "id": "pack 9",
+      "title": "TOP 1 Pack",
+      "tier": "Tier 3",
+      "description": "현재와 과거의 TOP 1 자리를 지키던 맵들을 즐길 수 있으면 즐겨 보든가",
+      "levels": [
+        {
+          "name": "Desuwa",
+          "author": "Choco & Timo"
+        },
+        {
+          "name": "chocubed",
+          "author": "Light"
+        },
+        {
+          "name": "nullscube",
+          "author": "Timo"
+        }
+      ],
+      "clears": []
+    },
+    {
+      "id": "pack 13",
+      "title": "One Mode Pack",
+      "tier": "Tier 3",
+      "description": "모드가 단 하나인 맵들을 해보세요!",
+      "levels": [
+        {
+          "name": "B1ack 0ut",
+          "author": "Timo"
+        },
+        {
+          "name": "nullscube",
+          "author": "Timo"
+        },
+        {
+          "name": "BOOBAWAVEBA",
+          "author": "Choco"
+        },
+        {
+          "name": "First Fantasy",
+          "author": "Choco"
+        }
+      ],
+      "clears": []
+    },
+    {
+      "id": "pack 16",
+      "title": "WTF Pack",
+      "tier": "Tier 3",
+      "description": "아니 이게 뭐야",
+      "levels": [
+        {
+          "name": "Desuwa",
+          "author": "Choco & Timo"
+        },
+        {
+          "name": "chocubedchocubed",
+          "author": "Light & Choco"
+        },
+        {
+          "name": "wA Ve step",
+          "author": "Timo"
+        }
+      ],
+      "clears": []
+    },
+    {
+      "id": "pack 11",
+      "title": "Japanese Pack II",
+      "tier": "Tier 4",
+      "description": "일본 노래로 구성된 맵을 해보세요! (2)",
+      "levels": [
+        {
+          "name": "GOAT!",
+          "author": "Choco"
+        },
+        {
+          "name": "Heart 8",
+          "author": "Choco"
+        },
+        {
+          "name": "Override",
+          "author": "Choco"
+        }
+      ],
+      "clears": [
+        {
+          "player": "Choco",
+          "date": "2026-04-02"
+        }
+      ]
+    },
+    {
+      "id": "pack 10",
+      "title": "Boykisser Pack I",
+      "tier": "Tier 3",
+      "description": "Do you like kissing boys don't you?  (보이 키서가 나오는 맵을 쳐 해보세요!)",
+      "levels": [
+        {
+          "name": "NO BOYS",
+          "author": "Timo"
+        },
+        {
+          "name": "Stereo MadnesS EX",
+          "author": "Choco & Timo"
+        },
+        {
+          "name": "nullscube",
+          "author": "Timo"
+        }
+      ],
+      "clears": []
+    },
+    {
+      "id": "pack 17",
+      "title": "Boykisser Pack II",
+      "tier": "Tier 4",
+      "description": "Do you like kissing boys don't you? (보이 키서가 나오는 맵을 쳐 해보세요!)",
+      "levels": [
+        {
+          "name": "Hand Dance MK I",
+          "author": "Timo"
+        },
+        {
+          "name": "Desuwa",
+          "author": "Choco & Timo"
+        },
+        {
+          "name": "B1ack 0ut",
+          "author": "Timo"
+        }
+      ],
+      "clears": []
+    }
+  ],
+  "history": [
+    {
+      "time": "2026-06-24",
+      "type": "팩 추가",
+      "detail": "Boykisser Pack II 팩이 추가되었습니다."
+    },
+    {
+      "time": "2026-06-24",
+      "type": "팩 수정",
+      "detail": "Boykisser Pack I 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-06-24",
+      "type": "팩 수정",
+      "detail": "Boykisser Pack I 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-06-24",
+      "type": "팩 수정",
+      "detail": "Boykisser Pack 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-06-24",
+      "type": "팩 수정",
+      "detail": "WTF Pack 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-06-24",
+      "type": "팩 수정",
+      "detail": "Boykisser Pack 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-06-14",
+      "type": "팩 수정",
+      "detail": "Japanese Pack II 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-06-14",
+      "type": "팩 수정",
+      "detail": "Boykisser Pack 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-06-14",
+      "type": "팩 추가",
+      "detail": "WTF Pack 팩이 추가되었습니다."
+    },
+    {
+      "time": "2026-06-14",
+      "type": "팩 수정",
+      "detail": "Joke Pack 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-06-14",
+      "type": "팩 추가",
+      "detail": "Joke Pack 팩이 추가되었습니다."
+    },
+    {
+      "time": "2026-04-17",
+      "type": "팩 수정",
+      "detail": "Treasure Pack II 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-04-17",
+      "type": "팩 수정",
+      "detail": "Treasure Pack I 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-04-17",
+      "type": "팩 수정",
+      "detail": "Treasure Pack II 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-04-17",
+      "type": "팩 수정",
+      "detail": "Treasure Pack II 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-04-17",
+      "type": "팩 수정",
+      "detail": "Treasure Pack II 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-04-17",
+      "type": "팩 수정",
+      "detail": "Egg Pack 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-04-17",
+      "type": "팩 수정",
+      "detail": "Treasure Pack II 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-04-17",
+      "type": "팩 수정",
+      "detail": "Japanese Pack II 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-04-17",
+      "type": "팩 수정",
+      "detail": "Beginner Pack 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-04-17",
+      "type": "팩 추가",
+      "detail": "Beginner Pack 팩이 추가되었습니다."
+    },
+    {
+      "time": "2026-04-11",
+      "type": "팩 수정",
+      "detail": "TOP 1 Pack 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-04-11",
+      "type": "팩 수정",
+      "detail": "TOP 1 Pack 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-04-11",
+      "type": "팩 수정",
+      "detail": "TOP 1 Pack 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-04-10",
+      "type": "팩 수정",
+      "detail": "Japanese Pack I 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-04-10",
+      "type": "팩 수정",
+      "detail": "Japanese Pack II 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-03-25",
+      "type": "팩 수정",
+      "detail": "Boykisser Pack 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-03-18",
+      "type": "팩 수정",
+      "detail": "One Mode Pack 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-03-18",
+      "type": "팩 수정",
+      "detail": "One Mode Pack 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-03-13",
+      "type": "팩 수정",
+      "detail": "Japanese Pack I 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-02-28",
+      "type": "팩 수정",
+      "detail": "One Mode Pack 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-02-28",
+      "type": "팩 수정",
+      "detail": "Inspired Pack 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-02-07",
+      "type": "팩 추가",
+      "detail": "One Mode Pack 팩이 추가되었습니다."
+    },
+    {
+      "time": "2026-02-03",
+      "type": "팩 수정",
+      "detail": "TOP 1 Pack 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-02-03",
+      "type": "팩 수정",
+      "detail": "Japanese Pack I 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-02-03",
+      "type": "팩 수정",
+      "detail": "Japanese Pack I 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-02-03",
+      "type": "팩 수정",
+      "detail": "Wave Pack 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-02-03",
+      "type": "팩 수정",
+      "detail": "Japanese Pack II 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-02-01",
+      "type": "팩 수정",
+      "detail": "Troll Pack 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-01-30",
+      "type": "팩 수정",
+      "detail": "Treasure Pack II 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-01-30",
+      "type": "팩 수정",
+      "detail": "Treasure Pack I 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-01-30",
+      "type": "팩 수정",
+      "detail": "Treasure Pack I 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-01-30",
+      "type": "팩 추가",
+      "detail": "Treasure Pack II 팩이 추가되었습니다."
+    },
+    {
+      "time": "2026-01-30",
+      "type": "팩 수정",
+      "detail": "Troll Pack 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-01-30",
+      "type": "팩 수정",
+      "detail": "Japanese Pack I 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-01-30",
+      "type": "팩 추가",
+      "detail": "Japanese Pack II 팩이 추가되었습니다."
+    },
+    {
+      "time": "2026-01-27",
+      "type": "팩 수정",
+      "detail": "TOP 1 Pack 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-01-27",
+      "type": "팩 수정",
+      "detail": "TOP 1 Pack 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-01-27",
+      "type": "팩 수정",
+      "detail": "Inspired Pack 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-01-27",
+      "type": "팩 수정",
+      "detail": "Troll Pack 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-01-27",
+      "type": "팩 수정",
+      "detail": "Japanese Pack 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-01-27",
+      "type": "팩 수정",
+      "detail": "Adventure Pack II 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-01-27",
+      "type": "팩 수정",
+      "detail": "Adventure Pack I 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-01-27",
+      "type": "팩 수정",
+      "detail": "Treasure Pack 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-01-26",
+      "type": "팩 추가",
+      "detail": "Boykisser Pack 팩이 추가되었습니다."
+    },
+    {
+      "time": "2026-01-26",
+      "type": "팩 수정",
+      "detail": "TOP 1 Pack 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-01-25",
+      "type": "팩 수정",
+      "detail": "TOP 1 Pack 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-01-25",
+      "type": "팩 수정",
+      "detail": "Troll Pack 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-01-25",
+      "type": "팩 수정",
+      "detail": "Inspired Pack 팩 정보가 수정되었습니다."
+    },
+    {
+      "time": "2026-01-11",
+      "type": "팩 추가",
+      "detail": "Treasure Pack / Adventure Pack I / Adventure Pack II / Troll Pack / Wave Pack / Inspired Pack 추가"
+    },
+    {
+      "time": "2026-01-19",
+      "type": "팩 추가",
+      "detail": "Egg Pack / Japanese Pack / TOP 1 Pack 추가"
+    }
+  ]
+}

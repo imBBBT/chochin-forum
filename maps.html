@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="초친 포럼 맵 팩 - 난이도 및 틱별 유저 도전 맵 팩 모음 및 클리어 기록 명단" />
+  <title>맵 팩 - 초친 포럼</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="level.css" />
+  <link rel="stylesheet" href="all.css" />
+  <link rel="stylesheet" href="maps.css" />
+</head>
+
+<body>
+  <div class="bg"></div>
+  <header class="header">
+    <span class="header-nickname"></span>
+    <div class="header-main-buttons">
+      <a href="index.html">
+        <button class="button">
+          <span class="icon">홈</span>
+        </button>
+      </a>
+      <a href="level.html">
+        <button class="button">
+          <span class="icon">레벨</span>
+        </button>
+      </a>
+      <a href="maps.html">
+        <button class="button active">
+          <span class="icon">맵 팩</span>
+        </button>
+      </a>
+      <a href="ranking.html">
+        <button class="button">
+          <span class="icon">랭킹</span>
+        </button>
+      </a>
+      <a href="tools.html">
+        <button class="button">
+          <span class="icon">도구</span>
+        </button>
+      </a>
+    </div>
+    <button class="optionbutton"><span class="icon">▼</span></button>
+    <div class="optionmenu">
+      <button class="option-item">계정 선택</button>
+      <button class="option-item">배경 설정</button>
+    </div>
+  </header>
+
+  <!-- Dual Panel Layout matching level/classic.html -->
+  <div id="maps-list-container" class="box maps-list-box">
+    <div class="maps-list-header">
+      <div class="maps-list-header-top">
+        <div class="maps-list-title-group">
+          <h2 class="maps-list-main-title">Map Packs</h2>
+          <span id="maps-total-badge" class="maps-banner-badge">TOTAL 0 PACKS</span>
+        </div>
+        <div id="maps-tier-tabs" class="maps-tier-tabs">
+          <button class="maps-tier-tab active" data-tier="all">전체</button>
+          <button class="maps-tier-tab" data-tier="Tier 1">Tier 1</button>
+          <button class="maps-tier-tab" data-tier="Tier 2">Tier 2</button>
+          <button class="maps-tier-tab" data-tier="Tier 3">Tier 3</button>
+          <button class="maps-tier-tab" data-tier="Tier 4">Tier 4</button>
+          <button class="maps-tier-tab" data-tier="Tier 5">Tier 5</button>
+          <button class="maps-tier-tab" data-tier="Tier 6">Tier 6</button>
+        </div>
+      </div>
+      <div class="maps-search-box">
+        <svg class="maps-search-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+        </svg>
+        <input type="search" id="maps-search-input" name="maps-search-query" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="팩 제목, 설명, 레벨 이름, 작성자 검색..." />
+        <button id="maps-search-clear" class="maps-search-clear" aria-label="검색어 지우기" style="display: none;">✕</button>
+      </div>
+    </div>
+    <div id="maps-list-body" class="maps-level-list"></div>
+  </div>
+
+  <div id="maps-detail-container" class="box maps-detail-box">
+    <div class="maps-detail-empty">
+      <div class="maps-empty-icon"></div>
+      <p class="maps-empty-title">선택된 맵 팩이 없습니다</p>
+      <p class="maps-empty-desc">왼쪽 리스트에서 맵 팩을 선택하여 상세 정보와 포함된 레벨 및 클리어 기록을 확인하세요.</p>
+    </div>
+  </div>
+
+  <div class="shadow"></div>
+
+  <!-- Nickname Input Modal -->
+  <div class="nickname-modal-overlay">
+    <div class="nickname-input-box">
+      <h2>닉네임 설정</h2>
+      <input type="text" id="nickname-input" placeholder="새 닉네임을 입력하세요" />
+      <div class="modal-buttons">
+        <button id="nickname-submit-btn" class="modal-btn">확인</button>
+        <button id="nickname-cancel-btn" class="modal-btn">취소</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Background Settings Modal -->
+  <div class="bg-modal-overlay">
+    <div class="nickname-input-box">
+      <h2>배경 설정</h2>
+      <div class="bg-input-group">
+        <label>배경 유형</label>
+        <div class="switch-container">
+          <span>단색</span>
+          <label class="switch">
+            <input type="checkbox" id="bg-type-toggle" checked>
+            <span class="slider"></span>
+          </label>
+          <span>그라데이션</span>
+        </div>
+      </div>
+      <div class="bg-input-group">
+        <label>시작 색상 (Hex)</label>
+        <div class="color-picker-row">
+          <input type="color" id="bg-color1" value="#404040">
+          <input type="text" id="bg-color1-hex" value="#404040" maxlength="7">
+        </div>
+      </div>
+      <div class="bg-input-group" id="bg-color2-group">
+        <label>끝 색상 (Hex)</label>
+        <div class="color-picker-row">
+          <input type="color" id="bg-color2" value="#202020">
+          <input type="text" id="bg-color2-hex" value="#202020" maxlength="7">
+        </div>
+      </div>
+      <div class="bg-input-group" id="bg-angle-group">
+        <label>그라데이션 각도 (0~360°)</label>
+        <input type="number" id="bg-angle" value="135" min="0" max="360">
+      </div>
+      <div class="modal-buttons">
+        <button id="bg-submit-btn" class="modal-btn">적용</button>
+        <button id="bg-reset-btn" class="modal-btn">초기화</button>
+        <button id="bg-cancel-btn" class="modal-btn">취소</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Developer Tools Modal for Maps -->
+  <div class="dev-modal-overlay">
+    <div class="dev-panel">
+      <div id="dev-password-section">
+        <h2>개발자 도구 인증</h2>
+        <p class="dev-desc">맵 팩 관리를 위해 시스템 비밀번호를 입력하세요.</p>
+        <input type="password" id="dev-pw-input" name="dev-password-field" autocomplete="new-password" placeholder="비밀번호 입력" class="dev-input" />
+        <div class="modal-buttons">
+          <button id="dev-pw-submit" class="modal-btn">확인</button>
+          <button id="dev-pw-cancel" class="modal-btn">취소</button>
+        </div>
+      </div>
+      <div id="dev-content-section" style="display: none">
+        <h2>맵 팩 개발자 도구</h2>
+        <div class="dev-console">
+          <p style="color: #0f0">> 맵 팩 관리자 시스템 접속 완료...</p>
+          <p style="color: #0f0">> 맵 팩 생성/수정/클리어 갱신 모드가 활성화되었습니다.</p>
+        </div>
+        <div id="dev-main-controls">
+          <div class="dev-button-grid">
+            <button id="dev-pack-add-open-btn" class="modal-btn dev-action-btn">
+              맵 팩 신규 등록
+            </button>
+            <button id="dev-pack-edit-open-btn" class="modal-btn dev-action-btn">
+              맵 팩 정보 수정
+            </button>
+            <button id="dev-pack-clear-open-btn" class="modal-btn dev-action-btn">
+              클리어 기록 갱신
+            </button>
+            <button id="dev-settings-open-btn" class="modal-btn dev-action-btn">
+              GitHub 설정
+            </button>
+            <button id="dev-log-clear-btn" class="modal-btn dev-action-btn">
+              로그 초기화
+            </button>
+          </div>
+        </div>
+
+        <!-- 1. 맵 팩 신규 등록 서브 패널 -->
+        <div id="dev-pack-add-area" style="display: none" class="dev-sub-panel">
+          <p class="dev-desc"><strong>맵 팩 신규 등록</strong></p>
+          <input type="text" id="dev-pack-add-title" placeholder="맵 팩 제목 *" class="dev-input" />
+          <select id="dev-pack-add-tier" class="dev-select">
+            <option value="Tier 1">Tier 1</option>
+            <option value="Tier 2">Tier 2</option>
+            <option value="Tier 3">Tier 3</option>
+            <option value="Tier 4">Tier 4</option>
+            <option value="Tier 5">Tier 5</option>
+            <option value="Tier 6">Tier 6</option>
+            <option value="Special">Special Pack</option>
+          </select>
+          <textarea id="dev-pack-add-desc" placeholder="맵 팩 설명" class="dev-input dev-textarea"></textarea>
+          <input type="text" id="dev-pack-add-levels" placeholder="포함 레벨 ID/제목 (쉼표 구분: 1, 2, 3)" class="dev-input" />
+          <div class="dev-button-grid">
+            <button id="dev-pack-add-submit-btn" class="modal-btn dev-action-btn dev-btn-primary">맵 팩 저장</button>
+            <button id="dev-pack-add-back-btn" class="modal-btn dev-action-btn">뒤로</button>
+          </div>
+        </div>
+
+        <!-- 2. 맵 팩 수정/삭제 서브 패널 -->
+        <div id="dev-pack-edit-area" style="display: none" class="dev-sub-panel">
+          <p class="dev-desc"><strong>맵 팩 정보 수정</strong></p>
+          <select id="dev-pack-edit-select" class="dev-select">
+            <option value="">-- 수정할 맵 팩 선택 --</option>
+          </select>
+          <div id="dev-pack-edit-fields" style="display: none">
+            <input type="text" id="dev-pack-edit-title" placeholder="맵 팩 제목 *" class="dev-input" />
+            <select id="dev-pack-edit-tier" class="dev-select">
+              <option value="Tier 1">Tier 1</option>
+              <option value="Tier 2">Tier 2</option>
+              <option value="Tier 3">Tier 3</option>
+              <option value="Tier 4">Tier 4</option>
+              <option value="Tier 5">Tier 5</option>
+              <option value="Tier 6">Tier 6</option>
+              <option value="Special">Special Pack</option>
+            </select>
+            <textarea id="dev-pack-edit-desc" placeholder="맵 팩 설명" class="dev-input dev-textarea"></textarea>
+            <input type="text" id="dev-pack-edit-levels" placeholder="포함 레벨 ID/제목 (쉼표 구분)" class="dev-input" />
+            <div class="dev-button-grid">
+              <button id="dev-pack-edit-submit-btn" class="modal-btn dev-action-btn dev-btn-primary">수정 저장</button>
+              <button id="dev-pack-edit-delete-btn" class="modal-btn dev-action-btn dev-btn-danger">맵 팩 삭제</button>
+            </div>
+          </div>
+          <div class="dev-button-grid" style="margin-top: 10px;">
+            <button id="dev-pack-edit-back-btn" class="modal-btn dev-action-btn">뒤로</button>
+          </div>
+        </div>
+
+        <!-- 3. 맵 팩 클리어 기록 갱신 서브 패널 -->
+        <div id="dev-pack-clear-area" style="display: none" class="dev-sub-panel">
+          <p class="dev-desc"><strong>맵 팩 클리어 기록 갱신</strong></p>
+          <select id="dev-pack-clear-select" class="dev-select">
+            <option value="">-- 맵 팩 선택 --</option>
+          </select>
+          <input type="text" id="dev-pack-clear-player" placeholder="플레이어 닉네임 *" class="dev-input" />
+          <input type="text" id="dev-pack-clear-date" placeholder="클리어 날짜 (ex: 2026-08-13)" class="dev-input" />
+          <div class="dev-button-grid">
+            <button id="dev-pack-clear-submit-btn" class="modal-btn dev-action-btn dev-btn-primary">클리어 저장</button>
+            <button id="dev-pack-clear-back-btn" class="modal-btn dev-action-btn">뒤로</button>
+          </div>
+        </div>
+
+        <!-- 4. GitHub 설정 서브 패널 -->
+        <div id="dev-settings-area" style="display: none" class="dev-sub-panel">
+          <p class="dev-desc"><strong>GitHub API 설정</strong></p>
+          <input type="text" id="dev-gh-repo" placeholder="GitHub Repository (user/repo)" class="dev-input" />
+          <input type="password" id="dev-gh-token" placeholder="GitHub Personal Access Token" class="dev-input" />
+          <div class="dev-button-grid">
+            <button id="dev-gh-save-btn" class="modal-btn dev-action-btn dev-btn-primary">설정 저장</button>
+            <button id="dev-settings-back-btn" class="modal-btn dev-action-btn">뒤로</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="all.js"></script>
+  <script src="maps.js"></script>
+</body>
+
+</html>

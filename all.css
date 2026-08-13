@@ -1,0 +1,823 @@
+@font-face {
+    font-family: 'Paperozi';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-1Thin.woff2') format('woff2');
+    font-weight: 100;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Paperozi';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-2ExtraLight.woff2') format('woff2');
+    font-weight: 200;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Paperozi';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-3Light.woff2') format('woff2');
+    font-weight: 300;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Paperozi';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-4Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Paperozi';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-5Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Paperozi';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Paperozi';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Paperozi';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Paperozi';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-9Black.woff2') format('woff2');
+    font-weight: 900;
+    font-display: swap;
+}
+
+h1, h2, h6 {
+  margin: 0; /* position: absolute 사용 시 기본 마진 제거 */
+  white-space: nowrap;
+}
+
+h1 { /* h1에 대한 개별 스타일 */
+  font-family: 'Paperozi';
+  font-weight: 900;
+  font-size: clamp(1rem, 7.5vw, 100rem);
+  line-height: 1.1;
+  text-shadow: 0 0 50px rgba(0, 0, 0, 0.4);
+}
+
+h2 { /* h2에 대한 개별 스타일 */
+  font-family: 'Paperozi';
+  font-weight: 500;
+  font-size: clamp(1rem, 2.5vw, 100rem);
+  line-height: 1.2;
+  text-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+}
+
+h6 { /* h6에 대한 개별 스타일 */
+  font-family: 'Paperozi';
+  font-weight: 100;
+  font-size: clamp(1rem, 1.5vw, 100rem);
+  line-height: 1.2;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  text-align: center;
+  color: white;
+  position: relative;
+}
+
+.bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #404040, #202020);
+  background-position: center;
+  background-size: cover;
+  z-index: -1000;
+}
+
+header,
+header.header {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 140px;
+  background-color: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.65);
+  z-index: 1000;
+  outline: 4px solid rgba(255, 255, 255, 0.95);
+  position: fixed;
+  padding: 0 3rem;
+  text-align: center;
+  gap: 1.8rem;
+}
+
+header button,
+.header button {
+  font-family: 'Paperozi';
+  font-weight: 800;
+  background: rgba(0, 0, 0, 0.5);
+  border: 3px solid rgba(255, 255, 255, 1);
+  color: white;
+  font-size: 2.2rem;
+  cursor: pointer;
+  height: 84px;
+  width: auto;
+  min-width: auto;
+  max-width: 35rem;
+  padding: 0 3.2rem;
+  white-space: nowrap;
+  border-radius: 1.25rem;
+  flex-shrink: 0;
+  transition: color 0.12s ease-out, background-color 0.12s ease-out, box-shadow 0.12s ease-out, transform 0.12s ease-out;
+}
+
+header button:hover,
+.header button:hover {
+  background-color: rgba(255, 255, 255, 1);
+  color: rgba(0, 0, 0, 1);
+  box-shadow: 0 0 24px rgba(255, 255, 255, 1);
+}
+
+header .optionbutton,
+.header .optionbutton {
+  font-family: 'Paperozi';
+  font-weight: 800;
+  background: rgba(0, 0, 0, 0.5);
+  border: 3px solid rgba(255, 255, 255, 1);
+  color: white;
+  font-size: 2.2rem;
+  cursor: pointer;
+  height: 84px;
+  width: 84px;
+  aspect-ratio: 1 / 1;
+  min-width: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  border-radius: 1.25rem;
+  transition: color 0.1s ease-out, background-color 0.1s ease-out, border-color 0.1s ease-out;
+  position: static;
+  flex-shrink: 0;
+}
+
+header .optionbutton:hover,
+.header .optionbutton:hover {
+  background-color: rgba(255, 255, 255, 1);
+  color: rgba(0, 0, 0, 1);
+  box-shadow: 0 0 24px rgba(255, 255, 255, 1);
+}
+
+.shadow {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0) 100%);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 12vh;
+  min-height: 90px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* 헤더 내 닉네임 표시 스타일 */
+.header-nickname {
+  font-family: 'Paperozi';
+  font-weight: 800;
+  font-size: 2.2rem;
+  color: white;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-shrink: 0;
+}
+
+.header-user-pt-badge {
+  font-family: 'Paperozi', sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  color: #2ed573;
+  background: rgba(46, 213, 115, 0.16);
+  border: 2px solid rgba(46, 213, 115, 0.5);
+  box-shadow: 0 0 14px rgba(46, 213, 115, 0.4);
+  padding: 0.35rem 0.95rem;
+  border-radius: 0.8rem;
+  line-height: 1.2;
+}
+
+/* 헤더 내 메인 버튼들을 감싸는 div 스타일 */
+.header-main-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 0 0.4rem;
+}
+
+.header-main-buttons::-webkit-scrollbar {
+  display: none;
+}
+
+/* 옵션 메뉴 스타일 정리 */
+.optionmenu {
+  /* display: none; 제거 */
+  position: absolute;
+  top: calc(100% + 5px);
+  right: 2rem;
+  visibility: hidden; /* 초기에는 숨김 */
+  opacity: 0; /* 초기에는 투명 */
+  max-height: 0; /* 초기 높이를 0으로 설정하여 숨김 */
+  overflow: hidden; /* 내용이 넘칠 경우 숨김 */
+  /* 메뉴가 닫힐 때의 트랜지션: max-height와 opacity는 0.05초 동안, visibility는 0.05초 후에 변경 */
+  transition: max-height 0.05s ease-out, opacity 0.05s ease-out, visibility 0s linear 0.05s;
+  background-color: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 1rem;
+  padding: 0.5rem;
+  z-index: 100;
+  z-index: 1001; /* 옵션 메뉴가 다른 콘텐츠 위에 표시되도록 z-index를 높임 */
+  font-family: 'Paperozi';
+  font-weight: 300;
+  font-size: clamp(0.9rem, 1.2vw, 1.5rem);
+}
+
+/* active 클래스가 추가되면 보이게 함 */
+.optionmenu.active {
+  visibility: visible; /* 보이게 함 */
+  opacity: 1; /* 불투명하게 함 */
+  max-height: 500px; /* 메뉴 내용이 충분히 들어갈 수 있는 높이 (필요에 따라 조절) */
+  /* 메뉴가 열릴 때의 트랜지션: max-height와 opacity는 0.2초 동안, visibility는 즉시 변경 */
+  transition: max-height 0.05s ease-in, opacity 0.05s ease-in, visibility 0s linear 0s;
+}
+
+.option-item {
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 10px 20px;
+  white-space: nowrap;
+  font-family: 'Paperozi';
+  font-weight: 300;
+  font-size: clamp(0.9rem, 1.1vw, 1.3rem);
+  display: block;
+  width: 100%;
+}
+
+/* Nickname Input Modal Overlay */
+.nickname-modal-overlay,
+.bg-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent dark background */
+  backdrop-filter: blur(10px); /* Blur effect for the background */
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 2000; /* Higher than header and option menu */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden; /* Hidden by default */
+  opacity: 0; /* Transparent by default */
+  transition: visibility 0s linear 0.1s, opacity 0.1s ease-in-out;
+}
+
+.nickname-modal-overlay.active,
+.bg-modal-overlay.active {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s linear 0s, opacity 0.1s ease-in-out;
+}
+
+/* Nickname Input Box */
+.nickname-input-box {
+  background-color: rgba(18, 18, 18, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.65rem;
+  padding: 2rem;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  transform: scale(0.9); /* Initial smaller size for animation */
+  transition: transform 0.1s ease-in-out;
+}
+
+.nickname-modal-overlay.active .nickname-input-box,
+.bg-modal-overlay.active .nickname-input-box {
+  transform: scale(1); /* Scale up when active */
+}
+
+.nickname-input-box h2 {
+  font-family: 'Paperozi';
+  font-weight: 700;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  color: white;
+  margin-bottom: 1.5rem;
+}
+
+#nickname-input {
+  width: calc(100% - 2rem); /* Adjust for padding */
+  padding: 0.8rem 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-family: 'Paperozi';
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  outline: none;
+  box-sizing: border-box; /* Include padding in width */
+}
+
+.bg-input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 1.2rem;
+  width: 100%;
+}
+
+.bg-input-group label {
+  font-family: 'Paperozi';
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.4rem;
+}
+
+.bg-input-group input {
+  width: 100%;
+  height: 2.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 0 0.5rem;
+  font-family: 'Paperozi';
+  box-sizing: border-box;
+}
+
+.bg-input-group input[type="color"] {
+  padding: 2px;
+  cursor: pointer;
+}
+
+.bg-input-group input[type="number"] {
+  font-size: 1rem;
+}
+
+#nickname-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+#nickname-input:focus {
+  border-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+/* Color Picker & Hex Row */
+.color-picker-row {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.color-picker-row input[type="text"] {
+  flex-grow: 1;
+  margin-bottom: 0 !important;
+}
+
+/* Toggle Switch Styles */
+.switch-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Paperozi';
+  font-size: 0.9rem;
+  color: white;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+}
+
+.switch input { opacity: 0; width: 0; height: 0; }
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: .4s;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 14px; width: 14px;
+  left: 2px; bottom: 2px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider { background-color: rgba(255, 255, 255, 0.5); }
+input:checked + .slider:before { transform: translateX(20px); }
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.modal-btn {
+  font-family: 'Paperozi';
+  font-weight: 400;
+  background: rgba(50, 51, 57, 0.5);
+  border: #ffffff 2px solid; /* Discord button color for consistency */
+  color: white;
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  cursor: pointer;
+  height: auto;
+  min-width: 5rem;
+  padding: 0.5rem 1rem;
+  white-space: nowrap;
+  border-radius: clamp(0.5rem, 1vw, 100rem);
+  z-index: 10;
+  transition: background-color 0.1s ease, border-color 0.1s ease, box-shadow 0.1s ease, transform 0.1s ease;
+}
+
+.modal-btn:hover {
+  background-color: #ffffff;
+  color: #000000;
+  border-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+  transform: scale(1.05);
+}
+
+/* 메뉴가 열렸을 때 배경만 블러 처리하기 위한 가상 요소(Overlay) */
+body.menu-open::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  background-color: rgba(0, 0, 0, 0.2); /* 배경을 살짝 어둡게 하여 메뉴를 강조 */
+  z-index: 999; /* 헤더(1000)보다 낮게 설정하여 헤더와 메뉴는 블러에서 제외 */
+  pointer-events: auto; /* 이 영역을 클릭해도 메뉴 닫기 이벤트가 작동하도록 설정 */
+  animation: fadeIn 0.05s ease-out; /* 메뉴가 열릴 때 페이드 인, 닫힐 때 페이드 아웃 */
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Developer Tools Modal Styles */
+.dev-modal-overlay {
+  visibility: hidden;
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  z-index: 9999;
+  transition: all 0.3s ease;
+}
+
+.dev-modal-overlay.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.dev-panel {
+  position: fixed;
+  top: 0;
+  right: -500px; /* 처음에는 화면 밖에 위치 */
+  width: 450px;
+  height: 100%;
+  background: rgba(15, 15, 15, 0.96);
+  border-left: 2px solid rgba(255, 255, 255, 0.2);
+  padding: 1.5rem;
+  box-sizing: border-box;
+  transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+  overflow-y: auto;
+}
+
+.dev-modal-overlay.active .dev-panel {
+  right: 0; /* 활성화 시 오른쪽에서 슬라이드 인 */
+}
+
+.dev-desc {
+  font-size: 0.9rem;
+  color: #ccc;
+  margin-bottom: 10px;
+}
+
+.dev-input,
+.dev-select {
+  width: 100%;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.3rem;
+  color: #fff;
+  box-sizing: border-box;
+  font-family: 'Paperozi', sans-serif;
+  font-size: 0.85rem;
+}
+
+.dev-select option {
+  background: #1e1e1e;
+  color: #ffffff;
+}
+
+.dev-console {
+  flex-grow: 0;
+  text-align: left;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 12px;
+  height: 110px;
+  overflow-y: auto;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0.35rem;
+  margin: 10px 0;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.8rem;
+}
+
+.dev-button-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.dev-action-btn {
+  width: 100%;
+  font-size: 0.85rem !important;
+  padding: 0.5rem 0.6rem !important;
+}
+
+.dev-btn-primary {
+  background: rgba(46, 213, 115, 0.25) !important;
+  border: 1px solid #2ed573 !important;
+  color: #2ed573 !important;
+}
+
+.dev-btn-primary:hover {
+  background: rgba(46, 213, 115, 0.45) !important;
+}
+
+.dev-btn-danger {
+  background: rgba(255, 71, 87, 0.25) !important;
+  border: 1px solid #ff4757 !important;
+  color: #ff4757 !important;
+}
+
+.dev-btn-danger:hover {
+  background: rgba(255, 71, 87, 0.45) !important;
+}
+
+.dev-textarea {
+  height: 70px !important;
+  resize: vertical;
+  font-family: 'Paperozi', sans-serif;
+}
+
+.news-display-area {
+  padding: 1.5vw !important;
+  box-sizing: border-box;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  overflow-y: auto;
+}
+
+.news-item {
+  text-align: left;
+  width: 100%;
+  margin-bottom: 0.8vw;
+  font-family: 'Paperozi';
+  font-weight: 300;
+  font-size: clamp(0.8rem, 1.2vw, 1.5rem);
+  line-height: 1.4;
+  word-break: break-all;
+}
+
+.dev-manage-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dev-edit-btn {
+  background: #4a90e2;
+  border: none;
+  color: white;
+  padding: 2px 8px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 0.7rem;
+}
+
+.dev-delete-btn {
+  background: #ff4444;
+  border: none;
+  color: white;
+  padding: 2px 8px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 0.7rem;
+}
+
+.box {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(18, 18, 18, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  z-index: 1;
+  border-radius: 0.65rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* --- Performance Optimizations --- */
+.classic-level-card,
+.map-pack-card,
+.ranking-row-card {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 75px;
+}
+
+.dev-panel,
+.nickname-input-box,
+.roulette-win-box,
+.shadow {
+  will-change: transform, opacity;
+}
+
+/* --- Overlay Backdrop Global (Disabled blur on Desktop) --- */
+.detail-overlay-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: transparent;
+  z-index: 90;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.detail-overlay-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+}
+
+/* --- Mobile Responsive Optimizations (Global Header & Layout) --- */
+@media (max-width: 960px) {
+  header,
+  header.header {
+    height: 68px !important;
+    padding: 0 1rem !important;
+    gap: 0.6rem !important;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5) !important;
+    outline: 2px solid rgba(255, 255, 255, 0.85) !important;
+  }
+
+  header button,
+  .header button,
+  .header-main-buttons button.button {
+    height: 44px !important;
+    font-size: 1.15rem !important;
+    padding: 0 1.1rem !important;
+    border-width: 2px !important;
+    border-radius: 0.65rem !important;
+  }
+
+  header .optionbutton,
+  .header .optionbutton {
+    height: 44px !important;
+    width: 44px !important;
+    font-size: 1.1rem !important;
+    border-width: 2px !important;
+    border-radius: 0.65rem !important;
+  }
+
+  .header-nickname {
+    font-size: 1.2rem !important;
+    gap: 0.5rem !important;
+  }
+
+  .header-user-pt-badge {
+    font-size: 0.8rem !important;
+    padding: 0.2rem 0.65rem !important;
+    border-width: 1.5px !important;
+  }
+
+  .header-main-buttons {
+    overflow-x: auto;
+    max-width: 100%;
+    padding-bottom: 2px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .dev-panel,
+  .nickname-input-box,
+  .roulette-win-box {
+    width: 92vw !important;
+    max-width: 480px !important;
+    padding: 1.2rem !important;
+    max-height: 88vh !important;
+    overflow-y: auto !important;
+  }
+
+  .dev-button-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.5rem !important;
+  }
+
+  /* 모바일: 상세 정보 열릴 때 배경 어둡게 (맵팩처럼) */
+  .detail-overlay-backdrop {
+    background: rgba(0, 0, 0, 0.65) !important;
+  }
+
+  /* 모바일: 레벨 상세 정보 풀스크린 오버레이 (맵팩 스타일) */
+  .classic-detail-box,
+  .maps-detail-box {
+    border-radius: 0.75rem 0.75rem 0 0 !important;
+    padding: 1.6rem 1.2rem !important;
+    background-color: rgba(18, 18, 18, 0.98) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-nickname {
+    font-size: 0.95rem !important;
+  }
+
+  .dev-button-grid {
+    grid-template-columns: 1fr !important;
+  }
+}

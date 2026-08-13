@@ -1,0 +1,441 @@
+.discord_button {
+  font-family: 'Paperozi';
+  font-weight: 400;
+  background: rgba(50, 51, 57, 0.5);
+  border: #5662f6 5px solid;
+  color: white;
+  font-size: clamp(1.5rem, 2vw, 100rem);
+  cursor: pointer;
+  height: clamp(2rem, 5vw, 100rem);
+  width: auto;
+  min-width: 6rem;
+  max-width: 25rem;
+  padding: 0 1.5rem;
+  white-space: nowrap;
+  border-radius: clamp(0.5rem, 1vw, 100rem);
+  z-index: 10;
+  transition:
+    background-color 0.1s ease,
+    border-color 0.1s ease,
+    box-shadow 0.1s ease,
+    transform 0.1s ease;
+}
+
+.discord_button:hover {
+  background-color: #5662f6;
+  border-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 0 25px rgba(86, 98, 246, 1);
+  transform: scale(1.05);
+}
+
+.discord-buttons-container {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+:root {
+  --index-header-space: 12vh;
+  --index-shadow-space: 8vh;
+  --index-panel-gap: 2.5vh;
+  --index-panel-height: calc((100vh - var(--index-header-space) - var(--index-shadow-space) - var(--index-panel-gap)) / 2);
+}
+
+.box.index-panel-left {
+  width: 55%;
+  left: 30vw;
+}
+
+.box.index-panel-hero,
+.box.index-panel-discord {
+  height: var(--index-panel-height);
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 1.5vw 2vw !important;
+  box-sizing: border-box !important;
+  text-align: center !important;
+  background-color: rgba(18, 18, 18, 0.9) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 0.65rem !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}
+
+.box.index-panel-hero {
+  top: var(--index-header-space);
+}
+
+.box.index-panel-discord {
+  top: calc(var(--index-header-space) + var(--index-panel-height) + var(--index-panel-gap));
+}
+
+/* --- Hero Panel Styles --- */
+.hero-header-group {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 1.2vw !important;
+  margin-bottom: 0.4vw !important;
+}
+
+.hero-main-title {
+  font-family: 'Paperozi', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 6.8vw !important;
+  color: #ffffff !important;
+  margin: 0 !important;
+  letter-spacing: 0.2vw !important;
+  line-height: 1.05 !important;
+  white-space: nowrap !important;
+}
+
+.hero-version-badge {
+  font-family: 'Paperozi', sans-serif !important;
+  font-size: 1.1vw !important;
+  font-weight: 700 !important;
+  color: rgba(255, 255, 255, 0.65) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  padding: 0.3vw 0.9vw !important;
+  border-radius: 1.5vw !important;
+  box-shadow: 0 0 1vw rgba(255, 255, 255, 0.1) !important;
+  white-space: nowrap !important;
+}
+
+.hero-subtitle {
+  font-family: 'Paperozi', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 2.2vw !important;
+  color: rgba(255, 255, 255, 0.98) !important;
+  margin: 0.6vw 0 0.5vw 0 !important;
+  white-space: nowrap !important;
+}
+
+.hero-desc-text {
+  font-family: 'Paperozi', sans-serif !important;
+  font-size: 1.15vw !important;
+  color: rgba(255, 255, 255, 0.72) !important;
+  margin: 0 !important;
+  line-height: 1.3 !important;
+  white-space: nowrap !important;
+}
+
+/* --- Discord Panel Styles --- */
+.discord-header-group {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.8vw !important;
+  margin-bottom: 0.3vw !important;
+}
+
+.discord-title-icon {
+  width: 2.8vw !important;
+  height: 2.8vw !important;
+  color: #5865f2 !important;
+  filter: drop-shadow(0 0 1vw rgba(88, 101, 242, 0.9)) !important;
+}
+
+.discord-main-title {
+  font-family: 'Paperozi', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 3.2vw !important;
+  color: #ffffff !important;
+  margin: 0 !important;
+  white-space: nowrap !important;
+}
+
+.box.index-panel-discord h2 {
+  font-family: 'Paperozi', sans-serif !important;
+  font-weight: 400 !important;
+  font-size: 1.4vw !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  margin: 0.5vw 0 1.2vw 0 !important;
+  white-space: nowrap !important;
+  line-height: 1.3 !important;
+}
+
+.discord-buttons-container {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 1.5vw !important;
+  margin-top: 0 !important;
+}
+
+.discord_button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.8vw !important;
+  font-family: 'Paperozi', sans-serif !important;
+  font-weight: 700 !important;
+  background: rgba(35, 39, 42, 0.9) !important;
+  border: #5865f2 0.25vw solid !important;
+  color: white !important;
+  font-size: 1.3vw !important;
+  cursor: pointer !important;
+  height: 3.6vw !important;
+  padding: 0 2.2vw !important;
+  white-space: nowrap !important;
+  border-radius: 0.6vw !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.discord-btn-icon {
+  width: 1.5vw !important;
+  height: 1.5vw !important;
+  color: #5865f2 !important;
+  transition: color 0.2s ease !important;
+}
+
+.discord_button:hover {
+  background-color: #5865f2 !important;
+  border-color: #ffffff !important;
+  box-shadow: 0 0 2vw rgba(88, 101, 242, 0.95) !important;
+  transform: scale(1.05) !important;
+}
+
+.discord_button:hover .discord-btn-icon {
+  color: #ffffff !important;
+}
+
+/* --- Right News Panel Fixes --- */
+.box.index-panel-right {
+  width: 35% !important;
+  left: 79vw !important;
+  height: calc(var(--index-panel-height) * 2 + var(--index-panel-gap)) !important;
+  top: var(--index-header-space) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  padding: 1.2vw !important;
+  box-sizing: border-box !important;
+  gap: 0.8vw !important;
+  background-color: rgba(18, 18, 18, 0.9) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 0.65rem !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}
+
+.box.index-news-header {
+  position: static !important;
+  transform: none !important;
+  left: auto !important;
+  top: auto !important;
+  width: 100% !important;
+  height: auto !important;
+  padding: 0.8vw 1.2vw !important;
+  box-sizing: border-box !important;
+  background: rgba(15, 15, 15, 0.75) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 0.45rem !important;
+  box-shadow: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  backdrop-filter: blur(10px) !important;
+  flex-shrink: 0 !important;
+}
+
+.box.index-news-header h1 {
+  font-family: 'Paperozi', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 1.7vw !important;
+  color: #ffffff !important;
+  margin: 0 !important;
+  letter-spacing: 0.3vw !important;
+}
+
+.box.index-news-body {
+  position: static !important;
+  transform: none !important;
+  left: auto !important;
+  top: auto !important;
+  width: 100% !important;
+  flex: 1 !important;
+  min-height: 0 !important;
+  height: auto !important;
+  padding: 0.9vw !important;
+  box-sizing: border-box !important;
+  background: rgba(10, 10, 10, 0.4) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  border-radius: 0.45rem !important;
+  backdrop-filter: blur(10px) !important;
+  overflow-y: auto !important;
+}
+
+/* --- News Display Section & Items --- */
+.news-display-area::-webkit-scrollbar {
+  width: 0.4vw !important;
+}
+
+.news-display-area::-webkit-scrollbar-button {
+  display: none !important;
+}
+
+.news-display-area::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3) !important;
+  border-radius: 0.2vw !important;
+}
+
+.news-display-area::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3) !important;
+  border-radius: 0.2vw !important;
+}
+
+.news-display-area::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.6) !important;
+}
+
+.news-item {
+  text-align: left;
+  width: 100%;
+  padding: 0.9vw 1.2vw;
+  margin-bottom: 0.7vw;
+  background: rgba(28, 28, 28, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 0.5rem;
+  font-family: 'Paperozi', sans-serif;
+  font-size: 1.15vw;
+  line-height: 1.5;
+  box-sizing: border-box;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.news-item:hover {
+  background: rgba(36, 36, 36, 0.95);
+  border-color: rgba(255, 255, 255, 0.22);
+  transform: translateX(4px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.news-date-tag {
+  display: inline-block;
+  font-size: 0.9em;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.14);
+  padding: 0.2vw 0.5vw;
+  border-radius: 0.25vw;
+  margin-right: 0.5vw;
+  font-weight: 700;
+}
+
+/* --- Mobile & Tablet Responsive Optimizations for Home Page --- */
+@media (max-width: 960px) {
+  html, body {
+    overflow-y: auto !important;
+    height: auto !important;
+    min-height: 100vh !important;
+  }
+
+  body {
+    padding-top: calc(5vw + 45px);
+    padding-bottom: 2rem;
+    box-sizing: border-box;
+  }
+
+  .box.index-panel-left {
+    position: relative !important;
+    top: auto !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 96vw !important;
+    max-width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+    margin-bottom: 1.2rem !important;
+    padding: 1.8rem 1.2rem !important;
+  }
+
+  .hero-main-title {
+    font-size: clamp(2.2rem, 8vw, 3.2rem) !important;
+    letter-spacing: 0.05em !important;
+  }
+
+  .hero-version-badge {
+    font-size: clamp(0.75rem, 3vw, 1rem) !important;
+    padding: 0.2rem 0.5rem !important;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1.05rem, 4vw, 1.4rem) !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .hero-desc-text {
+    font-size: clamp(0.85rem, 3.2vw, 1.05rem) !important;
+    line-height: 1.45 !important;
+  }
+
+  .discord-main-title {
+    font-size: clamp(1.6rem, 5vw, 2.2rem) !important;
+  }
+
+  .discord-buttons-container {
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 0.75rem !important;
+    align-items: center !important;
+  }
+
+  .discord_button {
+    width: 100% !important;
+    max-width: 320px !important;
+    height: 3rem !important;
+    font-size: 1rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.5rem !important;
+  }
+
+  .box.index-panel-right {
+    position: relative !important;
+    top: auto !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 96vw !important;
+    max-width: 100% !important;
+    height: auto !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .box.index-news-header {
+    position: relative !important;
+    top: auto !important;
+    left: 0 !important;
+    width: 100% !important;
+    transform: none !important;
+  }
+
+  .box.index-news-body {
+    position: relative !important;
+    top: auto !important;
+    left: 0 !important;
+    width: 100% !important;
+    transform: none !important;
+    max-height: 360px !important;
+    overflow-y: auto !important;
+    height: auto !important;
+    min-height: 180px !important;
+  }
+
+  .news-item {
+    padding: 0.8rem 1rem !important;
+    font-size: 0.95rem !important;
+    margin-bottom: 0.6rem !important;
+  }
+
+  .news-date-tag {
+    padding: 0.15rem 0.4rem !important;
+    font-size: 0.8em !important;
+  }
+}

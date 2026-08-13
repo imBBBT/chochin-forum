@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(head -n 243 all.js)",
+      "Bash(echo \"}\\);\")",
+      "Bash(mv all.js.tmp all.js)",
+      "Bash(node --check all.js)",
+      "Bash(node --check index.js)",
+      "Bash(curl -s -o /dev/null -w '%{http_code} %{size_download}' https://img.youtube.com/vi/swG-0J9TBug/__TRACKED_VAR__.jpg)"
+    ]
+  }
+}

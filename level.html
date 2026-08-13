@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="초친 포럼 레벨 카테고리 - Classic, Challenge, Platformer 모드 선택">
+  <title>레벨 부문 선택 - 초친 포럼</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="level.css">
+  <link rel="stylesheet" href="all.css">
+</head>
+
+<body>
+  <div class="bg"></div>
+  <header class="header">
+    <span class="header-nickname"></span>
+    <div class="header-main-buttons">
+      <a href="index.html">
+        <button class="button">
+          <span class="icon">홈</span>
+        </button>
+      </a>
+      <a href="level.html">
+        <button class="button active">
+          <span class="icon">레벨</span>
+        </button>
+      </a>
+      <a href="maps.html">
+        <button class="button">
+          <span class="icon">맵 팩</span>
+        </button>
+      </a>
+      <a href="ranking.html">
+        <button class="button">
+          <span class="icon">랭킹</span>
+        </button>
+      </a>
+      <a href="tools.html">
+        <button class="button">
+          <span class="icon">도구</span>
+        </button>
+      </a>
+    </div>
+    <button class="optionbutton"><span class="icon">▼</span></button>
+    <div class="optionmenu">
+      <button class="option-item">계정 선택</button>
+      <button class="option-item">배경 설정</button>
+    </div>
+  </header>
+
+  <main class="level-main-container">
+    <!-- Main Banner Box -->
+    <div class="box level-banner-box">
+      <h1 class="level-banner-title">레벨 리스트</h1>
+      <p class="level-banner-desc">초친 멤버들이 제작한 커스텀 레벨의 난이도를 기준으로 랭킹을 나눈 곳입니다.</p>
+      <p class="level-banner-subdesc">클래식, 챌린지(20초 이내), 플랫포머 모드 중 원하시는 레벨 카테고리를 선택하세요.</p>
+    </div>
+
+    <!-- 3 Mode Cards Grid Container -->
+    <div class="level-mode-grid">
+      <article class="mode-card box_classic">
+        <div class="mode-card-content">
+          <h2 class="mode-title">Classic</h2>
+        </div>
+      </article>
+
+      <article class="mode-card box_challenge">
+        <div class="mode-card-content">
+          <h2 class="mode-title">Challenge</h2>
+        </div>
+      </article>
+
+      <article class="mode-card box_platformer">
+        <div class="mode-card-content">
+          <h2 class="mode-title">Platformer</h2>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <div class="shadow"></div>
+
+  <!-- Nickname Input Modal -->
+  <div class="nickname-modal-overlay">
+    <div class="nickname-input-box">
+      <h2>닉네임 설정</h2>
+      <input type="text" id="nickname-input" placeholder="새 닉네임을 입력하세요">
+      <div class="modal-buttons">
+        <button id="nickname-submit-btn" class="modal-btn">확인</button>
+        <button id="nickname-cancel-btn" class="modal-btn">취소</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Background Settings Modal -->
+  <div class="bg-modal-overlay">
+    <div class="nickname-input-box">
+      <h2>배경 설정</h2>
+      <div class="bg-input-group">
+        <label>배경 유형</label>
+        <div class="switch-container">
+          <span>단색</span>
+          <label class="switch">
+            <input type="checkbox" id="bg-type-toggle" checked>
+            <span class="slider"></span>
+          </label>
+          <span>그라데이션</span>
+        </div>
+      </div>
+      <div class="bg-input-group">
+        <label>시작 색상 (Hex)</label>
+        <div class="color-picker-row">
+          <input type="color" id="bg-color1" value="#404040">
+          <input type="text" id="bg-color1-hex" value="#404040" maxlength="7">
+        </div>
+      </div>
+      <div class="bg-input-group" id="bg-color2-group">
+        <label>종료 색상 (Hex)</label>
+        <div class="color-picker-row">
+          <input type="color" id="bg-color2" value="#202020">
+          <input type="text" id="bg-color2-hex" value="#202020" maxlength="7">
+        </div>
+      </div>
+      <div class="bg-input-group" id="bg-angle-group">
+        <label>그라데이션 각도 (deg)</label>
+        <input type="number" id="bg-angle" value="135" min="0" max="360">
+      </div>
+      <div class="modal-buttons">
+        <button id="bg-submit-btn" class="modal-btn">적용</button>
+        <button id="bg-reset-btn" class="modal-btn">초기화</button>
+        <button id="bg-cancel-btn" class="modal-btn">취소</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Developer Tools Modal -->
+  <div class="dev-modal-overlay">
+    <div class="dev-panel">
+      <div id="dev-password-section">
+        <h2>개발자 도구 인증</h2>
+        <p class="dev-desc">액세스를 위해 시스템 비밀번호를 입력하세요.</p>
+        <input type="password" id="dev-pw-input" autocomplete="new-password" placeholder="비밀번호 입력" class="dev-input">
+        <div class="modal-buttons">
+          <button id="dev-pw-submit" class="modal-btn">확인</button>
+          <button id="dev-pw-cancel" class="modal-btn">취소</button>
+        </div>
+      </div>
+      <div id="dev-content-section" style="display: none;">
+        <h2>개발자 도구</h2>
+        <div class="dev-console">
+          <p style="color: #0f0;">> 시스템 접속 완료...</p>
+          <p style="color: #0f0;">> 개발자 모드가 활성화되었습니다.</p>
+          <p style="color: #888; margin-top: 10px;">(여기에 개발용 수치 조절이나 로그 확인 기능을 추가할 수 있습니다.)</p>
+        </div>
+        <div id="dev-main-controls">
+          <div class="dev-button-grid">
+            <button id="dev-news-open-btn" class="modal-btn dev-action-btn">버튼 1</button>
+            <button id="dev-news-manage-btn" class="modal-btn dev-action-btn">버튼 2</button>
+            <button id="dev-settings-open-btn" class="modal-btn dev-action-btn">GitHub 설정</button>
+            <button id="dev-log-clear-btn" class="modal-btn dev-action-btn">로그 초기화</button>
+          </div>
+        </div>
+        <div id="dev-settings-area" style="display: none;">
+          <p class="dev-desc">GitHub API 연동 설정을 관리합니다.</p>
+          <input type="password" id="dev-token-input" autocomplete="new-password" placeholder="GitHub 토큰"
+            class="dev-input">
+          <input type="text" id="dev-owner-input" placeholder="GitHub Owner (ID)" class="dev-input">
+          <input type="text" id="dev-repo-input" placeholder="Repository 이름" class="dev-input">
+          <input type="text" id="dev-path-input" placeholder="파일 경로 (ex: news.json)" class="dev-input">
+          <div class="dev-button-grid">
+            <button id="dev-settings-save-btn" class="modal-btn dev-action-btn">저장</button>
+            <button id="dev-settings-test-btn" class="modal-btn dev-action-btn">연결 테스트</button>
+            <button id="dev-settings-back-btn" class="modal-btn dev-action-btn">뒤로</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="all.js"></script>
+  <script src="level.js"></script>
+</body>
+
+</html>

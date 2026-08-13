@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="초친 포럼 - 유저 커스텀 레벨, 맵 팩, 랭킹 및 맵 추첨 도구를 제공하는 커뮤니티 포럼" />
+  <title>초친 포럼</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="all.css" />
+</head>
+
+<body>
+  <div class="bg"></div>
+  <header class="header">
+    <span class="header-nickname"></span>
+    <!-- 닉네임 표시를 위한 새 요소 -->
+    <div class="header-main-buttons">
+      <!-- 기존 버튼들을 감싸는 div 추가 -->
+      <a href="index.html">
+        <button class="button">
+          <span class="icon">홈</span>
+        </button>
+      </a>
+      <a href="level.html">
+        <button class="button">
+          <span class="icon">레벨</span>
+        </button>
+      </a>
+      <a href="maps.html">
+        <button class="button">
+          <span class="icon">맵 팩</span>
+        </button>
+      </a>
+      <a href="ranking.html">
+        <button class="button">
+          <span class="icon">랭킹</span>
+        </button>
+      </a>
+      <a href="tools.html">
+        <button class="button">
+          <span class="icon">도구</span>
+        </button>
+      </a>
+    </div>
+    <button class="optionbutton"><span class="icon">▼</span></button>
+    <div class="optionmenu">
+      <button class="option-item">계정 선택</button>
+      <button class="option-item">배경 설정</button>
+    </div>
+  </header>
+  <div class="box index-panel-left index-panel-hero">
+    <div class="hero-header-group">
+      <h1 class="hero-main-title">초친 포럼</h1>
+      <span class="hero-version-badge">V9.0</span>
+    </div>
+    <h2 class="hero-subtitle">초친 포럼에 오신 것을 환영합니다!</h2>
+    <p class="hero-desc-text">Geometry Dash 초친 포럼 데이터를 실시간으로 확인하고 클리어 기록을 관리하세요.</p>
+  </div>
+
+  <div class="box index-panel-left index-panel-discord">
+    <div class="discord-header-group">
+      <svg class="discord-title-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path
+          d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
+      </svg>
+      <h1 class="discord-main-title">디스코드 커뮤니티</h1>
+    </div>
+    <h2>디스코드 서버에 들어와 유저들과 더 원활한 소통을 해보세요!</h2>
+    <div class="discord-buttons-container">
+      <a href="https://discord.gg/m3PnhF2PRj" target="_blank" rel="noopener noreferrer">
+        <button class="discord_button">
+          <svg class="discord-btn-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
+          </svg>
+          <span>초친 디스코드</span>
+        </button>
+      </a>
+      <a href="https://discord.gg/SeMEnKy2C7" target="_blank" rel="noopener noreferrer">
+        <button class="discord_button">
+          <svg class="discord-btn-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
+          </svg>
+          <span>포럼 디스코드</span>
+        </button>
+      </a>
+    </div>
+  </div>
+
+  <div class="box index-panel-right">
+    <div class="box index-news-header">
+      <h1>뉴스</h1>
+    </div>
+    <div id="main-news-container" class="box index-news-body news-display-area"></div>
+  </div>
+  <div class="shadow"></div>
+
+  <!-- Nickname Input Modal -->
+  <div class="nickname-modal-overlay">
+    <div class="nickname-input-box">
+      <h2>닉네임 설정</h2>
+      <input type="text" id="nickname-input" placeholder="새 닉네임을 입력하세요" />
+      <div class="modal-buttons">
+        <button id="nickname-submit-btn" class="modal-btn">확인</button>
+        <button id="nickname-cancel-btn" class="modal-btn">취소</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Background Settings Modal -->
+  <div class="bg-modal-overlay">
+    <div class="nickname-input-box">
+      <h2>배경 설정</h2>
+      <div class="bg-input-group">
+        <label>배경 유형</label>
+        <div class="switch-container">
+          <span>단색</span>
+          <label class="switch">
+            <input type="checkbox" id="bg-type-toggle" checked />
+            <span class="slider"></span>
+          </label>
+          <span>그라데이션</span>
+        </div>
+      </div>
+      <div class="bg-input-group">
+        <label>시작 색상 (Hex)</label>
+        <div class="color-picker-row">
+          <input type="color" id="bg-color1" value="#404040" />
+          <input type="text" id="bg-color1-hex" value="#404040" maxlength="7" />
+        </div>
+      </div>
+      <div class="bg-input-group" id="bg-color2-group">
+        <label>종료 색상 (Hex)</label>
+        <div class="color-picker-row">
+          <input type="color" id="bg-color2" value="#202020" />
+          <input type="text" id="bg-color2-hex" value="#202020" maxlength="7" />
+        </div>
+      </div>
+      <div class="bg-input-group" id="bg-angle-group">
+        <label>그라데이션 각도 (deg)</label>
+        <input type="number" id="bg-angle" value="135" min="0" max="360" />
+      </div>
+      <div class="modal-buttons">
+        <button id="bg-submit-btn" class="modal-btn">적용</button>
+        <button id="bg-reset-btn" class="modal-btn">초기화</button>
+        <button id="bg-cancel-btn" class="modal-btn">취소</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Developer Tools Modal -->
+  <div class="dev-modal-overlay">
+    <div class="dev-panel">
+      <div id="dev-password-section">
+        <h2>개발자 도구 인증</h2>
+        <p class="dev-desc">액세스를 위해 시스템 비밀번호를 입력하세요.</p>
+        <input type="password" id="dev-pw-input" placeholder="비밀번호 입력" class="dev-input" />
+        <div class="modal-buttons">
+          <button id="dev-pw-submit" class="modal-btn">확인</button>
+          <button id="dev-pw-cancel" class="modal-btn">취소</button>
+        </div>
+      </div>
+      <div id="dev-content-section" style="display: none">
+        <h2>개발자 도구</h2>
+        <div class="dev-console">
+          <p style="color: #0f0">> 시스템 접속 완료...</p>
+          <p style="color: #0f0">> 개발자 모드가 활성화되었습니다.</p>
+          <p style="color: #888; margin-top: 10px">
+            (여기에 개발용 수치 조절이나 로그 확인 기능을 추가할 수 있습니다.)
+          </p>
+        </div>
+        <div id="dev-main-controls">
+          <div class="dev-button-grid">
+            <button id="dev-news-open-btn" class="modal-btn dev-action-btn">
+              뉴스 추가
+            </button>
+            <button id="dev-news-manage-btn" class="modal-btn dev-action-btn">
+              뉴스 관리
+            </button>
+            <button id="dev-settings-open-btn" class="modal-btn dev-action-btn">
+              GitHub 설정
+            </button>
+            <button id="dev-log-clear-btn" class="modal-btn dev-action-btn">
+              로그 초기화
+            </button>
+          </div>
+        </div>
+        <div id="dev-settings-area" style="display: none">
+          <p class="dev-desc">GitHub API 연동 설정을 관리합니다.</p>
+          <input type="password" id="dev-token-input" placeholder="GitHub 토큰" class="dev-input" />
+          <input type="text" id="dev-owner-input" placeholder="GitHub Owner (ID)" class="dev-input" />
+          <input type="text" id="dev-repo-input" placeholder="Repository 이름" class="dev-input" />
+          <input type="text" id="dev-path-input" placeholder="파일 경로 (ex: news.json)" class="dev-input" />
+          <div class="dev-button-grid">
+            <button id="dev-settings-save-btn" class="modal-btn dev-action-btn">
+              저장
+            </button>
+            <button id="dev-settings-test-btn" class="modal-btn dev-action-btn">
+              연결 테스트
+            </button>
+            <button id="dev-settings-back-btn" class="modal-btn dev-action-btn">
+              뒤로
+            </button>
+          </div>
+        </div>
+        <div id="dev-news-manage-area" style="display: none">
+          <p class="dev-desc">뉴스 항목 관리 (개별 삭제 가능)</p>
+          <div id="dev-manage-list" class="dev-console" style="height: 200px"></div>
+          <div class="dev-button-grid">
+            <button id="dev-news-clear-all-btn" class="modal-btn dev-action-btn" style="border-color: #ff4444">
+              전체 삭제
+            </button>
+            <button id="dev-news-manage-back-btn" class="modal-btn dev-action-btn">
+              뒤로
+            </button>
+          </div>
+        </div>
+        <div id="dev-news-input-area" style="display: none">
+          <p class="dev-desc">뉴스 내용 입력 (&lt;color=#rrggbb&gt; 지원)</p>
+          <textarea id="dev-news-input" class="dev-input dev-textarea" placeholder="내용을 입력하세요..."></textarea>
+          <div class="dev-button-grid">
+            <button id="dev-news-post-btn" class="modal-btn dev-action-btn">
+              등록
+            </button>
+            <button id="dev-news-back-btn" class="modal-btn dev-action-btn">
+              뒤로
+            </button>
+          </div>
+        </div>
+        <div class="modal-buttons">
+          <button id="dev-close-btn" class="modal-btn">닫기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="all.js"></script>
+  <script src="index.js"></script>
+</body>
+
+</html>
