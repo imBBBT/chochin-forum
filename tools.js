@@ -406,7 +406,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (mapId !== '-') copyToClipboard(mapId, copyBtn);
     };
 
-    const songName = level.song?.name ? `${level.song.name} (by ${level.song.artist || 'Unknown'})` : '-';
+    const songName = level.song?.name
+      ? `${level.song.name} (by ${level.song.artist || 'Unknown'})` + (level.song.id ? ` [ID: ${level.song.id}]` : '')
+      : '-';
     songEl.textContent = songName;
 
     const lengthVal = window.formatLevelLength ? window.formatLevelLength(level.map?.length || level.length) : (level.map?.length || '-');

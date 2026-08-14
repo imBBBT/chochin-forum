@@ -1141,6 +1141,7 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
       const objects = (document.getElementById('dev-add-objects')?.value || '').trim();
       const songName = (document.getElementById('dev-add-song-name')?.value || '').trim();
       const songArtist = (document.getElementById('dev-add-song-artist')?.value || '').trim();
+      const songId = (document.getElementById('dev-add-song-id')?.value || '').trim();
       const desc = (document.getElementById('dev-add-desc')?.value || '').trim();
       const tagsStr = (document.getElementById('dev-add-tags')?.value || '').trim();
 
@@ -1167,7 +1168,11 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
           length: length,
           objects: objects
         },
-        song: { name: songName, artist: songArtist },
+        song: {
+          name: songName,
+          artist: songArtist,
+          ...(songId ? { id: songId } : {})
+        },
         description: desc,
         tags: tags,
         targetRank: rank,
@@ -1248,6 +1253,8 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
         document.getElementById('dev-edit-objects').value = lvl.map?.objects || lvl.objects || '';
         document.getElementById('dev-edit-song-name').value = lvl.song?.name || '';
         document.getElementById('dev-edit-song-artist').value = lvl.song?.artist || '';
+        const editSongIdEl = document.getElementById('dev-edit-song-id');
+        if (editSongIdEl) editSongIdEl.value = lvl.song?.id || '';
         document.getElementById('dev-edit-desc').value = lvl.description || '';
         document.getElementById('dev-edit-tags').value = (lvl.tags || []).join(', ');
       }
@@ -1274,6 +1281,7 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
       const objects = (document.getElementById('dev-edit-objects')?.value || '').trim();
       const songName = (document.getElementById('dev-edit-song-name')?.value || '').trim();
       const songArtist = (document.getElementById('dev-edit-song-artist')?.value || '').trim();
+      const songId = (document.getElementById('dev-edit-song-id')?.value || '').trim();
       const desc = (document.getElementById('dev-edit-desc')?.value || '').trim();
       const tagsStr = (document.getElementById('dev-edit-tags')?.value || '').trim();
 
@@ -1294,7 +1302,11 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
           length: length,
           objects: objects
         },
-        song: { name: songName, artist: songArtist },
+        song: {
+          name: songName,
+          artist: songArtist,
+          ...(songId ? { id: songId } : {})
+        },
         description: desc, tags, targetRank: newRank,
         clears: originalClears
       };
