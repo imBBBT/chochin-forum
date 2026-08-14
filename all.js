@@ -681,6 +681,43 @@ window.GitHubSyncEngine = {
   }
 };
 
+window.addAutoForumNews = async function(content, customDate) {
+  try {
+    const today = customDate || new Date().toISOString().split('T')[0];
+    const newEntry = { date: today, content: content };
+
+    let newsList = [];
+    const customRaw = localStorage.getItem('dev_custom_news');
+    if (customRaw) {
+      try {
+        const parsed = JSON.parse(customRaw);
+        if (Array.isArray(parsed)) newsList = parsed;
+      } catch (e) {}
+    } else {
+      try {
+        const getNewsJsonUrl = () => {
+          const path = (window.location.pathname || '').replace(/\\/g, '/').toLowerCase();
+          if (path.includes('/level/')) {
+            return '../news.json';
+          }
+          return 'news.json';
+        };
+        const res = await fetch(getNewsJsonUrl());
+        if (res && res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data)) newsList = data;
+        }
+      } catch (e) {}
+    }
+
+    newsList.unshift(newEntry);
+    localStorage.setItem('dev_custom_news', JSON.stringify(newsList));
+    console.log('[Auto Forum News Added]', newEntry);
+  } catch (err) {
+    console.warn('Failed to add auto forum news:', err);
+  }
+};
+
 window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
   try {
     const customLevels = JSON.parse(localStorage.getItem(`dev_custom_levels_${modeKey}`) || '[]');
@@ -897,6 +934,26 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
         localStorage.removeItem(`dev_custom_levels_${mode}`);
         localStorage.removeItem(`dev_custom_history_${mode}`);
         localStorage.removeItem(`dev_custom_clears_${mode}`);
+
+        // If there is pending auto/custom news, also sync news.json
+        const pendingNewsRaw = localStorage.getItem('dev_custom_news');
+        if (pendingNewsRaw) {
+          try {
+            const parsedNews = JSON.parse(pendingNewsRaw);
+            if (Array.isArray(parsedNews) && parsedNews.length > 0) {
+              logDevConsole(`[GitHub] news.json 자동 동기화 진행 중...`, '#70a1ff');
+              await window.GitHubSyncEngine.commitAndPush(
+                'news.json',
+                parsedNews,
+                `Auto update news.json via DevTools (${modeName})`
+              );
+              localStorage.removeItem('dev_custom_news');
+              logDevConsole(`[GitHub 성공] news.json 동기화 완료!`, '#2ed573');
+            }
+          } catch (newsErr) {
+            console.warn('Auto news sync skipped or failed:', newsErr);
+          }
+        }
 
         const shortCommit = result.commitSha ? result.commitSha.substring(0, 7) : 'Success';
         logDevConsole(`[GitHub 성공] ${targetFilePath} 커밋 & 푸시 완료 (Commit: ${shortCommit})`, '#2ed573');
@@ -1138,6 +1195,10 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
       localStorage.setItem(storageKeyLevels, JSON.stringify(existingLevels));
       localStorage.setItem(storageKeyHistory, JSON.stringify(existingHistory));
 
+      // 레벨 등록 자동 뉴스 생성
+      const newsContent = `${title}이(가) 베리파이 되었으며, ${rank}위에 등재 되었습니다.`;
+      window.addAutoForumNews(newsContent);
+
       logDevConsole(`[신규 등록] "${title}" 레벨이 ${mode} 모드 ${rank}위에 등록되었습니다.`, '#2ed573');
       alert(`"${title}" 레벨이 성공적으로 등록되었습니다!`);
 
@@ -1256,6 +1317,7 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
 
       if (oldRank !== newRank) {
         const todayStr = new Date().toLocaleDateString('ko-KR');
+        const direction = newRank < oldRank ? '상승' : '하락';
         existingHistory.unshift({
           id: Date.now(),
           type: 'move',
@@ -1263,6 +1325,10 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
           detail: `"${title}" 레벨 순위가 ${oldRank}위에서 ${newRank}위로 변경되었습니다.`,
           time: todayStr
         });
+
+        // 레벨 순위 변동 자동 뉴스 생성
+        const newsContent = `${title}의 순위가 ${oldRank}위에서 ${newRank}위로 ${direction}했습니다.`;
+        window.addAutoForumNews(newsContent);
       }
 
       localStorage.setItem(storageKeyLevels, JSON.stringify(existingLevels));
@@ -1379,6 +1445,16 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
       }
 
       localStorage.setItem(storageKeyClears, JSON.stringify(existingClears));
+
+      // 신기록 자동 뉴스 생성
+      const lvlTitle = (targetLvl && targetLvl.title) ? targetLvl.title : levelVal;
+      let newsContent;
+      if (percent === 100) {
+        newsContent = `${player}이(가) ${lvlTitle}을 클리어했습니다.`;
+      } else {
+        newsContent = `${player}이(가) ${lvlTitle}을(를) ${percent}% 달성했습니다.`;
+      }
+      window.addAutoForumNews(newsContent, date);
 
       logDevConsole(`[기록 갱신] "${player}" 님의 ${percent}% 클리어 기록이 갱신되었습니다.`, '#2ed573');
       alert(`"${player}" 님의 클리어 기록이 성공적으로 등록되었습니다!`);
