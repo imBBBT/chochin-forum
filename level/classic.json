@@ -31,14 +31,10 @@
         "speedRatio": {}
       },
       "tags": [
-        "Any-Mode",
-        "Medium",
         "Sync",
-        "Physical",
         "Learny",
-        "Fast",
-        "Full-Effect",
-        "No-Clear",
+        "Fast Paced",
+        "Effect",
         "NONG"
       ],
       "clears": [],
@@ -80,14 +76,9 @@
         "speedRatio": {}
       },
       "tags": [
-        "Any-Mode",
-        "Medium",
         "Sync",
-        "Physical",
         "Learny",
-        "High-CPS",
-        "Low-Effect",
-        "No-Clear"
+        "High CPS"
       ],
       "clears": []
     },
@@ -125,11 +116,8 @@
       },
       "tags": [
         "Wave",
-        "Medium",
-        "Physical",
         "Learny",
-        "Fast",
-        "Low-Effect"
+        "Fast Paced"
       ],
       "clears": []
     },
@@ -167,12 +155,8 @@
       },
       "tags": [
         "Robot",
-        "Medium",
-        "Physical",
-        "Slow",
-        "Full-Effect",
-        "One-Mode",
-        "No-Clear"
+        "Slow Paced",
+        "Effect"
       ],
       "clears": []
     },
@@ -209,15 +193,10 @@
         "speedRatio": {}
       },
       "tags": [
-        "Any-Mode",
-        "Medium",
         "Sync",
-        "Gimmick",
-        "Physical",
+        "Gimmicky",
         "Flow",
-        "Fast",
-        "Low-Effect",
-        "No-Clear",
+        "Fast Paced",
         "NONG"
       ],
       "clears": []
@@ -255,12 +234,7 @@
         "speedRatio": {}
       },
       "tags": [
-        "Any-Mode",
-        "Short",
-        "Physical",
-        "Learny",
-        "Low-Effect",
-        "No-Clear"
+        "Learny"
       ],
       "clears": []
     },
@@ -297,11 +271,7 @@
         "speedRatio": {}
       },
       "tags": [
-        "Wave",
-        "Medium",
-        "Physical",
-        "None-Effect",
-        "No-Clear"
+        "Wave"
       ],
       "clears": []
     },
@@ -349,14 +319,9 @@
         }
       },
       "tags": [
-        "Any-Mode",
-        "1x",
-        "Long",
         "Memory",
-        "Physical",
-        "Full-Effect",
-        "Slow",
-        "No-Clear"
+        "Effect",
+        "Slow Paced"
       ],
       "clears": []
     },
@@ -394,12 +359,8 @@
       },
       "tags": [
         "Wave",
-        "Medium",
         "Sync",
-        "Physical",
-        "Fast",
-        "None-Effect",
-        "No-Clear",
+        "Fast Paced",
         "NONG"
       ],
       "clears": [
@@ -455,10 +416,7 @@
       },
       "tags": [
         "Wave",
-        "Fast",
-        "Short",
-        "Physical",
-        "None-Effect"
+        "Fast Paced"
       ],
       "clears": [
         {
@@ -518,13 +476,8 @@
       },
       "tags": [
         "Cube",
-        "Slow",
-        "Short",
-        "Physical",
-        "Slow",
-        "One-Mode",
-        "Full-Effect",
-        "No-Clear"
+        "Slow Paced",
+        "Effect"
       ],
       "clears": [
         {
@@ -572,12 +525,8 @@
       "tags": [
         "Wave",
         "Robot",
-        "Short",
         "Sync",
-        "Physical",
-        "Fast",
-        "None-Effect",
-        "No-Clear",
+        "Fast Paced",
         "NONG"
       ],
       "clears": [
@@ -625,12 +574,7 @@
       },
       "tags": [
         "Wave",
-        "Short",
-        "Physical",
-        "High-CPS",
-        "None-Effect",
-        "One-Mode",
-        "No-Clear"
+        "High CPS"
       ],
       "clears": []
     },
@@ -667,12 +611,7 @@
         "speedRatio": {}
       },
       "tags": [
-        "Any-Mode",
-        "Medium",
-        "Physical",
-        "High-CPS",
-        "None-Effect",
-        "No-Clear"
+        "High CPS"
       ],
       "clears": [
         {
@@ -718,11 +657,7 @@
         "speedRatio": {}
       },
       "tags": [
-        "Cube",
-        "Short",
-        "Physical",
-        "Low-Effect",
-        "No-Clear"
+        "Cube"
       ],
       "clears": [
         {
@@ -769,12 +704,8 @@
       },
       "tags": [
         "Cube",
-        "Long",
         "Sync",
-        "Physical",
-        "Full-Effect",
-        "One-Mode",
-        "No-Clear",
+        "Effect",
         "NONG"
       ],
       "clears": []
@@ -818,13 +749,9 @@
       },
       "tags": [
         "Wave",
-        "1x",
-        "Short",
         "Memory",
-        "Spam",
-        "Full-Effect",
-        "One-Mode",
-        "No-Clear"
+        "High CPS",
+        "Effect"
       ],
       "clears": []
     },
@@ -862,11 +789,7 @@
       },
       "tags": [
         "Wave",
-        "Medium",
-        "Physical",
-        "High-CPS",
-        "Low-Effect",
-        "No-Clear"
+        "High CPS"
       ],
       "clears": []
     },
@@ -901,11 +824,6 @@
         "speedRatio": {}
       },
       "tags": [
-        "Any-Made",
-        "Short",
-        "Physical",
-        "None-Effect",
-        "No-Clear",
         "NONG"
       ],
       "clears": [],
@@ -947,12 +865,10 @@
         "speedRatio": {}
       },
       "tags": [
-        "Any-Mode",
-        "Long",
         "Sync",
         "Flow",
-        "High-CPS",
-        "Full-Effect",
+        "High CPS",
+        "Effect",
         "NONG"
       ],
       "clears": [
@@ -1011,13 +927,7 @@
           "4x": 4
         }
       },
-      "tags": [
-        "Any-Mode",
-        "Any-Speed",
-        "Medium",
-        "Physical",
-        "None-Effect"
-      ],
+      "tags": [],
       "clears": [
         {
           "player": "Choco",
@@ -1073,15 +983,9 @@
         }
       },
       "tags": [
-        "Any-Mode",
-        "3x",
-        "Long",
         "Sync",
-        "Physical",
         "Flow",
-        "High-CPS",
-        "Low-Effect",
-        "No-Clear"
+        "High CPS"
       ],
       "clears": [
         {
@@ -1127,11 +1031,8 @@
         "speedRatio": {}
       },
       "tags": [
-        "Any-Mode",
-        "Long",
         "Sync",
-        "Flow",
-        "No-Clear"
+        "Flow"
       ],
       "clears": [
         {
@@ -1190,13 +1091,7 @@
       },
       "tags": [
         "Cube",
-        "3x",
-        "XL",
-        "Gimmick",
-        "Physical",
-        "Luck",
-        "Low-Effect",
-        "No-Clear"
+        "Gimmicky"
       ],
       "clears": []
     },
@@ -1234,11 +1129,8 @@
       },
       "tags": [
         "Ship",
-        "Long",
         "Memory",
-        "Physical",
-        "Full-Effect",
-        "No-Clear"
+        "Effect"
       ],
       "clears": []
     },
@@ -1279,13 +1171,7 @@
         }
       },
       "tags": [
-        "Any-Mode",
-        "2x",
-        "XL",
-        "XXL",
-        "Physical",
-        "None-Effect",
-        "No-Clear"
+        "XXL"
       ],
       "clears": []
     },
@@ -1334,13 +1220,8 @@
       },
       "tags": [
         "Cube",
-        "Dual",
-        "2x",
-        "Long",
-        "Memory",
-        "Physical",
-        "None-Effect",
-        "No-Clear"
+        "Duals",
+        "Memory"
       ],
       "clears": []
     },
@@ -1380,14 +1261,7 @@
           "1x": 100
         }
       },
-      "tags": [
-        "Any-Mode",
-        "4x",
-        "Long",
-        "Physical",
-        "Low-Effect",
-        "No-Clear"
-      ],
+      "tags": [],
       "clears": []
     },
     {
@@ -1426,15 +1300,7 @@
           "1x": 100
         }
       },
-      "tags": [
-        "Any-Mode",
-        "1x",
-        "2x",
-        "Long",
-        "Physical",
-        "None-Effect",
-        "No-Clear"
-      ],
+      "tags": [],
       "clears": []
     },
     {
@@ -1474,13 +1340,7 @@
         }
       },
       "tags": [
-        "Any-Mode",
-        "Dual",
-        "1x",
-        "Long",
-        "Physical",
-        "None-Effect",
-        "No-Clear"
+        "Duals"
       ],
       "clears": []
     },
@@ -1526,11 +1386,7 @@
         }
       },
       "tags": [
-        "Any-Mode",
-        "1x",
-        "Medium",
-        "Memory",
-        "Low-Effect"
+        "Memory"
       ],
       "clears": [
         {
@@ -1589,12 +1445,7 @@
       },
       "tags": [
         "Ship",
-        "3x",
-        "Long",
-        "Fast",
-        "Physical",
-        "None-Effect",
-        "No-Clear"
+        "Fast Paced"
       ],
       "clears": []
     },
@@ -1635,15 +1486,8 @@
         }
       },
       "tags": [
-        "Any-Mode",
-        "Dual",
-        "Boss",
-        "1x",
-        "Long",
-        "Physical",
-        "Luck",
-        "Low-Effect",
-        "No-Clear"
+        "Duals",
+        "Bossfight"
       ],
       "clears": [
         {
@@ -1689,14 +1533,8 @@
         "speedRatio": {}
       },
       "tags": [
-        "Any-Mode",
-        "1x",
-        "3x",
-        "Long",
-        "Low-Effect",
-        "Fast",
-        "Learny",
-        "Physical"
+        "Fast Paced",
+        "Learny"
       ],
       "clears": []
     },
@@ -1733,11 +1571,8 @@
         "speedRatio": {}
       },
       "tags": [
-        "2x",
         "Sync",
         "Learny",
-        "Low-Effect",
-        "XL",
         "Ship"
       ],
       "clears": []
@@ -1776,12 +1611,9 @@
       },
       "tags": [
         "Wave",
-        "4x",
         "XXL",
-        "Gimmick",
-        "Physical",
-        "Slow",
-        "None-Effect"
+        "Gimmicky",
+        "Slow Paced"
       ],
       "clears": []
     },
@@ -1820,13 +1652,7 @@
       "tags": [
         "Cube",
         "Ship",
-        "Any-Mode",
-        "2x",
-        "1x",
-        "Medium",
-        "Learny",
-        "Physical",
-        "Low-Effect"
+        "Learny"
       ],
       "clears": [
         {
@@ -1880,12 +1706,8 @@
         "speedRatio": {}
       },
       "tags": [
-        "Any-Mode",
-        "1x",
-        "Medium",
         "Sync",
-        "Slow",
-        "None-Effect"
+        "Slow Paced"
       ],
       "clears": [
         {
@@ -1931,12 +1753,7 @@
         "speedRatio": {}
       },
       "tags": [
-        "Any-Mode",
-        "Fast",
-        "Physical",
-        "Medium",
-        "Any-Speed",
-        "None-Effect"
+        "Fast Paced"
       ],
       "clears": [
         {
@@ -1982,14 +1799,9 @@
         "speedRatio": {}
       },
       "tags": [
-        "Any-Mode",
-        "2x",
-        "3x",
-        "Fast",
+        "Fast Paced",
         "XXL",
-        "Physical",
-        "Sync",
-        "None-Effect"
+        "Sync"
       ],
       "clears": []
     },
@@ -2040,12 +1852,8 @@
         }
       },
       "tags": [
-        "Any-Mode",
-        "3x",
-        "Long",
         "Sync",
-        "Learny",
-        "None-Effect"
+        "Learny"
       ],
       "clears": [
         {
@@ -2101,12 +1909,8 @@
       "tags": [
         "Cube",
         "Ship",
-        "1x",
-        "Medium",
-        "Boss",
-        "Physical",
-        "Spam",
-        "None-Effect"
+        "Bossfight",
+        "High CPS"
       ],
       "clears": [
         {
@@ -2156,12 +1960,7 @@
         }
       },
       "tags": [
-        "Ship",
-        "1x",
-        "Long",
-        "Physical",
-        "None-Effect",
-        "No-Clear"
+        "Ship"
       ],
       "clears": [
         {
@@ -2207,13 +2006,10 @@
         "speedRatio": {}
       },
       "tags": [
-        "Any-Mode",
-        "3x",
-        "Fast",
+        "Fast Paced",
         "Sync",
         "Learny",
-        "Short",
-        "Full-Effect"
+        "Effect"
       ],
       "clears": [
         {

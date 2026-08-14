@@ -78,6 +78,34 @@ function parseRankChange(item) {
   };
 }
 
+function getLevelPeakRank(level, currentRankNum, historyData) {
+  const ranks = [];
+  if (typeof currentRankNum === 'number' && currentRankNum > 0) {
+    ranks.push(currentRankNum);
+  }
+
+  const levelTitle = String(level?.title || '').trim().toLowerCase();
+  const levelHistory = (historyData || []).filter(
+    h => h.title && String(h.title).trim().toLowerCase() === levelTitle
+  );
+
+  levelHistory.forEach(h => {
+    const detail = String(h.detail || '');
+    const mFromTo = detail.match(/(\d+)위에서\s*(\d+)위로/);
+    if (mFromTo) {
+      ranks.push(parseInt(mFromTo[1], 10));
+      ranks.push(parseInt(mFromTo[2], 10));
+    }
+    const mAdd = detail.match(/(\d+)위에/);
+    if (mAdd) {
+      ranks.push(parseInt(mAdd[1], 10));
+    }
+  });
+
+  const validRanks = ranks.filter(r => Number.isInteger(r) && r > 0);
+  return validRanks.length > 0 ? Math.min(...validRanks) : currentRankNum;
+}
+
 function getUserNickname() {
   return (localStorage.getItem('forumNickname') || '').trim();
 }
@@ -101,22 +129,215 @@ function isLevelClearedByUser(level) {
 
 const TAG_CATEGORIES = [
   {
-    name: '모드',
-    tags: ['Cube', 'Ship', 'Ball', 'UFO', 'Wave', 'Robot', 'Spider', 'Swing', 'Any-Mode']
+    name: '스타일',
+    tags: [
+      'Standard', 'Layout', 'Design', 'Glow', 'Effect', 'Modern',
+      'Simplism', 'Art', 'Realism', 'Pixel', 'Core', 'Atmospheric',
+      'Experimental', 'Eclectic', 'Circles', 'Sunset', 'Minigame'
+    ]
   },
   {
-    name: '길이',
-    tags: ['Short', 'Medium', 'Long', 'XL', 'XXL', 'XXXL']
+    name: '테마',
+    tags: [
+      '1.0', '1.9', 'Abstract', 'Acid', 'Anxious', 'Apocalyptic', 'Asian', 'Aquatic',
+      'Cartoon', 'Castle', 'Cave', 'City', 'Cold', 'Colorful', 'Dark', 'Desert',
+      'Dungeon', 'Factory', 'Fantasy', 'Food', 'Futuristic', 'Glitchy',
+      'Grayscale', 'Happy', 'Heaven', 'Hell', 'Horror', 'Hot', 'Mechanical',
+      'Monochromatic', 'Nature', 'Night', 'Party', 'Pixel Art', 'Retro', 'RobTop',
+      'Sad', 'Sky', 'Space', 'Temple', 'Western', 'Domestic', 'Love', 'Lyrics',
+      'Meta'
+    ]
   },
   {
-    name: '특징',
-    tags: ['Memory', 'Sync', 'Gimmick', 'Physical', 'High-CPS', 'Learny', 'Flow', 'Boss', 'Fast', 'Slow']
+    name: '메타',
+    tags: [
+      'Impossible', 'Challenge', 'Flashy', 'NONG', 'Checkpointless',
+      'Collab', '2P', 'XXL', 'Remake', 'Recreation', 'Animation',
+      'Story', 'Fixed Hitboxes', 'Multi Path', 'Humorous', 'Jumpscares',
+      '3D', 'Hard Coins', 'Sensitive'
+    ]
   },
   {
-    name: '기타',
-    tags: ['None-Effect', 'Low-Effect', 'Full-Effect', 'One-Mode', 'No-Clear', 'NONG']
+    name: '게임플레이',
+    tags: [
+      'Bossfight', 'Flow', 'Fast Paced', 'Slow Paced', 'Sync', 'Blinds', 'Memory',
+      'Puzzle', 'Duals', 'Maze', 'Timing', 'Tower', 'Sideways', 'Random',
+      'High CPS', 'Nerve Control', 'Learny', 'Chokepoints', 'Collectathon', 'Gimmicky',
+      'Gravity', 'Mirror', 'Needle', 'Timed', 'Momentum', 'Wall Jump', 'Cycle',
+      'Slope Boost', 'Slippery', 'Zippers', 'Wavedash', 'Force Blocks', 'Blinkers',
+      'Avoidance', 'Foddian', 'Autoscroller', 'Rooms', 'Double Jump', 'Speedrun',
+      'Classic', 'Metroidvania', 'Quests', 'Progressive', 'Jetpack', 'Ball', 'UFO',
+      'Wave', 'Spider', 'Swing', 'Robot', 'Cube', 'Ship'
+    ]
   }
 ];
+
+const TAG_COLOR_MAP = {
+  // 1. 스타일
+  'Standard': '#ff5252',
+  'Layout': '#0abde3',
+  'Design': '#fed330',
+  'Glow': '#e056fd',
+  'Effect': '#70a1ff',
+  'Modern': '#7efff5',
+  'Simplism': '#ffb8b8',
+  'Art': '#ff3f34',
+  'Realism': '#78e08f',
+  'Pixel': '#2ed573',
+  'Core': '#a4b0be',
+  'Atmospheric': '#747d8c',
+  'Experimental': '#00ff88',
+  'Eclectic': '#fffa65',
+  'Circles': '#ff4757',
+  'Sunset': '#ff793f',
+  'Minigame': '#ffd32a',
+
+  // 2. 테마
+  '1.0': '#00d2d3',
+  '1.9': '#a29bfe',
+  'Abstract': '#74b9ff',
+  'Acid': '#55efc4',
+  'Anxious': '#ff7675',
+  'Apocalyptic': '#e17055',
+  'Asian': '#fd79a8',
+  'Aquatic': '#00cec9',
+  'Cartoon': '#74b9ff',
+  'Castle': '#e58e26',
+  'Cave': '#b2bec3',
+  'City': '#dfe4ea',
+  'Cold': '#70a1ff',
+  'Colorful': '#ff9ff3',
+  'Dark': '#747d8c',
+  'Desert': '#f6e58d',
+  'Dungeon': '#e77f67',
+  'Factory': '#ced6e0',
+  'Fantasy': '#c7ecee',
+  'Food': '#ffa502',
+  'Futuristic': '#00d2d3',
+  'Glitchy': '#be2edd',
+  'Grayscale': '#a4b0be',
+  'Happy': '#fffa65',
+  'Heaven': '#ffffff',
+  'Hell': '#ff3838',
+  'Horror': '#eb4d4b',
+  'Hot': '#ff793f',
+  'Mechanical': '#a4b0be',
+  'Monochromatic': '#747d8c',
+  'Nature': '#2ed573',
+  'Night': '#70a1ff',
+  'Party': '#e056fd',
+  'Pixel Art': '#7bed9f',
+  'Retro': '#2ed573',
+  'RobTop': '#ffffff',
+  'Sad': '#70a1ff',
+  'Sky': '#c7ecee',
+  'Space': '#70a1ff',
+  'Temple': '#fed330',
+  'Western': '#e58e26',
+  'Domestic': '#e17055',
+  'Love': '#ff9ff3',
+  'Lyrics': '#c8d6e5',
+  'Meta': '#ff4d4d',
+
+  // 3. 메타
+  'Impossible': '#ff4d4d',
+  'Challenge': '#ced6e0',
+  'Flashy': '#fff200',
+  'NONG': '#54a0ff',
+  'Checkpointless': '#dfe4ea',
+  'Collab': '#2ed573',
+  '2P': '#ff9f43',
+  'XXL': '#a29bfe',
+  'Remake': '#f7d794',
+  'Recreation': '#e77f67',
+  'Animation': '#e056fd',
+  'Story': '#dfe6e9',
+  'Fixed Hitboxes': '#ffffff',
+  'Multi Path': '#ff9ff3',
+  'Humorous': '#fff200',
+  'Jumpscares': '#ff6b6b',
+  '3D': '#70a1ff',
+  'Hard Coins': '#2ed573',
+  'Sensitive': '#ff4757',
+
+  // 4. 게임플레이
+  'Bossfight': '#ffd32a',
+  'Flow': '#ff9ff3',
+  'Fast Paced': '#ff4757',
+  'Slow Paced': '#ff9f43',
+  'Sync': '#2ed573',
+  'Blinds': '#00d2d3',
+  'Memory': '#54a0ff',
+  'Puzzle': '#ff7675',
+  'Duals': '#ff9f43',
+  'Maze': '#dfe4ea',
+  'Timing': '#00d2d3',
+  'Tower': '#ced6e0',
+  'Sideways': '#7bed9f',
+  'Random': '#dfe6e9',
+  'High CPS': '#ff3838',
+  'Nerve Control': '#70a1ff',
+  'Learny': '#2ed573',
+  'Chokepoints': '#ff4757',
+  'Collectathon': '#fed330',
+  'Gimmicky': '#2bcbba',
+  'Gravity': '#70a1ff',
+  'Mirror': '#ff793f',
+  'Needle': '#ff6b81',
+  'Timed': '#a29bfe',
+  'Momentum': '#70a1ff',
+  'Wall Jump': '#7efff5',
+  'Cycle': '#ffffff',
+  'Slope Boost': '#70a1ff',
+  'Slippery': '#70a1ff',
+  'Zippers': '#a29bfe',
+  'Wavedash': '#78e08f',
+  'Force Blocks': '#55efc4',
+  'Blinkers': '#fffa65',
+  'Avoidance': '#dfe4ea',
+  'Foddian': '#2ed573',
+  'Autoscroller': '#70a1ff',
+  'Rooms': '#ff4757',
+  'Double Jump': '#7efff5',
+  'Speedrun': '#70a1ff',
+  'Classic': '#ff7675',
+  'Metroidvania': '#ced6e0',
+  'Quests': '#dfe4ea',
+  'Progressive': '#70a1ff',
+  'Jetpack': '#ff9ff3',
+  'Ball': '#ff4757',
+  'UFO': '#fed330',
+  'Wave': '#70a1ff',
+  'Spider': '#be2edd',
+  'Swing': '#ffd32a',
+  'Robot': '#ffffff',
+  'Cube': '#2ed573',
+  'Ship': '#ff9ff3',
+
+  // 기타/레거시 태그 호환
+  'Any-Mode': '#54a0ff',
+  'One-Mode': '#ff9f43',
+  'No-Clear': '#ff4757',
+  'Full-Effect': '#70a1ff',
+  'Low-Effect': '#a4b0be',
+  'None-Effect': '#747d8c',
+  'Short': '#55efc4',
+  'Medium': '#74b9ff',
+  'Long': '#fed330',
+  'XL': '#ff9f43',
+  'Physical': '#ff6b81',
+  'Fast': '#ff4757',
+  'Slow': '#ff9f43',
+  'Boss': '#ffd32a',
+  'Gimmick': '#2bcbba',
+  'Dual': '#ff9f43',
+  'Spam': '#ff3838'
+};
+
+function getTagColor(tag) {
+  if (!tag) return '#a4b0be';
+  return TAG_COLOR_MAP[tag] || TAG_COLOR_MAP[String(tag).trim()] || '#a4b0be';
+}
 
 function toggleTagState(tagName) {
   const currentState = tagFilterStates[tagName];
@@ -160,6 +381,7 @@ function renderTagChips() {
     const chip = document.createElement('button');
     chip.type = 'button';
     chip.dataset.tag = tag;
+    chip.style.setProperty('--tag-color', getTagColor(tag));
 
     if (state === 'include') {
       hasActiveFilter = true;
@@ -182,6 +404,7 @@ function renderTagChips() {
     if (cat.tags.length > 0) {
       const row = document.createElement('div');
       row.className = 'classic-tag-category-row';
+      row.dataset.category = cat.name;
 
       const catBadge = document.createElement('span');
       catBadge.className = 'classic-tag-cat-badge';
@@ -200,27 +423,6 @@ function renderTagChips() {
       wrapper.appendChild(row);
     }
   });
-
-  const leftoverTags = Array.from(datasetTags).filter(t => !processedTags.has(t)).sort((a, b) => a.localeCompare(b));
-  if (leftoverTags.length > 0) {
-    const row = document.createElement('div');
-    row.className = 'classic-tag-category-row';
-
-    const catBadge = document.createElement('span');
-    catBadge.className = 'classic-tag-cat-badge';
-    catBadge.textContent = '기타';
-    row.appendChild(catBadge);
-
-    const chipsGroup = document.createElement('div');
-    chipsGroup.className = 'classic-tag-chips-group';
-
-    leftoverTags.forEach(tag => {
-      chipsGroup.appendChild(createChip(tag));
-    });
-
-    row.appendChild(chipsGroup);
-    wrapper.appendChild(row);
-  }
 
   if (resetBtn) {
     resetBtn.style.display = hasActiveFilter ? 'inline-block' : 'none';
@@ -366,7 +568,8 @@ function renderLevelDetail(level, rank, detailContainer) {
       const state = tagFilterStates[tag];
       const stateClass = state === 'include' ? 'tag-include' : (state === 'exclude' ? 'tag-exclude' : '');
       const prefix = state === 'include' ? '+ ' : (state === 'exclude' ? '- ' : '#');
-      return `<span class="detail-tag-pill ${stateClass}" data-tag="${escapeHtml(tag)}" style="cursor:pointer;" title="클릭하여 태그 필터 토글">${prefix}${escapeHtml(tag)}</span>`;
+      const tagColor = getTagColor(tag);
+      return `<span class="detail-tag-pill ${stateClass}" data-tag="${escapeHtml(tag)}" style="--tag-color: ${tagColor}; cursor:pointer;" title="클릭하여 태그 필터 토글">${prefix}${escapeHtml(tag)}</span>`;
     }).join('')
     : '';
 
@@ -511,10 +714,18 @@ function renderLevelDetail(level, rank, detailContainer) {
 
     ${(() => {
       const levelHistory = cachedHistoryData.filter(h => h.title && String(h.title).trim().toLowerCase() === String(level.title).trim().toLowerCase());
+      const peakRank = getLevelPeakRank(level, rankNum, cachedHistoryData);
+      const peakRankBadgeHtml = peakRank ? `
+            <span class="detail-history-peak-badge peak-rank-${peakRank}">
+              <span class="peak-label">최고 순위</span>
+              <span class="peak-value">#${peakRank}</span>
+            </span>
+          ` : '';
       return `
         <div class="detail-history-box">
           <div class="detail-history-title">
-            <span>순위 변동 기록</span>
+            <span class="detail-history-title-text">순위 변동 기록</span>
+            ${peakRankBadgeHtml}
             <span class="detail-history-count">${levelHistory.length}건</span>
           </div>
           ${levelHistory.length > 0 ? `

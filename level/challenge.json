@@ -33,11 +33,7 @@
         "speedRatio": {}
       },
       "tags": [
-        "Ship",
-        "Short",
-        "Physical",
-        "Low-Effect",
-        "One-Mode"
+        "Ship"
       ],
       "clears": []
     },
@@ -78,12 +74,7 @@
         }
       },
       "tags": [
-        "Wave",
-        "1x",
-        "Short",
-        "Physical",
-        "Low-Effect",
-        "No-Clear"
+        "Wave"
       ],
       "clears": []
     },
@@ -121,9 +112,7 @@
       },
       "tags": [
         "Wave",
-        "Short",
-        "Spam",
-        "None-Effect"
+        "High CPS"
       ],
       "clears": []
     },
@@ -164,12 +153,7 @@
         }
       },
       "tags": [
-        "Wave",
-        "1x",
-        "Short",
-        "Physical",
-        "Low-Effect",
-        "No-Clear"
+        "Wave"
       ],
       "clears": []
     },
@@ -210,12 +194,7 @@
         }
       },
       "tags": [
-        "Wave",
-        "3x",
-        "Tiny",
-        "Physical",
-        "Low-Effect",
-        "No-Clear"
+        "Wave"
       ],
       "clears": []
     },
@@ -245,11 +224,7 @@
         "total": 0
       },
       "tags": [
-        "Ball",
-        "Short",
-        "Physical",
-        "Low-Effect",
-        "One-Mode"
+        "Ball"
       ],
       "clears": []
     },
@@ -289,11 +264,7 @@
       },
       "tags": [
         "Wave",
-        "1x",
-        "Tiny",
-        "Spam",
-        "None-Effect",
-        "No-Clear"
+        "High CPS"
       ],
       "clears": [
         {
@@ -339,12 +310,7 @@
         }
       },
       "tags": [
-        "Wave",
-        "2x",
-        "Tiny",
-        "Physical",
-        "None-Effect",
-        "No-Clear"
+        "Wave"
       ],
       "clears": []
     },
@@ -384,14 +350,8 @@
         }
       },
       "tags": [
-        "Any-Mode",
-        "Duel",
-        "3x",
-        "Tiny",
-        "Physical",
-        "Sync",
-        "None-Effect",
-        "No-Clear"
+        "Duals",
+        "Sync"
       ],
       "clears": []
     },
@@ -433,14 +393,7 @@
       },
       "tags": [
         "Cube",
-        "1x",
-        "4x",
-        "Tiny",
-        "Physical",
-        "Sync",
-        "Low-Effect",
-        "No-Clear",
-        "One-Mode"
+        "Sync"
       ],
       "clears": []
     },
@@ -479,14 +432,7 @@
           "240": 0
         }
       },
-      "tags": [
-        "Any-Mode",
-        "1x",
-        "Short",
-        "Physical",
-        "None-Effect",
-        "No-Clear"
-      ],
+      "tags": [],
       "clears": []
     },
     {
@@ -525,13 +471,7 @@
         }
       },
       "tags": [
-        "Cube",
-        "1x",
-        "Tiny",
-        "Physical",
-        "None-Effect",
-        "No-Clear",
-        "One-Mode"
+        "Cube"
       ],
       "clears": []
     },
@@ -571,12 +511,7 @@
         }
       },
       "tags": [
-        "Wave",
-        "1x",
-        "Tiny",
-        "Physical",
-        "None-Effect",
-        "No-Clear"
+        "Wave"
       ],
       "clears": []
     },
@@ -617,12 +552,7 @@
       },
       "tags": [
         "UFO",
-        "1x",
-        "Short",
-        "Spam",
-        "None-Effect",
-        "No-Clear",
-        "One-Mode"
+        "High CPS"
       ],
       "clears": []
     },
@@ -662,12 +592,7 @@
         }
       },
       "tags": [
-        "Cube",
-        "1x",
-        "Short",
-        "Physical",
-        "None-Effect",
-        "No-Clear"
+        "Cube"
       ],
       "clears": []
     }
