@@ -22,8 +22,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Helper: YouTube URL/ID utilities
   function getYoutubeId(videoUrl) {
     if (!videoUrl) return '';
-    const match = String(videoUrl).match(/(?:embed\/|v=|youtu\.be\/)([a-zA-Z0-9_-]+)/);
-    return match ? match[1] : '';
+    const str = String(videoUrl).trim();
+    if (/^[\w-]{11}$/.test(str)) return str;
+    const match = str.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/)|embed\/|v=)([\w-]{11})/);
+    if (match) return match[1];
+    const loose = str.match(/([a-zA-Z0-9_-]{11})/);
+    return loose ? loose[1] : '';
   }
 
   function getYoutubeThumbnail(videoUrl) {

@@ -350,6 +350,14 @@ document.addEventListener('DOMContentLoaded', () => {
     devPackClearOpenBtn.addEventListener('click', () => {
       populatePackSelects();
       showDevSubPanel(devPackClearArea);
+      const playerInput = document.getElementById('dev-pack-clear-player');
+      const dateInput = document.getElementById('dev-pack-clear-date');
+      if (playerInput) {
+        playerInput.value = localStorage.getItem('forumNickname') || '';
+      }
+      if (dateInput && !dateInput.value) {
+        dateInput.value = new Date().toISOString().split('T')[0];
+      }
     });
   }
 
@@ -393,11 +401,42 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('dev-pack-edit-title').value = targetPack.title || '';
         document.getElementById('dev-pack-edit-tier').value = targetPack.tier || 'Tier 1';
         document.getElementById('dev-pack-edit-desc').value = targetPack.description || '';
-        const levelIds = (targetPack.levels || []).map(l => l.title || l.id || l).join(', ');
-        document.getElementById('dev-pack-edit-levels').value = levelIds;
+        const levelNames = (targetPack.levels || []).map(l => {
+          if (typeof l === 'string') return l.trim();
+          if (l && typeof l === 'object') {
+            const name = (l.name || l.title || '').trim();
+            const author = (l.author || l.creator || '').trim();
+            return author ? `${name} (by ${author})` : name;
+          }
+          return '';
+        }).filter(Boolean).join('\n');
+        document.getElementById('dev-pack-edit-levels').value = levelNames;
       } else if (devPackEditFields) {
         devPackEditFields.style.display = 'none';
       }
+    });
+  }
+
+  function parsePackLevelInput(rawStr) {
+    if (!rawStr) return [];
+    const parts = rawStr.split(/[\n,]+/).map(s => s.trim()).filter(Boolean);
+    return parts.map(item => {
+      // 1. Title (by Author) or Title (Author)
+      const parenMatch = item.match(/^(.*?)\s*\((?:by\s*)?(.*?)\)$/i);
+      if (parenMatch) {
+        return { name: parenMatch[1].trim(), author: parenMatch[2].trim() };
+      }
+      // 2. Title - Author or Title | Author
+      const dashMatch = item.match(/^(.*?)\s*[-|/]\s*(.*?)$/);
+      if (dashMatch) {
+        return { name: dashMatch[1].trim(), author: dashMatch[2].trim() };
+      }
+      // 3. Title by Author
+      const byMatch = item.match(/^(.*?)\s+by\s+(.*?)$/i);
+      if (byMatch) {
+        return { name: byMatch[1].trim(), author: byMatch[2].trim() };
+      }
+      return { name: item, author: '' };
     });
   }
 
@@ -415,13 +454,12 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      const levelNames = levelsRaw.split(',').map(s => s.trim()).filter(Boolean);
       const newPack = {
         id: `custom_pack_${Date.now()}`,
         title: title,
         tier: tier,
         description: desc,
-        levels: levelNames.map((name, i) => ({ id: i + 1, title: name })),
+        levels: parsePackLevelInput(levelsRaw),
         clears: []
       };
 
@@ -460,8 +498,7 @@ document.addEventListener('DOMContentLoaded', () => {
       targetPack.title = title;
       targetPack.tier = tier;
       targetPack.description = desc;
-      const levelNames = levelsRaw.split(',').map(s => s.trim()).filter(Boolean);
-      targetPack.levels = levelNames.map((name, i) => ({ id: i + 1, title: name }));
+      targetPack.levels = parsePackLevelInput(levelsRaw);
 
       localStorage.setItem('dev_custom_mappacks', JSON.stringify(allPacks));
       alert(`'${title}' 맵 팩 정보가 수정되었습니다.`);
@@ -530,13 +567,113 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  if (devLogClearBtn) {
-    devLogClearBtn.addEventListener('click', () => {
-      if (confirm('커스텀 맵 팩 변경 데이터를 초기화하시겠습니까?')) {
+  // 4) GitHub 설정 화면 연동
+  const devTokenInput = document.getElementById('dev-token-input');
+  const devOwnerInput = document.getElementById('dev-owner-input');
+  const devRepoInput = document.getElementById('dev-repo-input');
+  const devSettingsSaveBtn = document.getElementById('dev-settings-save-btn');
+  const devSettingsTestBtn = document.getElementById('dev-settings-test-btn');
+
+  if (devSettingsOpenBtn) {
+    devSettingsOpenBtn.addEventListener('click', () => {
+      showDevSubPanel(devSettingsArea);
+      if (devTokenInput) devTokenInput.value = localStorage.getItem('dev_gh_token') || '';
+      if (devOwnerInput) devOwnerInput.value = localStorage.getItem('dev_gh_owner') || '';
+      if (devRepoInput) devRepoInput.value = localStorage.getItem('dev_gh_repo') || '';
+    });
+  }
+
+  if (devSettingsSaveBtn) {
+    devSettingsSaveBtn.addEventListener('click', () => {
+      const token = (devTokenInput?.value || '').trim();
+      const owner = (devOwnerInput?.value || '').trim();
+      const repo = (devRepoInput?.value || '').trim();
+
+      localStorage.setItem('dev_gh_token', token);
+      localStorage.setItem('dev_gh_owner', owner);
+      localStorage.setItem('dev_gh_repo', repo);
+
+      alert('GitHub 설정이 저장되었습니다.');
+      hideAllDevSubPanels();
+    });
+  }
+
+  if (devSettingsTestBtn) {
+    devSettingsTestBtn.addEventListener('click', async () => {
+      const token = (devTokenInput?.value || '').trim();
+      const owner = (devOwnerInput?.value || '').trim();
+      const repo = (devRepoInput?.value || '').trim();
+
+      if (!owner || !repo) {
+        alert('Owner, Repository 정보를 모두 입력해주세요.');
+        return;
+      }
+
+      const testUrl = `https://api.github.com/repos/${owner}/${repo}/contents/mappack.json`;
+      const headers = {};
+      if (token) headers.Authorization = `token ${token}`;
+
+      try {
+        const response = await fetch(testUrl, { headers });
+        if (response.ok) {
+          alert('GitHub 연결 테스트 성공!');
+        } else {
+          alert(`연결 테스트 실패: ${response.status}`);
+        }
+      } catch (e) {
+        alert('연결 테스트 중 네트워크 오류가 발생했습니다.');
+      }
+    });
+  }
+
+  const devGithubSyncBtn = document.getElementById('dev-github-sync-btn');
+  if (devGithubSyncBtn) {
+    devGithubSyncBtn.addEventListener('click', async () => {
+      const config = window.GitHubSyncEngine.getConfig();
+      if (!config.owner || !config.repo || !config.token) {
+        alert('GitHub API 설정이 누락되었습니다. 먼저 [GitHub 설정]에서 Token, Owner, Repo를 입력하고 저장해주세요.');
+        if (devSettingsOpenBtn) devSettingsOpenBtn.click();
+        return;
+      }
+
+      if (!confirm(`현재 모든 맵 팩 데이터를 GitHub (${config.owner}/${config.repo}의 mappack.json)에 자동으로 커밋 & 푸시하시겠습니까?`)) {
+        return;
+      }
+
+      devGithubSyncBtn.disabled = true;
+      const origText = devGithubSyncBtn.textContent;
+      devGithubSyncBtn.textContent = '동기화 중... ⏳';
+
+      try {
+        const result = await window.GitHubSyncEngine.commitAndPush(
+          'mappack.json',
+          allPacks,
+          'Update mappacks data via DevTools'
+        );
+
         localStorage.removeItem('dev_custom_mappacks');
-        alert('커스텀 맵 팩 데이터가 초기화되었습니다.');
+        const shortCommit = result.commitSha ? result.commitSha.substring(0, 7) : 'Success';
+        alert(`🎉 맵 팩 데이터가 GitHub에 성공적으로 커밋 & 푸시되었습니다!\n(Commit: ${shortCommit})`);
         hideAllDevSubPanels();
-        fetchMapPacks();
+        await fetchMapPacks();
+      } catch (err) {
+        alert(`동기화 중 오류가 발생했습니다:\n\n${err.message}`);
+      } finally {
+        devGithubSyncBtn.disabled = false;
+        devGithubSyncBtn.textContent = origText;
+      }
+    });
+  }
+
+  const devResetDataBtn = document.getElementById('dev-reset-data-btn');
+
+  if (devResetDataBtn) {
+    devResetDataBtn.addEventListener('click', async () => {
+      if (confirm('로컬에 저장된 맵 팩 변경사항을 모두 초기화하고 원본 mappack.json으로 되돌리시겠습니까?')) {
+        localStorage.removeItem('dev_custom_mappacks');
+        await fetchMapPacks();
+        alert('맵 팩 데이터가 원본 상태로 초기화되었습니다.');
+        hideAllDevSubPanels();
       }
     });
   }

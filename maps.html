@@ -172,11 +172,14 @@
             <button id="dev-pack-clear-open-btn" class="modal-btn dev-action-btn">
               클리어 기록 갱신
             </button>
+            <button id="dev-github-sync-btn" class="modal-btn dev-action-btn dev-btn-sync">
+              GitHub 동기화
+            </button>
             <button id="dev-settings-open-btn" class="modal-btn dev-action-btn">
               GitHub 설정
             </button>
-            <button id="dev-log-clear-btn" class="modal-btn dev-action-btn">
-              로그 초기화
+            <button id="dev-reset-data-btn" class="modal-btn dev-action-btn dev-btn-danger">
+              데이터 초기화
             </button>
           </div>
         </div>
@@ -195,7 +198,8 @@
             <option value="Special">Special Pack</option>
           </select>
           <textarea id="dev-pack-add-desc" placeholder="맵 팩 설명" class="dev-input dev-textarea"></textarea>
-          <input type="text" id="dev-pack-add-levels" placeholder="포함 레벨 ID/제목 (쉼표 구분: 1, 2, 3)" class="dev-input" />
+          <p class="dev-hint-text">💡 <strong>포함 레벨 입력:</strong> <code>레벨제목 (by 제작자)</code> 또는 <code>레벨제목</code> (쉼표나 줄바꿈으로 구분)</p>
+          <textarea id="dev-pack-add-levels" placeholder="포함할 레벨 목록을 입력하세요&#10;예시:&#10;LT EP7 (by Light)&#10;LT EP2 (by Light)&#10;LT EP6 (by Light)" class="dev-input dev-textarea dev-levels-textarea"></textarea>
           <div class="dev-button-grid">
             <button id="dev-pack-add-submit-btn" class="modal-btn dev-action-btn dev-btn-primary">맵 팩 저장</button>
             <button id="dev-pack-add-back-btn" class="modal-btn dev-action-btn">뒤로</button>
@@ -220,7 +224,8 @@
               <option value="Special">Special Pack</option>
             </select>
             <textarea id="dev-pack-edit-desc" placeholder="맵 팩 설명" class="dev-input dev-textarea"></textarea>
-            <input type="text" id="dev-pack-edit-levels" placeholder="포함 레벨 ID/제목 (쉼표 구분)" class="dev-input" />
+            <p class="dev-hint-text">💡 <strong>포함 레벨 입력:</strong> <code>레벨제목 (by 제작자)</code> 또는 <code>레벨제목</code> (쉼표나 줄바꿈으로 구분)</p>
+            <textarea id="dev-pack-edit-levels" placeholder="포함할 레벨 목록 (예: LT EP7 (by Light), LT EP2 (by Light))" class="dev-input dev-textarea dev-levels-textarea"></textarea>
             <div class="dev-button-grid">
               <button id="dev-pack-edit-submit-btn" class="modal-btn dev-action-btn dev-btn-primary">수정 저장</button>
               <button id="dev-pack-edit-delete-btn" class="modal-btn dev-action-btn dev-btn-danger">맵 팩 삭제</button>
@@ -248,10 +253,12 @@
         <!-- 4. GitHub 설정 서브 패널 -->
         <div id="dev-settings-area" style="display: none" class="dev-sub-panel">
           <p class="dev-desc"><strong>GitHub API 설정</strong></p>
-          <input type="text" id="dev-gh-repo" placeholder="GitHub Repository (user/repo)" class="dev-input" />
-          <input type="password" id="dev-gh-token" placeholder="GitHub Personal Access Token" class="dev-input" />
+          <input type="password" id="dev-token-input" autocomplete="new-password" placeholder="GitHub Personal Access Token" class="dev-input" />
+          <input type="text" id="dev-owner-input" placeholder="GitHub Owner (ID)" class="dev-input" />
+          <input type="text" id="dev-repo-input" placeholder="Repository 이름 (ex: chochin-forum)" class="dev-input" />
           <div class="dev-button-grid">
-            <button id="dev-gh-save-btn" class="modal-btn dev-action-btn dev-btn-primary">설정 저장</button>
+            <button id="dev-settings-save-btn" class="modal-btn dev-action-btn dev-btn-primary">설정 저장</button>
+            <button id="dev-settings-test-btn" class="modal-btn dev-action-btn">연결 테스트</button>
             <button id="dev-settings-back-btn" class="modal-btn dev-action-btn">뒤로</button>
           </div>
         </div>

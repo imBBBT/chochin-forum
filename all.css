@@ -630,6 +630,20 @@ body.menu-open::after {
   background: rgba(255, 71, 87, 0.45) !important;
 }
 
+.dev-btn-sync {
+  background: rgba(30, 144, 255, 0.25) !important;
+  border: 1px solid #1e90ff !important;
+  color: #70a1ff !important;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.dev-btn-sync:hover {
+  background: rgba(30, 144, 255, 0.5) !important;
+  box-shadow: 0 0 12px rgba(112, 161, 255, 0.5);
+  color: #fff !important;
+}
+
 .dev-textarea {
   height: 70px !important;
   resize: vertical;
@@ -645,6 +659,30 @@ body.menu-open::after {
   overflow-wrap: anywhere !important;
   line-height: 1.45;
   box-sizing: border-box;
+}
+
+.dev-levels-textarea {
+  height: 80px !important;
+  min-height: 60px;
+  resize: vertical;
+  line-height: 1.45;
+  white-space: pre-wrap !important;
+}
+
+.dev-hint-text {
+  font-size: 0.8rem;
+  color: #ffe600;
+  margin: -4px 0 6px 0;
+  text-align: left;
+  line-height: 1.4;
+  font-family: 'Paperozi', sans-serif;
+}
+
+.dev-hint-text code {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 1px 5px;
+  border-radius: 4px;
+  color: #fff;
 }
 
 .news-display-area {

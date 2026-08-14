@@ -150,22 +150,17 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(getJsonUrl('platformer.json')).then(r => r.ok ? r.json() : { levels: [] }).catch(() => ({ levels: [] }))
       ]);
 
-      const getLevels = (data, key) => {
-        let levels = data.levels || [];
-        const devData = localStorage.getItem(key);
-        if (devData) {
-          try {
-            const parsed = JSON.parse(devData);
-            if (Array.isArray(parsed) && parsed.length > 0) levels = parsed;
-          } catch(e) {}
+      const getLevels = (data, mode) => {
+        if (window.applyDevCustomData) {
+          return window.applyDevCustomData(data.levels ?? [], data.history ?? [], mode).levels;
         }
-        return levels;
+        return data.levels || [];
       };
 
       return {
-        classicLevels: getLevels(classicRes, 'dev_custom_levels_classic'),
-        challengeLevels: getLevels(challengeRes, 'dev_custom_levels_challenge'),
-        platformerLevels: getLevels(platformerRes, 'dev_custom_levels_platformer')
+        classicLevels: getLevels(classicRes, 'classic'),
+        challengeLevels: getLevels(challengeRes, 'challenge'),
+        platformerLevels: getLevels(platformerRes, 'platformer')
       };
     } catch (err) {
       console.error("Points calculation fetch error:", err);
@@ -508,6 +503,184 @@ window.formatLevelLength = function(rawLength) {
   return `${timeFormatted} (${category})`;
 };
 
+window.GitHubSyncEngine = {
+  getConfig() {
+    return {
+      token: (localStorage.getItem('dev_gh_token') || '').trim(),
+      owner: (localStorage.getItem('dev_gh_owner') || '').trim(),
+      repo: (localStorage.getItem('dev_gh_repo') || '').trim()
+    };
+  },
+
+  validateData(filePath, data) {
+    const errors = [];
+    const warnings = [];
+
+    if (data === undefined || data === null) {
+      errors.push('동기화할 데이터가 비어있습니다 (null/undefined).');
+      return { isValid: false, errors, warnings };
+    }
+
+    if (filePath.endsWith('news.json')) {
+      if (!Array.isArray(data)) {
+        errors.push('뉴스 데이터는 배열(Array) 형식이어야 합니다.');
+      } else {
+        data.forEach((item, i) => {
+          if (!item.content || !String(item.content).trim()) {
+            errors.push(`[뉴스 #${i + 1}] 내용이 비어있습니다.`);
+          }
+          if (item.date && !/^\d{4}-\d{2}-\d{2}$/.test(item.date)) {
+            warnings.push(`[뉴스 #${i + 1}] 날짜 포맷(YYYY-MM-DD)이 올바르지 않습니다: "${item.date}"`);
+          }
+        });
+      }
+    } else if (filePath.endsWith('mappack.json')) {
+      if (!Array.isArray(data)) {
+        errors.push('맵 팩 데이터는 배열(Array) 형식이어야 합니다.');
+      } else {
+        const idSet = new Set();
+        data.forEach((pack, i) => {
+          if (!pack.title || !String(pack.title).trim()) {
+            errors.push(`[맵 팩 #${i + 1}] 맵 팩 제목이 누락되었습니다.`);
+          }
+          if (pack.id) {
+            if (idSet.has(pack.id)) {
+              warnings.push(`[맵 팩 #${i + 1} "${pack.title}"] 중복된 ID(${pack.id})가 있습니다.`);
+            }
+            idSet.add(pack.id);
+          }
+          if (!Array.isArray(pack.levels) || pack.levels.length === 0) {
+            warnings.push(`[맵 팩 #${i + 1} "${pack.title || ''}"] 포함된 레벨 목록이 비어있습니다.`);
+          }
+        });
+      }
+    } else if (filePath.endsWith('hardest.json')) {
+      if (!Array.isArray(data)) {
+        errors.push('하디스트 데이터는 배열(Array) 형식이어야 합니다.');
+      } else {
+        data.forEach((user, i) => {
+          if (!user.name || !String(user.name).trim()) {
+            errors.push(`[하디스트 #${i + 1}] 유저 닉네임이 누락되었습니다.`);
+          }
+          if (!user.hardest || !String(user.hardest).trim()) {
+            warnings.push(`[하디스트 #${i + 1} "${user.name || ''}"] 하디스트 레벨 정보가 비어있습니다.`);
+          }
+        });
+      }
+    } else if (filePath.includes('level/') || filePath.endsWith('classic.json') || filePath.endsWith('challenge.json') || filePath.endsWith('platformer.json')) {
+      if (!data.levels || !Array.isArray(data.levels)) {
+        errors.push('levels 배열이 존재하지 않거나 유효하지 않습니다.');
+      } else {
+        const idSet = new Set();
+        data.levels.forEach((lvl, i) => {
+          const rank = i + 1;
+          if (!lvl.title || !String(lvl.title).trim()) {
+            errors.push(`[레벨 #${rank}] 레벨 제목이 누락되었습니다.`);
+          }
+          if (!lvl.creator || !String(lvl.creator).trim()) {
+            warnings.push(`[레벨 #${rank} "${lvl.title || ''}"] 제작자 정보가 비어있습니다.`);
+          }
+          if (lvl.id != null) {
+            if (idSet.has(lvl.id)) {
+              warnings.push(`[레벨 #${rank} "${lvl.title || ''}"] 중복된 ID(${lvl.id})가 발견되었습니다.`);
+            }
+            idSet.add(lvl.id);
+          }
+          if (lvl.video) {
+            const ytId = window.extractYoutubeId ? window.extractYoutubeId(lvl.video) : '';
+            if (!ytId) {
+              warnings.push(`[레벨 #${rank} "${lvl.title || ''}"] 유튜브 영상 주소/ID 추출 실패: ${lvl.video}`);
+            }
+          }
+        });
+      }
+    }
+
+    return {
+      isValid: errors.length === 0,
+      errors,
+      warnings
+    };
+  },
+
+  async commitAndPush(filePath, data, commitMessage) {
+    const config = this.getConfig();
+    if (!config.owner || !config.repo) {
+      throw new Error('GitHub Owner(ID) 또는 Repository 설정이 누락되었습니다. GitHub 설정을 먼저 완료해주세요.');
+    }
+    if (!config.token) {
+      throw new Error('GitHub Personal Access Token이 입력되지 않았습니다. GitHub 설정을 먼저 완료해주세요.');
+    }
+
+    const validation = this.validateData(filePath, data);
+    if (!validation.isValid) {
+      const errorMsg = '⚠️ 데이터 오류가 발견되어 푸시가 중단되었습니다:\n\n' + validation.errors.map(e => `• ${e}`).join('\n');
+      throw new Error(errorMsg);
+    }
+
+    if (validation.warnings.length > 0) {
+      const warnMsg = '⚠️ 다음 주의 사항이 발견되었습니다:\n\n' + validation.warnings.slice(0, 5).map(w => `• ${w}`).join('\n') + (validation.warnings.length > 5 ? `\n... 외 ${validation.warnings.length - 5}건` : '') + '\n\n그래도 계속 진행하시겠습니까?';
+      if (!confirm(warnMsg)) {
+        throw new Error('사용자에 의해 동기화가 취소되었습니다.');
+      }
+    }
+
+    const cleanPath = filePath.replace(/^\/+/, '');
+    const apiUrl = `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${cleanPath}`;
+    const headers = {
+      Authorization: `token ${config.token}`,
+      'Accept': 'application/vnd.github.v3+json'
+    };
+
+    let sha = null;
+    try {
+      const getRes = await fetch(apiUrl, { headers });
+      if (getRes.ok) {
+        const fileInfo = await getRes.json();
+        sha = fileInfo.sha;
+      } else if (getRes.status === 401 || getRes.status === 403) {
+        throw new Error(`GitHub 인증 오류 (HTTP ${getRes.status}): Token의 권한(repo scope) 및 만료 여부를 확인하세요.`);
+      }
+    } catch (e) {
+      if (e.message && e.message.includes('인증 오류')) throw e;
+      console.warn('Existing SHA lookup non-fatal:', e);
+    }
+
+    const jsonStr = typeof data === 'string' ? data : JSON.stringify(data, null, 2);
+    const base64Content = btoa(unescape(encodeURIComponent(jsonStr)));
+
+    const putBody = {
+      message: commitMessage || `Update ${cleanPath} via Chochin Forum DevTools`,
+      content: base64Content
+    };
+    if (sha) {
+      putBody.sha = sha;
+    }
+
+    const putRes = await fetch(apiUrl, {
+      method: 'PUT',
+      headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(putBody)
+    });
+
+    if (!putRes.ok) {
+      const errBody = await putRes.json().catch(() => ({}));
+      const errMsg = errBody.message || `HTTP ${putRes.status}`;
+      throw new Error(`GitHub 커밋 & 푸시 실패 (${putRes.status}): ${errMsg}`);
+    }
+
+    const result = await putRes.json();
+    return {
+      success: true,
+      commitSha: result.commit ? result.commit.sha : '',
+      filePath: cleanPath
+    };
+  }
+};
+
 window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
   try {
     const customLevels = JSON.parse(localStorage.getItem(`dev_custom_levels_${modeKey}`) || '[]');
@@ -524,7 +697,11 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
           levels.splice(idx, 1);
         } else {
           const [removed] = levels.splice(idx, 1);
-          const updated = { ...removed, ...cust };
+          // Preserve existing clears from original level if cust.clears is empty or missing!
+          const mergedClears = (Array.isArray(removed.clears) && removed.clears.length > 0)
+            ? removed.clears
+            : (Array.isArray(cust.clears) ? cust.clears : []);
+          const updated = { ...removed, ...cust, clears: mergedClears };
           const targetRank = (cust.targetRank && cust.targetRank > 0 && cust.targetRank <= levels.length + 1)
             ? cust.targetRank - 1
             : idx;
@@ -540,16 +717,42 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
 
     levels.forEach(level => {
       const key = String(level.id);
-      const extraClears = customClears[key] || customClears[level.title];
-      if (extraClears && Array.isArray(extraClears)) {
-        const clearMap = new Map();
-        (level.clears || []).forEach(c => clearMap.set(String(c.player || c.name || '').toLowerCase(), c));
-        extraClears.forEach(c => clearMap.set(String(c.player || c.name || '').toLowerCase(), c));
-        level.clears = Array.from(clearMap.values());
+      const titleKey = level.title ? String(level.title).trim() : '';
+      const extraClears = customClears[key] || (titleKey && customClears[titleKey]) || (titleKey && customClears[titleKey.toLowerCase()]) || [];
+
+      const clearMap = new Map();
+      (level.clears || []).forEach(c => {
+        const pName = String(c.player || c.name || c.user || '').trim();
+        if (pName) {
+          clearMap.set(pName.toLowerCase(), {
+            player: pName,
+            name: pName,
+            percent: c.percent != null ? c.percent : 100,
+            date: c.date || '',
+            link: c.link || c.video || '',
+            video: c.link || c.video || ''
+          });
+        }
+      });
+
+      if (Array.isArray(extraClears)) {
+        extraClears.forEach(c => {
+          const pName = String(c.player || c.name || c.user || '').trim();
+          if (pName) {
+            clearMap.set(pName.toLowerCase(), {
+              player: pName,
+              name: pName,
+              percent: c.percent != null ? c.percent : 100,
+              date: c.date || '',
+              link: c.link || c.video || '',
+              video: c.link || c.video || ''
+            });
+          }
+        });
       }
-      if (level.clears && Array.isArray(level.clears)) {
-        level.clears.sort((a, b) => (b.percent || 100) - (a.percent || 100));
-      }
+
+      level.clears = Array.from(clearMap.values());
+      level.clears.sort((a, b) => (b.percent || 100) - (a.percent || 100));
     });
 
     history.sort((a, b) => (b.id || 0) - (a.id || 0));
@@ -629,7 +832,88 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
     });
   }
 
-  // 로그 초기화 버튼
+  // 데이터 초기화 버튼
+  const devResetDataBtn = document.getElementById('dev-reset-data-btn');
+  if (devResetDataBtn) {
+    devResetDataBtn.addEventListener('click', () => {
+      const mode = getCurrentPageMode();
+      const modeName = mode === 'classic' ? 'Classic' : (mode === 'challenge' ? 'Challenge' : 'Platformer');
+      if (confirm(`현재 ${modeName} 모드의 로컬 테스트 변경사항(레벨 신규/수정/삭제 및 클리어 기록)을 모두 초기화하고 원본 데이터로 되돌리시겠습니까?`)) {
+        localStorage.removeItem(`dev_custom_levels_${mode}`);
+        localStorage.removeItem(`dev_custom_history_${mode}`);
+        localStorage.removeItem(`dev_custom_clears_${mode}`);
+        logDevConsole(`[초기화] ${modeName} 모드의 테스트 데이터가 초기화되었습니다.`, '#ffe600');
+        alert(`${modeName} 모드의 데이터가 원본 상태로 초기화되었습니다.`);
+        window.dispatchEvent(new CustomEvent('devDataUpdated', { detail: { mode } }));
+        showMainControls();
+        setTimeout(() => {
+          window.location.reload();
+        }, 300);
+      }
+    });
+  }
+
+  // GitHub 자동 커밋 & 푸시 동기화 버튼
+  const devGithubSyncBtn = document.getElementById('dev-github-sync-btn');
+  if (devGithubSyncBtn) {
+    devGithubSyncBtn.addEventListener('click', async () => {
+      const mode = getCurrentPageMode();
+      const modeName = mode === 'classic' ? 'Classic' : (mode === 'challenge' ? 'Challenge' : 'Platformer');
+      const targetFilePath = `level/${mode}.json`;
+
+      const config = window.GitHubSyncEngine.getConfig();
+      if (!config.owner || !config.repo || !config.token) {
+        alert('GitHub API 설정이 누락되었습니다. 먼저 [GitHub 설정]에서 Token, Owner, Repo를 입력하고 저장해주세요.');
+        if (devSettingsOpenBtn) devSettingsOpenBtn.click();
+        return;
+      }
+
+      if (!confirm(`현재 ${modeName} 모드의 모든 레벨 및 클리어 데이터를 GitHub (${config.owner}/${config.repo}의 ${targetFilePath})에 자동으로 커밋 & 푸시하시겠습니까?`)) {
+        return;
+      }
+
+      devGithubSyncBtn.disabled = true;
+      const origText = devGithubSyncBtn.textContent;
+      devGithubSyncBtn.textContent = '동기화 중... ⏳';
+
+      try {
+        logDevConsole(`[GitHub] ${targetFilePath} 데이터 검증 및 푸시 시작...`, '#70a1ff');
+
+        const res = await fetch(`${mode}.json`);
+        const json = res.ok ? await res.json() : { levels: [], history: [] };
+        const merged = window.applyDevCustomData(json.levels ?? [], json.history ?? [], mode);
+
+        const dataToPush = {
+          levels: merged.levels,
+          history: merged.history
+        };
+
+        const result = await window.GitHubSyncEngine.commitAndPush(
+          targetFilePath,
+          dataToPush,
+          `Update ${modeName} levels & clears data via DevTools`
+        );
+
+        localStorage.removeItem(`dev_custom_levels_${mode}`);
+        localStorage.removeItem(`dev_custom_history_${mode}`);
+        localStorage.removeItem(`dev_custom_clears_${mode}`);
+
+        const shortCommit = result.commitSha ? result.commitSha.substring(0, 7) : 'Success';
+        logDevConsole(`[GitHub 성공] ${targetFilePath} 커밋 & 푸시 완료 (Commit: ${shortCommit})`, '#2ed573');
+        alert(`🎉 ${modeName} 레벨 데이터가 GitHub에 성공적으로 커밋 & 푸시되었습니다!\n(Commit: ${shortCommit})`);
+
+        window.dispatchEvent(new CustomEvent('devDataUpdated', { detail: { mode } }));
+        showMainControls();
+      } catch (err) {
+        logDevConsole(`[GitHub 오류] ${err.message}`, '#ff4757');
+        alert(`동기화 중 오류가 발생했습니다:\n\n${err.message}`);
+      } finally {
+        devGithubSyncBtn.disabled = false;
+        devGithubSyncBtn.textContent = origText;
+      }
+    });
+  }
+
   if (devLogClearBtn) {
     devLogClearBtn.addEventListener('click', () => {
       devConsole.innerHTML =
@@ -685,13 +969,74 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
       hideAllSubPanels();
       if (devClearAddArea) devClearAddArea.style.display = 'block';
       populateClearLevelDropdown();
+      const playerInput = document.getElementById('dev-clear-player');
+      const dateInput = document.getElementById('dev-clear-date');
+      if (playerInput) {
+        playerInput.value = localStorage.getItem('forumNickname') || '';
+      }
+      if (dateInput && !dateInput.value) {
+        dateInput.value = new Date().toISOString().split('T')[0];
+      }
     });
   }
+
+  const devTokenInput = document.getElementById('dev-token-input');
+  const devOwnerInput = document.getElementById('dev-owner-input');
+  const devRepoInput = document.getElementById('dev-repo-input');
+  const devSettingsSaveBtn = document.getElementById('dev-settings-save-btn');
+  const devSettingsTestBtn = document.getElementById('dev-settings-test-btn');
 
   if (devSettingsOpenBtn) {
     devSettingsOpenBtn.addEventListener('click', () => {
       hideAllSubPanels();
       if (devSettingsArea) devSettingsArea.style.display = 'block';
+      if (devTokenInput) devTokenInput.value = localStorage.getItem('dev_gh_token') || '';
+      if (devOwnerInput) devOwnerInput.value = localStorage.getItem('dev_gh_owner') || '';
+      if (devRepoInput) devRepoInput.value = localStorage.getItem('dev_gh_repo') || '';
+    });
+  }
+
+  if (devSettingsSaveBtn) {
+    devSettingsSaveBtn.addEventListener('click', () => {
+      const token = (devTokenInput?.value || '').trim();
+      const owner = (devOwnerInput?.value || '').trim();
+      const repo = (devRepoInput?.value || '').trim();
+
+      localStorage.setItem('dev_gh_token', token);
+      localStorage.setItem('dev_gh_owner', owner);
+      localStorage.setItem('dev_gh_repo', repo);
+
+      alert('GitHub 설정이 저장되었습니다.');
+      showMainControls();
+    });
+  }
+
+  if (devSettingsTestBtn) {
+    devSettingsTestBtn.addEventListener('click', async () => {
+      const token = (devTokenInput?.value || '').trim();
+      const owner = (devOwnerInput?.value || '').trim();
+      const repo = (devRepoInput?.value || '').trim();
+
+      if (!owner || !repo) {
+        alert('Owner, Repository 정보를 모두 입력해주세요.');
+        return;
+      }
+
+      const mode = getCurrentPageMode();
+      const testUrl = `https://api.github.com/repos/${owner}/${repo}/contents/level/${mode}.json`;
+      const headers = {};
+      if (token) headers.Authorization = `token ${token}`;
+
+      try {
+        const response = await fetch(testUrl, { headers });
+        if (response.ok) {
+          alert('GitHub 연결 테스트 성공!');
+        } else {
+          alert(`연결 테스트 실패: ${response.status}`);
+        }
+      } catch (e) {
+        alert('연결 테스트 중 네트워크 오류가 발생했습니다.');
+      }
     });
   }
 
@@ -702,10 +1047,17 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
 
   function extractYoutubeId(urlOrId) {
     if (!urlOrId) return '';
-    const str = urlOrId.trim();
-    const match = str.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
-    return match ? match[1] : str;
+    const str = String(urlOrId).trim();
+    if (/^[\w-]{11}$/.test(str)) {
+      return str;
+    }
+    const match = str.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/)|embed\/|v=)([\w-]{11})/);
+    if (match) return match[1];
+    const loose = str.match(/([a-zA-Z0-9_-]{11})/);
+    return loose ? loose[1] : str;
   }
+
+  window.extractYoutubeId = extractYoutubeId;
 
   function getCurrentPageMode() {
     const path = window.location.pathname.toLowerCase();
@@ -724,7 +1076,9 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
       const creator = (document.getElementById('dev-add-creator')?.value || '').trim();
       const verifier = (document.getElementById('dev-add-verifier')?.value || '').trim();
       const rating = document.getElementById('dev-add-rating')?.value || '';
-      const video = extractYoutubeId(document.getElementById('dev-add-video')?.value || '');
+      const rawVideo = (document.getElementById('dev-add-video')?.value || '').trim();
+      const ytId = extractYoutubeId(rawVideo);
+      const video = ytId ? `https://www.youtube.com/embed/${ytId}` : rawVideo;
       const mapId = (document.getElementById('dev-add-mapid')?.value || '').trim();
       const length = (document.getElementById('dev-add-length')?.value || '').trim() || 'Long';
       const objects = (document.getElementById('dev-add-objects')?.value || '').trim();
@@ -851,7 +1205,9 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
       const creator = (document.getElementById('dev-edit-creator')?.value || '').trim();
       const verifier = (document.getElementById('dev-edit-verifier')?.value || '').trim();
       const rating = document.getElementById('dev-edit-rating')?.value || '';
-      const video = extractYoutubeId(document.getElementById('dev-edit-video')?.value || '');
+      const rawVideo = (document.getElementById('dev-edit-video')?.value || '').trim();
+      const ytId = extractYoutubeId(rawVideo);
+      const video = ytId ? `https://www.youtube.com/embed/${ytId}` : rawVideo;
       const mapId = (document.getElementById('dev-edit-mapid')?.value || '').trim();
       const length = (document.getElementById('dev-edit-length')?.value || '').trim() || 'Long';
       const objects = (document.getElementById('dev-edit-objects')?.value || '').trim();
@@ -862,8 +1218,12 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
 
       const tags = tagsStr ? tagsStr.split(/[\n,]+/).map(t => t.trim()).filter(Boolean) : [];
 
+      const levels = window.cachedLevelsData || [];
+      const originalLevel = levels.find((l, i) => String(l.id || i) === val);
+      const originalClears = originalLevel && Array.isArray(originalLevel.clears) ? originalLevel.clears : [];
+
       const editedLevel = {
-        id: isNaN(Number(val)) ? val : Number(val),
+        id: (originalLevel && originalLevel.id != null) ? originalLevel.id : (isNaN(Number(val)) ? val : Number(val)),
         title, creator, verifier, rating, video,
         mapId: mapId,
         length: length,
@@ -874,7 +1234,8 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
           objects: objects
         },
         song: { name: songName, artist: songArtist },
-        description: desc, tags, targetRank: newRank
+        description: desc, tags, targetRank: newRank,
+        clears: originalClears
       };
 
       const storageKeyLevels = `dev_custom_levels_${mode}`;
@@ -885,12 +1246,11 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
 
       const exIdx = existingLevels.findIndex(l => String(l.id) === String(val) || String(l.title).toLowerCase() === title.toLowerCase());
       if (exIdx !== -1) {
-        existingLevels[exIdx] = { ...existingLevels[exIdx], ...editedLevel };
+        existingLevels[exIdx] = { ...existingLevels[exIdx], ...editedLevel, clears: originalClears };
       } else {
         existingLevels.push(editedLevel);
       }
 
-      const levels = window.cachedLevelsData || [];
       const oldIdx = levels.findIndex((l, i) => String(l.id || i) === val);
       const oldRank = oldIdx !== -1 ? oldIdx + 1 : newRank;
 
@@ -968,7 +1328,7 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
     const levels = window.cachedLevelsData || [];
     levels.forEach((lvl, idx) => {
       const opt = document.createElement('option');
-      opt.value = String(lvl.id || idx);
+      opt.value = String(lvl.id != null ? lvl.id : idx);
       opt.textContent = `#${idx + 1} ${lvl.title}`;
       select.appendChild(opt);
     });
@@ -992,13 +1352,31 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
       const storageKeyClears = `dev_custom_clears_${mode}`;
       const existingClears = JSON.parse(localStorage.getItem(storageKeyClears) || '{}');
 
-      if (!existingClears[levelVal]) existingClears[levelVal] = [];
-      existingClears[levelVal].push({
+      const levels = window.cachedLevelsData || [];
+      const targetLvl = levels.find((l, i) => String(l.id != null ? l.id : i) === String(levelVal) || l.title === levelVal);
+      const levelKey = targetLvl ? String(targetLvl.id != null ? targetLvl.id : targetLvl.title) : levelVal;
+
+      if (!existingClears[levelKey]) existingClears[levelKey] = [];
+      
+      const newClearEntry = {
+        player: player,
         name: player,
         percent: percent,
         date: date,
+        link: link,
         video: link
-      });
+      };
+
+      const existingIdx = existingClears[levelKey].findIndex(c => String(c.player || c.name || c.user || '').toLowerCase() === player.toLowerCase());
+      if (existingIdx !== -1) {
+        existingClears[levelKey][existingIdx] = newClearEntry;
+      } else {
+        existingClears[levelKey].push(newClearEntry);
+      }
+
+      if (targetLvl && targetLvl.title && targetLvl.title !== levelKey) {
+        existingClears[targetLvl.title] = existingClears[levelKey];
+      }
 
       localStorage.setItem(storageKeyClears, JSON.stringify(existingClears));
 

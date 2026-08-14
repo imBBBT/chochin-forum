@@ -87,7 +87,10 @@ function isLevelClearedByUser(level) {
   if (!user) return false;
   const userLower = user.toLowerCase();
 
-  if (Array.isArray(level.clears) && level.clears.some(c => c.player && String(c.player).trim().toLowerCase() === userLower)) {
+  if (Array.isArray(level.clears) && level.clears.some(c => {
+    const p = (c.player || c.name || c.user || '').trim().toLowerCase();
+    return p === userLower;
+  })) {
     return true;
   }
   if (level.verifier && String(level.verifier).trim().toLowerCase() === userLower) {
@@ -232,8 +235,12 @@ function escapeHtml(text) {
 
 function getYoutubeId(videoUrl) {
   if (!videoUrl) return '';
-  const match = videoUrl.match(/(?:embed\/|v=|youtu\.be\/)([a-zA-Z0-9_-]+)/);
-  return match ? match[1] : '';
+  const str = String(videoUrl).trim();
+  if (/^[\w-]{11}$/.test(str)) return str;
+  const match = str.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/)|embed\/|v=)([\w-]{11})/);
+  if (match) return match[1];
+  const loose = str.match(/([a-zA-Z0-9_-]{11})/);
+  return loose ? loose[1] : '';
 }
 
 function getYoutubeThumbnail(videoUrl) {
@@ -478,16 +485,18 @@ function renderLevelDetail(level, rank, detailContainer) {
           </thead>
           <tbody>
             ${level.clears.map((clear, i) => {
-    const isUser = userLower && clear.player && String(clear.player).trim().toLowerCase() === userLower;
+    const playerName = clear.player || clear.name || clear.user || '-';
+    const isUser = userLower && playerName && String(playerName).trim().toLowerCase() === userLower;
     const rowClass = isUser ? 'detail-clears-row user-clear' : 'detail-clears-row';
+    const videoLink = clear.link || clear.video || '';
     return `
               <tr class="${rowClass}">
                 <td class="detail-clears-td td-rank">${i + 1}</td>
-                <td class="detail-clears-td td-name">${escapeHtml(clear.player ?? '-')}${isUser ? ' (나)' : ''}</td>
+                <td class="detail-clears-td td-name">${escapeHtml(playerName)}${isUser ? ' (나)' : ''}</td>
                 <td class="detail-clears-td td-percent">${clear.percent != null ? escapeHtml(String(clear.percent)) + '%' : '-'}</td>
                 <td class="detail-clears-td td-date">${escapeHtml(clear.date ?? '-')}</td>
                 <td class="detail-clears-td td-link">
-                  ${clear.link ? `<a class="detail-clears-link" href="${escapeHtml(clear.link)}" target="_blank" rel="noopener noreferrer">▶</a>` : '<span style="opacity:0.35">-</span>'}
+                  ${videoLink ? `<a class="detail-clears-link" href="${escapeHtml(videoLink)}" target="_blank" rel="noopener noreferrer">▶</a>` : '<span style="opacity:0.35">-</span>'}
                 </td>
               </tr>
               `;

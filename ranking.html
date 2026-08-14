@@ -136,12 +136,12 @@
     </div>
   </div>
 
-  <!-- Developer Tools Modal for Ranking -->
+  <!-- Developer Tools Modal -->
   <div class="dev-modal-overlay">
     <div class="dev-panel">
       <div id="dev-password-section">
         <h2>개발자 도구 인증</h2>
-        <p class="dev-desc">유저 랭킹 및 하디스트 관리를 위해 비밀번호를 입력하세요.</p>
+        <p class="dev-desc">하디스트 랭킹 관리를 위해 시스템 비밀번호를 입력하세요.</p>
         <input type="password" id="dev-pw-input" name="dev-password-field" autocomplete="new-password" placeholder="비밀번호 입력" class="dev-input" />
         <div class="modal-buttons">
           <button id="dev-pw-submit" class="modal-btn">확인</button>
@@ -149,60 +149,50 @@
         </div>
       </div>
       <div id="dev-content-section" style="display: none">
-        <h2>랭킹 & 하디스트 개발자 도구</h2>
+        <h2>하디스트 랭킹 관리</h2>
         <div class="dev-console">
-          <p style="color: #0f0">> 랭킹/하디스트 관리자 시스템 접속 완료...</p>
-          <p style="color: #0f0">> 유저 등록/하디스트 레벨 지정 모드가 활성화되었습니다.</p>
+          <p style="color: #0f0">> 하디스트 랭킹 관리자 접속 완료...</p>
         </div>
         <div id="dev-main-controls">
           <div class="dev-button-grid">
             <button id="dev-user-add-open-btn" class="modal-btn dev-action-btn">
-              유저/하디스트 등록
+              하디스트 등록
             </button>
             <button id="dev-user-edit-open-btn" class="modal-btn dev-action-btn">
-              유저 정보 수정
+              하디스트 수정/삭제
             </button>
-            <button id="dev-user-pt-open-btn" class="modal-btn dev-action-btn">
-              포인트/클리어 수 갱신
+            <button id="dev-github-sync-btn" class="modal-btn dev-action-btn dev-btn-sync">
+              GitHub 동기화
             </button>
             <button id="dev-settings-open-btn" class="modal-btn dev-action-btn">
               GitHub 설정
             </button>
-            <button id="dev-log-clear-btn" class="modal-btn dev-action-btn">
-              로그 초기화
+            <button id="dev-reset-data-btn" class="modal-btn dev-action-btn dev-btn-danger">
+              데이터 초기화
             </button>
           </div>
         </div>
 
-        <!-- 1. 유저/하디스트 등록 서브 패널 -->
+        <!-- 1. 하디스트 신규 등록 서브 패널 -->
         <div id="dev-user-add-area" style="display: none" class="dev-sub-panel">
-          <p class="dev-desc"><strong>유저 / 하디스트 신규 등록</strong></p>
+          <p class="dev-desc"><strong>하디스트 랭킹 신규 등록</strong></p>
           <input type="text" id="dev-user-add-name" placeholder="유저 닉네임 *" class="dev-input" />
-          <select id="dev-user-add-mode" class="dev-select">
-            <option value="classic">Classic 부문</option>
-            <option value="challenge">Challenge 부문</option>
-            <option value="platformer">Platformer 부문</option>
-          </select>
-          <input type="number" id="dev-user-add-pt" placeholder="부문 포인트 (ex: 150.5)" class="dev-input" />
-          <input type="text" id="dev-user-add-hardest" placeholder="하디스트 레벨 제목 *" class="dev-input" />
-          <input type="number" id="dev-user-add-clears" placeholder="클리어 맵 개수 (ex: 12)" class="dev-input" />
+          <input type="text" id="dev-user-add-hardest" placeholder="하디스트 레벨 (ex: Wasureta (AREDL #349)) *" class="dev-input" />
           <div class="dev-button-grid">
-            <button id="dev-user-add-submit-btn" class="modal-btn dev-action-btn dev-btn-primary">유저 등록 저장</button>
+            <button id="dev-user-add-submit-btn" class="modal-btn dev-action-btn dev-btn-primary">등록 저장</button>
             <button id="dev-user-add-back-btn" class="modal-btn dev-action-btn">뒤로</button>
           </div>
         </div>
 
-        <!-- 2. 유저 정보 수정/삭제 서브 패널 -->
+        <!-- 2. 하디스트 수정/삭제 서브 패널 -->
         <div id="dev-user-edit-area" style="display: none" class="dev-sub-panel">
-          <p class="dev-desc"><strong>유저 정보 / 하디스트 수정</strong></p>
+          <p class="dev-desc"><strong>하디스트 정보 수정 / 삭제</strong></p>
           <select id="dev-user-edit-select" class="dev-select">
             <option value="">-- 수정할 유저 선택 --</option>
           </select>
           <div id="dev-user-edit-fields" style="display: none">
             <input type="text" id="dev-user-edit-name" placeholder="유저 닉네임 *" class="dev-input" />
-            <input type="number" id="dev-user-edit-pt" placeholder="포인트" class="dev-input" />
-            <input type="text" id="dev-user-edit-hardest" placeholder="하디스트 레벨 제목" class="dev-input" />
-            <input type="number" id="dev-user-edit-clears" placeholder="클리어 맵 개수" class="dev-input" />
+            <input type="text" id="dev-user-edit-hardest" placeholder="하디스트 레벨 *" class="dev-input" />
             <div class="dev-button-grid">
               <button id="dev-user-edit-submit-btn" class="modal-btn dev-action-btn dev-btn-primary">수정 저장</button>
               <button id="dev-user-edit-delete-btn" class="modal-btn dev-action-btn dev-btn-danger">유저 삭제</button>
@@ -213,21 +203,7 @@
           </div>
         </div>
 
-        <!-- 3. 포인트/클리어 수 갱신 서브 패널 -->
-        <div id="dev-user-pt-area" style="display: none" class="dev-sub-panel">
-          <p class="dev-desc"><strong>포인트 / 클리어 기록 갱신</strong></p>
-          <select id="dev-pt-user-select" class="dev-select">
-            <option value="">-- 유저 선택 --</option>
-          </select>
-          <input type="number" id="dev-pt-add-val" placeholder="추가/차감할 포인트 (ex: +25 또는 -10)" class="dev-input" />
-          <input type="number" id="dev-clears-add-val" placeholder="추가할 클리어 맵 수 (ex: +1)" class="dev-input" />
-          <div class="dev-button-grid">
-            <button id="dev-pt-submit-btn" class="modal-btn dev-action-btn dev-btn-primary">기록 갱신 저장</button>
-            <button id="dev-pt-back-btn" class="modal-btn dev-action-btn">뒤로</button>
-          </div>
-        </div>
-
-        <!-- 4. GitHub 설정 서브 패널 -->
+        <!-- 3. GitHub 설정 서브 패널 -->
         <div id="dev-settings-area" style="display: none" class="dev-sub-panel">
           <p class="dev-desc"><strong>GitHub API 설정</strong></p>
           <input type="text" id="dev-gh-repo" placeholder="GitHub Repository (user/repo)" class="dev-input" />

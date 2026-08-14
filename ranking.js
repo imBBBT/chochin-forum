@@ -210,48 +210,44 @@ document.addEventListener('DOMContentLoaded', async () => {
   const devMainControls = document.getElementById('dev-main-controls');
   const devUserAddArea = document.getElementById('dev-user-add-area');
   const devUserEditArea = document.getElementById('dev-user-edit-area');
-  const devUserPtArea = document.getElementById('dev-user-pt-area');
   const devSettingsArea = document.getElementById('dev-settings-area');
 
   const devUserAddOpenBtn = document.getElementById('dev-user-add-open-btn');
   const devUserEditOpenBtn = document.getElementById('dev-user-edit-open-btn');
-  const devUserPtOpenBtn = document.getElementById('dev-user-pt-open-btn');
   const devSettingsOpenBtn = document.getElementById('dev-settings-open-btn');
   const devLogClearBtn = document.getElementById('dev-log-clear-btn');
 
   const devUserAddBackBtn = document.getElementById('dev-user-add-back-btn');
   const devUserEditBackBtn = document.getElementById('dev-user-edit-back-btn');
-  const devUserPtBackBtn = document.getElementById('dev-pt-back-btn');
   const devSettingsBackBtn = document.getElementById('dev-settings-back-btn');
 
   const devUserEditSelect = document.getElementById('dev-user-edit-select');
   const devUserEditFields = document.getElementById('dev-user-edit-fields');
-  const devPtUserSelect = document.getElementById('dev-pt-user-select');
 
-  function getCustomRankingData() {
+  function getCustomHardestData() {
     try {
-      const raw = localStorage.getItem('dev_custom_ranking');
-      return raw ? JSON.parse(raw) : [];
+      const raw = localStorage.getItem('dev_custom_hardest');
+      return raw ? JSON.parse(raw) : null;
     } catch (e) {
-      return [];
+      return null;
     }
   }
 
-  function saveCustomRankingData(arr) {
-    localStorage.setItem('dev_custom_ranking', JSON.stringify(arr));
+  function saveCustomHardestData(arr) {
+    hardestData = arr;
+    localStorage.setItem('dev_custom_hardest', JSON.stringify(arr));
   }
 
   function hideAllDevPanels() {
     if (devUserAddArea) devUserAddArea.style.display = 'none';
     if (devUserEditArea) devUserEditArea.style.display = 'none';
-    if (devUserPtArea) devUserPtArea.style.display = 'none';
     if (devSettingsArea) devSettingsArea.style.display = 'none';
     if (devMainControls) devMainControls.style.display = 'block';
   }
 
   function showDevPanel(panel) {
-    if (devMainControls) devMainControls.style.display = 'none';
     hideAllDevPanels();
+    if (devMainControls) devMainControls.style.display = 'none';
     if (panel) panel.style.display = 'block';
   }
 
@@ -266,130 +262,93 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  if (devUserPtOpenBtn) {
-    devUserPtOpenBtn.addEventListener('click', () => {
-      populateUserSelects();
-      showDevPanel(devUserPtArea);
-    });
-  }
-
   if (devSettingsOpenBtn) {
     devSettingsOpenBtn.addEventListener('click', () => showDevPanel(devSettingsArea));
   }
 
-  [devUserAddBackBtn, devUserEditBackBtn, devUserPtBackBtn, devSettingsBackBtn].forEach(btn => {
+  [devUserAddBackBtn, devUserEditBackBtn, devSettingsBackBtn].forEach(btn => {
     if (btn) btn.addEventListener('click', hideAllDevPanels);
   });
 
   function populateUserSelects() {
-    const listCards = document.querySelectorAll('.ranking-row-card .player-name');
-    const userNames = new Set();
-
-    listCards.forEach(card => {
-      const clone = card.cloneNode(true);
-      const meBadge = clone.querySelector('.user-me-badge');
-      if (meBadge) meBadge.remove();
-      const text = clone.textContent.trim();
-      if (text) userNames.add(text);
+    if (!devUserEditSelect) return;
+    devUserEditSelect.innerHTML = '<option value="">-- 수정할 유저 선택 --</option>';
+    hardestData.forEach((item, idx) => {
+      const opt = document.createElement('option');
+      opt.value = String(idx);
+      opt.textContent = `${item.name} (${item.hardest || '-'})`;
+      devUserEditSelect.appendChild(opt);
     });
-
-    if (devUserEditSelect) {
-      devUserEditSelect.innerHTML = '<option value="">-- 수정할 유저 선택 --</option>';
-      userNames.forEach(name => {
-        const opt = document.createElement('option');
-        opt.value = name;
-        opt.textContent = name;
-        devUserEditSelect.appendChild(opt);
-      });
-    }
-
-    if (devPtUserSelect) {
-      devPtUserSelect.innerHTML = '<option value="">-- 유저 선택 --</option>';
-      userNames.forEach(name => {
-        const opt = document.createElement('option');
-        opt.value = name;
-        opt.textContent = name;
-        devPtUserSelect.appendChild(opt);
-      });
-    }
+    if (devUserEditFields) devUserEditFields.style.display = 'none';
   }
 
   if (devUserEditSelect) {
     devUserEditSelect.addEventListener('change', () => {
-      const selectedName = devUserEditSelect.value;
-      if (selectedName && devUserEditFields) {
+      const idx = parseInt(devUserEditSelect.value, 10);
+      if (!isNaN(idx) && hardestData[idx] && devUserEditFields) {
         devUserEditFields.style.display = 'block';
-        document.getElementById('dev-user-edit-name').value = selectedName;
+        document.getElementById('dev-user-edit-name').value = hardestData[idx].name || '';
+        document.getElementById('dev-user-edit-hardest').value = hardestData[idx].hardest || '';
       } else if (devUserEditFields) {
         devUserEditFields.style.display = 'none';
       }
     });
   }
 
-  // 1) 유저 / 하디스트 신규 등록
+  // 1) 하디스트 신규 등록
   const devUserAddSubmitBtn = document.getElementById('dev-user-add-submit-btn');
   if (devUserAddSubmitBtn) {
     devUserAddSubmitBtn.addEventListener('click', () => {
       const name = (document.getElementById('dev-user-add-name').value || '').trim();
-      const mode = document.getElementById('dev-user-add-mode').value;
-      const pt = parseFloat(document.getElementById('dev-user-add-pt').value) || 0;
       const hardest = (document.getElementById('dev-user-add-hardest').value || '').trim();
-      const clears = parseInt(document.getElementById('dev-user-add-clears').value, 10) || 0;
 
-      if (!name) {
-        alert('유저 닉네임을 입력하세요.');
+      if (!name || !hardest) {
+        alert('유저 닉네임과 하디스트 레벨 제목을 모두 입력하세요.');
         return;
       }
 
-      const list = getCustomRankingData();
-      const existingIdx = list.findIndex(c => (c.name || '').toLowerCase() === name.toLowerCase());
+      const existingIdx = hardestData.findIndex(c => (c.name || '').toLowerCase() === name.toLowerCase());
 
       if (existingIdx !== -1) {
-        list[existingIdx] = { name, mode, points: pt, hardestTitle: hardest, clearCount: clears, isDeleted: false };
+        hardestData[existingIdx].hardest = hardest;
       } else {
-        list.push({ name, mode, points: pt, hardestTitle: hardest, clearCount: clears, isDeleted: false });
+        hardestData.push({ name, hardest });
       }
 
-      saveCustomRankingData(list);
-      alert(`'${name}' 유저 정보가 성공적으로 추가/등록되었습니다!`);
+      saveCustomHardestData(hardestData);
+      alert(`'${name}' 유저의 하디스트 정보가 성공적으로 등록되었습니다!`);
+      document.getElementById('dev-user-add-name').value = '';
+      document.getElementById('dev-user-add-hardest').value = '';
       hideAllDevPanels();
       renderRanking();
     });
   }
 
-  // 2) 유저 정보 / 하디스트 수정 및 삭제
+  // 2) 하디스트 수정 및 삭제
   const devUserEditSubmitBtn = document.getElementById('dev-user-edit-submit-btn');
   const devUserEditDeleteBtn = document.getElementById('dev-user-edit-delete-btn');
 
   if (devUserEditSubmitBtn) {
     devUserEditSubmitBtn.addEventListener('click', () => {
-      const selectedName = devUserEditSelect.value;
-      if (!selectedName) {
+      const idx = parseInt(devUserEditSelect.value, 10);
+      if (isNaN(idx) || !hardestData[idx]) {
         alert('수정할 유저를 선택하세요.');
         return;
       }
 
       const newName = (document.getElementById('dev-user-edit-name').value || '').trim();
-      const pt = parseFloat(document.getElementById('dev-user-edit-pt').value);
       const hardest = (document.getElementById('dev-user-edit-hardest').value || '').trim();
-      const clears = parseInt(document.getElementById('dev-user-edit-clears').value, 10);
 
-      const list = getCustomRankingData();
-      let target = list.find(c => (c.name || '').toLowerCase() === selectedName.toLowerCase());
-
-      if (!target) {
-        target = { name: selectedName, mode: currentMode };
-        list.push(target);
+      if (!newName || !hardest) {
+        alert('유저 닉네임과 하디스트 레벨을 모두 입력하세요.');
+        return;
       }
 
-      if (newName) target.name = newName;
-      if (!isNaN(pt)) target.points = pt;
-      if (hardest) target.hardestTitle = hardest;
-      if (!isNaN(clears)) target.clearCount = clears;
-      target.isDeleted = false;
+      hardestData[idx].name = newName;
+      hardestData[idx].hardest = hardest;
 
-      saveCustomRankingData(list);
-      alert(`'${selectedName}' 유저 정보가 수정되었습니다.`);
+      saveCustomHardestData(hardestData);
+      alert(`'${newName}' 유저 정보가 수정되었습니다.`);
       hideAllDevPanels();
       renderRanking();
     });
@@ -397,72 +356,141 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   if (devUserEditDeleteBtn) {
     devUserEditDeleteBtn.addEventListener('click', () => {
-      const selectedName = devUserEditSelect.value;
-      if (!selectedName) {
+      const idx = parseInt(devUserEditSelect.value, 10);
+      if (isNaN(idx) || !hardestData[idx]) {
         alert('삭제할 유저를 선택하세요.');
         return;
       }
 
-      if (confirm(`정말로 '${selectedName}' 유저를 랭킹에서 삭제하시겠습니까?`)) {
-        const list = getCustomRankingData();
-        const target = list.find(c => (c.name || '').toLowerCase() === selectedName.toLowerCase());
-        if (target) {
-          target.isDeleted = true;
-        } else {
-          list.push({ name: selectedName, isDeleted: true });
-        }
-
-        saveCustomRankingData(list);
-        alert(`'${selectedName}' 유저가 랭킹에서 삭제되었습니다.`);
+      const targetName = hardestData[idx].name;
+      if (confirm(`정말로 '${targetName}' 유저를 하디스트 랭킹에서 삭제하시겠습니까?`)) {
+        hardestData.splice(idx, 1);
+        saveCustomHardestData(hardestData);
+        alert(`'${targetName}' 유저가 하디스트 랭킹에서 삭제되었습니다.`);
         hideAllDevPanels();
         renderRanking();
       }
     });
   }
 
-  // 3) 포인트 / 클리어 수 갱신
-  const devPtSubmitBtn = document.getElementById('dev-pt-submit-btn');
-  if (devPtSubmitBtn) {
-    devPtSubmitBtn.addEventListener('click', () => {
-      const selectedName = devPtUserSelect.value;
-      if (!selectedName) {
-        alert('유저를 선택하세요.');
+  // 3) GitHub 설정 화면 연동
+  const devTokenInput = document.getElementById('dev-token-input');
+  const devOwnerInput = document.getElementById('dev-owner-input');
+  const devRepoInput = document.getElementById('dev-repo-input');
+  const devSettingsSaveBtn = document.getElementById('dev-settings-save-btn');
+  const devSettingsTestBtn = document.getElementById('dev-settings-test-btn');
+
+  if (devSettingsOpenBtn) {
+    devSettingsOpenBtn.addEventListener('click', () => {
+      showDevPanel(devSettingsArea);
+      if (devTokenInput) devTokenInput.value = localStorage.getItem('dev_gh_token') || '';
+      if (devOwnerInput) devOwnerInput.value = localStorage.getItem('dev_gh_owner') || '';
+      if (devRepoInput) devRepoInput.value = localStorage.getItem('dev_gh_repo') || '';
+    });
+  }
+
+  if (devSettingsSaveBtn) {
+    devSettingsSaveBtn.addEventListener('click', () => {
+      const token = (devTokenInput?.value || '').trim();
+      const owner = (devOwnerInput?.value || '').trim();
+      const repo = (devRepoInput?.value || '').trim();
+
+      localStorage.setItem('dev_gh_token', token);
+      localStorage.setItem('dev_gh_owner', owner);
+      localStorage.setItem('dev_gh_repo', repo);
+
+      alert('GitHub 설정이 저장되었습니다.');
+      hideAllDevPanels();
+    });
+  }
+
+  if (devSettingsTestBtn) {
+    devSettingsTestBtn.addEventListener('click', async () => {
+      const token = (devTokenInput?.value || '').trim();
+      const owner = (devOwnerInput?.value || '').trim();
+      const repo = (devRepoInput?.value || '').trim();
+
+      if (!owner || !repo) {
+        alert('Owner, Repository 정보를 모두 입력해주세요.');
         return;
       }
 
-      const ptDelta = parseFloat(document.getElementById('dev-pt-add-val').value) || 0;
-      const clearsDelta = parseInt(document.getElementById('dev-clears-add-val').value, 10) || 0;
+      const testUrl = `https://api.github.com/repos/${owner}/${repo}/contents/hardest.json`;
+      const headers = {};
+      if (token) headers.Authorization = `token ${token}`;
 
-      const list = getCustomRankingData();
-      let target = list.find(c => (c.name || '').toLowerCase() === selectedName.toLowerCase());
-
-      if (!target) {
-        target = { name: selectedName, points: 0, clearCount: 0, mode: currentMode };
-        list.push(target);
+      try {
+        const response = await fetch(testUrl, { headers });
+        if (response.ok) {
+          alert('GitHub 연결 테스트 성공!');
+        } else {
+          alert(`연결 테스트 실패: ${response.status}`);
+        }
+      } catch (e) {
+        alert('연결 테스트 중 네트워크 오류가 발생했습니다.');
       }
-
-      target.points = (target.points || 0) + ptDelta;
-      target.clearCount = (target.clearCount || 0) + clearsDelta;
-
-      saveCustomRankingData(list);
-      alert(`'${selectedName}' 유저의 포인트(+${ptDelta}) 및 클리어 수(+${clearsDelta})가 갱신되었습니다!`);
-      hideAllDevPanels();
-      renderRanking();
     });
   }
 
-  if (devLogClearBtn) {
-    devLogClearBtn.addEventListener('click', () => {
-      if (confirm('랭킹 및 하디스트 커스텀 변경 데이터를 초기화하시겠습니까?')) {
-        localStorage.removeItem('dev_custom_ranking');
-        alert('랭킹 커스텀 데이터가 초기화되었습니다.');
+  const devGithubSyncBtn = document.getElementById('dev-github-sync-btn');
+  if (devGithubSyncBtn) {
+    devGithubSyncBtn.addEventListener('click', async () => {
+      const config = window.GitHubSyncEngine.getConfig();
+      if (!config.owner || !config.repo || !config.token) {
+        alert('GitHub API 설정이 누락되었습니다. 먼저 [GitHub 설정]에서 Token, Owner, Repo를 입력하고 저장해주세요.');
+        if (devSettingsOpenBtn) devSettingsOpenBtn.click();
+        return;
+      }
+
+      if (!confirm(`현재 모든 하디스트 랭킹 데이터를 GitHub (${config.owner}/${config.repo}의 hardest.json)에 자동으로 커밋 & 푸시하시겠습니까?`)) {
+        return;
+      }
+
+      devGithubSyncBtn.disabled = true;
+      const origText = devGithubSyncBtn.textContent;
+      devGithubSyncBtn.textContent = '동기화 중... ⏳';
+
+      try {
+        const result = await window.GitHubSyncEngine.commitAndPush(
+          'hardest.json',
+          hardestData,
+          'Update hardest rankings via DevTools'
+        );
+
+        localStorage.removeItem('dev_custom_hardest');
+        const shortCommit = result.commitSha ? result.commitSha.substring(0, 7) : 'Success';
+        alert(`🎉 하디스트 랭킹 데이터가 GitHub에 성공적으로 커밋 & 푸시되었습니다!\n(Commit: ${shortCommit})`);
         hideAllDevPanels();
+        await fetchHardestData();
         renderRanking();
+      } catch (err) {
+        alert(`동기화 중 오류가 발생했습니다:\n\n${err.message}`);
+      } finally {
+        devGithubSyncBtn.disabled = false;
+        devGithubSyncBtn.textContent = origText;
+      }
+    });
+  }
+
+  const devResetDataBtn = document.getElementById('dev-reset-data-btn');
+
+  if (devResetDataBtn) {
+    devResetDataBtn.addEventListener('click', async () => {
+      if (confirm('로컬에 저장된 하디스트 변경사항을 모두 초기화하고 원본 hardest.json으로 되돌리시겠습니까?')) {
+        localStorage.removeItem('dev_custom_hardest');
+        await fetchHardestData();
+        renderRanking();
+        alert('하디스트 랭킹 데이터가 원본 상태로 초기화되었습니다.');
+        hideAllDevPanels();
       }
     });
   }
 
   // Initial Fetch & Render
   await fetchHardestData();
+  const customH = getCustomHardestData();
+  if (customH && Array.isArray(customH) && customH.length > 0) {
+    hardestData = customH;
+  }
   renderRanking();
 });
