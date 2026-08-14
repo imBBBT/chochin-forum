@@ -5,7 +5,7 @@
       "title": "GOAT!",
       "creator": "Choco",
       "verifier": "Choco",
-      "video": "swG-0J9TBug",
+      "video": "https://www.youtube.com/embed/swG-0J9TBug",
       "rating": "Mythic",
       "map": {
         "mapId": "132490623",
@@ -31,11 +31,21 @@
         "speedRatio": {}
       },
       "tags": [
-        "Sync",
-        "Learny",
+        "Design",
+        "Art",
+        "Asian",
+        "Dark",
+        "Monochromatic",
+        "Lyrics",
+        "NONG",
         "Fast Paced",
-        "Effect",
-        "NONG"
+        "Sync",
+        "Duals",
+        "Timing",
+        "Learny",
+        "Chokepoints",
+        "Cube",
+        "Ball"
       ],
       "clears": [],
       "mapId": "132490623",
@@ -53,8 +63,7 @@
       "map": {
         "mapId": "133348817",
         "length": "44s",
-        "objects": 7090,
-        "uploadDate": "2026-02-13"
+        "objects": "7090"
       },
       "song": {
         "name": "Local Forecast",
@@ -76,11 +85,22 @@
         "speedRatio": {}
       },
       "tags": [
+        "Standard",
+        "Design",
+        "Glow",
+        "Simplism",
+        "Flow",
         "Sync",
-        "Learny",
-        "High CPS"
+        "Timing",
+        "Nerve Control",
+        "Chokepoints",
+        "Overall"
       ],
-      "clears": []
+      "clears": [],
+      "mapId": "133348817",
+      "length": "44s",
+      "objects": "7090",
+      "targetRank": 2
     },
     {
       "id": 3,
@@ -92,8 +112,7 @@
       "map": {
         "mapId": "132194145",
         "length": "36s",
-        "objects": 3588,
-        "uploadDate": "2026-01-26"
+        "objects": "3588"
       },
       "song": {
         "name": "Glory",
@@ -115,11 +134,21 @@
         "speedRatio": {}
       },
       "tags": [
-        "Wave",
-        "Learny",
-        "Fast Paced"
+        "Standard",
+        "Effect",
+        "Simplism",
+        "Monochromatic",
+        "Remake",
+        "Sync",
+        "Nerve Control",
+        "Chokepoints",
+        "Wave"
       ],
-      "clears": []
+      "clears": [],
+      "mapId": "132194145",
+      "length": "36s",
+      "objects": "3588",
+      "targetRank": 3
     },
     {
       "id": 4,
@@ -131,8 +160,7 @@
       "map": {
         "mapId": "135590009",
         "length": "22s (19s)",
-        "objects": 35142,
-        "uploadDate": "2026-03-14"
+        "objects": "35142"
       },
       "song": {
         "name": "Apricot Special",
@@ -154,14 +182,31 @@
         "speedRatio": {}
       },
       "tags": [
-        "Robot",
+        "Layout",
+        "Design",
+        "Effect",
+        "Simplism",
+        "Art",
+        "Anxious",
+        "Dark",
+        "Grayscale",
+        "Monochromatic",
+        "Sad",
         "Slow Paced",
-        "Effect"
+        "Blinds",
+        "Timing",
+        "Nerve Control",
+        "Chokepoints",
+        "Robot"
       ],
-      "clears": []
+      "clears": [],
+      "mapId": "135590009",
+      "length": "22s (19s)",
+      "objects": "35142",
+      "targetRank": 4
     },
     {
-      "id": 5,
+      "id": 1786718870068,
       "title": "Heart 8",
       "creator": "Choco",
       "verifier": "Choco",
@@ -170,8 +215,7 @@
       "map": {
         "mapId": "131293568",
         "length": "45s",
-        "objects": 4591,
-        "uploadDate": "2026-01-12"
+        "objects": "4591"
       },
       "song": {
         "name": "Trick Heart",
@@ -193,13 +237,24 @@
         "speedRatio": {}
       },
       "tags": [
-        "Sync",
-        "Gimmicky",
+        "Standard",
+        "Simplism",
+        "Asian",
+        "Lyrics",
+        "NONG",
         "Flow",
         "Fast Paced",
-        "NONG"
+        "Sync",
+        "High CPS",
+        "Learny",
+        "Chokepoints",
+        "Overall"
       ],
-      "clears": []
+      "clears": [],
+      "mapId": "131293568",
+      "length": "45s",
+      "objects": "4591",
+      "targetRank": 5
     },
     {
       "id": 6,
@@ -211,8 +266,7 @@
       "map": {
         "mapId": "138434402",
         "length": "26s (17s)",
-        "objects": 9340,
-        "uploadDate": "2026-04-19"
+        "objects": "9340"
       },
       "song": {
         "name": "Funny Cat",
@@ -234,9 +288,24 @@
         "speedRatio": {}
       },
       "tags": [
-        "Learny"
+        "Standard",
+        "Design",
+        "Simplism",
+        "Art",
+        "Monochromatic",
+        "Flow",
+        "Fast Paced",
+        "Timing",
+        "High CPS",
+        "Learny",
+        "Chokepoints",
+        "Overall"
       ],
-      "clears": []
+      "clears": [],
+      "mapId": "138434402",
+      "length": "26s (17s)",
+      "objects": "9340",
+      "targetRank": 6
     },
     {
       "id": 7,
@@ -248,8 +317,7 @@
       "map": {
         "mapId": "142376529",
         "length": "48s",
-        "objects": 3932,
-        "uploadDate": "2026-06-10"
+        "objects": "3932"
       },
       "song": {
         "name": "Parfait",
@@ -271,9 +339,20 @@
         "speedRatio": {}
       },
       "tags": [
+        "Standard",
+        "Happy",
+        "Recreation",
+        "Humorous",
+        "Fast Paced",
+        "Sync",
+        "High CPS",
         "Wave"
       ],
-      "clears": []
+      "clears": [],
+      "mapId": "142376529",
+      "length": "48s",
+      "objects": "3932",
+      "targetRank": 7
     },
     {
       "id": 8,
@@ -285,8 +364,7 @@
       "map": {
         "mapId": "131445339",
         "length": "1m 25s",
-        "objects": 9990,
-        "uploadDate": "2026-01-15"
+        "objects": "9990"
       },
       "song": {
         "name": "Stereo Madness",
@@ -319,11 +397,25 @@
         }
       },
       "tags": [
-        "Memory",
+        "Standard",
+        "Design",
+        "Glow",
         "Effect",
-        "Slow Paced"
+        "Simplism",
+        "Collab",
+        "Remake",
+        "Humorous",
+        "Slow Paced",
+        "High CPS",
+        "Nerve Control",
+        "Chokepoints",
+        "Overall"
       ],
-      "clears": []
+      "clears": [],
+      "mapId": "131445339",
+      "length": "1m 25s",
+      "objects": "9990",
+      "targetRank": 8
     },
     {
       "id": 9,
@@ -335,8 +427,7 @@
       "map": {
         "mapId": "137159307",
         "length": "30s (20s)",
-        "objects": 3141,
-        "uploadDate": "2026-04-02"
+        "objects": "3141"
       },
       "song": {
         "name": "Overrides (Originial Song)",
@@ -358,10 +449,16 @@
         "speedRatio": {}
       },
       "tags": [
-        "Wave",
-        "Sync",
+        "Standard",
+        "Effect",
+        "Asian",
+        "Lyrics",
+        "NONG",
         "Fast Paced",
-        "NONG"
+        "High CPS",
+        "Learny",
+        "Chokepoints",
+        "Wave"
       ],
       "clears": [
         {
@@ -372,7 +469,11 @@
           "link": "https://youtu.be/wL8NTCmYPy4",
           "video": "https://youtu.be/wL8NTCmYPy4"
         }
-      ]
+      ],
+      "mapId": "137159307",
+      "length": "30s (20s)",
+      "objects": "3141",
+      "targetRank": 9
     },
     {
       "id": 10,
@@ -384,8 +485,7 @@
       "map": {
         "mapId": "126886071",
         "length": "24s",
-        "objects": 1930,
-        "uploadDate": "2025-10-10"
+        "objects": "1930"
       },
       "song": {
         "name": "Parfait",
@@ -415,8 +515,13 @@
         }
       },
       "tags": [
-        "Wave",
-        "Fast Paced"
+        "Standard",
+        "Happy",
+        "Humorous",
+        "Fast Paced",
+        "Sync",
+        "High CPS",
+        "Wave"
       ],
       "clears": [
         {
@@ -435,7 +540,11 @@
           "link": "",
           "video": ""
         }
-      ]
+      ],
+      "mapId": "126886071",
+      "length": "24s",
+      "objects": "1930",
+      "targetRank": 10
     },
     {
       "id": 11,
@@ -447,8 +556,7 @@
       "map": {
         "mapId": "126915240",
         "length": "25s (17s)",
-        "objects": 33111,
-        "uploadDate": "2025-10-11"
+        "objects": "33111"
       },
       "song": {
         "name": "Flow",
@@ -475,9 +583,16 @@
         }
       },
       "tags": [
-        "Cube",
+        "Design",
+        "Effect",
+        "Grayscale",
+        "Monochromatic",
         "Slow Paced",
-        "Effect"
+        "Sync",
+        "Timing",
+        "Nerve Control",
+        "Chokepoints",
+        "Cube"
       ],
       "clears": [
         {
@@ -488,7 +603,11 @@
           "link": "https://youtu.be/1IEtMmpC6qo",
           "video": "https://youtu.be/1IEtMmpC6qo"
         }
-      ]
+      ],
+      "mapId": "126915240",
+      "length": "25s (17s)",
+      "objects": "33111",
+      "targetRank": 11
     },
     {
       "id": 12,
@@ -500,8 +619,7 @@
       "map": {
         "mapId": "130261964",
         "length": "26s",
-        "objects": 3483,
-        "uploadDate": "2025-12-28"
+        "objects": "3483"
       },
       "song": {
         "name": "Which One?",
@@ -523,11 +641,18 @@
         "speedRatio": {}
       },
       "tags": [
-        "Wave",
-        "Robot",
-        "Sync",
+        "Standard",
+        "Asian",
+        "Love",
+        "Lyrics",
+        "NONG",
         "Fast Paced",
-        "NONG"
+        "Sync",
+        "High CPS",
+        "Nerve Control",
+        "Learny",
+        "Wave",
+        "Robot"
       ],
       "clears": [
         {
@@ -538,7 +663,11 @@
           "link": "https://youtu.be/9DNXtX6RX_A",
           "video": "https://youtu.be/9DNXtX6RX_A"
         }
-      ]
+      ],
+      "mapId": "130261964",
+      "length": "26s",
+      "objects": "3483",
+      "targetRank": 12
     },
     {
       "id": 13,
@@ -550,8 +679,7 @@
       "map": {
         "mapId": "141503715",
         "length": "22s",
-        "objects": 2066,
-        "uploadDate": "2026-05-30"
+        "objects": "2066"
       },
       "song": {
         "name": "The Road To China Town",
@@ -573,23 +701,30 @@
         "speedRatio": {}
       },
       "tags": [
-        "Wave",
-        "High CPS"
+        "Standard",
+        "Humorous",
+        "Slow Paced",
+        "High CPS",
+        "Chokepoints",
+        "Wave"
       ],
-      "clears": []
+      "clears": [],
+      "mapId": "141503715",
+      "length": "22s",
+      "objects": "2066",
+      "targetRank": 13
     },
     {
       "id": 14,
       "title": "Just Test Map",
       "creator": "Choco",
       "verifier": "Light",
-      "video": "https://www.youtube.com/embed/7aEjbZTmCVY?si=wmk75qXVpbFmkulD",
+      "video": "https://www.youtube.com/embed/7aEjbZTmCVY",
       "rating": "",
       "map": {
         "mapId": "132707428",
         "length": "32s",
-        "objects": 47735,
-        "uploadDate": "2026-01-31"
+        "objects": "47735"
       },
       "song": {
         "name": "Let's Make A Plan Everyone",
@@ -611,7 +746,18 @@
         "speedRatio": {}
       },
       "tags": [
-        "High CPS"
+        "Standard",
+        "Design",
+        "Art",
+        "Happy",
+        "Robtop",
+        "Humorous",
+        "Timing",
+        "High CPS",
+        "Nerve Control",
+        "Chokepoints",
+        "Wave",
+        "Robot"
       ],
       "clears": [
         {
@@ -622,7 +768,11 @@
           "link": "",
           "video": ""
         }
-      ]
+      ],
+      "mapId": "132707428",
+      "length": "32s",
+      "objects": "47735",
+      "targetRank": 14
     },
     {
       "id": 15,
@@ -634,8 +784,7 @@
       "map": {
         "mapId": "141436829",
         "length": "29s",
-        "objects": 5050,
-        "uploadDate": "2026-05-29"
+        "objects": "5050"
       },
       "song": {
         "name": "Every End...",
@@ -657,6 +806,16 @@
         "speedRatio": {}
       },
       "tags": [
+        "Standard",
+        "Effect",
+        "Simplism",
+        "1.0",
+        "Fixed",
+        "Hitboxes",
+        "Slow Paced",
+        "Timing",
+        "Nerve Control",
+        "Chokepoints",
         "Cube"
       ],
       "clears": [
@@ -668,7 +827,11 @@
           "link": "https://youtu.be/-Z4vpVr49wM",
           "video": "https://youtu.be/-Z4vpVr49wM"
         }
-      ]
+      ],
+      "mapId": "141436829",
+      "length": "29s",
+      "objects": "5050",
+      "targetRank": 15
     },
     {
       "id": 16,
@@ -680,8 +843,7 @@
       "map": {
         "mapId": "132859666",
         "length": "52s",
-        "objects": 11645,
-        "uploadDate": "2026-02-06"
+        "objects": "11645"
       },
       "song": {
         "name": "Her Name Is Yubin Lady",
@@ -703,12 +865,28 @@
         "speedRatio": {}
       },
       "tags": [
-        "Cube",
+        "Design",
+        "Modern",
+        "Simplism",
+        "Asian",
+        "Monochromatic",
+        "Love",
+        "Lyrics",
+        "Flashy",
+        "NONG",
+        "Slow Paced",
         "Sync",
-        "Effect",
-        "NONG"
+        "Blinds",
+        "Timing",
+        "Nerve Control",
+        "Chokepoints",
+        "Cube"
       ],
-      "clears": []
+      "clears": [],
+      "mapId": "132859666",
+      "length": "52s",
+      "objects": "11645",
+      "targetRank": 16
     },
     {
       "id": 17,
@@ -720,8 +898,7 @@
       "map": {
         "mapId": "129453627",
         "length": "28s (19s)",
-        "objects": 1431,
-        "uploadDate": "2025-12-14"
+        "objects": "1431"
       },
       "song": {
         "name": "Portal To The Other Side (feat. Hatsune Miku)",
@@ -748,12 +925,22 @@
         }
       },
       "tags": [
-        "Wave",
+        "Standard",
+        "Simplism",
+        "Monochromatic",
+        "Slow Paced",
+        "Blinds",
         "Memory",
         "High CPS",
-        "Effect"
+        "Nerve Control",
+        "Learny",
+        "Wave"
       ],
-      "clears": []
+      "clears": [],
+      "mapId": "129453627",
+      "length": "28s (19s)",
+      "objects": "1431",
+      "targetRank": 17
     },
     {
       "id": 18,
@@ -2024,6 +2211,13 @@
     }
   ],
   "history": [
+    {
+      "id": 1786718870069,
+      "type": "add",
+      "title": "Heart 8",
+      "detail": "\"Heart 8\" 새로운 레벨이 5위에 등록되었습니다.",
+      "time": "2026. 8. 14."
+    },
     {
       "time": "2026-08-14 13:23",
       "type": "add",
