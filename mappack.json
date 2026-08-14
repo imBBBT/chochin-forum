@@ -328,6 +328,31 @@
         {
           "name": "wA Ve step",
           "author": "Timo"
+        },
+        {
+          "name": "yaa han ge ne ga ji",
+          "author": "Timo"
+        }
+      ],
+      "clears": []
+    },
+    {
+      "id": "pack 10",
+      "title": "Boykisser Pack I",
+      "tier": "Tier 3",
+      "description": "Do you like kissing boys don't you?  (보이 키서가 나오는 맵을 쳐 해보세요!)",
+      "levels": [
+        {
+          "name": "NO BOYS",
+          "author": "Timo"
+        },
+        {
+          "name": "Stereo MadnesS EX",
+          "author": "Choco & Timo"
+        },
+        {
+          "name": "nullscube",
+          "author": "Timo"
         }
       ],
       "clears": []
@@ -359,27 +384,6 @@
       ]
     },
     {
-      "id": "pack 10",
-      "title": "Boykisser Pack I",
-      "tier": "Tier 3",
-      "description": "Do you like kissing boys don't you?  (보이 키서가 나오는 맵을 쳐 해보세요!)",
-      "levels": [
-        {
-          "name": "NO BOYS",
-          "author": "Timo"
-        },
-        {
-          "name": "Stereo MadnesS EX",
-          "author": "Choco & Timo"
-        },
-        {
-          "name": "nullscube",
-          "author": "Timo"
-        }
-      ],
-      "clears": []
-    },
-    {
       "id": "pack 17",
       "title": "Boykisser Pack II",
       "tier": "Tier 4",
@@ -402,6 +406,11 @@
     }
   ],
   "history": [
+    {
+      "time": "2026-08-14",
+      "type": "팩 수정",
+      "detail": "WTF Pack 팩 정보가 수정되었습니다."
+    },
     {
       "time": "2026-06-24",
       "type": "팩 추가",

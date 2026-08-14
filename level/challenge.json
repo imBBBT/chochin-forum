@@ -2,32 +2,25 @@
   "levels": [
     {
       "id": 1,
-      "title": "Jam With Wave",
-      "creator": "Timo",
-      "video": "-",
-      "verifier": "Timo",
+      "title": "INCORRECT",
+      "creator": "Choco",
+      "verifier": "Choco",
+      "video": "https://www.youtube.com/embed/IDoYqoZal0E",
+      "rating": "Featured",
       "map": {
-        "mapId": 123869094,
-        "length": "12s",
-        "objects": 2832,
-        "uploadDate": "2025-07-31"
+        "mapId": "145671958",
+        "length": "11s",
+        "objects": 2615,
+        "uploadDate": "2026-07-26"
       },
       "song": {
-        "name": "Jam with Wave",
-        "artist": "Frums",
-        "id": 10009548
+        "name": "...and Yet It Goes Nowhere",
+        "artist": "Llaappssee",
+        "id": "1236581"
       },
-      "gameplay": {
-        "mainMode": "Wave",
-        "modeRatio": {
-          "Cube": 100
-        },
-        "speedRatio": {
-          "1x": 100
-        }
-      },
+      "description": "비행기에 자신 있다고 생각하는 사람들은 당장 이 맵을 하셔야 합니다!!!\n공점을 피하며 비행기 칼타를 열심히 넘어보세요!!!",
+      "enjoyment": "10",
       "framePerfect": {
-        "total": 0,
         "fps": {
           "30": 0,
           "60": 0,
@@ -35,33 +28,46 @@
           "240": 0
         }
       },
+      "gameplay": {
+        "modeRatio": {},
+        "speedRatio": {}
+      },
       "tags": [
-        "Wave",
-        "1x",
+        "Ship",
         "Short",
         "Physical",
         "Low-Effect",
-        "No-Clear"
+        "One-Mode"
       ],
       "clears": []
     },
     {
       "id": 2,
-      "title": "B1TCH",
-      "creator": "Choco",
-      "verifier": "Choco",
-      "video": "https://www.youtube.com/embed/aoWhyy5VhAo",
-      "rating": "",
+      "title": "Jam With Wave",
+      "creator": "Timo",
+      "verifier": "Timo",
+      "video": "-",
+      "rating": "Featured",
       "map": {
-        "mapId": "129446657",
-        "length": "11s",
-        "objects": 1070,
-        "uploadDate": "2025-12-14"
+        "mapId": "123869094",
+        "length": "12s",
+        "objects": 2832,
+        "uploadDate": "2025-07-31"
       },
       "song": {
-        "name": "B!tchcrush",
-        "artist": "ImCold",
-        "id": "1221726"
+        "name": "Jam with Wave",
+        "artist": "Frums",
+        "id": "10009548"
+      },
+      "description": "",
+      "enjoyment": "",
+      "framePerfect": {
+        "fps": {
+          "30": 0,
+          "60": 0,
+          "120": 0,
+          "240": 0
+        }
       },
       "gameplay": {
         "modeRatio": {
@@ -83,23 +89,73 @@
     },
     {
       "id": 3,
-      "title": "Blink",
+      "title": "404",
       "creator": "Choco",
-      "video": "https://www.youtube.com/embed/xa4XmXWQfZY",
       "verifier": "Choco",
+      "video": "https://www.youtube.com/embed/W_y4Ewh-yNs",
+      "rating": "",
       "map": {
-        "mapId": 129210712,
-        "length": "8s",
-        "objects": 1583,
-        "uploadDate": "2025-12-09"
+        "mapId": "139256339",
+        "length": "10s",
+        "objects": 1060,
+        "uploadDate": "2026-04-29"
       },
       "song": {
-        "name": "-Invaders-",
-        "artist": "Waterflame",
-        "id": 108415
+        "name": "Glitch Out",
+        "artist": "Camellia",
+        "id": "NONG"
+      },
+      "description": "양손 연타 좋아하시나요? 혹은 양손 연타를 잘하고 싶은데 입문을 무슨 맵으로 해야하나 고민이신가요? 뭐하십니까! 얼른 플레이하러 가세요!",
+      "enjoyment": "9",
+      "framePerfect": {
+        "fps": {
+          "30": 0,
+          "60": 0,
+          "120": 0,
+          "240": 0
+        }
       },
       "gameplay": {
-        "mainMode": "Wave",
+        "modeRatio": {},
+        "speedRatio": {}
+      },
+      "tags": [
+        "Wave",
+        "Short",
+        "Spam",
+        "None-Effect"
+      ],
+      "clears": []
+    },
+    {
+      "id": 4,
+      "title": "B1TCH",
+      "creator": "Choco",
+      "verifier": "Choco",
+      "video": "https://www.youtube.com/embed/aoWhyy5VhAo",
+      "rating": "Featured",
+      "map": {
+        "mapId": "129446657",
+        "length": "11s",
+        "objects": 1070,
+        "uploadDate": "2025-12-14"
+      },
+      "song": {
+        "name": "B!tchcrush",
+        "artist": "ImCold",
+        "id": "1221726"
+      },
+      "description": "",
+      "enjoyment": "",
+      "framePerfect": {
+        "fps": {
+          "30": 0,
+          "60": 0,
+          "120": 0,
+          "240": 0
+        }
+      },
+      "gameplay": {
         "modeRatio": {
           "Cube": 100
         },
@@ -107,13 +163,50 @@
           "1x": 100
         }
       },
+      "tags": [
+        "Wave",
+        "1x",
+        "Short",
+        "Physical",
+        "Low-Effect",
+        "No-Clear"
+      ],
+      "clears": []
+    },
+    {
+      "id": 5,
+      "title": "Blink",
+      "creator": "Choco",
+      "verifier": "Choco",
+      "video": "https://www.youtube.com/embed/xa4XmXWQfZY",
+      "rating": "Featured",
+      "map": {
+        "mapId": "129210712",
+        "length": "8s",
+        "objects": 1583,
+        "uploadDate": "2025-12-09"
+      },
+      "song": {
+        "name": "-Invaders-",
+        "artist": "Waterflame",
+        "id": "108415"
+      },
+      "description": "",
+      "enjoyment": "",
       "framePerfect": {
-        "total": 0,
         "fps": {
           "30": 0,
           "60": 0,
           "120": 0,
           "240": 0
+        }
+      },
+      "gameplay": {
+        "modeRatio": {
+          "Cube": 100
+        },
+        "speedRatio": {
+          "1x": 100
         }
       },
       "tags": [
@@ -127,7 +220,7 @@
       "clears": []
     },
     {
-      "id": 4,
+      "id": 6,
       "title": "NABI",
       "creator": "Choco",
       "verifier": "Choco",
@@ -161,7 +254,7 @@
       "clears": []
     },
     {
-      "id": 5,
+      "id": 7,
       "title": "Jiter Click 2",
       "creator": "Timo",
       "verifier": "Timo",
@@ -198,7 +291,7 @@
         "Wave",
         "1x",
         "Tiny",
-        "High-CPS",
+        "Spam",
         "None-Effect",
         "No-Clear"
       ],
@@ -211,7 +304,7 @@
       ]
     },
     {
-      "id": 6,
+      "id": 8,
       "title": "Furry Wave",
       "creator": "Timo",
       "video": "-",
@@ -256,7 +349,7 @@
       "clears": []
     },
     {
-      "id": 7,
+      "id": 9,
       "title": "Funny Duel",
       "creator": "Timo",
       "video": "-",
@@ -303,13 +396,14 @@
       "clears": []
     },
     {
-      "id": 8,
+      "id": 10,
       "title": "Cube Cafe",
       "creator": "Timo",
-      "video": "-",
       "verifier": "Timo",
+      "video": "-",
+      "rating": "Featured",
       "map": {
-        "mapId": 121632308,
+        "mapId": "121632308",
         "length": "11s",
         "objects": 505,
         "uploadDate": "2025-06-24"
@@ -317,24 +411,24 @@
       "song": {
         "name": "My Ordinart Life",
         "artist": "The Living Tombstone",
-        "id": 815245
+        "id": "815245"
       },
-      "gameplay": {
-        "mainMode": "Cube",
-        "modeRatio": {
-          "Cube": 100
-        },
-        "speedRatio": {
-          "1x": 100
-        }
-      },
+      "description": "",
+      "enjoyment": "",
       "framePerfect": {
-        "total": 0,
         "fps": {
           "30": 0,
           "60": 0,
           "120": 0,
           "240": 0
+        }
+      },
+      "gameplay": {
+        "modeRatio": {
+          "Cube": 100
+        },
+        "speedRatio": {
+          "1x": 100
         }
       },
       "tags": [
@@ -351,7 +445,7 @@
       "clears": []
     },
     {
-      "id": 9,
+      "id": 11,
       "title": "JP Challenge 1",
       "creator": "Choco",
       "video": "-",
@@ -396,7 +490,7 @@
       "clears": []
     },
     {
-      "id": 10,
+      "id": 12,
       "title": "JP Challenge 4",
       "creator": "Choco",
       "video": "-",
@@ -442,7 +536,7 @@
       "clears": []
     },
     {
-      "id": 11,
+      "id": 13,
       "title": "Swimming Wave",
       "creator": "Choco",
       "video": "-",
@@ -487,7 +581,7 @@
       "clears": []
     },
     {
-      "id": 12,
+      "id": 14,
       "title": "JP Challenge 5",
       "creator": "Choco",
       "video": "-",
@@ -525,7 +619,7 @@
         "UFO",
         "1x",
         "Short",
-        "High-CPS",
+        "Spam",
         "None-Effect",
         "No-Clear",
         "One-Mode"
@@ -533,7 +627,7 @@
       "clears": []
     },
     {
-      "id": 13,
+      "id": 15,
       "title": "LT Tresure",
       "creator": "Light",
       "video": "-",
@@ -579,6 +673,174 @@
     }
   ],
   "history": [
+    {
+      "time": "2026-08-14 14:05",
+      "type": "add",
+      "title": "INCORRECT",
+      "detail": "1위에 새로운 레벨이 등록되었습니다."
+    },
+    {
+      "time": "2026-08-14 14:05",
+      "type": "move",
+      "title": "LT Tresure",
+      "detail": "'INCORRECT' 레벨 추가로 인해 순위가 14위에서 15위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 14:05",
+      "type": "move",
+      "title": "JP Challenge 5",
+      "detail": "'INCORRECT' 레벨 추가로 인해 순위가 13위에서 14위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 14:05",
+      "type": "move",
+      "title": "Swimming Wave",
+      "detail": "'INCORRECT' 레벨 추가로 인해 순위가 12위에서 13위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 14:05",
+      "type": "move",
+      "title": "JP Challenge 4",
+      "detail": "'INCORRECT' 레벨 추가로 인해 순위가 11위에서 12위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 14:05",
+      "type": "move",
+      "title": "JP Challenge 1",
+      "detail": "'INCORRECT' 레벨 추가로 인해 순위가 10위에서 11위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 14:05",
+      "type": "move",
+      "title": "Cube Cafe",
+      "detail": "'INCORRECT' 레벨 추가로 인해 순위가 9위에서 10위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 14:05",
+      "type": "move",
+      "title": "Funny Duel",
+      "detail": "'INCORRECT' 레벨 추가로 인해 순위가 8위에서 9위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 14:05",
+      "type": "move",
+      "title": "Furry Wave",
+      "detail": "'INCORRECT' 레벨 추가로 인해 순위가 7위에서 8위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 14:05",
+      "type": "move",
+      "title": "Jiter Click 2",
+      "detail": "'INCORRECT' 레벨 추가로 인해 순위가 6위에서 7위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 14:05",
+      "type": "move",
+      "title": "NABI",
+      "detail": "'INCORRECT' 레벨 추가로 인해 순위가 5위에서 6위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 14:05",
+      "type": "move",
+      "title": "Blink",
+      "detail": "'INCORRECT' 레벨 추가로 인해 순위가 4위에서 5위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 14:05",
+      "type": "move",
+      "title": "B1TCH",
+      "detail": "'INCORRECT' 레벨 추가로 인해 순위가 3위에서 4위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 14:05",
+      "type": "move",
+      "title": "404",
+      "detail": "'INCORRECT' 레벨 추가로 인해 순위가 2위에서 3위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 14:05",
+      "type": "move",
+      "title": "Jam With Wave",
+      "detail": "'INCORRECT' 레벨 추가로 인해 순위가 1위에서 2위로 하락하였습니다."
+    },
+    {
+      "time": "2026-05-01 23:22",
+      "type": "add",
+      "title": "404",
+      "detail": "2위에 새로운 레벨이 등록되었습니다."
+    },
+    {
+      "time": "2026-05-01 23:22",
+      "type": "move",
+      "title": "LT Tresure",
+      "detail": "'404' 레벨 추가로 인해 순위가 13위에서 14위로 하락하였습니다."
+    },
+    {
+      "time": "2026-05-01 23:22",
+      "type": "move",
+      "title": "JP Challenge 5",
+      "detail": "'404' 레벨 추가로 인해 순위가 12위에서 13위로 하락하였습니다."
+    },
+    {
+      "time": "2026-05-01 23:22",
+      "type": "move",
+      "title": "Swimming Wave",
+      "detail": "'404' 레벨 추가로 인해 순위가 11위에서 12위로 하락하였습니다."
+    },
+    {
+      "time": "2026-05-01 23:22",
+      "type": "move",
+      "title": "JP Challenge 4",
+      "detail": "'404' 레벨 추가로 인해 순위가 10위에서 11위로 하락하였습니다."
+    },
+    {
+      "time": "2026-05-01 23:22",
+      "type": "move",
+      "title": "JP Challenge 1",
+      "detail": "'404' 레벨 추가로 인해 순위가 9위에서 10위로 하락하였습니다."
+    },
+    {
+      "time": "2026-05-01 23:22",
+      "type": "move",
+      "title": "Cube Cafe",
+      "detail": "'404' 레벨 추가로 인해 순위가 8위에서 9위로 하락하였습니다."
+    },
+    {
+      "time": "2026-05-01 23:22",
+      "type": "move",
+      "title": "Funny Duel",
+      "detail": "'404' 레벨 추가로 인해 순위가 7위에서 8위로 하락하였습니다."
+    },
+    {
+      "time": "2026-05-01 23:22",
+      "type": "move",
+      "title": "Furry Wave",
+      "detail": "'404' 레벨 추가로 인해 순위가 6위에서 7위로 하락하였습니다."
+    },
+    {
+      "time": "2026-05-01 23:22",
+      "type": "move",
+      "title": "Jiter Click 2",
+      "detail": "'404' 레벨 추가로 인해 순위가 5위에서 6위로 하락하였습니다."
+    },
+    {
+      "time": "2026-05-01 23:22",
+      "type": "move",
+      "title": "NABI",
+      "detail": "'404' 레벨 추가로 인해 순위가 4위에서 5위로 하락하였습니다."
+    },
+    {
+      "time": "2026-05-01 23:22",
+      "type": "move",
+      "title": "Blink",
+      "detail": "'404' 레벨 추가로 인해 순위가 3위에서 4위로 하락하였습니다."
+    },
+    {
+      "time": "2026-05-01 23:22",
+      "type": "move",
+      "title": "B1TCH",
+      "detail": "'404' 레벨 추가로 인해 순위가 2위에서 3위로 하락하였습니다."
+    },
     {
       "time": "2026-01-17 22:14",
       "type": "add",

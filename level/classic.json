@@ -805,7 +805,7 @@
         "1x",
         "Short",
         "Memory",
-        "High-CPS",
+        "Spam",
         "Full-Effect",
         "One-Mode",
         "No-Clear"
@@ -856,6 +856,48 @@
     },
     {
       "id": 19,
+      "title": "yaa han ge ne ga ji",
+      "creator": "Timo",
+      "verifier": "Timo",
+      "video": "https://www.youtube.com/embed/tzwGJx16WZw",
+      "rating": "",
+      "map": {
+        "mapId": "146949214",
+        "length": "24s",
+        "objects": 4016,
+        "uploadDate": "2026-08-14"
+      },
+      "song": {
+        "name": "Signs",
+        "artist": "NAYM",
+        "id": "10012672"
+      },
+      "description": "야한게 4가지야한게야한게는 정말 야해털게어디에도있을곳없는게모두들 누구와어떻게서로기대어살아갈까 나는정말모르겠어음 란한게",
+      "enjoyment": "4",
+      "framePerfect": {
+        "fps": {
+          "30": 5,
+          "60": 6,
+          "120": 1,
+          "240": 1
+        }
+      },
+      "gameplay": {
+        "modeRatio": {},
+        "speedRatio": {}
+      },
+      "tags": [
+        "Any-Made",
+        "Short",
+        "Physical",
+        "None-Effect",
+        "No-Clear",
+        "NONG"
+      ],
+      "clears": []
+    },
+    {
+      "id": 20,
       "title": "FlipBook",
       "creator": "Choco",
       "verifier": "Choco",
@@ -905,7 +947,7 @@
       ]
     },
     {
-      "id": 20,
+      "id": 21,
       "title": "Reaper Wave",
       "creator": "Timo",
       "verifier": "Timo",
@@ -966,7 +1008,7 @@
       ]
     },
     {
-      "id": 21,
+      "id": 22,
       "title": "PPPP",
       "creator": "Choco",
       "verifier": "Choco",
@@ -1029,7 +1071,7 @@
       ]
     },
     {
-      "id": 22,
+      "id": 23,
       "title": "Endless Dreaming",
       "creator": "Light",
       "verifier": "Light",
@@ -1077,7 +1119,7 @@
       ]
     },
     {
-      "id": 23,
+      "id": 24,
       "title": "JPA EP8",
       "creator": "Choco",
       "verifier": "Choco",
@@ -1133,7 +1175,7 @@
       "clears": []
     },
     {
-      "id": 24,
+      "id": 25,
       "title": "LT EP8",
       "creator": "Light",
       "verifier": "Choco",
@@ -1175,7 +1217,7 @@
       "clears": []
     },
     {
-      "id": 25,
+      "id": 26,
       "title": "JPA EP7",
       "creator": "Choco",
       "verifier": "Choco",
@@ -1222,7 +1264,7 @@
       "clears": []
     },
     {
-      "id": 26,
+      "id": 27,
       "title": "JPA EP4",
       "creator": "Choco",
       "verifier": "Choco",
@@ -1277,7 +1319,7 @@
       "clears": []
     },
     {
-      "id": 27,
+      "id": 28,
       "title": "JPA EP5",
       "creator": "Choco",
       "verifier": "Choco",
@@ -1323,7 +1365,7 @@
       "clears": []
     },
     {
-      "id": 28,
+      "id": 29,
       "title": "JPA EP2",
       "creator": "Choco",
       "verifier": "Choco",
@@ -1370,7 +1412,7 @@
       "clears": []
     },
     {
-      "id": 29,
+      "id": 30,
       "title": "JPA EP1",
       "creator": "Choco",
       "verifier": "Choco",
@@ -1417,7 +1459,7 @@
       "clears": []
     },
     {
-      "id": 30,
+      "id": 31,
       "title": "Trolled",
       "creator": "Light",
       "verifier": "Light",
@@ -1480,7 +1522,7 @@
       ]
     },
     {
-      "id": 31,
+      "id": 32,
       "title": "JPA EP3",
       "creator": "Choco",
       "verifier": "Choco",
@@ -1527,7 +1569,7 @@
       "clears": []
     },
     {
-      "id": 32,
+      "id": 33,
       "title": "LT EP7",
       "creator": "Light",
       "verifier": "Light",
@@ -1583,7 +1625,7 @@
       ]
     },
     {
-      "id": 33,
+      "id": 34,
       "title": "JPA EP9",
       "creator": "Choco",
       "verifier": "Choco",
@@ -1627,7 +1669,7 @@
       "clears": []
     },
     {
-      "id": 34,
+      "id": 35,
       "title": "JPA EP6",
       "creator": "Choco",
       "verifier": "Choco",
@@ -1669,7 +1711,7 @@
       "clears": []
     },
     {
-      "id": 35,
+      "id": 36,
       "title": "Slow Challenge",
       "creator": "Choco",
       "verifier": "Choco",
@@ -1712,7 +1754,7 @@
       "clears": []
     },
     {
-      "id": 36,
+      "id": 37,
       "title": "LT EP6",
       "creator": "Light",
       "verifier": "Light",
@@ -1770,7 +1812,7 @@
       ]
     },
     {
-      "id": 37,
+      "id": 38,
       "title": "LT EP4",
       "creator": "Light",
       "verifier": "Light",
@@ -1819,7 +1861,7 @@
       ]
     },
     {
-      "id": 38,
+      "id": 39,
       "title": "LT EP5",
       "creator": "Light",
       "verifier": "Light",
@@ -1868,7 +1910,7 @@
       ]
     },
     {
-      "id": 39,
+      "id": 40,
       "title": "Glide Festival",
       "creator": "Choco",
       "verifier": "Choco",
@@ -1912,7 +1954,7 @@
       "clears": []
     },
     {
-      "id": 40,
+      "id": 41,
       "title": "Egg Layout",
       "creator": "Light",
       "verifier": "Light",
@@ -1981,7 +2023,7 @@
       ]
     },
     {
-      "id": 41,
+      "id": 42,
       "title": "LT EP3",
       "creator": "Light",
       "verifier": "Light",
@@ -2019,7 +2061,7 @@
         "Medium",
         "Boss",
         "Physical",
-        "High-CPS",
+        "Spam",
         "None-Effect"
       ],
       "clears": [
@@ -2032,7 +2074,7 @@
       ]
     },
     {
-      "id": 42,
+      "id": 43,
       "title": "LT EP2",
       "creator": "Light",
       "verifier": "Light",
@@ -2085,7 +2127,7 @@
       ]
     },
     {
-      "id": 43,
+      "id": 44,
       "title": "Answer Me",
       "creator": "Choco",
       "verifier": "Choco",
@@ -2129,6 +2171,162 @@
     }
   ],
   "history": [
+    {
+      "time": "2026-08-14 13:23",
+      "type": "add",
+      "title": "yaa han ge ne ga ji",
+      "detail": "19위에 새로운 레벨이 등록되었습니다."
+    },
+    {
+      "time": "2026-08-14 13:23",
+      "type": "move",
+      "title": "Answer Me",
+      "detail": "'yaa han ge ne ga ji' 레벨 추가로 인해 순위가 43위에서 44위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 13:23",
+      "type": "move",
+      "title": "LT EP2",
+      "detail": "'yaa han ge ne ga ji' 레벨 추가로 인해 순위가 42위에서 43위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 13:23",
+      "type": "move",
+      "title": "LT EP3",
+      "detail": "'yaa han ge ne ga ji' 레벨 추가로 인해 순위가 41위에서 42위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 13:23",
+      "type": "move",
+      "title": "Egg Layout",
+      "detail": "'yaa han ge ne ga ji' 레벨 추가로 인해 순위가 40위에서 41위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 13:23",
+      "type": "move",
+      "title": "Glide Festival",
+      "detail": "'yaa han ge ne ga ji' 레벨 추가로 인해 순위가 39위에서 40위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 13:23",
+      "type": "move",
+      "title": "LT EP5",
+      "detail": "'yaa han ge ne ga ji' 레벨 추가로 인해 순위가 38위에서 39위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 13:23",
+      "type": "move",
+      "title": "LT EP4",
+      "detail": "'yaa han ge ne ga ji' 레벨 추가로 인해 순위가 37위에서 38위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 13:23",
+      "type": "move",
+      "title": "LT EP6",
+      "detail": "'yaa han ge ne ga ji' 레벨 추가로 인해 순위가 36위에서 37위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 13:23",
+      "type": "move",
+      "title": "Slow Challenge",
+      "detail": "'yaa han ge ne ga ji' 레벨 추가로 인해 순위가 35위에서 36위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 13:23",
+      "type": "move",
+      "title": "JPA EP6",
+      "detail": "'yaa han ge ne ga ji' 레벨 추가로 인해 순위가 34위에서 35위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 13:23",
+      "type": "move",
+      "title": "JPA EP9",
+      "detail": "'yaa han ge ne ga ji' 레벨 추가로 인해 순위가 33위에서 34위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 13:23",
+      "type": "move",
+      "title": "LT EP7",
+      "detail": "'yaa han ge ne ga ji' 레벨 추가로 인해 순위가 32위에서 33위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 13:23",
+      "type": "move",
+      "title": "JPA EP3",
+      "detail": "'yaa han ge ne ga ji' 레벨 추가로 인해 순위가 31위에서 32위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 13:23",
+      "type": "move",
+      "title": "Trolled",
+      "detail": "'yaa han ge ne ga ji' 레벨 추가로 인해 순위가 30위에서 31위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 13:23",
+      "type": "move",
+      "title": "JPA EP1",
+      "detail": "'yaa han ge ne ga ji' 레벨 추가로 인해 순위가 29위에서 30위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 13:23",
+      "type": "move",
+      "title": "JPA EP2",
+      "detail": "'yaa han ge ne ga ji' 레벨 추가로 인해 순위가 28위에서 29위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 13:23",
+      "type": "move",
+      "title": "JPA EP5",
+      "detail": "'yaa han ge ne ga ji' 레벨 추가로 인해 순위가 27위에서 28위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 13:23",
+      "type": "move",
+      "title": "JPA EP4",
+      "detail": "'yaa han ge ne ga ji' 레벨 추가로 인해 순위가 26위에서 27위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 13:23",
+      "type": "move",
+      "title": "JPA EP7",
+      "detail": "'yaa han ge ne ga ji' 레벨 추가로 인해 순위가 25위에서 26위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 13:23",
+      "type": "move",
+      "title": "LT EP8",
+      "detail": "'yaa han ge ne ga ji' 레벨 추가로 인해 순위가 24위에서 25위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 13:23",
+      "type": "move",
+      "title": "JPA EP8",
+      "detail": "'yaa han ge ne ga ji' 레벨 추가로 인해 순위가 23위에서 24위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 13:23",
+      "type": "move",
+      "title": "Endless Dreaming",
+      "detail": "'yaa han ge ne ga ji' 레벨 추가로 인해 순위가 22위에서 23위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 13:23",
+      "type": "move",
+      "title": "PPPP",
+      "detail": "'yaa han ge ne ga ji' 레벨 추가로 인해 순위가 21위에서 22위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 13:23",
+      "type": "move",
+      "title": "Reaper Wave",
+      "detail": "'yaa han ge ne ga ji' 레벨 추가로 인해 순위가 20위에서 21위로 하락하였습니다."
+    },
+    {
+      "time": "2026-08-14 13:23",
+      "type": "move",
+      "title": "FlipBook",
+      "detail": "'yaa han ge ne ga ji' 레벨 추가로 인해 순위가 19위에서 20위로 하락하였습니다."
+    },
     {
       "time": "2026-06-23 21:35",
       "type": "add",
