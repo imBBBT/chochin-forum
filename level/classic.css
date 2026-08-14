@@ -260,6 +260,25 @@ html, body {
   gap: 0.4rem;
 }
 
+.classic-tag-reset-btn {
+  font-family: 'Paperozi', sans-serif;
+  font-size: 0.74rem;
+  color: #ff6b81;
+  background: rgba(255, 71, 87, 0.12);
+  border: 1px solid rgba(255, 71, 87, 0.35);
+  border-radius: 0.25rem;
+  padding: 0.1rem 0.5rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.classic-tag-reset-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 71, 87, 0.3);
+  border-color: rgba(255, 71, 87, 0.6);
+  box-shadow: 0 0 8px rgba(255, 71, 87, 0.35);
+}
+
 .classic-tag-toggle-btn {
   font-family: 'Paperozi', sans-serif;
   font-size: 0.74rem;
