@@ -196,19 +196,12 @@
           </select>
           <input type="text" id="dev-add-video" placeholder="유튜브 링크 or ID (ex: swG-0J9TBug)" class="dev-input" />
           <input type="text" id="dev-add-mapid" placeholder="맵 ID" class="dev-input" />
-          <select id="dev-add-length" class="dev-select">
-            <option value="Short">길이: Short</option>
-            <option value="Medium">길이: Medium</option>
-            <option value="Long" selected>길이: Long</option>
-            <option value="XL">길이: XL</option>
-            <option value="XXL">길이: XXL</option>
-            <option value="XXXL">길이: XXXL</option>
-          </select>
+          <input type="text" id="dev-add-length" placeholder="길이 (ex: Long, 1m 30s, XL)" class="dev-input" />
           <input type="text" id="dev-add-objects" placeholder="오브젝트 수 (ex: 45,000)" class="dev-input" />
           <input type="text" id="dev-add-song-name" placeholder="음악 제목" class="dev-input" />
           <input type="text" id="dev-add-song-artist" placeholder="음악 아티스트" class="dev-input" />
           <textarea id="dev-add-desc" placeholder="레벨 설명" class="dev-input dev-textarea"></textarea>
-          <input type="text" id="dev-add-tags" placeholder="태그 (쉼표로 구분: Cube, Wave, Fast)" class="dev-input" />
+          <textarea id="dev-add-tags" placeholder="태그 (쉼표 또는 줄바꿈으로 구분: Cube, Wave, Fast)" class="dev-input dev-textarea dev-tag-textarea"></textarea>
           <div class="dev-button-grid">
             <button id="dev-add-submit-btn" class="modal-btn dev-action-btn dev-btn-primary">등록 저장</button>
             <button id="dev-add-back-btn" class="modal-btn dev-action-btn">뒤로</button>
@@ -234,19 +227,12 @@
             </select>
             <input type="text" id="dev-edit-video" placeholder="유튜브 링크/ID" class="dev-input" />
             <input type="text" id="dev-edit-mapid" placeholder="맵 ID" class="dev-input" />
-            <select id="dev-edit-length" class="dev-select">
-              <option value="Short">길이: Short</option>
-              <option value="Medium">길이: Medium</option>
-              <option value="Long">길이: Long</option>
-              <option value="XL">길이: XL</option>
-              <option value="XXL">길이: XXL</option>
-              <option value="XXXL">길이: XXXL</option>
-            </select>
+            <input type="text" id="dev-edit-length" placeholder="길이 (ex: Long, 1m 30s, XL)" class="dev-input" />
             <input type="text" id="dev-edit-objects" placeholder="오브젝트 수" class="dev-input" />
             <input type="text" id="dev-edit-song-name" placeholder="음악 제목" class="dev-input" />
             <input type="text" id="dev-edit-song-artist" placeholder="음악 아티스트" class="dev-input" />
             <textarea id="dev-edit-desc" placeholder="레벨 설명" class="dev-input dev-textarea"></textarea>
-            <input type="text" id="dev-edit-tags" placeholder="태그 (쉼표 구분)" class="dev-input" />
+            <textarea id="dev-edit-tags" placeholder="태그 (쉼표 또는 줄바꿈으로 구분)" class="dev-input dev-textarea dev-tag-textarea"></textarea>
             <div class="dev-button-grid">
               <button id="dev-edit-submit-btn" class="modal-btn dev-action-btn dev-btn-primary">수정 저장</button>
               <button id="dev-edit-delete-btn" class="modal-btn dev-action-btn dev-btn-danger">레벨 삭제</button>

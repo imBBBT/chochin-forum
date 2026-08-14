@@ -377,24 +377,32 @@ document.addEventListener('DOMContentLoaded', () => {
     revertBgToSaved();
   });
 
-  // 모달 오버레이 클릭 시 모달 닫기 (모달 박스 자체 클릭 제외)
-  nicknameModalOverlay.addEventListener('click', (e) => {
-    if (e.target === nicknameModalOverlay) {
-      hideNicknameModal();
-    }
-  });
+  // 안전한 모달 오버레이 닫기 헬퍼 (모달 내부에서 텍스트를 드래그하다가 바깥에서 마우스를 떼었을 때 화면이 꺼지는 버그 방지)
+  function attachSafeOverlayClose(overlayElement, closeCallback) {
+    if (!overlayElement) return;
+    let isMouseDownOnOverlay = false;
 
-  bgModalOverlay.addEventListener('click', (e) => {
-    if (e.target === bgModalOverlay) {
-      revertBgToSaved();
-    }
-  });
+    overlayElement.addEventListener('mousedown', (e) => {
+      isMouseDownOnOverlay = (e.target === overlayElement);
+    });
+
+    overlayElement.addEventListener('click', (e) => {
+      if (e.target === overlayElement && isMouseDownOnOverlay) {
+        closeCallback();
+      }
+      isMouseDownOnOverlay = false;
+    });
+  }
+
+  // 모달 오버레이 안전 닫기 바인딩
+  attachSafeOverlayClose(nicknameModalOverlay, hideNicknameModal);
+  attachSafeOverlayClose(bgModalOverlay, revertBgToSaved);
 
   // Escape 키 누르면 모달 닫기
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       hideNicknameModal();
-      if (bgModalOverlay.classList.contains('active')) {
+      if (bgModalOverlay && bgModalOverlay.classList.contains('active')) {
         revertBgToSaved();
       }
     }
@@ -407,17 +415,29 @@ document.addEventListener('DOMContentLoaded', () => {
     body.classList.toggle('menu-open', optionMenu.classList.contains('active')); // body에 'menu-open' 클래스 토글
   });
 
-  // 메뉴 바깥 클릭 시 닫기
-  window.addEventListener('click', (e) => {
-    if (
+  // 메뉴 바깥 클릭 시 닫기 (드래그 시 닫힘 방지)
+  let isMouseDownOutsideMenu = false;
+  window.addEventListener('mousedown', (e) => {
+    isMouseDownOutsideMenu = (
       !optionBtn.contains(e.target) &&
       !optionMenu.contains(e.target) &&
-      !nicknameModalOverlay.contains(e.target) &&
-      !bgModalOverlay.contains(e.target)
+      !(nicknameModalOverlay && nicknameModalOverlay.contains(e.target)) &&
+      !(bgModalOverlay && bgModalOverlay.contains(e.target))
+    );
+  });
+
+  window.addEventListener('click', (e) => {
+    if (
+      isMouseDownOutsideMenu &&
+      !optionBtn.contains(e.target) &&
+      !optionMenu.contains(e.target) &&
+      !(nicknameModalOverlay && nicknameModalOverlay.contains(e.target)) &&
+      !(bgModalOverlay && bgModalOverlay.contains(e.target))
     ) {
       optionMenu.classList.remove('active');
-      body.classList.remove('menu-open'); // 메뉴 닫을 때 body에서 'menu-open' 클래스 제거
+      body.classList.remove('menu-open');
     }
+    isMouseDownOutsideMenu = false;
   });
 
   // 개발자 도구 모달 프레임워크 (뉴스 기능은 index.js 담당)
@@ -579,12 +599,8 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
     }
   });
 
-  // 오버레이 배경 클릭 시 닫기
-  if (devOverlay) {
-    devOverlay.addEventListener('click', (e) => {
-      if (e.target === devOverlay) closeDevModal();
-    });
-  }
+  // 오버레이 배경 클릭 시 안전 닫기 (내부 텍스트 드래그 시 꺼짐 방지)
+  attachSafeOverlayClose(devOverlay, closeDevModal);
 
   // 비밀번호 입력창에서 Enter 키 지원
   if (devPwInput) {
@@ -710,7 +726,7 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
       const rating = document.getElementById('dev-add-rating')?.value || '';
       const video = extractYoutubeId(document.getElementById('dev-add-video')?.value || '');
       const mapId = (document.getElementById('dev-add-mapid')?.value || '').trim();
-      const length = document.getElementById('dev-add-length')?.value || 'Long';
+      const length = (document.getElementById('dev-add-length')?.value || '').trim() || 'Long';
       const objects = (document.getElementById('dev-add-objects')?.value || '').trim();
       const songName = (document.getElementById('dev-add-song-name')?.value || '').trim();
       const songArtist = (document.getElementById('dev-add-song-artist')?.value || '').trim();
@@ -722,7 +738,7 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
         return;
       }
 
-      const tags = tagsStr ? tagsStr.split(',').map(t => t.trim()).filter(Boolean) : ['Cube'];
+      const tags = tagsStr ? tagsStr.split(/[\n,]+/).map(t => t.trim()).filter(Boolean) : ['Cube'];
       const newId = Date.now();
 
       const newLevelObj = {
@@ -837,14 +853,14 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
       const rating = document.getElementById('dev-edit-rating')?.value || '';
       const video = extractYoutubeId(document.getElementById('dev-edit-video')?.value || '');
       const mapId = (document.getElementById('dev-edit-mapid')?.value || '').trim();
-      const length = document.getElementById('dev-edit-length')?.value || 'Long';
+      const length = (document.getElementById('dev-edit-length')?.value || '').trim() || 'Long';
       const objects = (document.getElementById('dev-edit-objects')?.value || '').trim();
       const songName = (document.getElementById('dev-edit-song-name')?.value || '').trim();
       const songArtist = (document.getElementById('dev-edit-song-artist')?.value || '').trim();
       const desc = (document.getElementById('dev-edit-desc')?.value || '').trim();
       const tagsStr = (document.getElementById('dev-edit-tags')?.value || '').trim();
 
-      const tags = tagsStr ? tagsStr.split(',').map(t => t.trim()).filter(Boolean) : [];
+      const tags = tagsStr ? tagsStr.split(/[\n,]+/).map(t => t.trim()).filter(Boolean) : [];
 
       const editedLevel = {
         id: isNaN(Number(val)) ? val : Number(val),

@@ -636,6 +636,17 @@ body.menu-open::after {
   font-family: 'Paperozi', sans-serif;
 }
 
+.dev-tag-textarea {
+  height: 52px !important;
+  min-height: 48px;
+  resize: vertical;
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+  overflow-wrap: anywhere !important;
+  line-height: 1.45;
+  box-sizing: border-box;
+}
+
 .news-display-area {
   padding: 1.5vw !important;
   box-sizing: border-box;

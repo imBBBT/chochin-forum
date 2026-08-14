@@ -1034,8 +1034,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   winModalCloseBtn.addEventListener('click', hideWinModal);
+  
+  let isWinModalMouseDownOnOverlay = false;
+  winModal.addEventListener('mousedown', (e) => {
+    isWinModalMouseDownOnOverlay = (e.target === winModal);
+  });
   winModal.addEventListener('click', (e) => {
-    if (e.target === winModal) hideWinModal();
+    if (e.target === winModal && isWinModalMouseDownOnOverlay) {
+      hideWinModal();
+    }
+    isWinModalMouseDownOnOverlay = false;
   });
 
   function renderRouletteAll() {
