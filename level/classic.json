@@ -816,7 +816,8 @@
         "Timing",
         "Nerve Control",
         "Chokepoints",
-        "Cube"
+        "Cube",
+        "Recreation"
       ],
       "clears": [
         {
@@ -947,13 +948,12 @@
       "title": "wA Ve step",
       "creator": "Timo",
       "verifier": "Timo",
-      "video": "https://www.youtube.com/embed/oKtPfKOCP_M?si=oBtW04aBPaE_MIQm",
+      "video": "https://www.youtube.com/embed/oKtPfKOCP_M",
       "rating": "Featured",
       "map": {
         "mapId": "143271726",
         "length": "32s",
-        "objects": 6347,
-        "uploadDate": "2026-06-22"
+        "objects": "6347"
       },
       "song": {
         "name": "Clubstep",
@@ -975,10 +975,24 @@
         "speedRatio": {}
       },
       "tags": [
-        "Wave",
-        "High CPS"
+        "High CPS",
+        "Standard",
+        "Glow",
+        "Design",
+        "Simplism",
+        "RobTop",
+        "Flashy",
+        "Humorous",
+        "Slow Paced",
+        "Blinds",
+        "Chokepoints",
+        "Wave"
       ],
-      "clears": []
+      "clears": [],
+      "mapId": "143271726",
+      "length": "32s",
+      "objects": "6347",
+      "targetRank": 18
     },
     {
       "id": 19,
@@ -1011,7 +1025,21 @@
         "speedRatio": {}
       },
       "tags": [
-        "NONG"
+        "NONG",
+        "Standard",
+        "Art",
+        "Asian",
+        "Lyrics",
+        "Sensitive",
+        "Humorous",
+        "Slow Paced",
+        "Blinds",
+        "Timing",
+        "High CPS",
+        "Learny",
+        "Chokepoints",
+        "Wave",
+        "Cube"
       ],
       "clears": [],
       "mapId": "146963265",
@@ -1029,8 +1057,7 @@
       "map": {
         "mapId": "131573660",
         "length": "1m 11s",
-        "objects": 10908,
-        "uploadDate": "2026-01-17"
+        "objects": "10908"
       },
       "song": {
         "name": "Connect the World",
@@ -1056,7 +1083,15 @@
         "Flow",
         "High CPS",
         "Effect",
-        "NONG"
+        "NONG",
+        "Standard",
+        "Art",
+        "Design",
+        "Asian",
+        "Lyrics",
+        "Overall",
+        "Fast Paced",
+        "Learny"
       ],
       "clears": [
         {
@@ -1067,7 +1102,11 @@
           "link": "",
           "video": ""
         }
-      ]
+      ],
+      "mapId": "131573660",
+      "length": "1m 11s",
+      "objects": "10908",
+      "targetRank": 20
     },
     {
       "id": 21,
@@ -1079,8 +1118,7 @@
       "map": {
         "mapId": "110122641",
         "length": "33s",
-        "objects": 1326,
-        "uploadDate": "2024-09-14"
+        "objects": "1326"
       },
       "song": {
         "name": "[Silent Hill Dupstep]*",
@@ -1114,7 +1152,16 @@
           "4x": 4
         }
       },
-      "tags": [],
+      "tags": [
+        "Standard",
+        "Layout",
+        "Lyrics",
+        "Overall",
+        "Sync",
+        "Timing",
+        "High CPS",
+        "Chokepoints"
+      ],
       "clears": [
         {
           "player": "Choco",
@@ -1124,7 +1171,11 @@
           "link": "https://youtu.be/WchcVcGlI5U",
           "video": "https://youtu.be/WchcVcGlI5U"
         }
-      ]
+      ],
+      "mapId": "110122641",
+      "length": "33s",
+      "objects": "1326",
+      "targetRank": 21
     },
     {
       "id": 22,
@@ -1136,8 +1187,7 @@
       "map": {
         "mapId": "128210347",
         "length": "1m 4s",
-        "objects": 5782,
-        "uploadDate": "2025-11-16"
+        "objects": "5782"
       },
       "song": {
         "name": "PPPP",
@@ -1172,7 +1222,16 @@
       "tags": [
         "Sync",
         "Flow",
-        "High CPS"
+        "High CPS",
+        "Standard",
+        "Design",
+        "Asian",
+        "Happy",
+        "Lyrics",
+        "NONG",
+        "Overall",
+        "Chokepoints",
+        "Wave"
       ],
       "clears": [
         {
@@ -1183,7 +1242,11 @@
           "link": "https://youtu.be/aFk-hpYtuF4",
           "video": "https://youtu.be/aFk-hpYtuF4"
         }
-      ]
+      ],
+      "mapId": "128210347",
+      "length": "1m 4s",
+      "objects": "5782",
+      "targetRank": 22
     },
     {
       "id": 23,
@@ -1195,8 +1258,7 @@
       "map": {
         "mapId": "131506005",
         "length": "1m 46s",
-        "objects": 8013,
-        "uploadDate": "2026-01-16"
+        "objects": "8013"
       },
       "song": {
         "name": "Looking for Edge of Ground",
@@ -1219,7 +1281,12 @@
       },
       "tags": [
         "Sync",
-        "Flow"
+        "Flow",
+        "Standard",
+        "Asian",
+        "Lyrics",
+        "Overall",
+        "Learny"
       ],
       "clears": [
         {
@@ -1230,20 +1297,23 @@
           "link": "",
           "video": ""
         }
-      ]
+      ],
+      "mapId": "131506005",
+      "length": "1m 46s",
+      "objects": "8013",
+      "targetRank": 23
     },
     {
       "id": 24,
       "title": "JPA EP8",
       "creator": "Choco",
       "verifier": "Choco",
-      "video": "-",
+      "video": "https://www.youtube.com/embed/-",
       "rating": "",
       "map": {
         "mapId": "86335155",
         "length": "2m 11s",
-        "objects": 7467,
-        "uploadDate": "2022-12-03"
+        "objects": "7467"
       },
       "song": {
         "name": "Stardust",
@@ -1278,9 +1348,18 @@
       },
       "tags": [
         "Cube",
-        "Gimmicky"
+        "Gimmicky",
+        "Standard",
+        "Overall",
+        "Blinds",
+        "Learny",
+        "Chokepoints"
       ],
-      "clears": []
+      "clears": [],
+      "mapId": "86335155",
+      "length": "2m 11s",
+      "objects": "7467",
+      "targetRank": 24
     },
     {
       "id": 25,
@@ -1292,8 +1371,7 @@
       "map": {
         "mapId": "126044291",
         "length": "1m 24s",
-        "objects": 7525,
-        "uploadDate": "2025-09-16"
+        "objects": "7525"
       },
       "song": {
         "name": "Golden Haze (Prev)",
@@ -1316,10 +1394,26 @@
       },
       "tags": [
         "Ship",
-        "Memory",
-        "Effect"
+        "Effect",
+        "Design",
+        "Modern",
+        "Hot",
+        "Monochromatic",
+        "Night",
+        "Pixel Art",
+        "Flashy",
+        "Overall",
+        "Blinds",
+        "Learny",
+        "Chokepoints",
+        "Multi Path",
+        "Collectathon"
       ],
-      "clears": []
+      "clears": [],
+      "mapId": "126044291",
+      "length": "1m 24s",
+      "objects": "7525",
+      "targetRank": 25
     },
     {
       "id": 26,
