@@ -1,10 +1,10 @@
 /* tools.css - 초친 포럼 도구 페이지 전용 스타일 */
 
 .tools-main-container {
-  width: 88%;
-  max-width: 1400px;
+  width: 2250px;
+  max-width: 2250px;
   margin: 0 auto;
-  padding-top: 180px;
+  padding-top: 172px;
   padding-bottom: 3rem;
   display: flex;
   flex-direction: column;
@@ -23,7 +23,7 @@
   transform: none !important;
   height: auto !important;
   width: 100%;
-  padding: 3vw 2rem 2.5vw 2rem;
+  padding: 76px 51px 64px 51px;
   background-color: rgba(18, 18, 18, 0.88);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 0.85rem;
@@ -40,7 +40,7 @@
 
 .tools-banner-title {
   font-family: 'Paperozi', sans-serif !important;
-  font-size: clamp(2.8rem, 4.5vw, 6rem) !important;
+  font-size: 115px !important;
   font-weight: 800 !important;
   color: #ffffff !important;
   margin: 0 !important;
@@ -51,7 +51,7 @@
 
 .tools-banner-desc {
   font-family: 'Paperozi', sans-serif;
-  font-size: clamp(1.1rem, 1.5vw, 2.2rem);
+  font-size: 38px;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.85);
   margin: 0;
@@ -68,7 +68,7 @@
 
 .tools-tab-btn {
   font-family: 'Paperozi', sans-serif;
-  font-size: clamp(1.1rem, 1.4vw, 1.8rem);
+  font-size: 36px;
   font-weight: 700;
   padding: 0.75rem 2rem;
   border-radius: 0.75rem;

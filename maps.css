@@ -7,16 +7,15 @@ html, body {
 /* --- Maps List Container (50% Scaled Dual Panel Layout) --- */
 .maps-list-box {
   position: fixed !important;
-  top: 164px !important;
-  bottom: 24px !important;
-  left: 50% !important;
+  top: 172px !important;
+  bottom: 40px !important;
+  left: calc(50% - 870px) !important;
   right: auto !important;
-  width: 68vw !important;
-  max-width: 1300px !important;
+  width: 1740px !important;
   min-width: 340px;
   height: auto !important;
-  max-height: calc(100vh - 192px) !important;
-  transform: translateX(-50%) !important;
+  max-height: calc(1440px - 212px) !important;
+  transform: none !important;
   border-radius: 0.75rem;
   display: flex;
   flex-direction: column;
@@ -26,16 +25,16 @@ html, body {
   background-color: rgba(18, 18, 18, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 0, 0, 0.5);
-  transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: width 0.45s cubic-bezier(0.2, 0.85, 0.25, 1), left 0.45s cubic-bezier(0.2, 0.85, 0.25, 1) !important;
+  will-change: width, left;
   z-index: 5;
 }
 
 .maps-list-box.has-detail {
-  left: calc(50% - 14px) !important;
+  left: calc(50% - 1220px) !important;
   right: auto !important;
-  width: 47vw !important;
-  max-width: 1080px !important;
-  transform: translateX(-100%) !important;
+  width: 1200px !important;
+  transform: none !important;
 }
 
 .maps-list-header {
@@ -421,15 +420,15 @@ html, body {
 /* --- Detail Box (50% Scaled Dual Panel) --- */
 .maps-detail-box {
   position: fixed !important;
-  top: 164px !important;
-  bottom: 24px !important;
-  left: calc(50% + 14px) !important;
+  top: 172px !important;
+  bottom: 40px !important;
+  left: calc(50% + 20px) !important;
   right: auto !important;
-  width: 47vw !important;
-  max-width: 1080px !important;
+  width: 1200px !important;
+  max-width: 1200px !important;
   min-width: 340px !important;
   height: auto !important;
-  max-height: calc(100vh - 192px) !important;
+  max-height: calc(1440px - 212px) !important;
   border-radius: 0.75rem !important;
   background-color: rgba(18, 18, 18, 0.96) !important;
   border: 1px solid rgba(255, 255, 255, 0.15) !important;

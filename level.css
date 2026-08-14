@@ -1,9 +1,9 @@
 /* Level Main Container Layout */
 .level-main-container {
-  width: 96vw;
-  max-width: 96vw;
+  width: 2458px;
+  max-width: 2458px;
   margin: 0 auto;
-  padding-top: calc(5vw + 20px);
+  padding-top: 148px;
   padding-bottom: 2rem;
   display: flex;
   flex-direction: column;
@@ -23,7 +23,7 @@
   left: 0 !important;
   transform: none !important;
   height: auto !important;
-  padding: 5.5vw 4rem 4.5vw 4rem;
+  padding: 140px 102px 115px 102px;
   background-color: rgba(18, 18, 18, 0.88);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 0.75rem;
@@ -41,7 +41,7 @@
 
 .level-banner-title {
   font-family: 'Paperozi', sans-serif !important;
-  font-size: clamp(4.5rem, 7vw, 15rem) !important;
+  font-size: 179px !important;
   font-weight: 800 !important;
   color: #ffffff !important;
   margin: 0 !important;
@@ -52,7 +52,7 @@
 
 .level-banner-desc {
   font-family: 'Paperozi', sans-serif;
-  font-size: clamp(1.4rem, 2.2vw, 5rem);
+  font-size: 56px;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.95);
   margin: 0;
@@ -60,7 +60,7 @@
 
 .level-banner-subdesc {
   font-family: 'Paperozi', sans-serif;
-  font-size: clamp(1.15rem, 1.6vw, 4rem);
+  font-size: 41px;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.72);
   margin: 0;
@@ -140,7 +140,7 @@
 
 .mode-title {
   font-family: 'Paperozi', sans-serif;
-  font-size: clamp(2.4rem, 3.8vw, 4.5rem);
+  font-size: 97px;
   font-weight: 800;
   color: #ffffff;
   margin: 0;
@@ -151,7 +151,7 @@
 
 .mode-desc {
   font-family: 'Paperozi', sans-serif;
-  font-size: clamp(0.9rem, 1.1vw, 1.2rem);
+  font-size: 28px;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.85);
   margin: 0;

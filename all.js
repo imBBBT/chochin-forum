@@ -1,3 +1,26 @@
+/* =========================================================
+   Global Resolution Scaling Engine (Base: 2560x1440 QHD)
+   ========================================================= */
+(function initResolutionScaling() {
+  const BASE_WIDTH = 2560;
+
+  function updateScale() {
+    const screenWidth = window.innerWidth;
+    if (screenWidth > 960) {
+      const scale = screenWidth / BASE_WIDTH;
+      document.documentElement.style.zoom = scale;
+    } else {
+      document.documentElement.style.zoom = '1';
+    }
+  }
+
+  updateScale();
+  window.addEventListener('resize', updateScale);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateScale);
+  }
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
   const optionBtn = document.querySelector('.optionbutton');
   const optionMenu = document.querySelector('.optionmenu');

@@ -350,7 +350,7 @@ function renderLevelDetail(level, rank, detailContainer) {
   let songDisplay = '-';
   if (songArtist || songName) {
     const mainTitle = songArtist && songName ? `${songArtist} - ${songName}` : (songName || songArtist);
-    songDisplay = songId ? `${mainTitle} <span style="font-size: 0.82em; opacity: 0.7;">(ID: ${songId})</span>` : mainTitle;
+    songDisplay = songId ? `<span class="song-title">${mainTitle}</span><span class="song-id-badge">(ID: ${songId})</span>` : `<span class="song-title">${mainTitle}</span>`;
   }
   const description = level.description ? escapeHtml(level.description) : '';
 
@@ -369,11 +369,6 @@ function renderLevelDetail(level, rank, detailContainer) {
       ? `<img src="${thumbSrc}" alt="${title}">`
       : `<div class="detail-no-video"><p>등록된 영상이 없습니다.</p></div>`);
 
-  const rankNum = parseInt(String(rank).replace(/[^0-9]/g, ''), 10) || 1;
-  const basePt = window.getBasePoints ? window.getBasePoints(rankNum) : 10;
-  const userNick = getUserNickname();
-  const earnedPt = userNick && window.calcPlayerLevelPoints ? window.calcPlayerLevelPoints(level, rankNum, userNick) : 0;
-
   const ptBadgeHtml = earnedPt > 0
     ? `<span class="classic-level-pt-badge pt-earned" title="획득 완료한 포인트">획득: +${Math.round(earnedPt)} PT</span>`
     : `<span class="classic-level-pt-badge pt-potential" title="클리어 시 획득 기본 포인트">클리어 시 +${basePt} PT</span>`;
@@ -383,6 +378,30 @@ function renderLevelDetail(level, rank, detailContainer) {
     : '';
 
   const userLower = getUserNickname().toLowerCase();
+
+  const isSameCreatorVerifier = Boolean(
+    creator && verifier &&
+    creator !== '-' && verifier !== '-' &&
+    creator.trim().toLowerCase() === verifier.trim().toLowerCase()
+  );
+
+  const creatorVerifierDetailHtml = isSameCreatorVerifier
+    ? `
+      <div class="detail-info-item">
+        <div class="detail-info-label">제작 및 베리파이어</div>
+        <div class="detail-info-value">${creator}</div>
+      </div>
+    `
+    : `
+      <div class="detail-info-item">
+        <div class="detail-info-label">제작자</div>
+        <div class="detail-info-value">${creator}</div>
+      </div>
+      <div class="detail-info-item">
+        <div class="detail-info-label">베리파이어</div>
+        <div class="detail-info-value">${verifier}</div>
+      </div>
+    `;
 
   detailContainer.innerHTML = `
     <div class="detail-header">
@@ -408,14 +427,7 @@ function renderLevelDetail(level, rank, detailContainer) {
     ` : ''}
 
     <div class="detail-info-grid">
-      <div class="detail-info-item">
-        <div class="detail-info-label">제작자</div>
-        <div class="detail-info-value">${creator}</div>
-      </div>
-      <div class="detail-info-item">
-        <div class="detail-info-label">베리파이어</div>
-        <div class="detail-info-value">${verifier}</div>
-      </div>
+      ${creatorVerifierDetailHtml}
       <div class="detail-info-item">
         <div class="detail-info-label">맵 ID</div>
         <div class="detail-info-value">
@@ -435,15 +447,9 @@ function renderLevelDetail(level, rank, detailContainer) {
         <div class="detail-info-label">오브젝트 수</div>
         <div class="detail-info-value">${objects}</div>
       </div>
-      <div class="detail-info-item">
+      <div class="detail-info-item detail-info-item-song detail-info-item-wide">
         <div class="detail-info-label">음악</div>
         <div class="detail-info-value">${songDisplay}</div>
-      </div>
-      <div class="detail-info-item">
-        <div class="detail-info-label">클리어 포인트</div>
-        <div class="detail-info-value" style="color: ${earnedPt > 0 ? '#2ed573' : '#ffe600'}">
-          ${earnedPt > 0 ? `획득 +${Math.round(earnedPt)} PT` : `클리어 시 +${basePt} PT`}
-        </div>
       </div>
       <div class="detail-info-item">
         <div class="detail-info-label">업로드 날짜</div>
@@ -475,9 +481,9 @@ function renderLevelDetail(level, rank, detailContainer) {
           </thead>
           <tbody>
             ${level.clears.map((clear, i) => {
-              const isUser = userLower && clear.player && String(clear.player).trim().toLowerCase() === userLower;
-              const rowClass = isUser ? 'detail-clears-row user-clear' : 'detail-clears-row';
-              return `
+    const isUser = userLower && clear.player && String(clear.player).trim().toLowerCase() === userLower;
+    const rowClass = isUser ? 'detail-clears-row user-clear' : 'detail-clears-row';
+    return `
               <tr class="${rowClass}">
                 <td class="detail-clears-td td-rank">${i + 1}</td>
                 <td class="detail-clears-td td-name">${escapeHtml(clear.player ?? '-')}${isUser ? ' (나)' : ''}</td>
@@ -488,7 +494,7 @@ function renderLevelDetail(level, rank, detailContainer) {
                 </td>
               </tr>
               `;
-            }).join('')}
+  }).join('')}
           </tbody>
         </table>
       ` : `<p class="detail-clears-empty">아직 클리어한 사람이 없습니다.</p>`}
@@ -505,8 +511,8 @@ function renderLevelDetail(level, rank, detailContainer) {
           ${levelHistory.length > 0 ? `
             <ul class="detail-history-list">
               ${levelHistory.map(item => {
-                const info = parseRankChange(item);
-                return `
+        const info = parseRankChange(item);
+        return `
                 <li class="detail-history-item ${info.cardClass}">
                   ${info.deltaHtml}
                   <div class="detail-history-content">
@@ -519,7 +525,7 @@ function renderLevelDetail(level, rank, detailContainer) {
                   </div>
                 </li>
               `;
-              }).join('')}
+      }).join('')}
             </ul>
           ` : `<p class="detail-history-empty">순위 변동 기록이 없습니다.</p>`}
         </div>
@@ -585,6 +591,20 @@ function createLevelCard(level, index, total) {
 
   const actionsHtml = `<div class="classic-level-actions">${ptBadgeHtml}${clearBadgeHtml}${ratingBadgeHtml}</div>`;
 
+  const isSameCreatorVerifier = Boolean(
+    creator && verifier &&
+    creator !== '-' && verifier !== '-' &&
+    creator.trim().toLowerCase() === verifier.trim().toLowerCase()
+  );
+
+  const metaHtml = isSameCreatorVerifier
+    ? `<span class="classic-level-creator">${creator}</span>`
+    : `
+      <span class="classic-level-creator">${creator}</span>
+      <span class="classic-level-separator">|</span>
+      <span class="classic-level-verifier">${verifier}</span>
+    `;
+
   card.innerHTML = `
     ${thumbSrc ? `<img class="classic-level-thumb" src="${thumbSrc}" alt="${title}" loading="lazy">` : ''}
     <div class="classic-level-info">
@@ -593,9 +613,7 @@ function createLevelCard(level, index, total) {
         <span class="classic-level-title">${title}</span>
       </div>
       <div class="classic-level-meta">
-        <span class="classic-level-creator">${creator}</span>
-        <span class="classic-level-separator">|</span>
-        <span class="classic-level-verifier">${verifier}</span>
+        ${metaHtml}
       </div>
     </div>
     ${actionsHtml}
@@ -639,15 +657,15 @@ function filterLevels(levels, query) {
 
     // Text search query filter
     if (q) {
-      const title = (level.title || '').toLowerCase();
-      const creator = (level.creator || '').toLowerCase();
-      const verifier = (level.verifier || '').toLowerCase();
-      const mapId = (level.map?.mapId || '').toLowerCase();
-      const songName = (level.song?.name || '').toLowerCase();
-      const songArtist = (level.song?.artist || '').toLowerCase();
-      const songId = (level.song?.id || '').toLowerCase();
-      const rating = (level.rating || '').toLowerCase();
-      const tagsStr = levelTags.join(' ').toLowerCase();
+      const title = String(level.title || '').toLowerCase();
+      const creator = String(level.creator || '').toLowerCase();
+      const verifier = String(level.verifier || '').toLowerCase();
+      const mapId = String(level.map?.mapId || '').toLowerCase();
+      const songName = String(level.song?.name || '').toLowerCase();
+      const songArtist = String(level.song?.artist || '').toLowerCase();
+      const songId = String(level.song?.id || '').toLowerCase();
+      const rating = String(level.rating || '').toLowerCase();
+      const tagsStr = levelTags.map(t => String(t)).join(' ').toLowerCase();
 
       const matchesText = title.includes(q) ||
         creator.includes(q) ||
@@ -731,7 +749,7 @@ function applyDevCustomData(jsonLevels, jsonHistory, modeKey) {
   return { levels: jsonLevels || [], history: jsonHistory || [] };
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
+async function initChallengePage() {
   const container = document.getElementById('classic-list-container');
   if (!container) return;
 
@@ -843,4 +861,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   window.addEventListener('devDataUpdated', loadChallengeData);
   await loadChallengeData();
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initChallengePage);
+} else {
+  initChallengePage();
+}
