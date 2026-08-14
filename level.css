@@ -99,12 +99,13 @@
   content: '';
   position: absolute;
   inset: 0;
+  background-image: var(--card-bg, linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.65)));
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   filter: blur(6px) brightness(0.65);
   transform: scale(1.1);
-  transition: transform 0.4s ease, filter 0.4s ease;
+  transition: transform 0.4s ease, filter 0.4s ease, background-image 0.4s ease;
   z-index: 1;
 }
 
@@ -175,8 +176,8 @@
 /* Card Specific Themes & Hover Accents */
 
 /* Classic Mode Card */
-.box_classic::before {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.65)), url('https://img.youtube.com/vi/swG-0J9TBug/sddefault.jpg');
+.box_classic {
+  --card-bg: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.65)), url('https://img.youtube.com/vi/swG-0J9TBug/sddefault.jpg');
 }
 
 .box_classic .badge-classic {
@@ -199,8 +200,8 @@
 }
 
 /* Challenge Mode Card */
-.box_challenge::before {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.65)), url('https://img.youtube.com/vi/W_y4Ewh-yNs/sddefault.jpg');
+.box_challenge {
+  --card-bg: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.65)), url('https://img.youtube.com/vi/IDoYqoZal0E/sddefault.jpg');
 }
 
 .box_challenge .badge-challenge {
@@ -223,8 +224,8 @@
 }
 
 /* Platformer Mode Card */
-.box_platformer::before {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.65)), url('https://img.youtube.com/vi/VucerZF6Ewk/sddefault.jpg');
+.box_platformer {
+  --card-bg: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.65)), url('https://img.youtube.com/vi/VucerZF6Ewk/sddefault.jpg');
 }
 
 .box_platformer .badge-platformer {

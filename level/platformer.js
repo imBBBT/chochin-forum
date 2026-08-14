@@ -363,6 +363,26 @@ function getTagColor(tag) {
   return TAG_COLOR_MAP[tag] || TAG_COLOR_MAP[String(tag).trim()] || '#a4b0be';
 }
 
+function updateDetailTagPills() {
+  const detailContainer = document.getElementById('classic-detail-container');
+  if (!detailContainer) return;
+  detailContainer.querySelectorAll('.detail-tag-pill').forEach(pill => {
+    const tag = pill.dataset.tag;
+    if (!tag) return;
+    const state = tagFilterStates[tag];
+    pill.classList.remove('tag-include', 'tag-exclude');
+    if (state === 'include') {
+      pill.classList.add('tag-include');
+      pill.textContent = `+ ${tag}`;
+    } else if (state === 'exclude') {
+      pill.classList.add('tag-exclude');
+      pill.textContent = `- ${tag}`;
+    } else {
+      pill.textContent = `#${tag}`;
+    }
+  });
+}
+
 function toggleTagState(tagName) {
   const currentState = tagFilterStates[tagName];
   if (!currentState) {
@@ -374,12 +394,60 @@ function toggleTagState(tagName) {
   }
   renderTagChips();
   renderLevelList(cachedLevelsData);
+  updateDetailTagPills();
 }
 
 function resetTagFilters() {
   tagFilterStates = {};
   renderTagChips();
   renderLevelList(cachedLevelsData);
+  updateDetailTagPills();
+}
+
+function groupTagsByCategory(levelTags) {
+  if (!Array.isArray(levelTags) || levelTags.length === 0) return [];
+
+  const rawTags = levelTags.map(t => String(t).trim()).filter(Boolean);
+  if (rawTags.length === 0) return [];
+
+  const tagMap = new Map();
+  rawTags.forEach(t => tagMap.set(t.toLowerCase(), t));
+
+  const matchedTags = new Set();
+  const grouped = [];
+
+  TAG_CATEGORIES.forEach(cat => {
+    const categoryTags = [];
+    cat.tags.forEach(catTag => {
+      const lower = catTag.toLowerCase();
+      if (tagMap.has(lower)) {
+        categoryTags.push(tagMap.get(lower));
+        matchedTags.add(lower);
+      }
+    });
+    if (categoryTags.length > 0) {
+      grouped.push({
+        name: cat.name,
+        tags: categoryTags
+      });
+    }
+  });
+
+  const otherTags = [];
+  rawTags.forEach(t => {
+    if (!matchedTags.has(t.toLowerCase())) {
+      otherTags.push(t);
+    }
+  });
+
+  if (otherTags.length > 0) {
+    grouped.push({
+      name: '기타',
+      tags: otherTags
+    });
+  }
+
+  return grouped;
 }
 
 function renderTagChips() {
@@ -587,14 +655,26 @@ function renderLevelDetail(level, rank, detailContainer) {
   }
   const description = level.description ? escapeHtml(level.description) : '';
 
-  const tagsHtml = (level.tags && Array.isArray(level.tags) && level.tags.length > 0)
-    ? level.tags.map(tag => {
-      const state = tagFilterStates[tag];
-      const stateClass = state === 'include' ? 'tag-include' : (state === 'exclude' ? 'tag-exclude' : '');
-      const prefix = state === 'include' ? '+ ' : (state === 'exclude' ? '- ' : '#');
-      const tagColor = getTagColor(tag);
-      return `<span class="detail-tag-pill ${stateClass}" data-tag="${escapeHtml(tag)}" style="--tag-color: ${tagColor}; cursor:pointer;" title="클릭하여 태그 필터 토글">${prefix}${escapeHtml(tag)}</span>`;
-    }).join('')
+  const groupedTags = groupTagsByCategory(level.tags);
+  const tagsHtml = groupedTags.length > 0
+    ? `
+      <div class="detail-tags-container">
+        ${groupedTags.map(cat => `
+          <div class="detail-tag-category-row" data-category="${escapeHtml(cat.name)}">
+            <span class="detail-tag-cat-badge">${escapeHtml(cat.name)}</span>
+            <div class="detail-tag-chips-group">
+              ${cat.tags.map(tag => {
+                const state = tagFilterStates[tag];
+                const stateClass = state === 'include' ? 'tag-include' : (state === 'exclude' ? 'tag-exclude' : '');
+                const prefix = state === 'include' ? '+ ' : (state === 'exclude' ? '- ' : '#');
+                const tagColor = getTagColor(tag);
+                return `<span class="detail-tag-pill ${stateClass}" data-tag="${escapeHtml(tag)}" style="--tag-color: ${tagColor}; cursor:pointer;" title="클릭하여 태그 필터 토글">${prefix}${escapeHtml(tag)}</span>`;
+              }).join('')}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `
     : '';
 
   const mediaHtml = embedUrl
@@ -691,11 +771,7 @@ function renderLevelDetail(level, rank, detailContainer) {
       </div>
     </div>
 
-    ${tagsHtml ? `
-      <div class="detail-tags-list">
-        ${tagsHtml}
-      </div>
-    ` : ''}
+    ${tagsHtml}
 
     <div class="detail-clears-box">
       <div class="detail-clears-title">
