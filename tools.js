@@ -35,6 +35,88 @@ document.addEventListener('DOMContentLoaded', async () => {
     return (localStorage.getItem('forumNickname') || '').trim();
   }
 
+  const ROULETTE_STORAGE_KEY = 'chochin_roulette_levels';
+
+  function getLevelKey(level) {
+    if (!level) return '';
+    if (level.id) return String(level.id);
+    return `${level.title || ''}__${level.creator || ''}`;
+  }
+
+  // Normalize array to unique items with count property
+  function normalizeRouletteLevels(rawList) {
+    if (!Array.isArray(rawList)) return [];
+    const map = new Map();
+    rawList.forEach(item => {
+      if (!item) return;
+      const key = getLevelKey(item);
+      if (map.has(key)) {
+        const existing = map.get(key);
+        existing.count = (existing.count || 1) + (item.count || 1);
+      } else {
+        map.set(key, { ...item, count: item.count || 1 });
+      }
+    });
+    return Array.from(map.values());
+  }
+
+  // Calculate real-time winning probability and total tickets
+  function getRouletteStats() {
+    const uniqueCount = activeRouletteLevels.length;
+    const totalTickets = activeRouletteLevels.reduce((sum, l) => sum + Math.max(1, l.count || 1), 0);
+
+    const probs = {};
+    activeRouletteLevels.forEach(lvl => {
+      const key = getLevelKey(lvl);
+      const cnt = Math.max(1, lvl.count || 1);
+      const percentNum = totalTickets > 0 ? (cnt / totalTickets) * 100 : 0;
+      const percentStr = percentNum % 1 === 0 ? `${percentNum}%` : `${percentNum.toFixed(1)}%`;
+      probs[key] = {
+        count: cnt,
+        percent: percentStr,
+        percentNum,
+        ratio: totalTickets > 0 ? cnt / totalTickets : 0
+      };
+    });
+
+    return { uniqueCount, totalTickets, probs };
+  }
+
+  // Flatten active levels according to count for spinning engine & wheel slices
+  function getFlattenedRoulettePool() {
+    const flat = [];
+    activeRouletteLevels.forEach(lvl => {
+      const cnt = Math.max(1, lvl.count || 1);
+      for (let i = 0; i < cnt; i++) {
+        flat.push(lvl);
+      }
+    });
+    return flat;
+  }
+
+  function saveRouletteLevels() {
+    try {
+      localStorage.setItem(ROULETTE_STORAGE_KEY, JSON.stringify(activeRouletteLevels));
+    } catch (e) {
+      console.error('Failed to save roulette levels to localStorage:', e);
+    }
+  }
+
+  function loadSavedRouletteLevels() {
+    try {
+      const raw = localStorage.getItem(ROULETTE_STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          return normalizeRouletteLevels(parsed);
+        }
+      }
+    } catch (e) {
+      console.error('Failed to load roulette levels from localStorage:', e);
+    }
+    return null;
+  }
+
   function isLevelCleared(level, nickname) {
     if (!nickname) return false;
     const target = nickname.trim().toLowerCase();
@@ -91,9 +173,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       allData.challenge = challengeMerged.levels;
       allData.platformer = platformerMerged.levels;
 
-      // Default active roulette levels to top 10 classic levels
-      if (allData.classic.length > 0) {
+      // Restore active roulette levels from localStorage if exists, else default to top 10 classic levels
+      const savedLevels = loadSavedRouletteLevels();
+      if (savedLevels !== null) {
+        activeRouletteLevels = savedLevels;
+      } else if (allData.classic.length > 0) {
         activeRouletteLevels = allData.classic.slice(0, 10).map(l => ({ ...l, modeTag: 'classic' }));
+        saveRouletteLevels();
       }
     } catch (err) {
       console.error('Failed to load level data for tools:', err);
@@ -412,7 +498,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     ctx.clearRect(0, 0, width, height);
 
-    const levelsCount = activeRouletteLevels.length;
+    const flattenedPool = getFlattenedRoulettePool();
+    const levelsCount = flattenedPool.length;
 
     // Empty wheel state
     if (levelsCount === 0) {
@@ -442,7 +529,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const sliceAngle = (2 * Math.PI) / levelsCount;
 
     // Draw Slices
-    activeRouletteLevels.forEach((lvl, i) => {
+    flattenedPool.forEach((lvl, i) => {
       const startAngle = i * sliceAngle + rotationAngle;
       const endAngle = (i + 1) * sliceAngle + rotationAngle;
       const fillColor = sliceColors[i % sliceColors.length];
@@ -475,16 +562,16 @@ document.addEventListener('DOMContentLoaded', async () => {
       const isLightColor = fillColor === '#ffe600' || fillColor === '#2ed573' || fillColor === '#00d2ff' || fillColor === '#fdcb6e';
       ctx.fillStyle = isLightColor ? '#000000' : '#ffffff';
 
-      let fontSize = 14;
-      if (levelsCount > 15) fontSize = 10;
-      else if (levelsCount > 10) fontSize = 12;
+      let fontSize = 13;
+      if (levelsCount > 16) fontSize = 9;
+      else if (levelsCount > 10) fontSize = 11;
 
       ctx.font = `bold ${fontSize}px "Paperozi", sans-serif`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
 
       let displayTitle = lvl.title || 'Level';
-      const maxChars = levelsCount > 15 ? 6 : (levelsCount > 10 ? 9 : 13);
+      const maxChars = levelsCount > 16 ? 5 : (levelsCount > 10 ? 8 : 12);
       if (displayTitle.length > maxChars) {
         displayTitle = displayTitle.substring(0, maxChars - 1) + '…';
       }
@@ -597,8 +684,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       itemEl.innerHTML = `
         <div class="mini-item-info">
           <span class="mini-item-rank">#${lvl.rankNum}</span>
-          <span class="mini-item-title">${escapeHtml(lvl.title)}</span>
-          <span class="mini-item-creator">by ${escapeHtml(lvl.creator)}</span>
+          <div class="mini-item-text-group">
+            <span class="mini-item-title">${escapeHtml(lvl.title)}</span>
+            <span class="mini-item-creator">by ${escapeHtml(lvl.creator)}</span>
+          </div>
         </div>
         <button class="mini-btn mini-btn-add">추가 +</button>
       `;
@@ -611,18 +700,59 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // Add Level to Active Pool
+  // Add Level to Active Pool (Increment count if already present)
   function addLevelToRoulette(level) {
-    activeRouletteLevels.push({ ...level });
+    const key = getLevelKey(level);
+    const existing = activeRouletteLevels.find(l => getLevelKey(l) === key);
+    if (existing) {
+      existing.count = (existing.count || 1) + 1;
+    } else {
+      activeRouletteLevels.push({ ...level, count: 1 });
+    }
+    saveRouletteLevels();
     renderRouletteActivePool();
     renderRouletteStage();
+  }
+
+  // Change Level Quantity (+1 or -1)
+  function changeLevelQuantity(key, delta) {
+    const idx = activeRouletteLevels.findIndex(l => getLevelKey(l) === key);
+    if (idx === -1) return;
+    const item = activeRouletteLevels[idx];
+    item.count = (item.count || 1) + delta;
+    if (item.count <= 0) {
+      activeRouletteLevels.splice(idx, 1);
+    }
+    saveRouletteLevels();
+    renderRouletteActivePool();
+    renderRouletteStage();
+  }
+
+  // Remove Level completely from Roulette
+  function removeLevelFromRoulette(key) {
+    const idx = activeRouletteLevels.findIndex(l => getLevelKey(l) === key);
+    if (idx !== -1) {
+      activeRouletteLevels.splice(idx, 1);
+      saveRouletteLevels();
+      renderRouletteActivePool();
+      renderRouletteStage();
+    }
   }
 
   // Add All Filtered Levels
   rAddAllBtn.addEventListener('click', () => {
     const items = getFilteredAvailableLevels();
     if (items.length === 0) return;
-    items.forEach(l => activeRouletteLevels.push({ ...l }));
+    items.forEach(lvl => {
+      const key = getLevelKey(lvl);
+      const existing = activeRouletteLevels.find(l => getLevelKey(l) === key);
+      if (existing) {
+        existing.count = (existing.count || 1) + 1;
+      } else {
+        activeRouletteLevels.push({ ...lvl, count: 1 });
+      }
+    });
+    saveRouletteLevels();
     renderRouletteActivePool();
     renderRouletteStage();
   });
@@ -630,36 +760,62 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Clear All Levels
   rClearAllBtn.addEventListener('click', () => {
     activeRouletteLevels = [];
+    saveRouletteLevels();
     renderRouletteActivePool();
     renderRouletteStage();
   });
 
-  // Render Active Pool List
+  // Render Active Pool List with Quantity Controls and Probabilities
   function renderRouletteActivePool() {
     rActiveListEl.innerHTML = '';
-    rCountBadge.textContent = `${activeRouletteLevels.length}개 레벨`;
+    const stats = getRouletteStats();
 
-    if (activeRouletteLevels.length === 0) {
+    if (stats.totalTickets === 0) {
+      rCountBadge.textContent = '0개 레벨';
       rActiveListEl.innerHTML = `<div style="color:rgba(255,255,255,0.4); text-align:center; padding:1.5rem; font-family:'Paperozi';">룰렛이 비어 있습니다. 왼쪽에서 레벨을 추가해주세요.</div>`;
       return;
     }
 
+    rCountBadge.textContent = stats.totalTickets > stats.uniqueCount
+      ? `${stats.uniqueCount}종류 (${stats.totalTickets}개)`
+      : `${stats.totalTickets}개 레벨`;
+
     activeRouletteLevels.forEach((lvl, idx) => {
       const itemEl = document.createElement('div');
       itemEl.className = 'mini-level-item';
+
+      const key = getLevelKey(lvl);
+      const probInfo = stats.probs[key] || { count: 1, percent: '100%' };
+
       itemEl.innerHTML = `
         <div class="mini-item-info">
           <span class="mini-item-rank">#${lvl.rankNum || idx + 1}</span>
-          <span class="mini-item-title">${escapeHtml(lvl.title)}</span>
-          <span class="mini-item-creator">by ${escapeHtml(lvl.creator)}</span>
+          <div class="mini-item-text-group">
+            <span class="mini-item-title">${escapeHtml(lvl.title)}</span>
+            <span class="mini-item-creator">by ${escapeHtml(lvl.creator)}</span>
+          </div>
         </div>
-        <button class="mini-btn mini-btn-remove">삭제 ✕</button>
+        <div class="mini-item-right-actions">
+          <div class="qty-control-group">
+            <button class="qty-btn qty-minus" title="수량 1개 감소">−</button>
+            <span class="qty-value-badge" title="룰렛에 포함된 수량 (가중치)">${probInfo.count}개</span>
+            <button class="qty-btn qty-plus" title="수량 1개 추가">+</button>
+          </div>
+          <span class="mini-item-prob-badge" title="당첨 확률: ${probInfo.percent} (${probInfo.count}/${stats.totalTickets}개)">${probInfo.percent}</span>
+          <button class="mini-btn mini-btn-remove" title="룰렛에서 완전 삭제">삭제 ✕</button>
+        </div>
       `;
 
+      itemEl.querySelector('.qty-minus').addEventListener('click', () => {
+        changeLevelQuantity(key, -1);
+      });
+
+      itemEl.querySelector('.qty-plus').addEventListener('click', () => {
+        changeLevelQuantity(key, 1);
+      });
+
       itemEl.querySelector('.mini-btn-remove').addEventListener('click', () => {
-        activeRouletteLevels.splice(idx, 1);
-        renderRouletteActivePool();
-        renderRouletteStage();
+        removeLevelFromRoulette(key);
       });
 
       rActiveListEl.appendChild(itemEl);
@@ -669,19 +825,22 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Render Horizontal Reel Track
   function renderReelTrack(highlightIndex = -1) {
     reelTrack.innerHTML = '';
+    const flattenedPool = getFlattenedRoulettePool();
 
-    if (activeRouletteLevels.length === 0) {
+    if (flattenedPool.length === 0) {
       reelTrack.style.transform = 'translateX(0px)';
       reelTrack.innerHTML = `<div style="color:rgba(255,255,255,0.3); font-family:'Paperozi'; font-size:1.1rem; padding:2rem; width:100%; text-align:center;">룰렛에 레벨을 추가해주세요</div>`;
       return;
     }
 
+    const stats = getRouletteStats();
+
     // Duplicate levels to create a long spinning belt (minimum 60 items)
     let displaySequence = [];
-    const targetLength = Math.max(70, activeRouletteLevels.length * 6);
+    const targetLength = Math.max(70, flattenedPool.length * 6);
 
     while (displaySequence.length < targetLength) {
-      displaySequence = displaySequence.concat(activeRouletteLevels);
+      displaySequence = displaySequence.concat(flattenedPool);
     }
 
     displaySequence.forEach((lvl, i) => {
@@ -692,8 +851,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         card.style.transform = 'scale(1.05)';
         card.style.boxShadow = '0 0 20px rgba(255, 230, 0, 0.6)';
       }
+      const key = getLevelKey(lvl);
+      const probInfo = stats.probs[key] || { percent: '' };
       card.innerHTML = `
-        <span class="reel-item-rank">#${lvl.rankNum || (i % activeRouletteLevels.length) + 1}</span>
+        <div class="reel-item-header">
+          <span class="reel-item-rank">#${lvl.rankNum || (i % flattenedPool.length) + 1}</span>
+          <span class="reel-item-prob-tag">${probInfo.percent}</span>
+        </div>
         <span class="reel-item-title">${escapeHtml(lvl.title)}</span>
         <span class="reel-item-creator">by ${escapeHtml(lvl.creator)}</span>
       `;
@@ -705,7 +869,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   spinBtn.addEventListener('click', () => {
     if (isSpinningRoulette) return;
 
-    if (activeRouletteLevels.length === 0) {
+    const flattenedPool = getFlattenedRoulettePool();
+    if (flattenedPool.length === 0) {
       alert('룰렛에 1개 이상의 레벨을 추가해주세요!');
       return;
     }
@@ -713,19 +878,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     isSpinningRoulette = true;
     spinBtn.disabled = true;
 
-    // Pick random winner from pool
-    const winPoolIdx = Math.floor(Math.random() * activeRouletteLevels.length);
-    const winner = activeRouletteLevels[winPoolIdx];
+    // Pick random winner from flattened pool (respects weights/counts)
+    const winPoolIdx = Math.floor(Math.random() * flattenedPool.length);
+    const winner = flattenedPool[winPoolIdx];
     lastSpinWinner = winner;
 
     if (currentRouletteType === 'wheel') {
       // --- Circular Wheel Spin Engine ---
-      const levelsCount = activeRouletteLevels.length;
-      const sliceAngle = (2 * Math.PI) / levelsCount;
+      const poolLen = flattenedPool.length;
+      const sliceAngle = (2 * Math.PI) / poolLen;
       const winSliceCenter = (winPoolIdx + 0.5) * sliceAngle;
-      const jitter = (Math.random() - 0.5) * sliceAngle * 0.6; // Subtle offset inside target slice
+      const jitter = (Math.random() - 0.5) * sliceAngle * 0.5;
 
-      // Angle needed to align winner slice with top pointer (1.5 * PI = 270 deg)
       let targetRotation = (1.5 * Math.PI) - (winSliceCenter + jitter);
       const minSpins = 6;
       while (targetRotation < wheelCurrentRotation + Math.PI * 2 * minSpins) {
@@ -734,7 +898,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       const startRotation = wheelCurrentRotation;
       const totalDistance = targetRotation - startRotation;
-      const duration = 4500; // 4.5 sec spin
+      const duration = 4500;
       const startTime = performance.now();
 
       function easeOutCubic(t) {
@@ -764,31 +928,44 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     } else {
       // --- Horizontal Slot Reel Spin Engine ---
+      const poolLen = flattenedPool.length;
+      const minPassItems = 50;
+      const repeatCount = Math.max(6, Math.ceil(minPassItems / poolLen));
+      const targetIndex = (repeatCount * poolLen) + winPoolIdx;
+
       let displaySequence = [];
-      while (displaySequence.length < 50) {
-        displaySequence = displaySequence.concat(activeRouletteLevels);
+      const totalSequenceLength = targetIndex + poolLen * 3;
+      while (displaySequence.length < totalSequenceLength) {
+        displaySequence = displaySequence.concat(flattenedPool);
       }
-      const targetIndex = 48 + winPoolIdx;
-      while (displaySequence.length <= targetIndex + 10) {
-        displaySequence = displaySequence.concat(activeRouletteLevels);
-      }
+
+      const stats = getRouletteStats();
 
       reelTrack.innerHTML = '';
       displaySequence.forEach((lvl, i) => {
         const card = document.createElement('div');
         card.className = 'reel-item';
+        const key = getLevelKey(lvl);
+        const probInfo = stats.probs[key] || { percent: '' };
         card.innerHTML = `
-          <span class="reel-item-rank">#${lvl.rankNum || (i % activeRouletteLevels.length) + 1}</span>
+          <div class="reel-item-header">
+            <span class="reel-item-rank">#${lvl.rankNum || (lvl.rank ? String(lvl.rank).replace('#', '') : '') || ((i % poolLen) + 1)}</span>
+            <span class="reel-item-prob-tag">${probInfo.percent}</span>
+          </div>
           <span class="reel-item-title">${escapeHtml(lvl.title)}</span>
           <span class="reel-item-creator">by ${escapeHtml(lvl.creator)}</span>
         `;
         reelTrack.appendChild(card);
       });
 
-      const viewportWidth = document.querySelector('.reel-viewport').offsetWidth;
-      const cardWidth = 180;
-      const randomOffset = Math.floor(Math.random() * 80) - 40;
-      const targetX = (targetIndex * cardWidth) + (cardWidth / 2) - (viewportWidth / 2) + randomOffset;
+      const viewport = document.querySelector('.reel-viewport');
+      const viewportWidth = viewport ? viewport.offsetWidth : 800;
+      const cardWidth = 170;
+      const cardMargin = 10;
+      const cardPitch = cardWidth + cardMargin; // 180px
+
+      const targetCardCenter = (targetIndex * cardPitch) + (cardWidth / 2);
+      const targetX = targetCardCenter - (viewportWidth / 2);
 
       const startTime = performance.now();
       const duration = 4500;
@@ -810,9 +987,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         } else {
           const winnerCard = reelTrack.children[targetIndex];
           if (winnerCard) {
-            winnerCard.style.borderColor = '#ff4757';
+            winnerCard.style.borderColor = '#ffe600';
             winnerCard.style.transform = 'scale(1.08)';
-            winnerCard.style.boxShadow = '0 0 30px rgba(255, 71, 87, 0.8)';
+            winnerCard.style.boxShadow = '0 0 30px rgba(255, 230, 0, 0.85)';
           }
 
           setTimeout(() => {
@@ -850,14 +1027,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   winModalDeleteBtn.addEventListener('click', () => {
     if (lastSpinWinner) {
-      const idx = activeRouletteLevels.findIndex(l => l.id === lastSpinWinner.id || (l.title === lastSpinWinner.title && l.creator === lastSpinWinner.creator));
-      if (idx !== -1) {
-        activeRouletteLevels.splice(idx, 1);
-      }
+      const key = getLevelKey(lastSpinWinner);
+      changeLevelQuantity(key, -1);
     }
     hideWinModal();
-    renderRouletteActivePool();
-    renderRouletteStage();
   });
 
   winModalCloseBtn.addEventListener('click', hideWinModal);

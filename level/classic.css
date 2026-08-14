@@ -1253,10 +1253,11 @@ html, body {
   width: 100%;
   box-sizing: border-box;
   background: rgba(30, 30, 30, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0.5rem;
-  padding: 0.9rem 1.1rem;
-  margin-top: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.65rem;
+  padding: 1.3rem 1.6rem;
+  margin-top: 1.3rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
 .detail-history-title {
@@ -1264,16 +1265,17 @@ html, body {
   align-items: center;
   justify-content: space-between;
   font-family: 'Paperozi', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 700;
+  font-size: 1.35rem;
+  font-weight: 800;
   color: #ffffff;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.9rem;
+  letter-spacing: 0.02em;
 }
 
 .detail-history-count {
-  font-size: 0.8rem;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.55);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.65);
 }
 
 .detail-history-list {
@@ -1282,89 +1284,89 @@ html, body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
-  max-height: 12.5rem;
+  gap: 0.75rem;
+  max-height: 24rem;
   overflow-y: auto;
 }
 
 .detail-history-list::-webkit-scrollbar {
-  width: 4px;
+  width: 6px;
 }
 
 .detail-history-list::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 3px;
 }
 
 .detail-history-item {
   display: flex;
-  align-items: flex-start;
-  gap: 0.65rem;
-  padding: 0.5rem 0.75rem;
-  background: rgba(20, 20, 20, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 0.4rem;
+  align-items: center;
+  gap: 1.1rem;
+  padding: 0.85rem 1.2rem;
+  background: rgba(20, 20, 20, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.6rem;
   font-family: 'Paperozi', sans-serif;
   transition: all 0.2s ease;
 }
 
 /* 1. 순위 상승 (Green / Emerald) */
 .detail-history-item.history-card-rise {
-  background: rgba(46, 213, 115, 0.09);
-  border: 1px solid rgba(46, 213, 115, 0.4);
-  box-shadow: 0 0 8px rgba(46, 213, 115, 0.15);
+  background: rgba(46, 213, 115, 0.12);
+  border: 1.5px solid rgba(46, 213, 115, 0.5);
+  box-shadow: 0 0 12px rgba(46, 213, 115, 0.2);
 }
 .detail-history-badge.badge-type-rise {
-  background: rgba(46, 213, 115, 0.22);
-  border: 1px solid #2ed573;
+  background: rgba(46, 213, 115, 0.25);
+  border: 1.5px solid #2ed573;
   color: #2ed573;
 }
 
 /* 2. 순위 하락 (Red / Crimson) */
 .detail-history-item.history-card-drop {
-  background: rgba(255, 71, 87, 0.09);
-  border: 1px solid rgba(255, 71, 87, 0.4);
-  box-shadow: 0 0 8px rgba(255, 71, 87, 0.15);
+  background: rgba(255, 71, 87, 0.12);
+  border: 1.5px solid rgba(255, 71, 87, 0.5);
+  box-shadow: 0 0 12px rgba(255, 71, 87, 0.2);
 }
 .detail-history-badge.badge-type-drop {
-  background: rgba(255, 71, 87, 0.22);
-  border: 1px solid #ff4757;
+  background: rgba(255, 71, 87, 0.25);
+  border: 1.5px solid #ff4757;
   color: #ff4757;
 }
 
 /* 3. 순위 재평가 (Violet / Purple) */
 .detail-history-item.history-card-re-eval {
-  background: rgba(165, 94, 234, 0.09);
-  border: 1px solid rgba(165, 94, 234, 0.4);
-  box-shadow: 0 0 8px rgba(165, 94, 234, 0.15);
+  background: rgba(165, 94, 234, 0.12);
+  border: 1.5px solid rgba(165, 94, 234, 0.5);
+  box-shadow: 0 0 12px rgba(165, 94, 234, 0.2);
 }
 .detail-history-badge.badge-type-re-eval {
-  background: rgba(165, 94, 234, 0.22);
-  border: 1px solid #a55eea;
+  background: rgba(165, 94, 234, 0.25);
+  border: 1.5px solid #a55eea;
   color: #a55eea;
 }
 
 /* 4. 신규 등록 (Gold / Yellow) */
 .detail-history-item.history-card-add {
-  background: rgba(255, 211, 42, 0.09);
-  border: 1px solid rgba(255, 211, 42, 0.4);
-  box-shadow: 0 0 8px rgba(255, 211, 42, 0.15);
+  background: rgba(255, 211, 42, 0.12);
+  border: 1.5px solid rgba(255, 211, 42, 0.5);
+  box-shadow: 0 0 12px rgba(255, 211, 42, 0.2);
 }
 .detail-history-badge.badge-type-add {
-  background: rgba(255, 211, 42, 0.22);
-  border: 1px solid #ffd32a;
+  background: rgba(255, 211, 42, 0.25);
+  border: 1.5px solid #ffd32a;
   color: #ffd32a;
 }
 
 /* 5. 레벨 삭제 (Dark Red) */
 .detail-history-item.history-card-remove {
-  background: rgba(255, 82, 82, 0.09);
-  border: 1px solid rgba(255, 82, 82, 0.4);
-  box-shadow: 0 0 8px rgba(255, 82, 82, 0.15);
+  background: rgba(255, 82, 82, 0.12);
+  border: 1.5px solid rgba(255, 82, 82, 0.5);
+  box-shadow: 0 0 12px rgba(255, 82, 82, 0.2);
 }
 .detail-history-badge.badge-type-remove {
-  background: rgba(255, 82, 82, 0.22);
-  border: 1px solid #ff5252;
+  background: rgba(255, 82, 82, 0.25);
+  border: 1.5px solid #ff5252;
   color: #ff5252;
 }
 
@@ -1373,7 +1375,7 @@ html, body {
   background: rgba(14, 14, 14, 0.65);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: none;
-  opacity: 0.78;
+  opacity: 0.82;
 }
 
 .detail-history-item.minor-change:hover {
@@ -1382,38 +1384,39 @@ html, body {
 }
 
 .detail-history-item.minor-change.history-card-rise {
-  border-color: rgba(46, 213, 115, 0.22);
+  border-color: rgba(46, 213, 115, 0.25);
 }
 .detail-history-item.minor-change.history-card-rise .detail-history-delta {
-  background: rgba(46, 213, 115, 0.1);
-  border-color: rgba(46, 213, 115, 0.3);
+  background: rgba(46, 213, 115, 0.12);
+  border-color: rgba(46, 213, 115, 0.35);
   box-shadow: none;
 }
 .detail-history-item.minor-change.history-card-rise .delta-num {
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.9);
   text-shadow: none;
 }
 
 .detail-history-item.minor-change.history-card-drop {
-  border-color: rgba(255, 71, 87, 0.22);
+  border-color: rgba(255, 71, 87, 0.25);
 }
 .detail-history-item.minor-change.history-card-drop .detail-history-delta {
-  background: rgba(255, 71, 87, 0.1);
-  border-color: rgba(255, 71, 87, 0.3);
+  background: rgba(255, 71, 87, 0.12);
+  border-color: rgba(255, 71, 87, 0.35);
   box-shadow: none;
 }
 .detail-history-item.minor-change.history-card-drop .delta-num {
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.9);
   text-shadow: none;
 }
 
 .detail-history-badge {
-  font-size: 0.72rem;
+  font-size: 0.95rem;
   font-weight: 700;
-  padding: 0.15rem 0.5rem;
-  border-radius: 0.25rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.4rem;
   white-space: nowrap;
   flex-shrink: 0;
+  letter-spacing: 0.02em;
 }
 
 .detail-history-delta {
@@ -1421,9 +1424,9 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 4.1rem;
-  height: 4.1rem;
-  border-radius: 0.6rem;
+  min-width: 5.5rem;
+  height: 5.5rem;
+  border-radius: 0.75rem;
   flex-shrink: 0;
   font-family: 'Paperozi', sans-serif;
   overflow: hidden;
@@ -1431,74 +1434,74 @@ html, body {
 }
 
 .delta-rise {
-  background: rgba(46, 213, 115, 0.16);
-  border: 1.5px solid rgba(46, 213, 115, 0.55);
-  box-shadow: 0 0 14px rgba(46, 213, 115, 0.35);
+  background: rgba(46, 213, 115, 0.18);
+  border: 2px solid rgba(46, 213, 115, 0.65);
+  box-shadow: 0 0 16px rgba(46, 213, 115, 0.4);
 }
 .delta-rise .delta-num {
   color: #ffffff;
   text-shadow: 0 0 12px #2ed573, 0 0 5px #000000;
 }
 .delta-rise .delta-arrow {
-  color: rgba(46, 213, 115, 0.32);
+  color: rgba(46, 213, 115, 0.35);
 }
 
 .delta-drop {
-  background: rgba(255, 71, 87, 0.16);
-  border: 1.5px solid rgba(255, 71, 87, 0.55);
-  box-shadow: 0 0 14px rgba(255, 71, 87, 0.35);
+  background: rgba(255, 71, 87, 0.18);
+  border: 2px solid rgba(255, 71, 87, 0.65);
+  box-shadow: 0 0 16px rgba(255, 71, 87, 0.4);
 }
 .delta-drop .delta-num {
   color: #ffffff;
   text-shadow: 0 0 12px #ff4757, 0 0 5px #000000;
 }
 .delta-drop .delta-arrow {
-  color: rgba(255, 71, 87, 0.32);
+  color: rgba(255, 71, 87, 0.35);
 }
 
 .delta-add {
-  background: rgba(255, 211, 42, 0.16);
-  border: 1.5px solid rgba(255, 211, 42, 0.55);
-  box-shadow: 0 0 14px rgba(255, 211, 42, 0.35);
+  background: rgba(255, 211, 42, 0.18);
+  border: 2px solid rgba(255, 211, 42, 0.65);
+  box-shadow: 0 0 16px rgba(255, 211, 42, 0.4);
 }
 .delta-add .delta-num {
   color: #ffffff;
   text-shadow: 0 0 12px #ffd32a, 0 0 5px #000000;
 }
 .delta-add .delta-arrow {
-  color: rgba(255, 211, 42, 0.32);
+  color: rgba(255, 211, 42, 0.35);
 }
 
 .delta-remove {
-  background: rgba(255, 82, 82, 0.16);
-  border: 1.5px solid rgba(255, 82, 82, 0.55);
-  box-shadow: 0 0 14px rgba(255, 82, 82, 0.35);
+  background: rgba(255, 82, 82, 0.18);
+  border: 2px solid rgba(255, 82, 82, 0.65);
+  box-shadow: 0 0 16px rgba(255, 82, 82, 0.4);
 }
 .delta-remove .delta-num {
   color: #ffffff;
   text-shadow: 0 0 12px #ff5252, 0 0 5px #000000;
 }
 .delta-remove .delta-arrow {
-  color: rgba(255, 82, 82, 0.32);
+  color: rgba(255, 82, 82, 0.35);
 }
 
 .delta-move {
-  background: rgba(165, 94, 234, 0.16);
-  border: 1.5px solid rgba(165, 94, 234, 0.55);
-  box-shadow: 0 0 14px rgba(165, 94, 234, 0.35);
+  background: rgba(165, 94, 234, 0.18);
+  border: 2px solid rgba(165, 94, 234, 0.65);
+  box-shadow: 0 0 16px rgba(165, 94, 234, 0.4);
 }
 .delta-move .delta-num {
   color: #ffffff;
   text-shadow: 0 0 12px #a55eea, 0 0 5px #000000;
 }
 .delta-move .delta-arrow {
-  color: rgba(165, 94, 234, 0.32);
+  color: rgba(165, 94, 234, 0.35);
 }
 
 .delta-num {
   position: relative;
   z-index: 2;
-  font-size: 1.5rem;
+  font-size: 2.1rem;
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.02em;
@@ -1510,7 +1513,7 @@ html, body {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1;
-  font-size: 3.8rem;
+  font-size: 5.2rem;
   font-weight: 900;
   line-height: 1;
   user-select: none;
@@ -1520,20 +1523,20 @@ html, body {
 .detail-history-header-row {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.35rem;
+  gap: 0.65rem;
+  margin-bottom: 0.45rem;
   flex-wrap: wrap;
 }
 
 .detail-history-fromto {
   font-family: 'Paperozi', sans-serif;
-  font-size: 0.76rem;
+  font-size: 1.0rem;
   font-weight: 700;
   color: rgba(255, 255, 255, 0.95);
   background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 0.1rem 0.5rem;
-  border-radius: 0.3rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 0.2rem 0.65rem;
+  border-radius: 0.35rem;
   letter-spacing: 0.02em;
 }
 
@@ -1549,24 +1552,24 @@ html, body {
 }
 
 .detail-history-detail {
-  font-size: 0.84rem;
-  color: rgba(255, 255, 255, 0.9);
-  line-height: 1.4;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.95);
+  line-height: 1.5;
   word-break: break-all;
 }
 
 .detail-history-time {
-  font-size: 0.72rem;
-  color: rgba(255, 255, 255, 0.45);
-  margin-top: 0.2rem;
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 0.3rem;
 }
 
 .detail-history-empty {
   font-family: 'Paperozi', sans-serif;
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.4);
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.45);
   text-align: center;
-  padding: 0.8rem 0;
+  padding: 1.5rem 0;
   margin: 0;
 }
 
