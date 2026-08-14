@@ -5,18 +5,16 @@
       "title": "GOAT!",
       "creator": "Choco",
       "verifier": "Choco",
-      "video": "https://www.youtube.com/embed/swG-0J9TBug?si=3IL6BSPZcAhOV_G6",
+      "video": "swG-0J9TBug",
       "rating": "Mythic",
       "map": {
         "mapId": "132490623",
         "length": "35s",
-        "objects": 30932,
-        "uploadDate": "2026-01-31"
+        "objects": "30931"
       },
       "song": {
         "name": "GOAT!",
-        "artist": "Kurousagi",
-        "id": "NONG"
+        "artist": "Kurousagi"
       },
       "description": "VocaDuo2025 출품 곡 \"GOAT!\" 의 BGA를 구현해낸 Mythic 맵입니다. 싱크 기반인 것에 비해 매우 타이트한 간격과 타이밍이 대부분이며 Desuwa의 1위 타이틀을 8일만에 빼앗은 맵이기도 합니다.",
       "enjoyment": "10",
@@ -43,7 +41,11 @@
         "No-Clear",
         "NONG"
       ],
-      "clears": []
+      "clears": [],
+      "mapId": "132490623",
+      "length": "35s",
+      "objects": "30931",
+      "targetRank": 1
     },
     {
       "id": 2,
@@ -870,21 +872,19 @@
     },
     {
       "id": 19,
-      "title": "yaa han ge ne ga ji",
+      "title": "yaa han ge 4 ga ji",
       "creator": "Timo",
       "verifier": "Timo",
       "video": "https://www.youtube.com/embed/tzwGJx16WZw",
       "rating": "",
       "map": {
-        "mapId": "146949214",
+        "mapId": "146963265",
         "length": "24s",
-        "objects": 4016,
-        "uploadDate": "2026-08-14"
+        "objects": "4016"
       },
       "song": {
         "name": "Signs",
-        "artist": "NAYM",
-        "id": "10012672"
+        "artist": "NAYM"
       },
       "description": "야한게 4가지야한게야한게는 정말 야해털게어디에도있을곳없는게모두들 누구와어떻게서로기대어살아갈까 나는정말모르겠어음 란한게",
       "enjoyment": "4",
@@ -908,7 +908,11 @@
         "No-Clear",
         "NONG"
       ],
-      "clears": []
+      "clears": [],
+      "mapId": "146963265",
+      "length": "24s",
+      "objects": "4016",
+      "targetRank": 19
     },
     {
       "id": 20,
