@@ -319,13 +319,15 @@ html, body {
 }
 
 .map-pack-card.card-cleared {
-  border: 1px solid rgba(46, 213, 115, 0.7) !important;
-  box-shadow: 0 0 14px rgba(46, 213, 115, 0.35) !important;
+  background: linear-gradient(135deg, rgba(16, 42, 28, 0.96) 0%, rgba(12, 30, 20, 0.96) 100%) !important;
+  border: 1px solid rgba(46, 213, 115, 0.45) !important;
+  box-shadow: none !important;
 }
 
 .map-pack-card.card-cleared:hover {
-  border-color: #2ed573 !important;
-  box-shadow: 0 0 20px rgba(46, 213, 115, 0.6) !important;
+  background: linear-gradient(135deg, rgba(22, 54, 36, 0.98) 0%, rgba(16, 40, 26, 0.98) 100%) !important;
+  border-color: rgba(46, 213, 115, 0.75) !important;
+  box-shadow: none !important;
 }
 
 .map-pack-tier-badge {
