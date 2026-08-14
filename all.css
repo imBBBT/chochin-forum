@@ -661,6 +661,208 @@ body.menu-open::after {
   box-sizing: border-box;
 }
 
+/* Developer Tools Tag Picker */
+.dev-tag-picker-container {
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0.4rem;
+  padding: 0.6rem;
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  box-sizing: border-box;
+}
+
+.dev-tag-picker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dev-tag-picker-label {
+  font-family: 'Paperozi', sans-serif;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 600;
+}
+
+.dev-tag-mini-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.75);
+  font-family: 'Paperozi', sans-serif;
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.dev-tag-mini-btn:hover {
+  background: rgba(255, 71, 87, 0.3);
+  border-color: rgba(255, 71, 87, 0.6);
+  color: #fff;
+}
+
+.dev-tag-selected-preview {
+  font-family: 'Paperozi', sans-serif;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  min-height: 1.5rem;
+  padding: 0.3rem 0.45rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  border-radius: 0.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem;
+  word-break: break-all;
+  box-sizing: border-box;
+}
+
+.dev-tag-selected-preview .preview-tag-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  background: rgba(46, 213, 115, 0.2);
+  border: 1px solid #2ed573;
+  color: #2ed573;
+  font-size: 0.72rem;
+  padding: 0.05rem 0.4rem;
+  border-radius: 0.2rem;
+  font-weight: 600;
+}
+
+.dev-tag-chips-wrapper {
+  max-height: 200px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+.dev-tag-chips-wrapper::-webkit-scrollbar {
+  width: 5px;
+}
+
+.dev-tag-chips-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 3px;
+}
+
+.dev-tag-category-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+}
+
+.dev-tag-category-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.dev-tag-cat-badge {
+  font-family: 'Paperozi', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.25rem;
+  padding: 0.1rem 0.35rem;
+  min-width: 2.3rem;
+  text-align: center;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+  user-select: none;
+}
+
+.dev-tag-category-row[data-category="스타일"] .dev-tag-cat-badge {
+  color: #fed330;
+  background: rgba(254, 211, 48, 0.14);
+  border-color: rgba(254, 211, 48, 0.35);
+}
+
+.dev-tag-category-row[data-category="테마"] .dev-tag-cat-badge {
+  color: #e056fd;
+  background: rgba(224, 86, 253, 0.14);
+  border-color: rgba(224, 86, 253, 0.35);
+}
+
+.dev-tag-category-row[data-category="메타"] .dev-tag-cat-badge {
+  color: #7efff5;
+  background: rgba(126, 255, 245, 0.14);
+  border-color: rgba(126, 255, 245, 0.35);
+}
+
+.dev-tag-category-row[data-category="게임플레이"] .dev-tag-cat-badge {
+  color: #2ed573;
+  background: rgba(46, 213, 115, 0.14);
+  border-color: rgba(46, 213, 115, 0.35);
+}
+
+.dev-tag-category-row[data-category="기타"] .dev-tag-cat-badge {
+  color: #ced6e0;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.dev-tag-chips-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.dev-tag-chip {
+  display: inline-flex;
+  align-items: center;
+  font-family: 'Paperozi', sans-serif;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.25rem;
+  padding: 0.15rem 0.4rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.dev-tag-chip:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.dev-tag-chip.active {
+  color: #ffffff;
+  background: rgba(46, 213, 115, 0.22);
+  border-color: #2ed573;
+  box-shadow: 0 0 6px rgba(46, 213, 115, 0.35);
+  font-weight: 700;
+}
+
+.dev-tag-custom-row {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.2rem;
+}
+
+.dev-tag-custom-input {
+  margin-bottom: 0 !important;
+  font-size: 0.78rem !important;
+  padding: 4px 8px !important;
+}
+
 .dev-levels-textarea {
   height: 80px !important;
   min-height: 60px;

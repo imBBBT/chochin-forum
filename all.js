@@ -1006,10 +1006,186 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
     if (devMainControls) devMainControls.style.display = 'block';
   };
 
+  // --- 개발자 도구 태그 피커 로직 ---
+  const GLOBAL_TAG_CATEGORIES = [
+    {
+      name: '스타일',
+      tags: [
+        'Standard', 'Layout', 'Design', 'Glow', 'Effect', 'Modern',
+        'Simplism', 'Art', 'Realism', 'Pixel', 'Core', 'Atmospheric',
+        'Experimental', 'Eclectic', 'Circles', 'Sunset', 'Minigame'
+      ]
+    },
+    {
+      name: '테마',
+      tags: [
+        '1.0', '1.9', 'Abstract', 'Acid', 'Anxious', 'Apocalyptic', 'Asian', 'Aquatic',
+        'Cartoon', 'Castle', 'Cave', 'City', 'Cold', 'Colorful', 'Dark', 'Desert',
+        'Dungeon', 'Factory', 'Fantasy', 'Food', 'Futuristic', 'Glitchy',
+        'Grayscale', 'Happy', 'Heaven', 'Hell', 'Horror', 'Hot', 'Mechanical',
+        'Monochromatic', 'Nature', 'Night', 'Party', 'Pixel Art', 'Retro', 'RobTop',
+        'Sad', 'Sky', 'Space', 'Temple', 'Western', 'Domestic', 'Love', 'Lyrics',
+        'Meta'
+      ]
+    },
+    {
+      name: '메타',
+      tags: [
+        'Flashy', 'NONG', 'Checkpointless',
+        'Collab', '2P', 'XXL', 'Remake', 'Recreation', 'Animation',
+        'Story', 'Fixed Hitboxes', 'Multi Path', 'Humorous', 'Jumpscares',
+        '3D', 'Hard Coins', 'Sensitive'
+      ]
+    },
+    {
+      name: '게임플레이',
+      tags: [
+        'Overall', 'Bossfight', 'Flow', 'Fast Paced', 'Slow Paced', 'Sync', 'Blinds', 'Memory',
+        'Puzzle', 'Duals', 'Maze', 'Timing', 'Tower', 'Sideways', 'Random',
+        'High CPS', 'Nerve Control', 'Learny', 'Chokepoints', 'Collectathon', 'Gimmicky',
+        'Gravity', 'Mirror', 'Needle', 'Timed', 'Momentum', 'Wall Jump', 'Cycle',
+        'Slope Boost', 'Slippery', 'Zippers', 'Wavedash', 'Force Blocks', 'Blinkers',
+        'Avoidance', 'Foddian', 'Autoscroller', 'Rooms', 'Double Jump', 'Speedrun',
+        'Classic', 'Metroidvania', 'Quests', 'Progressive', 'Jetpack', 'Ball', 'UFO',
+        'Wave', 'Spider', 'Swing', 'Robot', 'Cube', 'Ship'
+      ]
+    }
+  ];
+
+  window.GLOBAL_TAG_CATEGORIES = GLOBAL_TAG_CATEGORIES;
+
+  const devAddSelectedTags = new Set();
+  const devEditSelectedTags = new Set();
+
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text ?? '';
+    return div.innerHTML;
+  }
+
+  function renderDevTagPicker(type) {
+    const isAdd = type === 'add';
+    const selectedSet = isAdd ? devAddSelectedTags : devEditSelectedTags;
+    const chipsWrapper = document.getElementById(isAdd ? 'dev-add-tag-chips-wrapper' : 'dev-edit-tag-chips-wrapper');
+    const countEl = document.getElementById(isAdd ? 'dev-add-tag-count' : 'dev-edit-tag-count');
+    const previewEl = document.getElementById(isAdd ? 'dev-add-selected-preview' : 'dev-edit-selected-preview');
+
+    if (!chipsWrapper) return;
+
+    if (countEl) countEl.textContent = selectedSet.size;
+
+    if (previewEl) {
+      if (selectedSet.size === 0) {
+        previewEl.innerHTML = '<span style="color: rgba(255,255,255,0.4); font-size:0.75rem;">선택된 태그 없음</span>';
+      } else {
+        previewEl.innerHTML = Array.from(selectedSet).map(tag => {
+          return `<span class="preview-tag-badge">#${escapeHtml(tag)}</span>`;
+        }).join('');
+      }
+    }
+
+    chipsWrapper.innerHTML = '';
+
+    const allStandardTags = new Set();
+    GLOBAL_TAG_CATEGORIES.forEach(cat => {
+      cat.tags.forEach(t => allStandardTags.add(t.toLowerCase()));
+    });
+
+    const customTags = Array.from(selectedSet).filter(t => !allStandardTags.has(t.toLowerCase()));
+    const categoriesToRender = [...GLOBAL_TAG_CATEGORIES];
+    if (customTags.length > 0) {
+      categoriesToRender.push({
+        name: '기타',
+        tags: customTags
+      });
+    }
+
+    categoriesToRender.forEach(cat => {
+      const row = document.createElement('div');
+      row.className = 'dev-tag-category-row';
+      row.dataset.category = cat.name;
+
+      const catBadge = document.createElement('span');
+      catBadge.className = 'dev-tag-cat-badge';
+      catBadge.textContent = cat.name;
+      row.appendChild(catBadge);
+
+      const chipsGroup = document.createElement('div');
+      chipsGroup.className = 'dev-tag-chips-group';
+
+      cat.tags.forEach(tag => {
+        const isSelected = selectedSet.has(tag) || Array.from(selectedSet).some(s => s.toLowerCase() === tag.toLowerCase());
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'dev-tag-chip' + (isSelected ? ' active' : '');
+        chip.textContent = (isSelected ? '✓ #' : '#') + tag;
+
+        chip.addEventListener('click', (e) => {
+          e.preventDefault();
+          const existing = Array.from(selectedSet).find(s => s.toLowerCase() === tag.toLowerCase());
+          if (existing) {
+            selectedSet.delete(existing);
+          } else {
+            selectedSet.add(tag);
+          }
+          renderDevTagPicker(type);
+        });
+
+        chipsGroup.appendChild(chip);
+      });
+
+      row.appendChild(chipsGroup);
+      chipsWrapper.appendChild(row);
+    });
+  }
+
+  function setupDevTagPickerListeners(type) {
+    const isAdd = type === 'add';
+    const selectedSet = isAdd ? devAddSelectedTags : devEditSelectedTags;
+    const clearBtn = document.getElementById(isAdd ? 'dev-add-tag-clear-btn' : 'dev-edit-tag-clear-btn');
+    const customInput = document.getElementById(isAdd ? 'dev-add-custom-tag' : 'dev-edit-custom-tag');
+    const customBtn = document.getElementById(isAdd ? 'dev-add-custom-tag-btn' : 'dev-edit-custom-tag-btn');
+
+    if (clearBtn) {
+      clearBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        selectedSet.clear();
+        renderDevTagPicker(type);
+      });
+    }
+
+    const handleAddCustom = (e) => {
+      if (e) e.preventDefault();
+      if (!customInput) return;
+      const val = customInput.value.trim();
+      if (val) {
+        const splitTags = val.split(/[\n,]+/).map(t => t.trim().replace(/^#/, '')).filter(Boolean);
+        splitTags.forEach(t => selectedSet.add(t));
+        customInput.value = '';
+        renderDevTagPicker(type);
+      }
+    };
+
+    if (customBtn) customBtn.addEventListener('click', handleAddCustom);
+    if (customInput) {
+      customInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          handleAddCustom();
+        }
+      });
+    }
+  }
+
+  setupDevTagPickerListeners('add');
+  setupDevTagPickerListeners('edit');
+
   if (devLevelAddOpenBtn) {
     devLevelAddOpenBtn.addEventListener('click', () => {
       hideAllSubPanels();
       if (devLevelAddArea) devLevelAddArea.style.display = 'block';
+      devAddSelectedTags.clear();
+      renderDevTagPicker('add');
     });
   }
 
@@ -1018,6 +1194,8 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
       hideAllSubPanels();
       if (devLevelEditArea) devLevelEditArea.style.display = 'block';
       populateEditLevelDropdown();
+      devEditSelectedTags.clear();
+      renderDevTagPicker('edit');
     });
   }
 
@@ -1143,14 +1321,22 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
       const songArtist = (document.getElementById('dev-add-song-artist')?.value || '').trim();
       const songId = (document.getElementById('dev-add-song-id')?.value || '').trim();
       const desc = (document.getElementById('dev-add-desc')?.value || '').trim();
-      const tagsStr = (document.getElementById('dev-add-tags')?.value || '').trim();
 
       if (!title || !creator) {
         alert('레벨 제목과 제작자는 필수 입력 항목입니다.');
         return;
       }
 
-      const tags = tagsStr ? tagsStr.split(/[\n,]+/).map(t => t.trim()).filter(Boolean) : ['Cube'];
+      let tags = Array.from(devAddSelectedTags);
+      if (tags.length === 0) {
+        const tagsStr = (document.getElementById('dev-add-tags')?.value || '').trim();
+        if (tagsStr) {
+          tags = tagsStr.split(/[\n,]+/).map(t => t.trim()).filter(Boolean);
+        }
+      }
+      if (tags.length === 0) {
+        tags = ['Overall'];
+      }
       const newId = Date.now();
 
       const newLevelObj = {
@@ -1256,7 +1442,14 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
         const editSongIdEl = document.getElementById('dev-edit-song-id');
         if (editSongIdEl) editSongIdEl.value = lvl.song?.id || '';
         document.getElementById('dev-edit-desc').value = lvl.description || '';
-        document.getElementById('dev-edit-tags').value = (lvl.tags || []).join(', ');
+
+        devEditSelectedTags.clear();
+        if (Array.isArray(lvl.tags)) {
+          lvl.tags.forEach(t => {
+            if (t && String(t).trim()) devEditSelectedTags.add(String(t).trim());
+          });
+        }
+        renderDevTagPicker('edit');
       }
     });
   }
@@ -1283,9 +1476,14 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
       const songArtist = (document.getElementById('dev-edit-song-artist')?.value || '').trim();
       const songId = (document.getElementById('dev-edit-song-id')?.value || '').trim();
       const desc = (document.getElementById('dev-edit-desc')?.value || '').trim();
-      const tagsStr = (document.getElementById('dev-edit-tags')?.value || '').trim();
 
-      const tags = tagsStr ? tagsStr.split(/[\n,]+/).map(t => t.trim()).filter(Boolean) : [];
+      let tags = Array.from(devEditSelectedTags);
+      if (tags.length === 0) {
+        const tagsStr = (document.getElementById('dev-edit-tags')?.value || '').trim();
+        if (tagsStr) {
+          tags = tagsStr.split(/[\n,]+/).map(t => t.trim()).filter(Boolean);
+        }
+      }
 
       const levels = window.cachedLevelsData || [];
       const originalLevel = levels.find((l, i) => String(l.id || i) === val);

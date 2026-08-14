@@ -205,7 +205,19 @@
           <input type="text" id="dev-add-song-artist" placeholder="음악 아티스트" class="dev-input" />
           <input type="text" id="dev-add-song-id" placeholder="노래 ID" class="dev-input" />
           <textarea id="dev-add-desc" placeholder="레벨 설명" class="dev-input dev-textarea"></textarea>
-          <textarea id="dev-add-tags" placeholder="태그 (쉼표 또는 줄바꿈으로 구분: Cube, Wave, Fast)" class="dev-input dev-textarea dev-tag-textarea"></textarea>
+          <!-- 태그 선택 UI (신규 등록) -->
+          <div class="dev-tag-picker-container" id="dev-add-tag-picker">
+            <div class="dev-tag-picker-header">
+              <span class="dev-tag-picker-label">태그 선택 (<span id="dev-add-tag-count">0</span>개)</span>
+              <button type="button" id="dev-add-tag-clear-btn" class="dev-tag-mini-btn">전체 해제</button>
+            </div>
+            <div class="dev-tag-selected-preview" id="dev-add-selected-preview">선택된 태그 없음</div>
+            <div class="dev-tag-chips-wrapper" id="dev-add-tag-chips-wrapper"></div>
+            <div class="dev-tag-custom-row">
+              <input type="text" id="dev-add-custom-tag" placeholder="직접 태그 입력 (Enter/추가)" class="dev-input dev-tag-custom-input" />
+              <button type="button" id="dev-add-custom-tag-btn" class="dev-tag-mini-btn">+ 추가</button>
+            </div>
+          </div>
           <div class="dev-button-grid">
             <button id="dev-add-submit-btn" class="modal-btn dev-action-btn dev-btn-primary">등록 저장</button>
             <button id="dev-add-back-btn" class="modal-btn dev-action-btn">뒤로</button>
@@ -237,7 +249,19 @@
             <input type="text" id="dev-edit-song-artist" placeholder="음악 아티스트" class="dev-input" />
             <input type="text" id="dev-edit-song-id" placeholder="노래 ID" class="dev-input" />
             <textarea id="dev-edit-desc" placeholder="레벨 설명" class="dev-input dev-textarea"></textarea>
-            <textarea id="dev-edit-tags" placeholder="태그 (쉼표 또는 줄바꿈으로 구분)" class="dev-input dev-textarea dev-tag-textarea"></textarea>
+            <!-- 태그 선택 UI (수정) -->
+            <div class="dev-tag-picker-container" id="dev-edit-tag-picker">
+              <div class="dev-tag-picker-header">
+                <span class="dev-tag-picker-label">태그 선택 (<span id="dev-edit-tag-count">0</span>개)</span>
+                <button type="button" id="dev-edit-tag-clear-btn" class="dev-tag-mini-btn">전체 해제</button>
+              </div>
+              <div class="dev-tag-selected-preview" id="dev-edit-selected-preview">선택된 태그 없음</div>
+              <div class="dev-tag-chips-wrapper" id="dev-edit-tag-chips-wrapper"></div>
+              <div class="dev-tag-custom-row">
+                <input type="text" id="dev-edit-custom-tag" placeholder="직접 태그 입력 (Enter/추가)" class="dev-input dev-tag-custom-input" />
+                <button type="button" id="dev-edit-custom-tag-btn" class="dev-tag-mini-btn">+ 추가</button>
+              </div>
+            </div>
             <div class="dev-button-grid">
               <button id="dev-edit-submit-btn" class="modal-btn dev-action-btn dev-btn-primary">수정 저장</button>
               <button id="dev-edit-delete-btn" class="modal-btn dev-action-btn dev-btn-danger">레벨 삭제</button>

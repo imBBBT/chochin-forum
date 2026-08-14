@@ -151,7 +151,7 @@ const TAG_CATEGORIES = [
   {
     name: '메타',
     tags: [
-      'Impossible', 'Challenge', 'Flashy', 'NONG', 'Checkpointless',
+      'Flashy', 'NONG', 'Checkpointless',
       'Collab', '2P', 'XXL', 'Remake', 'Recreation', 'Animation',
       'Story', 'Fixed Hitboxes', 'Multi Path', 'Humorous', 'Jumpscares',
       '3D', 'Hard Coins', 'Sensitive'
@@ -160,7 +160,7 @@ const TAG_CATEGORIES = [
   {
     name: '게임플레이',
     tags: [
-      'Bossfight', 'Flow', 'Fast Paced', 'Slow Paced', 'Sync', 'Blinds', 'Memory',
+      'Overall', 'Bossfight', 'Flow', 'Fast Paced', 'Slow Paced', 'Sync', 'Blinds', 'Memory',
       'Puzzle', 'Duals', 'Maze', 'Timing', 'Tower', 'Sideways', 'Random',
       'High CPS', 'Nerve Control', 'Learny', 'Chokepoints', 'Collectathon', 'Gimmicky',
       'Gravity', 'Mirror', 'Needle', 'Timed', 'Momentum', 'Wall Jump', 'Cycle',
@@ -240,8 +240,6 @@ const TAG_COLOR_MAP = {
   'Meta': '#ff4d4d',
 
   // 3. 메타
-  'Impossible': '#ff4d4d',
-  'Challenge': '#ced6e0',
   'Flashy': '#fff200',
   'NONG': '#54a0ff',
   'Checkpointless': '#dfe4ea',
@@ -261,6 +259,7 @@ const TAG_COLOR_MAP = {
   'Sensitive': '#ff4757',
 
   // 4. 게임플레이
+  'Overall': '#00d2d3',
   'Bossfight': '#ffd32a',
   'Flow': '#ff9ff3',
   'Fast Paced': '#ff4757',
