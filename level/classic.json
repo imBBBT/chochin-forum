@@ -1214,7 +1214,16 @@
         "Learny"
       ],
       "targetRank": 22,
-      "clears": []
+      "clears": [
+        {
+          "player": "Choco",
+          "name": "Choco",
+          "percent": 100,
+          "date": "2026-08-15",
+          "link": "https://youtu.be/eAoKF7SxiTE",
+          "video": "https://youtu.be/eAoKF7SxiTE"
+        }
+      ]
     },
     {
       "id": 22,
