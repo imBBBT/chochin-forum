@@ -952,6 +952,48 @@ body.menu-open::after {
   font-size: 0.7rem;
 }
 
+.dev-mapid-group {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.dev-mapid-group .dev-input {
+  flex: 1;
+  min-width: 0;
+  margin-bottom: 0 !important;
+}
+
+.dev-fetch-gd-btn {
+  white-space: nowrap;
+  padding: 0.5rem 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.35);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dev-fetch-gd-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #1d4ed8, #2563eb);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.6);
+  transform: translateY(-1px);
+}
+
+.dev-fetch-gd-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .box {
   position: absolute;
   left: 50%;

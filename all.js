@@ -1420,6 +1420,174 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
     return 'classic';
   }
 
+  // Geometry Dash Level Data Auto-Fetch Engine
+  async function fetchGdLevelData(mapId) {
+    if (!mapId) throw new Error('맵 ID가 입력되지 않았습니다.');
+    const cleanId = String(mapId).replace(/\D/g, '');
+    if (!cleanId) throw new Error('유효한 숫자 형식의 맵 ID를 입력해주세요.');
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 8000);
+
+    try {
+      const response = await fetch(`https://gdbrowser.com/api/level/${cleanId}`, {
+        signal: controller.signal
+      });
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        if (response.status === 404 || response.status === 400) {
+          throw new Error('GD 서버에서 해당 맵 ID를 찾을 수 없습니다.');
+        }
+        throw new Error(`GD API 응답 오류 (HTTP ${response.status})`);
+      }
+
+      const data = await response.json();
+      if (!data || data.id === '-1' || !data.name) {
+        throw new Error('해당 레벨의 정보를 찾을 수 없습니다.');
+      }
+
+      const todayStr = new Date().toISOString().slice(0, 10);
+      return {
+        name: data.name || '',
+        author: data.author || '',
+        objects: data.objects != null ? String(data.objects) : '',
+        length: data.length || '',
+        songName: data.songName || '',
+        songArtist: data.songAuthor || '',
+        songId: data.songID != null ? String(data.songID) : (data.customSong != null ? String(data.customSong) : ''),
+        description: data.description || '',
+        uploadDate: todayStr
+      };
+    } catch (err) {
+      clearTimeout(timeoutId);
+      if (err.name === 'AbortError') {
+        throw new Error('GD 서버 응답 시간이 초과되었습니다.');
+      }
+      throw err;
+    }
+  }
+  window.fetchGdLevelData = fetchGdLevelData;
+
+  // ⚡ Auto-Fetch GD Info Handlers for Dev Panel
+  const setupGdAutoFetch = () => {
+    const addFetchBtn = document.getElementById('dev-add-fetch-gd-btn');
+    if (addFetchBtn && !addFetchBtn.dataset.bound) {
+      addFetchBtn.dataset.bound = 'true';
+      addFetchBtn.addEventListener('click', async () => {
+        const mapIdInput = document.getElementById('dev-add-mapid');
+        const mapId = (mapIdInput?.value || '').trim();
+        if (!mapId) {
+          alert('맵 ID를 먼저 입력해주세요.');
+          mapIdInput?.focus();
+          return;
+        }
+
+        const origText = addFetchBtn.textContent;
+        addFetchBtn.disabled = true;
+        addFetchBtn.textContent = '⏳ 불러오는 중...';
+
+        try {
+          const info = await fetchGdLevelData(mapId);
+          if (info.name && !document.getElementById('dev-add-title')?.value) {
+            document.getElementById('dev-add-title').value = info.name;
+          }
+          if (info.author && !document.getElementById('dev-add-creator')?.value) {
+            document.getElementById('dev-add-creator').value = info.author;
+            if (!document.getElementById('dev-add-verifier')?.value) {
+              document.getElementById('dev-add-verifier').value = info.author;
+            }
+          }
+          if (info.objects) {
+            document.getElementById('dev-add-objects').value = Number(info.objects).toLocaleString();
+          }
+          if (info.length) {
+            document.getElementById('dev-add-length').value = info.length;
+          }
+          if (info.uploadDate) {
+            const upEl = document.getElementById('dev-add-uploaddate');
+            if (upEl && !upEl.value) upEl.value = info.uploadDate;
+          }
+          if (info.songName) {
+            document.getElementById('dev-add-song-name').value = info.songName;
+          }
+          if (info.songArtist) {
+            document.getElementById('dev-add-song-artist').value = info.songArtist;
+          }
+          if (info.songId) {
+            document.getElementById('dev-add-song-id').value = info.songId;
+          }
+
+          addFetchBtn.textContent = '✓ 불러오기 완료!';
+          logDevConsole(`[GD 연동] "${info.name}" (ID: ${mapId}) 레벨 정보를 불러왔습니다.`, '#00d2ff');
+          setTimeout(() => {
+            addFetchBtn.textContent = origText;
+            addFetchBtn.disabled = false;
+          }, 1800);
+        } catch (err) {
+          alert(`GD 정보 불러오기 실패: ${err.message}`);
+          addFetchBtn.textContent = origText;
+          addFetchBtn.disabled = false;
+        }
+      });
+    }
+
+    const editFetchBtn = document.getElementById('dev-edit-fetch-gd-btn');
+    if (editFetchBtn && !editFetchBtn.dataset.bound) {
+      editFetchBtn.dataset.bound = 'true';
+      editFetchBtn.addEventListener('click', async () => {
+        const mapIdInput = document.getElementById('dev-edit-mapid');
+        const mapId = (mapIdInput?.value || '').trim();
+        if (!mapId) {
+          alert('맵 ID를 먼저 입력해주세요.');
+          mapIdInput?.focus();
+          return;
+        }
+
+        const origText = editFetchBtn.textContent;
+        editFetchBtn.disabled = true;
+        editFetchBtn.textContent = '⏳ 불러오는 중...';
+
+        try {
+          const info = await fetchGdLevelData(mapId);
+          if (info.name) document.getElementById('dev-edit-title').value = info.name;
+          if (info.author) document.getElementById('dev-edit-creator').value = info.author;
+          if (info.objects) {
+            document.getElementById('dev-edit-objects').value = Number(info.objects).toLocaleString();
+          }
+          if (info.length) {
+            document.getElementById('dev-edit-length').value = info.length;
+          }
+          if (info.uploadDate) {
+            const upEl = document.getElementById('dev-edit-uploaddate');
+            if (upEl) upEl.value = info.uploadDate;
+          }
+          if (info.songName) {
+            document.getElementById('dev-edit-song-name').value = info.songName;
+          }
+          if (info.songArtist) {
+            document.getElementById('dev-edit-song-artist').value = info.songArtist;
+          }
+          if (info.songId) {
+            document.getElementById('dev-edit-song-id').value = info.songId;
+          }
+
+          editFetchBtn.textContent = '✓ 불러오기 완료!';
+          logDevConsole(`[GD 연동] "${info.name}" (ID: ${mapId}) 레벨 정보를 업데이트했습니다.`, '#00d2ff');
+          setTimeout(() => {
+            editFetchBtn.textContent = origText;
+            editFetchBtn.disabled = false;
+          }, 1800);
+        } catch (err) {
+          alert(`GD 정보 불러오기 실패: ${err.message}`);
+          editFetchBtn.textContent = origText;
+          editFetchBtn.disabled = false;
+        }
+      });
+    }
+  };
+  setupGdAutoFetch();
+
   // 1. 레벨 신규 등록 처리
   const devAddSubmitBtn = document.getElementById('dev-add-submit-btn');
   if (devAddSubmitBtn) {
@@ -1434,6 +1602,7 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
       const ytId = extractYoutubeId(rawVideo);
       const video = ytId ? `https://www.youtube.com/embed/${ytId}` : rawVideo;
       const mapId = (document.getElementById('dev-add-mapid')?.value || '').trim();
+      const uploadDate = (document.getElementById('dev-add-uploaddate')?.value || '').trim() || new Date().toISOString().slice(0, 10);
       const length = (document.getElementById('dev-add-length')?.value || '').trim() || 'Long';
       const objects = (document.getElementById('dev-add-objects')?.value || '').trim();
       const songName = (document.getElementById('dev-add-song-name')?.value || '').trim();
@@ -1468,10 +1637,12 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
         mapId: mapId,
         length: length,
         objects: objects,
+        uploadDate: uploadDate,
         map: {
           mapId: mapId,
           length: length,
-          objects: objects
+          objects: objects,
+          uploadDate: uploadDate
         },
         song: {
           name: songName,
@@ -1554,6 +1725,8 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
         document.getElementById('dev-edit-rating').value = lvl.rating || '';
         document.getElementById('dev-edit-video').value = lvl.video || '';
         document.getElementById('dev-edit-mapid').value = lvl.map?.mapId || lvl.mapId || '';
+        const editUploadDateEl = document.getElementById('dev-edit-uploaddate');
+        if (editUploadDateEl) editUploadDateEl.value = lvl.map?.uploadDate || lvl.uploadDate || '';
         document.getElementById('dev-edit-length').value = lvl.map?.length || lvl.length || 'Long';
         document.getElementById('dev-edit-objects').value = lvl.map?.objects || lvl.objects || '';
         document.getElementById('dev-edit-song-name').value = lvl.song?.name || '';
@@ -1589,6 +1762,7 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
       const ytId = extractYoutubeId(rawVideo);
       const video = ytId ? `https://www.youtube.com/embed/${ytId}` : rawVideo;
       const mapId = (document.getElementById('dev-edit-mapid')?.value || '').trim();
+      const uploadDate = (document.getElementById('dev-edit-uploaddate')?.value || '').trim();
       const length = (document.getElementById('dev-edit-length')?.value || '').trim() || 'Long';
       const objects = (document.getElementById('dev-edit-objects')?.value || '').trim();
       const songName = (document.getElementById('dev-edit-song-name')?.value || '').trim();
@@ -1614,10 +1788,12 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
         mapId: mapId,
         length: length,
         objects: objects,
+        uploadDate: uploadDate,
         map: {
           mapId: mapId,
           length: length,
-          objects: objects
+          objects: objects,
+          uploadDate: uploadDate
         },
         song: {
           name: songName,
