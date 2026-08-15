@@ -144,6 +144,7 @@ html, body {
 .ranking-list-body {
   flex: 1;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   padding: 1rem 1.4rem;
   display: flex;
   flex-direction: column;
@@ -171,6 +172,8 @@ html, body {
   border-radius: 0.55rem;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   font-family: 'Paperozi', sans-serif;
+  contain: layout style;
+  will-change: transform;
 }
 
 .ranking-row-card.mode-hardest {

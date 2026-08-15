@@ -37,6 +37,25 @@
   }
 })();
 
+window.escapeHtml = function(text) {
+  if (text == null) return '';
+  return String(text)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+};
+
+window.debounce = function(func, wait) {
+  let timeout;
+  return function(...args) {
+    const context = this;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(context, args), wait);
+  };
+};
+
 window.showForumToast = function(message) {
   let toast = document.getElementById('forum-toast-elem');
   if (!toast) {

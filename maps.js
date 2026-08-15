@@ -107,12 +107,14 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    const esc = window.escapeHtml || (s => s == null ? '' : String(s));
     const fragment = document.createDocumentFragment();
     filtered.forEach(pack => {
       const card = document.createElement('div');
       const isUserCleared = isPackClearedByUser(pack);
       const clearedClass = isUserCleared ? 'card-cleared' : '';
       card.className = `map-pack-card ${clearedClass} ${selectedPackId === pack.id ? 'active-card' : ''}`.trim();
+      card.dataset.packId = String(pack.id);
       
       const tierNum = pack.tier ? pack.tier.replace(/[^0-9]/g, '') : '1';
       const isCleared = (pack.clears || []).length > 0;
@@ -123,12 +125,12 @@ document.addEventListener('DOMContentLoaded', () => {
       card.innerHTML = `
         <div class="map-pack-card-top">
           <div class="map-pack-title-group">
-            <span class="map-pack-title">${pack.title}</span>
+            <span class="map-pack-title">${esc(pack.title)}</span>
             ${userClearBadgeHtml}
           </div>
-          <span class="map-pack-tier-badge tier-badge-${tierNum}">${pack.tier || 'Tier 1'}</span>
+          <span class="map-pack-tier-badge tier-badge-${tierNum}">${esc(pack.tier || 'Tier 1')}</span>
         </div>
-        <div class="map-pack-desc">${pack.description || ''}</div>
+        <div class="map-pack-desc">${esc(pack.description || '')}</div>
         <div class="map-pack-bottom-info">
           <span class="map-pack-level-count">${(pack.levels || []).length}개의 레벨</span>
           <span class="map-pack-clear-status ${isCleared ? 'cleared' : 'uncleared'}">
@@ -138,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
 
       card.addEventListener('click', () => {
-        selectPack(pack);
+        selectPack(pack, card);
       });
 
       fragment.appendChild(card);
@@ -161,14 +163,24 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // 3. Select Pack & Render Detail
-  const selectPack = (pack) => {
+  const selectPack = (pack, cardElement) => {
+    if (selectedPackId === pack.id) {
+      closeDetail();
+      return;
+    }
     selectedPackId = pack.id;
     const backdrop = getOrCreateMapBackdrop();
 
-    // Update active highlight on cards
-    document.querySelectorAll('.map-pack-card').forEach(el => {
+    // Update active highlight on cards directly without rebuilding DOM list
+    document.querySelectorAll('.map-pack-card.active-card').forEach(el => {
       el.classList.remove('active-card');
     });
+    if (cardElement) {
+      cardElement.classList.add('active-card');
+    } else {
+      const el = document.querySelector(`.map-pack-card[data-pack-id="${pack.id}"]`);
+      if (el) el.classList.add('active-card');
+    }
 
     // Enable dual panel layout
     mapsListContainer.classList.add('has-detail');
@@ -176,6 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (backdrop) backdrop.classList.add('active');
 
     // Render Detail Content
+    const esc = window.escapeHtml || (s => s == null ? '' : String(s));
     const tierNum = pack.tier ? pack.tier.replace(/[^0-9]/g, '') : '1';
     const levels = pack.levels || [];
     const clears = pack.clears || [];
@@ -187,31 +200,44 @@ document.addEventListener('DOMContentLoaded', () => {
     mapsDetailContainer.innerHTML = `
       <div class="map-detail-header">
         <div class="map-detail-title-group">
-          <span class="map-detail-title">${pack.title}</span>
+          <span class="map-detail-title">${esc(pack.title)}</span>
           ${userClearBadgeHtml}
-          <span class="map-pack-tier-badge tier-badge-${tierNum}">${pack.tier || 'Tier 1'}</span>
+          <span class="map-pack-tier-badge tier-badge-${tierNum}">${esc(pack.tier || 'Tier 1')}</span>
         </div>
         <button id="maps-detail-close" class="map-detail-close-btn" aria-label="닫기">✕</button>
       </div>
 
       <div class="map-detail-desc-box">
-        ${pack.description || '설명이 없습니다.'}
+        ${esc(pack.description || '설명이 없습니다.')}
       </div>
 
       <div class="map-detail-section-title">
         포함된 레벨 <span>(${levels.length}개)</span>
       </div>
       <div class="map-detail-levels-grid">
-        ${levels.length > 0 ? levels.map(lvl => {
-          const lTitle = typeof lvl === 'string' ? lvl : (lvl.title || lvl.name || `레벨 ${lvl.id || ''}`);
-          const lId = typeof lvl === 'object' ? lvl.id : '';
+        ${levels.length > 0 ? levels.map((lvl, idx) => {
+          let name = '';
+          let author = '';
+          let id = '';
+
+          if (typeof lvl === 'string') {
+            name = lvl;
+          } else if (lvl && typeof lvl === 'object') {
+            name = lvl.name || lvl.title || (lvl.id ? `레벨 ${lvl.id}` : `레벨 ${idx + 1}`);
+            author = lvl.author || lvl.creator || '';
+            id = lvl.id || '';
+          }
+
           return `
             <div class="map-level-item">
               <div class="map-level-info">
-                <span class="map-level-bullet">•</span>
-                <span class="map-level-title">${lTitle}</span>
+                <span class="map-level-num">${idx + 1}</span>
+                <div class="map-level-text-group">
+                  <span class="map-level-name">${esc(name)}</span>
+                  ${author ? `<span class="map-level-author">by ${esc(author)}</span>` : ''}
+                </div>
               </div>
-              ${lId ? `<span class="map-level-id">ID: ${lId}</span>` : ''}
+              ${id ? `<span class="map-level-id">ID: ${esc(id)}</span>` : ''}
             </div>
           `;
         }).join('') : '<div class="map-clears-empty">포함된 레벨 정보가 없습니다.</div>'}
@@ -223,8 +249,8 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="map-clears-list">
         ${clears.length > 0 ? clears.map(c => `
           <div class="map-clear-item">
-            <span class="map-clear-player">🏆 ${c.player || c.name || '알 수 없음'}</span>
-            <span class="map-clear-date">${c.date || ''}</span>
+            <span class="map-clear-player">🏆 ${esc(c.player || c.name || '알 수 없음')}</span>
+            <span class="map-clear-date">${esc(c.date || '')}</span>
           </div>
         `).join('') : '<div class="map-clears-empty">아직 클리어한 유저가 없습니다. 첫 클리어에 도전해보세요!</div>'}
       </div>
@@ -237,9 +263,6 @@ document.addEventListener('DOMContentLoaded', () => {
         closeDetail();
       });
     }
-
-    // Re-render pack cards to reflect active border highlight
-    renderPacksList();
   };
 
   // 4. Close Detail View
@@ -250,6 +273,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const backdrop = document.getElementById('detail-overlay-backdrop');
     if (backdrop) backdrop.classList.remove('active');
 
+    document.querySelectorAll('.map-pack-card.active-card').forEach(el => {
+      el.classList.remove('active-card');
+    });
+
     mapsDetailContainer.innerHTML = `
       <div class="maps-detail-empty">
         <div class="maps-empty-icon"></div>
@@ -257,7 +284,6 @@ document.addEventListener('DOMContentLoaded', () => {
         <p class="maps-empty-desc">왼쪽 리스트에서 맵 팩을 선택하여 상세 정보와 포함된 레벨 및 클리어 기록을 확인하세요.</p>
       </div>
     `;
-    renderPacksList();
   };
 
   document.addEventListener('keydown', (e) => {
@@ -524,7 +550,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('dev_custom_mappacks', JSON.stringify(allPacks));
         alert('맵 팩이 삭제되었습니다.');
         hideAllDevSubPanels();
-        closeMapPackDetail();
+        closeDetail();
         renderPacksList();
       }
     });
@@ -563,7 +589,7 @@ document.addEventListener('DOMContentLoaded', () => {
       alert(`'${player}' 유저의 '${targetPack.title}' 맵 팩 클리어 기록이 갱신되었습니다!`);
       hideAllDevSubPanels();
       if (selectedPackId === targetPack.id) {
-        renderPackDetail(targetPack);
+        selectPack(targetPack);
       }
       renderPacksList();
     });

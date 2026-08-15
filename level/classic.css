@@ -465,6 +465,7 @@ html, body {
 .classic-level-list {
   flex: 1;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   padding: 0.8rem 1rem;
   box-sizing: border-box;
   display: flex;
@@ -494,6 +495,8 @@ html, body {
   box-sizing: border-box;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease, background 0.2s ease;
   cursor: pointer;
+  contain: layout style;
+  will-change: transform, border-color, box-shadow;
 }
 
 .classic-level-card:hover {

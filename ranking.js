@@ -74,6 +74,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!rankingListBody) return;
     rankingListBody.innerHTML = '';
 
+    const esc = window.escapeHtml || (s => s == null ? '' : String(s));
     const currentUser = getUserNickname().toLowerCase();
 
     if (currentMode === 'hardest') {
@@ -106,10 +107,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         row.innerHTML = `
           <span class="rank-badge">${medalIcon}</span>
           <span class="player-name">
-            ${item.name}
+            ${esc(item.name)}
             ${isMe ? '<span class="user-me-badge">나</span>' : ''}
           </span>
-          <span class="player-hardest">${item.hardest || '-'}</span>
+          <span class="player-hardest">${esc(item.hardest || '-')}</span>
         `;
         fragment.appendChild(row);
       });
@@ -187,11 +188,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         row.innerHTML = `
           <span class="rank-badge">${medalIcon}</span>
           <span class="player-name">
-            ${item.name}
+            ${esc(item.name)}
             ${isMe ? '<span class="user-me-badge">나</span>' : ''}
           </span>
           <span class="player-pt">${Math.round(item.points).toLocaleString()} PT</span>
-          <span class="player-hardest">${item.hardestTitle}</span>
+          <span class="player-hardest">${esc(item.hardestTitle)}</span>
           <span class="player-clears">${item.clearCount}개</span>
         `;
         fragment.appendChild(row);
