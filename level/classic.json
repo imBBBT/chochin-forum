@@ -1425,8 +1425,7 @@
       "map": {
         "mapId": "86204427",
         "length": "2m 35s",
-        "objects": 5115,
-        "uploadDate": "2022-11-29"
+        "objects": "5115"
       },
       "song": {
         "name": "Thundaga (FL Core)",
@@ -1452,22 +1451,30 @@
         }
       },
       "tags": [
-        "XXL"
+        "XXL",
+        "Standard",
+        "Multi Path",
+        "Overall",
+        "Fast Paced",
+        "Nerve Control"
       ],
-      "clears": []
+      "clears": [],
+      "mapId": "86204427",
+      "length": "2m 35s",
+      "objects": "5115",
+      "targetRank": 26
     },
     {
       "id": 27,
       "title": "JPA EP4",
       "creator": "Choco",
       "verifier": "Choco",
-      "video": "-",
+      "video": "https://www.youtube.com/embed/-",
       "rating": "",
       "map": {
         "mapId": "84951046",
         "length": "1m 28s",
-        "objects": 2064,
-        "uploadDate": "2022-10-24"
+        "objects": "2064"
       },
       "song": {
         "name": "Hexagon Force",
@@ -1502,9 +1509,16 @@
       "tags": [
         "Cube",
         "Duals",
-        "Memory"
+        "Memory",
+        "Standard",
+        "Monochromatic",
+        "Overall"
       ],
-      "clears": []
+      "clears": [],
+      "mapId": "84951046",
+      "length": "1m 28s",
+      "objects": "2064",
+      "targetRank": 27
     },
     {
       "id": 28,
@@ -1516,8 +1530,7 @@
       "map": {
         "mapId": "85596521",
         "length": "1m 36s",
-        "objects": 9344,
-        "uploadDate": "2022-11-12"
+        "objects": "9344"
       },
       "song": {
         "name": "-Final Battle-",
@@ -1542,8 +1555,20 @@
           "1x": 100
         }
       },
-      "tags": [],
-      "clears": []
+      "tags": [
+        "Layout",
+        "Design",
+        "Glow",
+        "Simplism",
+        "Overall",
+        "Timing",
+        "Nerve Control"
+      ],
+      "clears": [],
+      "mapId": "85596521",
+      "length": "1m 36s",
+      "objects": "9344",
+      "targetRank": 28
     },
     {
       "id": 29,
@@ -1555,8 +1580,7 @@
       "map": {
         "mapId": "84536046",
         "length": "1m 33s",
-        "objects": 3025,
-        "uploadDate": "2022-10-11"
+        "objects": "3025"
       },
       "song": {
         "name": "Theory of Everthing 2",
@@ -1581,8 +1605,19 @@
           "1x": 100
         }
       },
-      "tags": [],
-      "clears": []
+      "tags": [
+        "Standard",
+        "Overall",
+        "Slow Paced",
+        "Timing",
+        "Nerve Control",
+        "Chokepoints"
+      ],
+      "clears": [],
+      "mapId": "84536046",
+      "length": "1m 33s",
+      "objects": "3025",
+      "targetRank": 29
     },
     {
       "id": 30,
@@ -1594,8 +1629,7 @@
       "map": {
         "mapId": "84244031",
         "length": "1m 39s",
-        "objects": 3054,
-        "uploadDate": "2022-10-02"
+        "objects": "3054"
       },
       "song": {
         "name": "Theory of Everthing",
@@ -1621,22 +1655,30 @@
         }
       },
       "tags": [
-        "Duals"
+        "Duals",
+        "Standard",
+        "Overall",
+        "Flow",
+        "Nerve Control",
+        "Chokepoints"
       ],
-      "clears": []
+      "clears": [],
+      "mapId": "84244031",
+      "length": "1m 39s",
+      "objects": "3054",
+      "targetRank": 30
     },
     {
       "id": 31,
       "title": "Trolled",
       "creator": "Light",
       "verifier": "Light",
-      "video": "-",
+      "video": "https://www.youtube.com/embed/-",
       "rating": "",
       "map": {
         "mapId": "85646626",
         "length": "36s",
-        "objects": 553,
-        "uploadDate": "2022-11-13"
+        "objects": "553"
       },
       "song": {
         "name": "Youve been Trolled",
@@ -1667,7 +1709,12 @@
         }
       },
       "tags": [
-        "Memory"
+        "Memory",
+        "Standard",
+        "Hard Coins",
+        "Overall",
+        "Blinds",
+        "Cube"
       ],
       "clears": [
         {
@@ -1686,7 +1733,11 @@
           "link": "",
           "video": ""
         }
-      ]
+      ],
+      "mapId": "85646626",
+      "length": "36s",
+      "objects": "553",
+      "targetRank": 31
     },
     {
       "id": 32,
@@ -1698,8 +1749,7 @@
       "map": {
         "mapId": "84660687",
         "length": "1m 22s",
-        "objects": 3700,
-        "uploadDate": "2022-10-15"
+        "objects": "3700"
       },
       "song": {
         "name": "Electrodynamix",
@@ -1726,22 +1776,34 @@
       },
       "tags": [
         "Ship",
-        "Fast Paced"
+        "Fast Paced",
+        "Layout",
+        "Design",
+        "Glow",
+        "Simplism",
+        "Heaven",
+        "Flashy",
+        "Overall",
+        "Cube",
+        "Nerve Control"
       ],
-      "clears": []
+      "clears": [],
+      "mapId": "84660687",
+      "length": "1m 22s",
+      "objects": "3700",
+      "targetRank": 32
     },
     {
       "id": 33,
       "title": "LT EP7",
       "creator": "Light",
       "verifier": "Light",
-      "video": "-",
+      "video": "https://www.youtube.com/embed/-",
       "rating": "",
       "map": {
         "mapId": "85837732",
         "length": "1m 37s",
-        "objects": 2815,
-        "uploadDate": "2022-11-19"
+        "objects": "2815"
       },
       "song": {
         "name": "-Final Battle-",
@@ -1768,7 +1830,13 @@
       },
       "tags": [
         "Duals",
-        "Bossfight"
+        "Bossfight",
+        "Standard",
+        "Design",
+        "Overall",
+        "Ship",
+        "Nerve Control",
+        "Learny"
       ],
       "clears": [
         {
@@ -1779,7 +1847,11 @@
           "link": "https://youtu.be/HgMXx75SKcM",
           "video": "https://youtu.be/HgMXx75SKcM"
         }
-      ]
+      ],
+      "mapId": "85837732",
+      "length": "1m 37s",
+      "objects": "2815",
+      "targetRank": 33
     },
     {
       "id": 34,
@@ -1791,8 +1863,7 @@
       "map": {
         "mapId": "87116363",
         "length": "1m 22s",
-        "objects": 7380,
-        "uploadDate": "2022-12-26"
+        "objects": "7380"
       },
       "song": {
         "name": "Rockin That Bass",
@@ -1815,9 +1886,24 @@
       },
       "tags": [
         "Fast Paced",
-        "Learny"
+        "Learny",
+        "Standard",
+        "Design",
+        "Glow",
+        "Effect",
+        "Simplism",
+        "Cold",
+        "Hot",
+        "Night",
+        "Colorful",
+        "Overall",
+        "Nerve Control"
       ],
-      "clears": []
+      "clears": [],
+      "mapId": "87116363",
+      "length": "1m 22s",
+      "objects": "7380",
+      "targetRank": 34
     },
     {
       "id": 35,
@@ -1829,8 +1915,7 @@
       "map": {
         "mapId": "85797010",
         "length": "2m 55s",
-        "objects": 4055,
-        "uploadDate": "2022-11-18"
+        "objects": "4055"
       },
       "song": {
         "name": "Solyton - Cave",
@@ -1854,22 +1939,34 @@
       "tags": [
         "Sync",
         "Learny",
-        "Ship"
+        "Ship",
+        "Standard",
+        "Effect",
+        "Simplism",
+        "Cave",
+        "Monochromatic",
+        "Flashy",
+        "Overall",
+        "Nerve Control",
+        "Memory"
       ],
-      "clears": []
+      "clears": [],
+      "mapId": "85797010",
+      "length": "2m 55s",
+      "objects": "4055",
+      "targetRank": 35
     },
     {
       "id": 36,
       "title": "Slow Challenge",
       "creator": "Choco",
       "verifier": "Choco",
-      "video": "-",
+      "video": "https://www.youtube.com/embed/-",
       "rating": "",
       "map": {
         "mapId": "101683550",
         "length": "2m 55s",
-        "objects": 1718,
-        "uploadDate": "2024-02-29"
+        "objects": "1718"
       },
       "song": {
         "name": "Stereo Madness",
@@ -1892,24 +1989,28 @@
       },
       "tags": [
         "Wave",
-        "XXL",
         "Gimmicky",
-        "Slow Paced"
+        "Slow Paced",
+        "Standard",
+        "Chokepoints"
       ],
-      "clears": []
+      "clears": [],
+      "mapId": "101683550",
+      "length": "2m 55s",
+      "objects": "1718",
+      "targetRank": 36
     },
     {
       "id": 37,
       "title": "LT EP6",
       "creator": "Light",
       "verifier": "Light",
-      "video": "-",
+      "video": "https://www.youtube.com/embed/-",
       "rating": "",
       "map": {
         "mapId": "85605798",
         "length": "43s",
-        "objects": 1628,
-        "uploadDate": "2022-11-12"
+        "objects": "1628"
       },
       "song": {
         "name": "Ocean of Stars",
@@ -1933,7 +2034,12 @@
       "tags": [
         "Cube",
         "Ship",
-        "Learny"
+        "Learny",
+        "Standard",
+        "Simplism",
+        "Overall",
+        "Blinds",
+        "Nerve Control"
       ],
       "clears": [
         {
@@ -1952,20 +2058,23 @@
           "link": "https://youtu.be/2v-gH8a4bPw",
           "video": "https://youtu.be/2v-gH8a4bPw"
         }
-      ]
+      ],
+      "mapId": "85605798",
+      "length": "43s",
+      "objects": "1628",
+      "targetRank": 37
     },
     {
       "id": 38,
       "title": "LT EP4",
       "creator": "Light",
       "verifier": "Light",
-      "video": "-",
+      "video": "https://www.youtube.com/embed/-",
       "rating": "",
       "map": {
         "mapId": "85191093",
         "length": "45s",
-        "objects": 1785,
-        "uploadDate": "2022-10-31"
+        "objects": "1785"
       },
       "song": {
         "name": "Xenogenesis",
@@ -1988,7 +2097,10 @@
       },
       "tags": [
         "Sync",
-        "Slow Paced"
+        "Slow Paced",
+        "Standard",
+        "Cube",
+        "Ship"
       ],
       "clears": [
         {
@@ -1999,20 +2111,23 @@
           "link": "https://youtu.be/2v-gH8a4bPw",
           "video": "https://youtu.be/2v-gH8a4bPw"
         }
-      ]
+      ],
+      "mapId": "85191093",
+      "length": "45s",
+      "objects": "1785",
+      "targetRank": 38
     },
     {
       "id": 39,
       "title": "LT EP5",
       "creator": "Light",
       "verifier": "Light",
-      "video": "-",
+      "video": "https://www.youtube.com/embed/-",
       "rating": "",
       "map": {
         "mapId": "85596289",
         "length": "53s",
-        "objects": 1492,
-        "uploadDate": "2022-11-12"
+        "objects": "1492"
       },
       "song": {
         "name": "Okiba Crackdown",
@@ -2034,7 +2149,11 @@
         "speedRatio": {}
       },
       "tags": [
-        "Fast Paced"
+        "Fast Paced",
+        "Standard",
+        "Chokepoints",
+        "Learny",
+        "Ship"
       ],
       "clears": [
         {
@@ -2045,7 +2164,11 @@
           "link": "https://youtu.be/7k5j87WtPkE",
           "video": "https://youtu.be/7k5j87WtPkE"
         }
-      ]
+      ],
+      "mapId": "85596289",
+      "length": "53s",
+      "objects": "1492",
+      "targetRank": 39
     },
     {
       "id": 40,
@@ -2057,8 +2180,7 @@
       "map": {
         "mapId": "122547026",
         "length": "2m 37s",
-        "objects": 5683,
-        "uploadDate": "2025-07-08"
+        "objects": "5683"
       },
       "song": {
         "name": "Egg",
@@ -2081,10 +2203,19 @@
       },
       "tags": [
         "Fast Paced",
-        "XXL",
-        "Sync"
+        "Sync",
+        "Layout",
+        "Dark",
+        "Party",
+        "Overall",
+        "Nerve Control",
+        "Learny"
       ],
-      "clears": []
+      "clears": [],
+      "mapId": "122547026",
+      "length": "2m 37s",
+      "objects": "5683",
+      "targetRank": 40
     },
     {
       "id": 41,
@@ -2096,8 +2227,7 @@
       "map": {
         "mapId": "123940130",
         "length": "1m 20s",
-        "objects": 1734,
-        "uploadDate": "2025-08-01"
+        "objects": "1734"
       },
       "song": {
         "name": "Egg",
@@ -2134,7 +2264,9 @@
       },
       "tags": [
         "Sync",
-        "Learny"
+        "Learny",
+        "Layout",
+        "Overall"
       ],
       "clears": [
         {
@@ -2153,20 +2285,23 @@
           "link": "https://youtu.be/qgcbQj3DYaQ",
           "video": "https://youtu.be/qgcbQj3DYaQ"
         }
-      ]
+      ],
+      "mapId": "123940130",
+      "length": "1m 20s",
+      "objects": "1734",
+      "targetRank": 41
     },
     {
       "id": 42,
       "title": "LT EP3",
       "creator": "Light",
       "verifier": "Light",
-      "video": "-",
+      "video": "https://www.youtube.com/embed/-",
       "rating": "",
       "map": {
         "mapId": "84810667",
         "length": "39s",
-        "objects": 742,
-        "uploadDate": "2022-10-20"
+        "objects": "742"
       },
       "song": {
         "name": "Arcana",
@@ -2191,7 +2326,10 @@
         "Cube",
         "Ship",
         "Bossfight",
-        "High CPS"
+        "High CPS",
+        "Standard",
+        "Chokepoints",
+        "Slow Paced"
       ],
       "clears": [
         {
@@ -2202,20 +2340,23 @@
           "link": "https://youtu.be/N3rMc3TlgF8",
           "video": "https://youtu.be/N3rMc3TlgF8"
         }
-      ]
+      ],
+      "mapId": "84810667",
+      "length": "39s",
+      "objects": "742",
+      "targetRank": 42
     },
     {
       "id": 43,
       "title": "LT EP2",
       "creator": "Light",
       "verifier": "Light",
-      "video": "-",
+      "video": "https://www.youtube.com/embed/-",
       "rating": "",
       "map": {
         "mapId": "84729138",
         "length": "1m 2s",
-        "objects": 2387,
-        "uploadDate": "2022-10-17"
+        "objects": "2387"
       },
       "song": {
         "name": "At the Speed of Light",
@@ -2241,7 +2382,11 @@
         }
       },
       "tags": [
-        "Ship"
+        "Ship",
+        "Standard",
+        "1.0",
+        "Slow Paced",
+        "Nerve Control"
       ],
       "clears": [
         {
@@ -2252,7 +2397,11 @@
           "link": "https://youtu.be/v0NtskyEGb8",
           "video": "https://youtu.be/v0NtskyEGb8"
         }
-      ]
+      ],
+      "mapId": "84729138",
+      "length": "1m 2s",
+      "objects": "2387",
+      "targetRank": 43
     },
     {
       "id": 44,
@@ -2264,8 +2413,7 @@
       "map": {
         "mapId": "124680897",
         "length": "20s",
-        "objects": 1040,
-        "uploadDate": "2025-08-15"
+        "objects": "1040"
       },
       "song": {
         "name": "Infinite Power",
@@ -2290,7 +2438,10 @@
         "Fast Paced",
         "Sync",
         "Learny",
-        "Effect"
+        "Effect",
+        "Standard",
+        "Simplism",
+        "Lyrics"
       ],
       "clears": [
         {
@@ -2301,7 +2452,11 @@
           "link": "https://youtu.be/dDGRShquKZI",
           "video": "https://youtu.be/dDGRShquKZI"
         }
-      ]
+      ],
+      "mapId": "124680897",
+      "length": "20s",
+      "objects": "1040",
+      "targetRank": 44
     }
   ],
   "history": [
