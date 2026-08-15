@@ -87,12 +87,15 @@ document.addEventListener('DOMContentLoaded', () => {
       return true;
     });
 
-    // 맵 팩 정렬: Tier 오름차순 (Tier 1 -> Tier 6), 동일 티어 내 팩 번호 오름차순
+    // 맵 팩 정렬: 1차 티어 오름차순 (Tier 1 -> Tier 6), 2차 동일 티어 내 제목 기준 ABC / 가나다 오름차순
     filtered.sort((a, b) => {
       const tierA = parseTierNum(a.tier);
       const tierB = parseTierNum(b.tier);
       if (tierA !== tierB) return tierA - tierB;
-      return parsePackIdNum(a.id) - parsePackIdNum(b.id);
+
+      const titleA = (a.title || '').trim();
+      const titleB = (b.title || '').trim();
+      return titleA.localeCompare(titleB, undefined, { sensitivity: 'base', numeric: true });
     });
 
     // Update badge count
