@@ -617,7 +617,19 @@ function renderLevelDetail(level, rank, detailContainer) {
   const uploadDate = level.map?.uploadDate ? escapeHtml(level.map.uploadDate) : '-';
   const songName = level.song?.name ? escapeHtml(level.song.name) : '';
   const songArtist = level.song?.artist ? escapeHtml(level.song.artist) : '';
-  const songId = level.song?.id ? escapeHtml(String(level.song.id)) : '';
+  const rawSongId = level.song?.id != null ? String(level.song.id).trim() : '';
+  const isNong = rawSongId.toUpperCase() === 'NONG';
+  const numSongId = /^\d+$/.test(rawSongId) ? parseInt(rawSongId, 10) : null;
+  const isNgAudio = numSongId !== null && numSongId >= 100 && numSongId < 10000000;
+
+  let songIdBadgeHtml = '';
+  if (rawSongId && !isNong) {
+    if (isNgAudio) {
+      songIdBadgeHtml = `<a href="https://www.newgrounds.com/audio/listen/${numSongId}" class="song-id-badge song-id-link" target="_blank" rel="noopener noreferrer" title="Newgrounds에서 음악 듣기"><span>(ID: ${escapeHtml(rawSongId)})</span><svg class="song-link-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg></a>`;
+    } else {
+      songIdBadgeHtml = `<span class="song-id-badge">(ID: ${escapeHtml(rawSongId)})</span>`;
+    }
+  }
 
   const rankNum = parseInt(String(rank).replace(/[^0-9]/g, ''), 10) || 1;
   const basePt = window.getBasePoints ? window.getBasePoints(rankNum) : 10;
@@ -632,7 +644,9 @@ function renderLevelDetail(level, rank, detailContainer) {
   let songDisplay = '-';
   if (songArtist || songName) {
     const mainTitle = songArtist && songName ? `${songArtist} - ${songName}` : (songName || songArtist);
-    songDisplay = songId ? `<span class="song-title">${mainTitle}</span><span class="song-id-badge">(ID: ${songId})</span>` : `<span class="song-title">${mainTitle}</span>`;
+    songDisplay = `<span class="song-title">${mainTitle}</span>${songIdBadgeHtml}`;
+  } else if (songIdBadgeHtml) {
+    songDisplay = songIdBadgeHtml;
   }
   const description = level.description ? escapeHtml(level.description) : '';
 
