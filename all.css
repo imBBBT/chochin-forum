@@ -1054,7 +1054,7 @@ body.menu-open::after {
 /* =========================================================
    Low-Spec Mode (저사양 최적화 모드)
    - Completely eliminate all animations and transitions (0s / none)
-   - Disable all backdrop-filter, excessive blurs, glow shadows
+   - Completely remove all box-shadows, text-shadows, glows, filters, and backdrop-filter
    ========================================================= */
 .low-spec-mode,
 .low-spec-mode *,
@@ -1071,30 +1071,32 @@ body.menu-open::after {
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
   text-shadow: none !important;
+  box-shadow: none !important;
+  filter: none !important;
 }
 
 .low-spec-mode header,
 .low-spec-mode header.header {
   background-color: #121216 !important;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
 .low-spec-mode .optionmenu {
   background-color: #181820 !important;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
 }
 
 .low-spec-mode .nickname-modal-overlay,
 .low-spec-mode .bg-modal-overlay,
 .low-spec-mode .dev-modal-overlay {
-  background-color: rgba(0, 0, 0, 0.85) !important;
+  background-color: rgba(0, 0, 0, 0.88) !important;
 }
 
 .low-spec-mode .nickname-input-box,
 .low-spec-mode .dev-panel,
 .low-spec-mode .roulette-win-box {
   background-color: #181822 !important;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.85) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
 }
 
 .low-spec-mode .box,
@@ -1105,16 +1107,17 @@ body.menu-open::after {
 .low-spec-mode .maps-panel-right,
 .low-spec-mode .maps-detail-box,
 .low-spec-mode .ranking-container,
-.low-spec-mode .tool-box {
+.low-spec-mode .tool-box,
+.low-spec-mode .tool-card {
   background-color: #14141c !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.55) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
 .low-spec-mode .classic-level-card,
 .low-spec-mode .map-pack-card,
 .low-spec-mode .ranking-row-card {
   background-color: #1e1e28 !important;
-  box-shadow: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
 .low-spec-mode .classic-level-card:hover,
@@ -1122,7 +1125,6 @@ body.menu-open::after {
 .low-spec-mode .ranking-row-card:hover {
   background-color: #2a2a38 !important;
   transform: none !important;
-  box-shadow: none !important;
 }
 
 .low-spec-mode .shadow {

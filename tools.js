@@ -491,6 +491,127 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   });
 
+  // Wheel Color Palettes & State
+  const WHEEL_PALETTES = {
+    cyber: ['#8b5cf6', '#ec4899', '#3b82f6', '#06b6d4', '#10b981', '#f59e0b', '#ef4444', '#6366f1'],
+    vibrant: ['#ff4757', '#ff6b81', '#ffa502', '#2ed573', '#1e90ff', '#5352ed', '#9b59b6', '#ff7f50'],
+    pastel: ['#fda4af', '#93c5fd', '#86efac', '#fde047', '#d8b4fe', '#fdba74', '#67e8f9', '#c4b5fd'],
+    ocean: ['#1e40af', '#2563eb', '#0284c7', '#00d2ff', '#0d9488', '#059669', '#3b82f6', '#06b6d4'],
+    sunset: ['#dc2626', '#ea580c', '#f59e0b', '#fbbf24', '#d97706', '#b45309', '#f97316', '#ef4444'],
+    custom: ['#8b5cf6', '#3b82f6', '#10b981', '#f59e0b', '#ec4899']
+  };
+
+  let currentWheelPalette = localStorage.getItem('chochin_roulette_palette') || 'cyber';
+  let customWheelColors = [];
+  try {
+    const rawCustom = localStorage.getItem('chochin_roulette_custom_colors');
+    if (rawCustom) customWheelColors = JSON.parse(rawCustom);
+  } catch (e) {
+    customWheelColors = [];
+  }
+  if (!Array.isArray(customWheelColors) || customWheelColors.length === 0) {
+    customWheelColors = ['#8b5cf6', '#3b82f6', '#10b981', '#f59e0b', '#ec4899'];
+  }
+
+  function isBrightColor(hex) {
+    if (!hex) return false;
+    let c = String(hex).replace('#', '').trim();
+    if (c.length === 3) c = c.split('').map(x => x + x).join('');
+    const num = parseInt(c, 16);
+    if (isNaN(num)) return false;
+    const r = (num >> 16) & 255;
+    const g = (num >> 8) & 255;
+    const b = num & 255;
+    return (r * 299 + g * 587 + b * 114) / 1000 > 155;
+  }
+
+  function getCurrentSliceColors() {
+    if (currentWheelPalette === 'custom') {
+      return customWheelColors.length > 0 ? customWheelColors : WHEEL_PALETTES.cyber;
+    }
+    return WHEEL_PALETTES[currentWheelPalette] || WHEEL_PALETTES.cyber;
+  }
+
+  function renderCustomColorInputs() {
+    const container = document.getElementById('wheel-custom-color-inputs');
+    if (!container) return;
+    container.innerHTML = '';
+
+    customWheelColors.forEach((col, idx) => {
+      const item = document.createElement('div');
+      item.className = 'custom-color-item';
+      item.style.backgroundColor = col;
+      item.title = `색상 #${idx + 1} (${col}) - 클릭하여 변경`;
+
+      const input = document.createElement('input');
+      input.type = 'color';
+      input.value = col;
+      input.addEventListener('input', (e) => {
+        customWheelColors[idx] = e.target.value;
+        item.style.backgroundColor = e.target.value;
+        localStorage.setItem('chochin_roulette_custom_colors', JSON.stringify(customWheelColors));
+        renderCircularWheel(wheelCurrentRotation);
+      });
+
+      item.appendChild(input);
+      container.appendChild(item);
+    });
+  }
+
+  function setupWheelColorThemeControls() {
+    const paletteBtns = document.querySelectorAll('.wheel-palette-btn[data-palette]');
+    const customRow = document.getElementById('wheel-custom-color-row');
+
+    const updateActivePaletteUI = () => {
+      paletteBtns.forEach(b => {
+        b.classList.toggle('active', b.dataset.palette === currentWheelPalette);
+      });
+      if (customRow) {
+        customRow.style.display = currentWheelPalette === 'custom' ? 'flex' : 'none';
+      }
+      if (currentWheelPalette === 'custom') {
+        renderCustomColorInputs();
+      }
+    };
+
+    paletteBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentWheelPalette = btn.dataset.palette;
+        localStorage.setItem('chochin_roulette_palette', currentWheelPalette);
+        updateActivePaletteUI();
+        renderCircularWheel(wheelCurrentRotation);
+      });
+    });
+
+    const addColorBtn = document.getElementById('wheel-add-color-btn');
+    if (addColorBtn) {
+      addColorBtn.addEventListener('click', () => {
+        if (customWheelColors.length >= 12) {
+          alert('최대 12개까지 색상을 추가할 수 있습니다.');
+          return;
+        }
+        const defaultPalette = WHEEL_PALETTES.cyber;
+        const nextColor = defaultPalette[customWheelColors.length % defaultPalette.length];
+        customWheelColors.push(nextColor);
+        localStorage.setItem('chochin_roulette_custom_colors', JSON.stringify(customWheelColors));
+        renderCustomColorInputs();
+        renderCircularWheel(wheelCurrentRotation);
+      });
+    }
+
+    const resetColorBtn = document.getElementById('wheel-reset-color-btn');
+    if (resetColorBtn) {
+      resetColorBtn.addEventListener('click', () => {
+        customWheelColors = ['#8b5cf6', '#3b82f6', '#10b981', '#f59e0b', '#ec4899'];
+        localStorage.setItem('chochin_roulette_custom_colors', JSON.stringify(customWheelColors));
+        renderCustomColorInputs();
+        renderCircularWheel(wheelCurrentRotation);
+      });
+    }
+
+    updateActivePaletteUI();
+  }
+
   // Render Canvas Circular Wheel
   function renderCircularWheel(rotationAngle = 0) {
     if (!rouletteCanvas) return;
@@ -527,11 +648,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       return;
     }
 
-    const sliceColors = [
-      '#ff4757', '#ffe600', '#2ed573', '#00d2ff', '#a855f7',
-      '#ff7f50', '#1e90ff', '#e84393', '#00cec9', '#fdcb6e'
-    ];
-
+    const sliceColors = getCurrentSliceColors();
     const sliceAngle = (2 * Math.PI) / levelsCount;
 
     // Draw Slices
@@ -549,8 +666,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       ctx.fill();
 
       // Border line between slices
-      ctx.strokeStyle = 'rgba(0, 0, 0, 0.25)';
-      ctx.lineWidth = 2;
+      ctx.strokeStyle = 'rgba(0, 0, 0, 0.3)';
+      ctx.lineWidth = 2.5;
       ctx.stroke();
       ctx.restore();
 
@@ -564,9 +681,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       ctx.translate(tx, ty);
       ctx.rotate(midAngle);
 
-      // Contrast text color
-      const isLightColor = fillColor === '#ffe600' || fillColor === '#2ed573' || fillColor === '#00d2ff' || fillColor === '#fdcb6e';
-      ctx.fillStyle = isLightColor ? '#000000' : '#ffffff';
+      // Contrast text color via brightness check
+      const isLight = isBrightColor(fillColor);
+      ctx.fillStyle = isLight ? '#0f0f14' : '#ffffff';
 
       let fontSize = 13;
       if (levelsCount > 16) fontSize = 9;
@@ -591,13 +708,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     ctx.beginPath();
     ctx.arc(centerX, centerY, outerRadius, 0, Math.PI * 2);
     ctx.lineWidth = 6;
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
     ctx.stroke();
 
     // Center Metallic Cap
     ctx.beginPath();
     ctx.arc(centerX, centerY, innerRadius, 0, Math.PI * 2);
-    ctx.fillStyle = '#121212';
+    ctx.fillStyle = '#141418';
     ctx.fill();
     ctx.lineWidth = 4;
     ctx.strokeStyle = '#ffe600';
@@ -1059,6 +1176,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderRouletteActivePool();
     renderRouletteStage();
   }
+
+  // Initialize Wheel Color Customizer & Controls
+  setupWheelColorThemeControls();
 
   // Initial render
   renderRouletteAll();

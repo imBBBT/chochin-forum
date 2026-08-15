@@ -37,7 +37,7 @@
   }
 })();
 
-window.escapeHtml = function(text) {
+window.escapeHtml = function (text) {
   if (text == null) return '';
   return String(text)
     .replace(/&/g, '&amp;')
@@ -47,16 +47,16 @@ window.escapeHtml = function(text) {
     .replace(/'/g, '&#039;');
 };
 
-window.debounce = function(func, wait) {
+window.debounce = function (func, wait) {
   let timeout;
-  return function(...args) {
+  return function (...args) {
     const context = this;
     clearTimeout(timeout);
     timeout = setTimeout(() => func.apply(context, args), wait);
   };
 };
 
-window.showForumToast = function(message) {
+window.showForumToast = function (message) {
   let toast = document.getElementById('forum-toast-elem');
   if (!toast) {
     toast = document.createElement('div');
@@ -72,7 +72,7 @@ window.showForumToast = function(message) {
   }, 2200);
 };
 
-window.toggleLowSpecMode = function() {
+window.toggleLowSpecMode = function () {
   const LOW_SPEC_KEY = 'chochin_low_spec_mode';
   const isCurrentlyLow = document.documentElement.classList.contains('low-spec-mode');
   const newState = !isCurrentlyLow;
@@ -80,11 +80,11 @@ window.toggleLowSpecMode = function() {
   if (newState) {
     document.documentElement.classList.add('low-spec-mode');
     localStorage.setItem(LOW_SPEC_KEY, 'true');
-    window.showForumToast('⚡ 저사양 최적화 모드: 켜짐 (렉 감소)');
+    window.showForumToast(' 저사양 최적화 모드: 켜짐 (렉 감소)');
   } else {
     document.documentElement.classList.remove('low-spec-mode');
     localStorage.setItem(LOW_SPEC_KEY, 'false');
-    window.showForumToast('⚡ 저사양 최적화 모드: 꺼짐 (고화질)');
+    window.showForumToast(' 저사양 최적화 모드: 꺼짐 (고화질)');
   }
 
   if (window.updateLowSpecButtonText) {
@@ -93,7 +93,7 @@ window.toggleLowSpecMode = function() {
   window.dispatchEvent(new CustomEvent('forumLowSpecModeChanged', { detail: { enabled: newState } }));
 };
 
-window.updateLowSpecButtonText = function() {
+window.updateLowSpecButtonText = function () {
   const isLow = document.documentElement.classList.contains('low-spec-mode');
   const btn = document.querySelector('.option-item-low-spec');
   if (btn) {
@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const bgResetBtn = document.getElementById('bg-reset-btn');
   const bgCancelBtn = document.getElementById('bg-cancel-btn');
 
-  window.debounce = function(fn, wait = 150) {
+  window.debounce = function (fn, wait = 150) {
     let timeout;
     return function (...args) {
       clearTimeout(timeout);
@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   };
 
-  window.getBasePoints = function(rankIndex) {
+  window.getBasePoints = function (rankIndex) {
     if (rankIndex === 1) return 250;
     if (rankIndex === 2) return 225;
     if (rankIndex === 3) return 200;
@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return 10;
   };
 
-  window.calcPlayerLevelPoints = function(level, rankIndex, playerNickname) {
+  window.calcPlayerLevelPoints = function (level, rankIndex, playerNickname) {
     if (!playerNickname) return 0;
     const target = playerNickname.trim().toLowerCase();
     const base = window.getBasePoints(rankIndex);
@@ -234,12 +234,12 @@ document.addEventListener('DOMContentLoaded', () => {
   let _pointsDataPromise = null;
   let _cachedPointsResult = null;
 
-  window.invalidatePointsCache = function() {
+  window.invalidatePointsCache = function () {
     _cachedPointsResult = null;
     _pointsDataPromise = null;
   };
 
-  window.calculateAllPlayerPoints = async function(forceRefresh = false) {
+  window.calculateAllPlayerPoints = async function (forceRefresh = false) {
     if (!forceRefresh && _cachedPointsResult) {
       return _cachedPointsResult;
     }
@@ -566,333 +566,318 @@ document.addEventListener('DOMContentLoaded', () => {
   const devConsole = document.querySelector('.dev-console');
   const devLogClearBtn = document.getElementById('dev-log-clear-btn');
 
-window.formatLevelLength = function(rawLength) {
-  if (!rawLength || rawLength === '-') return '-';
-  const str = String(rawLength).trim();
+  window.formatLevelLength = function (rawLength) {
+    if (!rawLength || rawLength === '-') return '-';
+    const str = String(rawLength).trim();
 
-  if (/^(short|medium|long|xl|xxl|xxxl)$/i.test(str)) {
-    return str;
-  }
-
-  let totalSeconds = 0;
-  let minutes = 0;
-  let seconds = 0;
-  let parsedSuccess = false;
-
-  if (str.includes('m') || str.includes('분')) {
-    const mMatch = str.match(/(\d+)\s*(?:m|분)/i);
-    const sMatch = str.match(/(?:m|분)\s*(\d+)\s*(?:s|초)?/i) || str.match(/(\d+)\s*(?:s|초)/i);
-    if (mMatch) {
-      minutes = parseInt(mMatch[1], 10) || 0;
-      seconds = sMatch ? (parseInt(sMatch[1], 10) || 0) : 0;
-      totalSeconds = minutes * 60 + seconds;
-      parsedSuccess = true;
-    }
-  } else {
-    const sMatch = str.match(/(\d+)/);
-    if (sMatch) {
-      totalSeconds = parseInt(sMatch[1], 10) || 0;
-      minutes = Math.floor(totalSeconds / 60);
-      seconds = totalSeconds % 60;
-      parsedSuccess = true;
-    }
-  }
-
-  if (!parsedSuccess || totalSeconds <= 0) {
-    return str;
-  }
-
-  let category = '';
-  if (totalSeconds >= 20 && totalSeconds <= 29) {
-    category = 'Short';
-  } else if (totalSeconds >= 30 && totalSeconds <= 59) {
-    category = 'Medium';
-  } else if (totalSeconds >= 60 && totalSeconds <= 119) {
-    category = 'Long';
-  } else if (totalSeconds >= 120) {
-    category = 'XL';
-  } else {
-    category = 'Tiny';
-  }
-
-  const timeFormatted = minutes > 0
-    ? `${minutes}분 ${seconds}초`
-    : `${seconds}초`;
-
-  return `${timeFormatted} (${category})`;
-};
-
-window.GitHubSyncEngine = {
-  getConfig() {
-    return {
-      token: (localStorage.getItem('dev_gh_token') || '').trim(),
-      owner: (localStorage.getItem('dev_gh_owner') || '').trim(),
-      repo: (localStorage.getItem('dev_gh_repo') || '').trim()
-    };
-  },
-
-  validateData(filePath, data) {
-    const errors = [];
-    const warnings = [];
-
-    if (data === undefined || data === null) {
-      errors.push('동기화할 데이터가 비어있습니다 (null/undefined).');
-      return { isValid: false, errors, warnings };
+    if (/^(short|medium|long|xl|xxl|xxxl)$/i.test(str)) {
+      return str;
     }
 
-    if (filePath.endsWith('news.json')) {
-      if (!Array.isArray(data)) {
-        errors.push('뉴스 데이터는 배열(Array) 형식이어야 합니다.');
-      } else {
-        data.forEach((item, i) => {
-          if (!item.content || !String(item.content).trim()) {
-            errors.push(`[뉴스 #${i + 1}] 내용이 비어있습니다.`);
-          }
-          if (item.date && !/^\d{4}-\d{2}-\d{2}$/.test(item.date)) {
-            warnings.push(`[뉴스 #${i + 1}] 날짜 포맷(YYYY-MM-DD)이 올바르지 않습니다: "${item.date}"`);
-          }
-        });
+    let totalSeconds = 0;
+    let minutes = 0;
+    let seconds = 0;
+    let parsedSuccess = false;
+
+    if (str.includes('m') || str.includes('분')) {
+      const mMatch = str.match(/(\d+)\s*(?:m|분)/i);
+      const sMatch = str.match(/(?:m|분)\s*(\d+)\s*(?:s|초)?/i) || str.match(/(\d+)\s*(?:s|초)/i);
+      if (mMatch) {
+        minutes = parseInt(mMatch[1], 10) || 0;
+        seconds = sMatch ? (parseInt(sMatch[1], 10) || 0) : 0;
+        totalSeconds = minutes * 60 + seconds;
+        parsedSuccess = true;
       }
-    } else if (filePath.endsWith('mappack.json')) {
-      if (!Array.isArray(data)) {
-        errors.push('맵 팩 데이터는 배열(Array) 형식이어야 합니다.');
-      } else {
-        const idSet = new Set();
-        data.forEach((pack, i) => {
-          if (!pack.title || !String(pack.title).trim()) {
-            errors.push(`[맵 팩 #${i + 1}] 맵 팩 제목이 누락되었습니다.`);
-          }
-          if (pack.id) {
-            if (idSet.has(pack.id)) {
-              warnings.push(`[맵 팩 #${i + 1} "${pack.title}"] 중복된 ID(${pack.id})가 있습니다.`);
-            }
-            idSet.add(pack.id);
-          }
-          if (!Array.isArray(pack.levels) || pack.levels.length === 0) {
-            warnings.push(`[맵 팩 #${i + 1} "${pack.title || ''}"] 포함된 레벨 목록이 비어있습니다.`);
-          }
-        });
-      }
-    } else if (filePath.endsWith('hardest.json')) {
-      if (!Array.isArray(data)) {
-        errors.push('하디스트 데이터는 배열(Array) 형식이어야 합니다.');
-      } else {
-        data.forEach((user, i) => {
-          if (!user.name || !String(user.name).trim()) {
-            errors.push(`[하디스트 #${i + 1}] 유저 닉네임이 누락되었습니다.`);
-          }
-          if (!user.hardest || !String(user.hardest).trim()) {
-            warnings.push(`[하디스트 #${i + 1} "${user.name || ''}"] 하디스트 레벨 정보가 비어있습니다.`);
-          }
-        });
-      }
-    } else if (filePath.includes('level/') || filePath.endsWith('classic.json') || filePath.endsWith('challenge.json') || filePath.endsWith('platformer.json')) {
-      if (!data.levels || !Array.isArray(data.levels)) {
-        errors.push('levels 배열이 존재하지 않거나 유효하지 않습니다.');
-      } else {
-        const idSet = new Set();
-        data.levels.forEach((lvl, i) => {
-          const rank = i + 1;
-          if (!lvl.title || !String(lvl.title).trim()) {
-            errors.push(`[레벨 #${rank}] 레벨 제목이 누락되었습니다.`);
-          }
-          if (!lvl.creator || !String(lvl.creator).trim()) {
-            warnings.push(`[레벨 #${rank} "${lvl.title || ''}"] 제작자 정보가 비어있습니다.`);
-          }
-          if (lvl.id != null) {
-            if (idSet.has(lvl.id)) {
-              warnings.push(`[레벨 #${rank} "${lvl.title || ''}"] 중복된 ID(${lvl.id})가 발견되었습니다.`);
-            }
-            idSet.add(lvl.id);
-          }
-          if (lvl.video) {
-            const ytId = window.extractYoutubeId ? window.extractYoutubeId(lvl.video) : '';
-            if (!ytId) {
-              warnings.push(`[레벨 #${rank} "${lvl.title || ''}"] 유튜브 영상 주소/ID 추출 실패: ${lvl.video}`);
-            }
-          }
-        });
-      }
-    }
-
-    return {
-      isValid: errors.length === 0,
-      errors,
-      warnings
-    };
-  },
-
-  async commitAndPush(filePath, data, commitMessage) {
-    const config = this.getConfig();
-    if (!config.owner || !config.repo) {
-      throw new Error('GitHub Owner(ID) 또는 Repository 설정이 누락되었습니다. GitHub 설정을 먼저 완료해주세요.');
-    }
-    if (!config.token) {
-      throw new Error('GitHub Personal Access Token이 입력되지 않았습니다. GitHub 설정을 먼저 완료해주세요.');
-    }
-
-    const validation = this.validateData(filePath, data);
-    if (!validation.isValid) {
-      const errorMsg = '⚠️ 데이터 오류가 발견되어 푸시가 중단되었습니다:\n\n' + validation.errors.map(e => `• ${e}`).join('\n');
-      throw new Error(errorMsg);
-    }
-
-    if (validation.warnings.length > 0) {
-      const warnMsg = '⚠️ 다음 주의 사항이 발견되었습니다:\n\n' + validation.warnings.slice(0, 5).map(w => `• ${w}`).join('\n') + (validation.warnings.length > 5 ? `\n... 외 ${validation.warnings.length - 5}건` : '') + '\n\n그래도 계속 진행하시겠습니까?';
-      if (!confirm(warnMsg)) {
-        throw new Error('사용자에 의해 동기화가 취소되었습니다.');
-      }
-    }
-
-    const cleanPath = filePath.replace(/^\/+/, '');
-    const apiUrl = `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${cleanPath}`;
-    const headers = {
-      Authorization: `token ${config.token}`,
-      'Accept': 'application/vnd.github.v3+json'
-    };
-
-    let sha = null;
-    try {
-      const getRes = await fetch(apiUrl, { headers });
-      if (getRes.ok) {
-        const fileInfo = await getRes.json();
-        sha = fileInfo.sha;
-      } else if (getRes.status === 401 || getRes.status === 403) {
-        throw new Error(`GitHub 인증 오류 (HTTP ${getRes.status}): Token의 권한(repo scope) 및 만료 여부를 확인하세요.`);
-      }
-    } catch (e) {
-      if (e.message && e.message.includes('인증 오류')) throw e;
-      console.warn('Existing SHA lookup non-fatal:', e);
-    }
-
-    const jsonStr = typeof data === 'string' ? data : JSON.stringify(data, null, 2);
-    const base64Content = btoa(unescape(encodeURIComponent(jsonStr)));
-
-    const putBody = {
-      message: commitMessage || `Update ${cleanPath} via Chochin Forum DevTools`,
-      content: base64Content
-    };
-    if (sha) {
-      putBody.sha = sha;
-    }
-
-    const putRes = await fetch(apiUrl, {
-      method: 'PUT',
-      headers: {
-        ...headers,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(putBody)
-    });
-
-    if (!putRes.ok) {
-      const errBody = await putRes.json().catch(() => ({}));
-      const errMsg = errBody.message || `HTTP ${putRes.status}`;
-      throw new Error(`GitHub 커밋 & 푸시 실패 (${putRes.status}): ${errMsg}`);
-    }
-
-    const result = await putRes.json();
-    return {
-      success: true,
-      commitSha: result.commit ? result.commit.sha : '',
-      filePath: cleanPath
-    };
-  }
-};
-
-window.addAutoForumNews = async function(content, customDate) {
-  try {
-    const today = customDate || new Date().toISOString().split('T')[0];
-    const newEntry = { date: today, content: content };
-
-    let newsList = [];
-    const customRaw = localStorage.getItem('dev_custom_news');
-    if (customRaw) {
-      try {
-        const parsed = JSON.parse(customRaw);
-        if (Array.isArray(parsed)) newsList = parsed;
-      } catch (e) {}
     } else {
-      try {
-        const getNewsJsonUrl = () => {
-          const path = (window.location.pathname || '').replace(/\\/g, '/').toLowerCase();
-          if (path.includes('/level/')) {
-            return '../news.json';
-          }
-          return 'news.json';
-        };
-        const res = await fetch(getNewsJsonUrl());
-        if (res && res.ok) {
-          const data = await res.json();
-          if (Array.isArray(data)) newsList = data;
-        }
-      } catch (e) {}
+      const sMatch = str.match(/(\d+)/);
+      if (sMatch) {
+        totalSeconds = parseInt(sMatch[1], 10) || 0;
+        minutes = Math.floor(totalSeconds / 60);
+        seconds = totalSeconds % 60;
+        parsedSuccess = true;
+      }
     }
 
-    newsList.unshift(newEntry);
-    localStorage.setItem('dev_custom_news', JSON.stringify(newsList));
-    console.log('[Auto Forum News Added]', newEntry);
-  } catch (err) {
-    console.warn('Failed to add auto forum news:', err);
-  }
-};
+    if (!parsedSuccess || totalSeconds <= 0) {
+      return str;
+    }
 
-window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
-  try {
-    const customLevels = JSON.parse(localStorage.getItem(`dev_custom_levels_${modeKey}`) || '[]');
-    const customHistory = JSON.parse(localStorage.getItem(`dev_custom_history_${modeKey}`) || '[]');
-    const customClears = JSON.parse(localStorage.getItem(`dev_custom_clears_${modeKey}`) || '{}');
+    let category = '';
+    if (totalSeconds >= 20 && totalSeconds <= 29) {
+      category = 'Short';
+    } else if (totalSeconds >= 30 && totalSeconds <= 59) {
+      category = 'Medium';
+    } else if (totalSeconds >= 60 && totalSeconds <= 119) {
+      category = 'Long';
+    } else if (totalSeconds >= 120) {
+      category = 'XL';
+    } else {
+      category = 'Tiny';
+    }
 
-    let levels = (jsonLevels || []).map(l => ({ ...l }));
-    let history = [...customHistory, ...(jsonHistory || [])];
+    const timeFormatted = minutes > 0
+      ? `${minutes}분 ${seconds}초`
+      : `${seconds}초`;
 
-    customLevels.forEach(cust => {
-      const idx = levels.findIndex(l => String(l.id) === String(cust.id) || String(l.title).toLowerCase() === String(cust.title).toLowerCase());
-      if (idx !== -1) {
-        if (cust.isDeleted) {
-          levels.splice(idx, 1);
+    return `${timeFormatted} (${category})`;
+  };
+
+  window.GitHubSyncEngine = {
+    getConfig() {
+      return {
+        token: (localStorage.getItem('dev_gh_token') || '').trim(),
+        owner: (localStorage.getItem('dev_gh_owner') || '').trim(),
+        repo: (localStorage.getItem('dev_gh_repo') || '').trim()
+      };
+    },
+
+    validateData(filePath, data) {
+      const errors = [];
+      const warnings = [];
+
+      if (data === undefined || data === null) {
+        errors.push('동기화할 데이터가 비어있습니다 (null/undefined).');
+        return { isValid: false, errors, warnings };
+      }
+
+      if (filePath.endsWith('news.json')) {
+        if (!Array.isArray(data)) {
+          errors.push('뉴스 데이터는 배열(Array) 형식이어야 합니다.');
         } else {
-          const [removed] = levels.splice(idx, 1);
-          // Preserve existing clears from original level if cust.clears is empty or missing!
-          const mergedClears = (Array.isArray(removed.clears) && removed.clears.length > 0)
-            ? removed.clears
-            : (Array.isArray(cust.clears) ? cust.clears : []);
-          const updated = { ...removed, ...cust, clears: mergedClears };
+          data.forEach((item, i) => {
+            if (!item.content || !String(item.content).trim()) {
+              errors.push(`[뉴스 #${i + 1}] 내용이 비어있습니다.`);
+            }
+            if (item.date && !/^\d{4}-\d{2}-\d{2}$/.test(item.date)) {
+              warnings.push(`[뉴스 #${i + 1}] 날짜 포맷(YYYY-MM-DD)이 올바르지 않습니다: "${item.date}"`);
+            }
+          });
+        }
+      } else if (filePath.endsWith('mappack.json')) {
+        if (!Array.isArray(data)) {
+          errors.push('맵 팩 데이터는 배열(Array) 형식이어야 합니다.');
+        } else {
+          const idSet = new Set();
+          data.forEach((pack, i) => {
+            if (!pack.title || !String(pack.title).trim()) {
+              errors.push(`[맵 팩 #${i + 1}] 맵 팩 제목이 누락되었습니다.`);
+            }
+            if (pack.id) {
+              if (idSet.has(pack.id)) {
+                warnings.push(`[맵 팩 #${i + 1} "${pack.title}"] 중복된 ID(${pack.id})가 있습니다.`);
+              }
+              idSet.add(pack.id);
+            }
+            if (!Array.isArray(pack.levels) || pack.levels.length === 0) {
+              warnings.push(`[맵 팩 #${i + 1} "${pack.title || ''}"] 포함된 레벨 목록이 비어있습니다.`);
+            }
+          });
+        }
+      } else if (filePath.endsWith('hardest.json')) {
+        if (!Array.isArray(data)) {
+          errors.push('하디스트 데이터는 배열(Array) 형식이어야 합니다.');
+        } else {
+          data.forEach((user, i) => {
+            if (!user.name || !String(user.name).trim()) {
+              errors.push(`[하디스트 #${i + 1}] 유저 닉네임이 누락되었습니다.`);
+            }
+            if (!user.hardest || !String(user.hardest).trim()) {
+              warnings.push(`[하디스트 #${i + 1} "${user.name || ''}"] 하디스트 레벨 정보가 비어있습니다.`);
+            }
+          });
+        }
+      } else if (filePath.includes('level/') || filePath.endsWith('classic.json') || filePath.endsWith('challenge.json') || filePath.endsWith('platformer.json')) {
+        if (!data.levels || !Array.isArray(data.levels)) {
+          errors.push('levels 배열이 존재하지 않거나 유효하지 않습니다.');
+        } else {
+          const idSet = new Set();
+          data.levels.forEach((lvl, i) => {
+            const rank = i + 1;
+            if (!lvl.title || !String(lvl.title).trim()) {
+              errors.push(`[레벨 #${rank}] 레벨 제목이 누락되었습니다.`);
+            }
+            if (!lvl.creator || !String(lvl.creator).trim()) {
+              warnings.push(`[레벨 #${rank} "${lvl.title || ''}"] 제작자 정보가 비어있습니다.`);
+            }
+            if (lvl.id != null) {
+              if (idSet.has(lvl.id)) {
+                warnings.push(`[레벨 #${rank} "${lvl.title || ''}"] 중복된 ID(${lvl.id})가 발견되었습니다.`);
+              }
+              idSet.add(lvl.id);
+            }
+            if (lvl.video) {
+              const ytId = window.extractYoutubeId ? window.extractYoutubeId(lvl.video) : '';
+              if (!ytId) {
+                warnings.push(`[레벨 #${rank} "${lvl.title || ''}"] 유튜브 영상 주소/ID 추출 실패: ${lvl.video}`);
+              }
+            }
+          });
+        }
+      }
+
+      return {
+        isValid: errors.length === 0,
+        errors,
+        warnings
+      };
+    },
+
+    async commitAndPush(filePath, data, commitMessage) {
+      const config = this.getConfig();
+      if (!config.owner || !config.repo) {
+        throw new Error('GitHub Owner(ID) 또는 Repository 설정이 누락되었습니다. GitHub 설정을 먼저 완료해주세요.');
+      }
+      if (!config.token) {
+        throw new Error('GitHub Personal Access Token이 입력되지 않았습니다. GitHub 설정을 먼저 완료해주세요.');
+      }
+
+      const validation = this.validateData(filePath, data);
+      if (!validation.isValid) {
+        const errorMsg = '⚠️ 데이터 오류가 발견되어 푸시가 중단되었습니다:\n\n' + validation.errors.map(e => `• ${e}`).join('\n');
+        throw new Error(errorMsg);
+      }
+
+      if (validation.warnings.length > 0) {
+        const warnMsg = '⚠️ 다음 주의 사항이 발견되었습니다:\n\n' + validation.warnings.slice(0, 5).map(w => `• ${w}`).join('\n') + (validation.warnings.length > 5 ? `\n... 외 ${validation.warnings.length - 5}건` : '') + '\n\n그래도 계속 진행하시겠습니까?';
+        if (!confirm(warnMsg)) {
+          throw new Error('사용자에 의해 동기화가 취소되었습니다.');
+        }
+      }
+
+      const cleanPath = filePath.replace(/^\/+/, '');
+      const apiUrl = `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${cleanPath}`;
+      const headers = {
+        Authorization: `token ${config.token}`,
+        'Accept': 'application/vnd.github.v3+json'
+      };
+
+      let sha = null;
+      try {
+        const getRes = await fetch(apiUrl, { headers });
+        if (getRes.ok) {
+          const fileInfo = await getRes.json();
+          sha = fileInfo.sha;
+        } else if (getRes.status === 401 || getRes.status === 403) {
+          throw new Error(`GitHub 인증 오류 (HTTP ${getRes.status}): Token의 권한(repo scope) 및 만료 여부를 확인하세요.`);
+        }
+      } catch (e) {
+        if (e.message && e.message.includes('인증 오류')) throw e;
+        console.warn('Existing SHA lookup non-fatal:', e);
+      }
+
+      const jsonStr = typeof data === 'string' ? data : JSON.stringify(data, null, 2);
+      const base64Content = btoa(unescape(encodeURIComponent(jsonStr)));
+
+      const putBody = {
+        message: commitMessage || `Update ${cleanPath} via Chochin Forum DevTools`,
+        content: base64Content
+      };
+      if (sha) {
+        putBody.sha = sha;
+      }
+
+      const putRes = await fetch(apiUrl, {
+        method: 'PUT',
+        headers: {
+          ...headers,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(putBody)
+      });
+
+      if (!putRes.ok) {
+        const errBody = await putRes.json().catch(() => ({}));
+        const errMsg = errBody.message || `HTTP ${putRes.status}`;
+        throw new Error(`GitHub 커밋 & 푸시 실패 (${putRes.status}): ${errMsg}`);
+      }
+
+      const result = await putRes.json();
+      return {
+        success: true,
+        commitSha: result.commit ? result.commit.sha : '',
+        filePath: cleanPath
+      };
+    }
+  };
+
+  window.addAutoForumNews = async function (content, customDate) {
+    try {
+      const today = customDate || new Date().toISOString().split('T')[0];
+      const newEntry = { date: today, content: content };
+
+      let newsList = [];
+      const customRaw = localStorage.getItem('dev_custom_news');
+      if (customRaw) {
+        try {
+          const parsed = JSON.parse(customRaw);
+          if (Array.isArray(parsed)) newsList = parsed;
+        } catch (e) { }
+      } else {
+        try {
+          const getNewsJsonUrl = () => {
+            const path = (window.location.pathname || '').replace(/\\/g, '/').toLowerCase();
+            if (path.includes('/level/')) {
+              return '../news.json';
+            }
+            return 'news.json';
+          };
+          const res = await fetch(getNewsJsonUrl());
+          if (res && res.ok) {
+            const data = await res.json();
+            if (Array.isArray(data)) newsList = data;
+          }
+        } catch (e) { }
+      }
+
+      newsList.unshift(newEntry);
+      localStorage.setItem('dev_custom_news', JSON.stringify(newsList));
+      console.log('[Auto Forum News Added]', newEntry);
+    } catch (err) {
+      console.warn('Failed to add auto forum news:', err);
+    }
+  };
+
+  window.applyDevCustomData = function (jsonLevels, jsonHistory, modeKey) {
+    try {
+      const customLevels = JSON.parse(localStorage.getItem(`dev_custom_levels_${modeKey}`) || '[]');
+      const customHistory = JSON.parse(localStorage.getItem(`dev_custom_history_${modeKey}`) || '[]');
+      const customClears = JSON.parse(localStorage.getItem(`dev_custom_clears_${modeKey}`) || '{}');
+
+      let levels = (jsonLevels || []).map(l => ({ ...l }));
+      let history = [...customHistory, ...(jsonHistory || [])];
+
+      customLevels.forEach(cust => {
+        const idx = levels.findIndex(l => String(l.id) === String(cust.id) || String(l.title).toLowerCase() === String(cust.title).toLowerCase());
+        if (idx !== -1) {
+          if (cust.isDeleted) {
+            levels.splice(idx, 1);
+          } else {
+            const [removed] = levels.splice(idx, 1);
+            // Preserve existing clears from original level if cust.clears is empty or missing!
+            const mergedClears = (Array.isArray(removed.clears) && removed.clears.length > 0)
+              ? removed.clears
+              : (Array.isArray(cust.clears) ? cust.clears : []);
+            const updated = { ...removed, ...cust, clears: mergedClears };
+            const targetRank = (cust.targetRank && cust.targetRank > 0 && cust.targetRank <= levels.length + 1)
+              ? cust.targetRank - 1
+              : idx;
+            levels.splice(targetRank, 0, updated);
+          }
+        } else if (!cust.isDeleted) {
           const targetRank = (cust.targetRank && cust.targetRank > 0 && cust.targetRank <= levels.length + 1)
             ? cust.targetRank - 1
-            : idx;
-          levels.splice(targetRank, 0, updated);
-        }
-      } else if (!cust.isDeleted) {
-        const targetRank = (cust.targetRank && cust.targetRank > 0 && cust.targetRank <= levels.length + 1)
-          ? cust.targetRank - 1
-          : levels.length;
-        levels.splice(targetRank, 0, cust);
-      }
-    });
-
-    levels.forEach(level => {
-      const key = String(level.id);
-      const titleKey = level.title ? String(level.title).trim() : '';
-      const extraClears = customClears[key] || (titleKey && customClears[titleKey]) || (titleKey && customClears[titleKey.toLowerCase()]) || [];
-
-      const clearMap = new Map();
-      (level.clears || []).forEach(c => {
-        const pName = String(c.player || c.name || c.user || '').trim();
-        if (pName) {
-          clearMap.set(pName.toLowerCase(), {
-            player: pName,
-            name: pName,
-            percent: c.percent != null ? c.percent : 100,
-            date: c.date || '',
-            link: c.link || c.video || '',
-            video: c.link || c.video || ''
-          });
+            : levels.length;
+          levels.splice(targetRank, 0, cust);
         }
       });
 
-      if (Array.isArray(extraClears)) {
-        extraClears.forEach(c => {
+      levels.forEach(level => {
+        const key = String(level.id);
+        const titleKey = level.title ? String(level.title).trim() : '';
+        const extraClears = customClears[key] || (titleKey && customClears[titleKey]) || (titleKey && customClears[titleKey.toLowerCase()]) || [];
+
+        const clearMap = new Map();
+        (level.clears || []).forEach(c => {
           const pName = String(c.player || c.name || c.user || '').trim();
           if (pName) {
             clearMap.set(pName.toLowerCase(), {
@@ -905,20 +890,35 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
             });
           }
         });
-      }
 
-      level.clears = Array.from(clearMap.values());
-      level.clears.sort((a, b) => (b.percent || 100) - (a.percent || 100));
-    });
+        if (Array.isArray(extraClears)) {
+          extraClears.forEach(c => {
+            const pName = String(c.player || c.name || c.user || '').trim();
+            if (pName) {
+              clearMap.set(pName.toLowerCase(), {
+                player: pName,
+                name: pName,
+                percent: c.percent != null ? c.percent : 100,
+                date: c.date || '',
+                link: c.link || c.video || '',
+                video: c.link || c.video || ''
+              });
+            }
+          });
+        }
 
-    history.sort((a, b) => (b.id || 0) - (a.id || 0));
+        level.clears = Array.from(clearMap.values());
+        level.clears.sort((a, b) => (b.percent || 100) - (a.percent || 100));
+      });
 
-    return { levels, history };
-  } catch (e) {
-    console.error('applyDevCustomData error:', e);
-    return { levels: jsonLevels || [], history: jsonHistory || [] };
-  }
-};
+      history.sort((a, b) => (b.id || 0) - (a.id || 0));
+
+      return { levels, history };
+    } catch (e) {
+      console.error('applyDevCustomData error:', e);
+      return { levels: jsonLevels || [], history: jsonHistory || [] };
+    }
+  };
 
   const logDevConsole = (msg, color = '#0f0') => {
     if (!devConsole) return;
@@ -1469,7 +1469,7 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
   }
   window.fetchGdLevelData = fetchGdLevelData;
 
-  // ⚡ Auto-Fetch GD Info Handlers for Dev Panel
+  //  Auto-Fetch GD Info Handlers for Dev Panel
   const setupGdAutoFetch = () => {
     const addFetchBtn = document.getElementById('dev-add-fetch-gd-btn');
     if (addFetchBtn && !addFetchBtn.dataset.bound) {
@@ -1928,7 +1928,7 @@ window.applyDevCustomData = function(jsonLevels, jsonHistory, modeKey) {
       const levelKey = targetLvl ? String(targetLvl.id != null ? targetLvl.id : targetLvl.title) : levelVal;
 
       if (!existingClears[levelKey]) existingClears[levelKey] = [];
-      
+
       const newClearEntry = {
         player: player,
         name: player,

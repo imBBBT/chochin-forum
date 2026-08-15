@@ -221,6 +221,48 @@
           <div class="wheel-viewport">
             <canvas id="roulette-canvas" width="440" height="440"></canvas>
           </div>
+
+          <!-- Circular Wheel Color Customizer -->
+          <div class="wheel-color-bar">
+            <div class="wheel-color-header">
+              <span class="wheel-color-title">휠 색상 테마</span>
+              <div class="wheel-palette-options" id="wheel-palette-options">
+                <button type="button" class="wheel-palette-btn active" data-palette="cyber" title="사이버 네온 테마">
+                  <span class="palette-preview cyber"></span>
+                  <span>사이버 네온</span>
+                </button>
+                <button type="button" class="wheel-palette-btn" data-palette="vibrant" title="비비드 테마">
+                  <span class="palette-preview vibrant"></span>
+                  <span>비비드</span>
+                </button>
+                <button type="button" class="wheel-palette-btn" data-palette="pastel" title="파스텔 소프트 테마">
+                  <span class="palette-preview pastel"></span>
+                  <span>파스텔</span>
+                </button>
+                <button type="button" class="wheel-palette-btn" data-palette="ocean" title="오션 블루 테마">
+                  <span class="palette-preview ocean"></span>
+                  <span>오션</span>
+                </button>
+                <button type="button" class="wheel-palette-btn" data-palette="sunset" title="선셋 골드 테마">
+                  <span class="palette-preview sunset"></span>
+                  <span>선셋</span>
+                </button>
+                <button type="button" class="wheel-palette-btn" data-palette="custom" title="직접 색상 지정">
+                  <span class="palette-preview custom"></span>
+                  <span>직접 지정</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Custom Color Inputs Row (shown when 'custom' is active) -->
+            <div id="wheel-custom-color-row" class="wheel-custom-color-row" style="display: none;">
+              <span class="custom-color-label">커스텀 색상:</span>
+              <div class="custom-color-inputs" id="wheel-custom-color-inputs"></div>
+              <button type="button" id="wheel-add-color-btn" class="wheel-mini-color-btn" title="색상 추가">+ 색상 추가</button>
+              <button type="button" id="wheel-reset-color-btn" class="wheel-mini-color-btn"
+                title="기본 커스텀 색상으로 초기화">초기화</button>
+            </div>
+          </div>
         </div>
 
         <button id="roulette-spin-btn" class="spin-action-btn">룰렛 돌리기</button>
