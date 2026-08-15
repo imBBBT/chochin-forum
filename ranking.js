@@ -29,7 +29,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     levels.forEach((lvl, idx) => {
       const rankIndex = idx + 1;
       const verifier = (lvl.verifier || '').trim();
+      const verifierKey = verifier.toLowerCase();
       const clears = Array.isArray(lvl.clears) ? lvl.clears : [];
+      const fullClears = clears.filter(c => c.percent == null || Number(c.percent) >= 100);
+      const firstClearer = fullClears.length > 0 ? (fullClears[0].player || fullClears[0].user || fullClears[0].name || '').trim().toLowerCase() : '';
 
       // Collect all players involved in this level
       const involvedPlayers = new Set();
@@ -46,6 +49,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             name: player,
             points: 0,
             clearCount: 0,
+            verifyCount: 0,
+            firstVictorCount: 0,
+            normalClearCount: 0,
             hardestRank: 9999,
             hardestTitle: '-'
           };
@@ -56,6 +62,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (pt > 0) {
           playerMap[playerKey].points += pt;
           playerMap[playerKey].clearCount += 1;
+
+          if (verifierKey && verifierKey === playerKey) {
+            playerMap[playerKey].verifyCount += 1;
+          } else if (firstClearer && firstClearer === playerKey) {
+            playerMap[playerKey].firstVictorCount += 1;
+          } else {
+            playerMap[playerKey].normalClearCount += 1;
+          }
 
           // Track hardest level (lowest rankIndex)
           if (rankIndex < playerMap[playerKey].hardestRank) {
@@ -145,12 +159,18 @@ document.addEventListener('DOMContentLoaded', async () => {
               name: item.name,
               points: 0,
               clearCount: 0,
+              verifyCount: 0,
+              firstVictorCount: 0,
+              normalClearCount: 0,
               hardestRank: 9999,
               hardestTitle: '-'
             };
           }
           totalPlayerMap[key].points += item.points;
           totalPlayerMap[key].clearCount += item.clearCount;
+          totalPlayerMap[key].verifyCount += (item.verifyCount || 0);
+          totalPlayerMap[key].firstVictorCount += (item.firstVictorCount || 0);
+          totalPlayerMap[key].normalClearCount += (item.normalClearCount || 0);
           if (item.hardestRank < totalPlayerMap[key].hardestRank) {
             totalPlayerMap[key].hardestRank = item.hardestRank;
             totalPlayerMap[key].hardestTitle = item.hardestTitle;
@@ -193,7 +213,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             name: cust.name,
             points: cust.points || 0,
             hardestTitle: cust.hardestTitle || '-',
-            clearCount: cust.clearCount || 0
+            clearCount: cust.clearCount || 0,
+            verifyCount: 0,
+            firstVictorCount: 0,
+            normalClearCount: cust.clearCount || 0
           });
         }
       });
@@ -213,6 +236,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         const isMe = item.name && item.name.trim().toLowerCase() === currentUser;
 
         let medalIcon = `#${rank}`;
+        const verifyCount = item.verifyCount || 0;
+        const firstVictorCount = item.firstVictorCount || 0;
+        const normalClearCount = item.normalClearCount || 0;
+        const tooltipSummary = `베리파이: ${verifyCount}개 | 최초 클리어: ${firstVictorCount}개 | 일반 클리어: ${normalClearCount}개`;
 
         const row = document.createElement('div');
         row.className = `ranking-row-card rank-${rank} ${isMe ? 'is-current-user' : ''}`;
@@ -224,13 +251,100 @@ document.addEventListener('DOMContentLoaded', async () => {
           </span>
           <span class="player-pt">${Math.round(item.points).toLocaleString()} PT</span>
           <span class="player-hardest">${esc(item.hardestTitle)}</span>
-          <span class="player-clears">${item.clearCount}개</span>
+          <div class="player-clears-wrapper" data-verify="${verifyCount}" data-first="${firstVictorCount}" data-normal="${normalClearCount}" title="${tooltipSummary}">
+            <span class="player-clears">${item.clearCount}개</span>
+          </div>
         `;
         fragment.appendChild(row);
       });
       rankingListBody.appendChild(fragment);
     }
   };
+
+  // Shared Floating Tooltip attached to body (never clipped by table container overflow)
+  let globalTooltip = document.getElementById('ranking-global-tooltip');
+  if (!globalTooltip) {
+    globalTooltip = document.createElement('div');
+    globalTooltip.id = 'ranking-global-tooltip';
+    globalTooltip.className = 'ranking-global-tooltip';
+    document.body.appendChild(globalTooltip);
+  }
+
+  function showClearTooltip(el) {
+    if (!globalTooltip || !el) return;
+    const verifyCount = el.getAttribute('data-verify') || '0';
+    const firstVictorCount = el.getAttribute('data-first') || '0';
+    const normalClearCount = el.getAttribute('data-normal') || '0';
+
+    globalTooltip.innerHTML = `
+      <div class="tooltip-row">
+        <span class="tooltip-label">베리파이 (1.5x)</span>
+        <span class="tooltip-val val-verify">${verifyCount}개</span>
+      </div>
+      <div class="tooltip-row">
+        <span class="tooltip-label">최초 클리어 (1.3x)</span>
+        <span class="tooltip-val val-first">${firstVictorCount}개</span>
+      </div>
+      <div class="tooltip-row">
+        <span class="tooltip-label">일반 클리어 (1.0x)</span>
+        <span class="tooltip-val val-normal">${normalClearCount}개</span>
+      </div>
+    `;
+
+    globalTooltip.style.display = 'flex';
+    globalTooltip.style.visibility = 'hidden';
+    globalTooltip.style.opacity = '0';
+
+    const rect = el.getBoundingClientRect();
+    const tooltipWidth = globalTooltip.offsetWidth || 170;
+    const tooltipHeight = globalTooltip.offsetHeight || 80;
+
+    let top = rect.top - tooltipHeight - 8;
+    let arrowClass = 'arrow-bottom';
+
+    if (top < 12) {
+      top = rect.bottom + 8;
+      arrowClass = 'arrow-top';
+    }
+
+    let left = rect.right - tooltipWidth + 10;
+    if (left < 10) left = 10;
+    if (left + tooltipWidth > window.innerWidth - 10) {
+      left = window.innerWidth - tooltipWidth - 10;
+    }
+
+    globalTooltip.className = `ranking-global-tooltip ${arrowClass}`;
+    globalTooltip.style.top = `${top}px`;
+    globalTooltip.style.left = `${left}px`;
+    globalTooltip.style.visibility = 'visible';
+    globalTooltip.style.opacity = '1';
+  }
+
+  function hideClearTooltip() {
+    if (!globalTooltip) return;
+    globalTooltip.style.opacity = '0';
+    globalTooltip.style.visibility = 'hidden';
+  }
+
+  if (rankingListBody) {
+    rankingListBody.addEventListener('mouseover', (e) => {
+      const wrapper = e.target.closest('.player-clears-wrapper');
+      if (wrapper) {
+        showClearTooltip(wrapper);
+      }
+    });
+
+    rankingListBody.addEventListener('mouseout', (e) => {
+      const wrapper = e.target.closest('.player-clears-wrapper');
+      if (wrapper) {
+        hideClearTooltip();
+      }
+    });
+
+    rankingListBody.addEventListener('scroll', () => {
+      hideClearTooltip();
+    }, { passive: true });
+  }
 
   // Tab Event Handlers
   rankingTabs.forEach(tab => {
