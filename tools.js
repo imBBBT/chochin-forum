@@ -947,7 +947,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       const stats = getRouletteStats();
 
-      reelTrack.innerHTML = '';
+      const fragment = document.createDocumentFragment();
       displaySequence.forEach((lvl, i) => {
         const card = document.createElement('div');
         card.className = 'reel-item';
@@ -961,8 +961,10 @@ document.addEventListener('DOMContentLoaded', async () => {
           <span class="reel-item-title">${escapeHtml(lvl.title)}</span>
           <span class="reel-item-creator">by ${escapeHtml(lvl.creator)}</span>
         `;
-        reelTrack.appendChild(card);
+        fragment.appendChild(card);
       });
+      reelTrack.innerHTML = '';
+      reelTrack.appendChild(fragment);
 
       const viewport = document.querySelector('.reel-viewport');
       const viewportWidth = viewport ? viewport.offsetWidth : 800;

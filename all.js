@@ -3,6 +3,7 @@
    ========================================================= */
 (function initResolutionScaling() {
   const BASE_WIDTH = 2560;
+  let resizeRaf = null;
 
   function updateScale() {
     const screenWidth = window.innerWidth;
@@ -15,11 +16,71 @@
   }
 
   updateScale();
-  window.addEventListener('resize', updateScale);
+  window.addEventListener('resize', () => {
+    if (resizeRaf) cancelAnimationFrame(resizeRaf);
+    resizeRaf = requestAnimationFrame(updateScale);
+  }, { passive: true });
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', updateScale);
   }
 })();
+
+/* =========================================================
+   Low-Spec Optimization Mode Engine
+   ========================================================= */
+(function initLowSpecEngine() {
+  const LOW_SPEC_KEY = 'chochin_low_spec_mode';
+  const isEnabled = localStorage.getItem(LOW_SPEC_KEY) === 'true';
+  if (isEnabled) {
+    document.documentElement.classList.add('low-spec-mode');
+  }
+})();
+
+window.showForumToast = function(message) {
+  let toast = document.getElementById('forum-toast-elem');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'forum-toast-elem';
+    toast.className = 'forum-toast';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = message;
+  toast.classList.add('show');
+  clearTimeout(toast._timer);
+  toast._timer = setTimeout(() => {
+    toast.classList.remove('show');
+  }, 2200);
+};
+
+window.toggleLowSpecMode = function() {
+  const LOW_SPEC_KEY = 'chochin_low_spec_mode';
+  const isCurrentlyLow = document.documentElement.classList.contains('low-spec-mode');
+  const newState = !isCurrentlyLow;
+
+  if (newState) {
+    document.documentElement.classList.add('low-spec-mode');
+    localStorage.setItem(LOW_SPEC_KEY, 'true');
+    window.showForumToast('⚡ 저사양 최적화 모드: 켜짐 (렉 감소)');
+  } else {
+    document.documentElement.classList.remove('low-spec-mode');
+    localStorage.setItem(LOW_SPEC_KEY, 'false');
+    window.showForumToast('⚡ 저사양 최적화 모드: 꺼짐 (고화질)');
+  }
+
+  if (window.updateLowSpecButtonText) {
+    window.updateLowSpecButtonText();
+  }
+  window.dispatchEvent(new CustomEvent('forumLowSpecModeChanged', { detail: { enabled: newState } }));
+};
+
+window.updateLowSpecButtonText = function() {
+  const isLow = document.documentElement.classList.contains('low-spec-mode');
+  const btn = document.querySelector('.option-item-low-spec');
+  if (btn) {
+    btn.textContent = isLow ? '저사양 모드: ON' : '저사양 모드: OFF';
+  }
+};
 
 document.addEventListener('DOMContentLoaded', () => {
   const optionBtn = document.querySelector('.optionbutton');
@@ -29,8 +90,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 닉네임 관련 요소 및 로직
   const optionItems = document.querySelectorAll('.option-item');
-  const accountItem = optionItems[0]; // 첫 번째 메뉴 아이템 (계정 선택)
-  const bgSettingItem = optionItems[1]; // 두 번째 메뉴 아이템 (배경 설정)
+  const accountItem = document.querySelector('.option-item-account') || optionItems[0];
+  const bgSettingItem = document.querySelector('.option-item-bg') || optionItems[1];
+  let lowSpecItem = document.querySelector('.option-item-low-spec');
+
+  if (!lowSpecItem && optionMenu) {
+    lowSpecItem = document.createElement('button');
+    lowSpecItem.className = 'option-item option-item-low-spec';
+    optionMenu.appendChild(lowSpecItem);
+  }
+
+  if (lowSpecItem) {
+    window.updateLowSpecButtonText();
+    lowSpecItem.addEventListener('click', () => {
+      window.toggleLowSpecMode();
+      if (optionMenu) optionMenu.classList.remove('active');
+      body.classList.remove('menu-open');
+    });
+  }
+
   const bgElement = document.querySelector('.bg');
   const headerNicknameDisplay = document.querySelector('.header-nickname'); // 헤더 내 닉네임 표시 요소
 
@@ -134,38 +212,60 @@ document.addEventListener('DOMContentLoaded', () => {
     return 0;
   };
 
-  window.calculateAllPlayerPoints = async function() {
-    try {
-      const getJsonUrl = (file) => {
-        const path = (window.location.pathname || '').replace(/\\/g, '/').toLowerCase();
-        if (path.includes('/level/')) {
-          return file;
-        }
-        return `level/${file}`;
-      };
+  let _pointsDataPromise = null;
+  let _cachedPointsResult = null;
 
-      const [classicRes, challengeRes, platformerRes] = await Promise.all([
-        fetch(getJsonUrl('classic.json')).then(r => r.ok ? r.json() : { levels: [] }).catch(() => ({ levels: [] })),
-        fetch(getJsonUrl('challenge.json')).then(r => r.ok ? r.json() : { levels: [] }).catch(() => ({ levels: [] })),
-        fetch(getJsonUrl('platformer.json')).then(r => r.ok ? r.json() : { levels: [] }).catch(() => ({ levels: [] }))
-      ]);
+  window.invalidatePointsCache = function() {
+    _cachedPointsResult = null;
+    _pointsDataPromise = null;
+  };
 
-      const getLevels = (data, mode) => {
-        if (window.applyDevCustomData) {
-          return window.applyDevCustomData(data.levels ?? [], data.history ?? [], mode).levels;
-        }
-        return data.levels || [];
-      };
-
-      return {
-        classicLevels: getLevels(classicRes, 'classic'),
-        challengeLevels: getLevels(challengeRes, 'challenge'),
-        platformerLevels: getLevels(platformerRes, 'platformer')
-      };
-    } catch (err) {
-      console.error("Points calculation fetch error:", err);
-      return { classicLevels: [], challengeLevels: [], platformerLevels: [] };
+  window.calculateAllPlayerPoints = async function(forceRefresh = false) {
+    if (!forceRefresh && _cachedPointsResult) {
+      return _cachedPointsResult;
     }
+    if (!forceRefresh && _pointsDataPromise) {
+      return _pointsDataPromise;
+    }
+
+    _pointsDataPromise = (async () => {
+      try {
+        const getJsonUrl = (file) => {
+          const path = (window.location.pathname || '').replace(/\\/g, '/').toLowerCase();
+          if (path.includes('/level/')) {
+            return file;
+          }
+          return `level/${file}`;
+        };
+
+        const [classicRes, challengeRes, platformerRes] = await Promise.all([
+          fetch(getJsonUrl('classic.json')).then(r => r.ok ? r.json() : { levels: [] }).catch(() => ({ levels: [] })),
+          fetch(getJsonUrl('challenge.json')).then(r => r.ok ? r.json() : { levels: [] }).catch(() => ({ levels: [] })),
+          fetch(getJsonUrl('platformer.json')).then(r => r.ok ? r.json() : { levels: [] }).catch(() => ({ levels: [] }))
+        ]);
+
+        const getLevels = (data, mode) => {
+          if (window.applyDevCustomData) {
+            return window.applyDevCustomData(data.levels ?? [], data.history ?? [], mode).levels;
+          }
+          return data.levels || [];
+        };
+
+        _cachedPointsResult = {
+          classicLevels: getLevels(classicRes, 'classic'),
+          challengeLevels: getLevels(challengeRes, 'challenge'),
+          platformerLevels: getLevels(platformerRes, 'platformer')
+        };
+        return _cachedPointsResult;
+      } catch (err) {
+        console.error("Points calculation fetch error:", err);
+        return { classicLevels: [], challengeLevels: [], platformerLevels: [] };
+      } finally {
+        _pointsDataPromise = null;
+      }
+    })();
+
+    return _pointsDataPromise;
   };
 
   const updateNicknameDisplay = async (name) => {

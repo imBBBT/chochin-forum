@@ -94,6 +94,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
       }
 
+      const fragment = document.createDocumentFragment();
       hardestData.forEach((item, idx) => {
         const rank = idx + 1;
         const isMe = item.name && item.name.trim().toLowerCase() === currentUser;
@@ -110,8 +111,9 @@ document.addEventListener('DOMContentLoaded', async () => {
           </span>
           <span class="player-hardest">${item.hardest || '-'}</span>
         `;
-        rankingListBody.appendChild(row);
+        fragment.appendChild(row);
       });
+      rankingListBody.appendChild(fragment);
     } else {
       // Classic, Challenge, Platformer View (Calculated PT)
       tableHeader.className = 'ranking-table-header';
@@ -173,6 +175,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       // Re-sort ranking
       activeRanking.sort((a, b) => b.points - a.points);
 
+      const fragment = document.createDocumentFragment();
       activeRanking.forEach((item, idx) => {
         const rank = idx + 1;
         const isMe = item.name && item.name.trim().toLowerCase() === currentUser;
@@ -191,8 +194,9 @@ document.addEventListener('DOMContentLoaded', async () => {
           <span class="player-hardest">${item.hardestTitle}</span>
           <span class="player-clears">${item.clearCount}개</span>
         `;
-        rankingListBody.appendChild(row);
+        fragment.appendChild(row);
       });
+      rankingListBody.appendChild(fragment);
     }
   };
 

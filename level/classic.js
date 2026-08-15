@@ -556,7 +556,13 @@ function deselectLevel() {
   const backdrop = document.getElementById('detail-overlay-backdrop');
 
   if (listContainer) listContainer.classList.remove('has-detail');
-  if (detailContainer) detailContainer.classList.remove('active');
+  if (detailContainer) {
+    detailContainer.classList.remove('active');
+    const iframes = detailContainer.querySelectorAll('iframe');
+    iframes.forEach(iframe => {
+      iframe.src = '';
+    });
+  }
   if (backdrop) backdrop.classList.remove('active');
 
   document.querySelectorAll('.classic-level-card.selected').forEach(card => {
@@ -657,7 +663,7 @@ function renderLevelDetail(level, rank, detailContainer) {
 
   const mediaHtml = embedUrl
     ? `<iframe src="${embedUrl}" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>`
-    : `<img src="${getYoutubeThumbnail(level.video)}" alt="${title}">`;
+    : `<img src="${getYoutubeThumbnail(level.video)}" alt="${title}" loading="lazy" decoding="async">`;
 
   const ratingBadgeHtml = rating
     ? `<span class="classic-level-badge ${ratingClass}">${escapeHtml(rating)}</span>`
@@ -898,7 +904,7 @@ function createLevelCard(level, index, total) {
     `;
 
   card.innerHTML = `
-    <img class="classic-level-thumb" src="${thumbSrc}" alt="${title}" loading="lazy">
+    <img class="classic-level-thumb" src="${thumbSrc}" alt="${title}" loading="lazy" decoding="async">
     <div class="classic-level-info">
       <div class="classic-level-title-row">
         <span class="classic-level-rank">${rank}</span>
@@ -997,6 +1003,7 @@ function renderLevelList(levels) {
     return;
   }
 
+  const fragment = document.createDocumentFragment();
   let insertedMain = false;
   let insertedExtended = false;
   let insertedLegacy = false;
@@ -1007,18 +1014,20 @@ function renderLevelList(levels) {
 
     // Check Section Dividers based on rank index
     if (rankIndex < 10 && !insertedMain) {
-      listEl.appendChild(createSectionDivider('main', 'MAIN LIST (1 ~ 10위)'));
+      fragment.appendChild(createSectionDivider('main', 'MAIN LIST (1 ~ 10위)'));
       insertedMain = true;
     } else if (rankIndex >= 10 && rankIndex < 20 && !insertedExtended) {
-      listEl.appendChild(createSectionDivider('extended', 'EXTENDED LIST (11 ~ 20위)'));
+      fragment.appendChild(createSectionDivider('extended', 'EXTENDED LIST (11 ~ 20위)'));
       insertedExtended = true;
     } else if (rankIndex >= 20 && !insertedLegacy) {
-      listEl.appendChild(createSectionDivider('legacy', 'LEGACY LIST (21위~)'));
+      fragment.appendChild(createSectionDivider('legacy', 'LEGACY LIST (21위~)'));
       insertedLegacy = true;
     }
 
-    listEl.appendChild(createLevelCard(level, rankIndex, cachedLevelsData.length));
+    fragment.appendChild(createLevelCard(level, rankIndex, cachedLevelsData.length));
   });
+
+  listEl.appendChild(fragment);
 }
 
 function refreshLevelView() {

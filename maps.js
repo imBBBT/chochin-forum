@@ -107,6 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    const fragment = document.createDocumentFragment();
     filtered.forEach(pack => {
       const card = document.createElement('div');
       const isUserCleared = isPackClearedByUser(pack);
@@ -140,8 +141,9 @@ document.addEventListener('DOMContentLoaded', () => {
         selectPack(pack);
       });
 
-      mapsListBody.appendChild(card);
+      fragment.appendChild(card);
     });
+    mapsListBody.appendChild(fragment);
   };
 
   const getOrCreateMapBackdrop = () => {
