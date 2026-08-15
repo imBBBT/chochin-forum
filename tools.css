@@ -745,26 +745,32 @@ input:checked + .slider:before {
 }
 
 .palette-preview.cyber {
+  background-color: #8b5cf6;
   background: conic-gradient(#8b5cf6, #ec4899, #3b82f6, #06b6d4, #10b981, #f59e0b, #8b5cf6);
 }
 
 .palette-preview.vibrant {
+  background-color: #ff4757;
   background: conic-gradient(#ff4757, #ffa502, #2ed573, #1e90ff, #5352ed, #ff4757);
 }
 
 .palette-preview.pastel {
+  background-color: #fda4af;
   background: conic-gradient(#fda4af, #93c5fd, #86efac, #fde047, #d8b4fe, #fda4af);
 }
 
 .palette-preview.ocean {
+  background-color: #00d2ff;
   background: conic-gradient(#1e40af, #2563eb, #00d2ff, #0d9488, #3b82f6, #1e40af);
 }
 
 .palette-preview.sunset {
+  background-color: #f97316;
   background: conic-gradient(#dc2626, #f97316, #fbbf24, #ea580c, #dc2626);
 }
 
 .palette-preview.custom {
+  background-color: #a855f7;
   background: linear-gradient(135deg, #a855f7, #ec4899, #3b82f6);
 }
 

@@ -502,6 +502,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   };
 
   let currentWheelPalette = localStorage.getItem('chochin_roulette_palette') || 'cyber';
+  if (!WHEEL_PALETTES[currentWheelPalette]) {
+    currentWheelPalette = 'cyber';
+  }
+
   let customWheelColors = [];
   try {
     const rawCustom = localStorage.getItem('chochin_roulette_custom_colors');
@@ -522,7 +526,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const r = (num >> 16) & 255;
     const g = (num >> 8) & 255;
     const b = num & 255;
-    return (r * 299 + g * 587 + b * 114) / 1000 > 155;
+    return (0.299 * r + 0.587 * g + 0.114 * b) > 140;
   }
 
   function getCurrentSliceColors() {
@@ -530,6 +534,22 @@ document.addEventListener('DOMContentLoaded', async () => {
       return customWheelColors.length > 0 ? customWheelColors : WHEEL_PALETTES.cyber;
     }
     return WHEEL_PALETTES[currentWheelPalette] || WHEEL_PALETTES.cyber;
+  }
+
+  function getSliceColor(index, totalCount, palette) {
+    if (!palette || palette.length === 0) return '#8b5cf6';
+    if (totalCount <= 1) return palette[0];
+
+    const pLen = palette.length;
+    let cIdx = index % pLen;
+
+    // Prevent first and last slice from having identical color on a closed circle
+    if (index === totalCount - 1 && totalCount > 1) {
+      if (cIdx === 0) {
+        cIdx = pLen > 1 ? 1 : 0;
+      }
+    }
+    return palette[cIdx];
   }
 
   function renderCustomColorInputs() {
@@ -612,6 +632,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     updateActivePaletteUI();
   }
 
+  // Re-render Canvas when web fonts are ready
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => {
+      if (rouletteCanvas) {
+        renderCircularWheel(wheelCurrentRotation);
+      }
+    });
+  }
+
   // Render Canvas Circular Wheel
   function renderCircularWheel(rotationAngle = 0) {
     if (!rouletteCanvas) return;
@@ -655,7 +684,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     flattenedPool.forEach((lvl, i) => {
       const startAngle = i * sliceAngle + rotationAngle;
       const endAngle = (i + 1) * sliceAngle + rotationAngle;
-      const fillColor = sliceColors[i % sliceColors.length];
+      const fillColor = getSliceColor(i, levelsCount, sliceColors);
 
       ctx.save();
       ctx.beginPath();
