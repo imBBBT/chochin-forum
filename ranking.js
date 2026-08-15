@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', async () => {
-  let currentMode = 'classic';
+  let currentMode = 'all';
   let hardestData = [];
 
   const rankingTabs = document.querySelectorAll('.ranking-tab');
@@ -35,13 +35,14 @@ document.addEventListener('DOMContentLoaded', async () => {
       const involvedPlayers = new Set();
       if (verifier) involvedPlayers.add(verifier);
       clears.forEach(c => {
-        const pName = (c.player || c.user || '').trim();
+        const pName = (c.player || c.user || c.name || '').trim();
         if (pName) involvedPlayers.add(pName);
       });
 
       involvedPlayers.forEach(player => {
-        if (!playerMap[player]) {
-          playerMap[player] = {
+        const playerKey = player.toLowerCase();
+        if (!playerMap[playerKey]) {
+          playerMap[playerKey] = {
             name: player,
             points: 0,
             clearCount: 0,
@@ -52,13 +53,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Calculate points based on specific level rank and player role
         const pt = window.calcPlayerLevelPoints ? window.calcPlayerLevelPoints(lvl, rankIndex, player) : 0;
-        playerMap[player].points += pt;
-        playerMap[player].clearCount += 1;
+        if (pt > 0) {
+          playerMap[playerKey].points += pt;
+          playerMap[playerKey].clearCount += 1;
 
-        // Track hardest level (lowest rankIndex)
-        if (rankIndex < playerMap[player].hardestRank) {
-          playerMap[player].hardestRank = rankIndex;
-          playerMap[player].hardestTitle = `#${rankIndex} ${lvl.title || 'Untitled'}`;
+          // Track hardest level (lowest rankIndex)
+          if (rankIndex < playerMap[playerKey].hardestRank) {
+            playerMap[playerKey].hardestRank = rankIndex;
+            playerMap[playerKey].hardestTitle = `#${rankIndex} ${lvl.title || 'Untitled'}`;
+          }
         }
       });
     });
@@ -116,7 +119,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       });
       rankingListBody.appendChild(fragment);
     } else {
-      // Classic, Challenge, Platformer View (Calculated PT)
+      // Total, Classic, Challenge, Platformer View (Calculated PT)
       tableHeader.className = 'ranking-table-header';
       tableHeader.innerHTML = `
         <span class="col-rank">순위</span>
@@ -128,12 +131,40 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       const { classicLevels, challengeLevels, platformerLevels } = await window.calculateAllPlayerPoints();
 
-      let targetLevels = [];
-      if (currentMode === 'classic') targetLevels = classicLevels;
-      if (currentMode === 'challenge') targetLevels = challengeLevels;
-      if (currentMode === 'platformer') targetLevels = platformerLevels;
+      let rankingData = [];
+      if (currentMode === 'all') {
+        const classicRanking = processModeRanking(classicLevels || []);
+        const challengeRanking = processModeRanking(challengeLevels || []);
+        const platformerRanking = processModeRanking(platformerLevels || []);
 
-      const rankingData = processModeRanking(targetLevels);
+        const totalPlayerMap = {};
+        [...classicRanking, ...challengeRanking, ...platformerRanking].forEach(item => {
+          const key = item.name.toLowerCase();
+          if (!totalPlayerMap[key]) {
+            totalPlayerMap[key] = {
+              name: item.name,
+              points: 0,
+              clearCount: 0,
+              hardestRank: 9999,
+              hardestTitle: '-'
+            };
+          }
+          totalPlayerMap[key].points += item.points;
+          totalPlayerMap[key].clearCount += item.clearCount;
+          if (item.hardestRank < totalPlayerMap[key].hardestRank) {
+            totalPlayerMap[key].hardestRank = item.hardestRank;
+            totalPlayerMap[key].hardestTitle = item.hardestTitle;
+          }
+        });
+        rankingData = Object.values(totalPlayerMap);
+        rankingData.sort((a, b) => b.points - a.points);
+      } else {
+        let targetLevels = [];
+        if (currentMode === 'classic') targetLevels = classicLevels;
+        if (currentMode === 'challenge') targetLevels = challengeLevels;
+        if (currentMode === 'platformer') targetLevels = platformerLevels;
+        rankingData = processModeRanking(targetLevels || []);
+      }
 
       if (rankingData.length === 0) {
         rankingListBody.innerHTML = '<div class="ranking-empty-state">해당 부문에 기록된 랭킹 정보가 없습니다.</div>';

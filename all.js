@@ -203,24 +203,40 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   window.calcPlayerLevelPoints = function (level, rankIndex, playerNickname) {
-    if (!playerNickname) return 0;
-    const target = playerNickname.trim().toLowerCase();
+    if (!playerNickname || !level) return 0;
+    const target = String(playerNickname).trim().toLowerCase();
+    if (!target) return 0;
     const base = window.getBasePoints(rankIndex);
 
     const verifier = (level.verifier || '').trim().toLowerCase();
     const clears = Array.isArray(level.clears) ? level.clears : [];
 
+    // Verifier gets 1.5x points
     if (verifier && verifier === target) {
       return base * 1.5;
     }
 
     if (clears.length > 0) {
-      const firstClearer = (clears[0].player || clears[0].user || '').trim().toLowerCase();
-      if (firstClearer === target) {
-        return base * 1.3;
+      // Find 100% clears (or clears without percent explicitly specified)
+      const fullClears = clears.filter(c => c.percent == null || Number(c.percent) >= 100);
+      if (fullClears.length > 0) {
+        const firstClearer = (fullClears[0].player || fullClears[0].user || fullClears[0].name || '').trim().toLowerCase();
+        // First Victor gets 1.3x points
+        if (firstClearer === target) {
+          return base * 1.3;
+        }
+        const isFullClearer = fullClears.some(c => {
+          const p = (c.player || c.user || c.name || '').trim().toLowerCase();
+          return p === target;
+        });
+        if (isFullClearer) {
+          return base * 1.0;
+        }
       }
+
+      // Any other recorded clear gets 1.0x points
       const isClearer = clears.some(c => {
-        const p = (c.player || c.user || '').trim().toLowerCase();
+        const p = (c.player || c.user || c.name || '').trim().toLowerCase();
         return p === target;
       });
       if (isClearer) {
@@ -240,6 +256,9 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   window.calculateAllPlayerPoints = async function (forceRefresh = false) {
+    if (forceRefresh) {
+      window.invalidatePointsCache();
+    }
     if (!forceRefresh && _cachedPointsResult) {
       return _cachedPointsResult;
     }
@@ -287,30 +306,44 @@ document.addEventListener('DOMContentLoaded', () => {
     return _pointsDataPromise;
   };
 
-  const updateNicknameDisplay = async (name) => {
+  window.updateNicknameDisplay = async (name) => {
     if (!headerNicknameDisplay) return;
-    if (!name) {
+    const targetName = name || localStorage.getItem('forumNickname') || '';
+    if (!targetName) {
       headerNicknameDisplay.textContent = '';
       return;
     }
-    headerNicknameDisplay.innerHTML = `<span class="nick-name-text">${name}</span>`;
+    headerNicknameDisplay.innerHTML = `<span class="nick-name-text">${window.escapeHtml ? window.escapeHtml(targetName) : targetName}</span>`;
 
-    const { classicLevels, challengeLevels, platformerLevels } = await window.calculateAllPlayerPoints();
+    const { classicLevels, challengeLevels, platformerLevels } = await window.calculateAllPlayerPoints(true);
 
     let total = 0;
-    classicLevels.forEach((lvl, idx) => {
-      total += window.calcPlayerLevelPoints(lvl, idx + 1, name);
+    (classicLevels || []).forEach((lvl, idx) => {
+      total += window.calcPlayerLevelPoints(lvl, idx + 1, targetName);
     });
-    challengeLevels.forEach((lvl, idx) => {
-      total += window.calcPlayerLevelPoints(lvl, idx + 1, name);
+    (challengeLevels || []).forEach((lvl, idx) => {
+      total += window.calcPlayerLevelPoints(lvl, idx + 1, targetName);
     });
-    platformerLevels.forEach((lvl, idx) => {
-      total += window.calcPlayerLevelPoints(lvl, idx + 1, name);
+    (platformerLevels || []).forEach((lvl, idx) => {
+      total += window.calcPlayerLevelPoints(lvl, idx + 1, targetName);
     });
 
     const formattedPt = Math.round(total).toLocaleString();
-    headerNicknameDisplay.innerHTML = `<span class="nick-name-text">${name}</span> <span class="header-user-pt-badge">${formattedPt} PT</span>`;
+    headerNicknameDisplay.innerHTML = `<span class="nick-name-text">${window.escapeHtml ? window.escapeHtml(targetName) : targetName}</span> <span class="header-user-pt-badge" title="종합 포인트 (Classic + Challenge + Platformer)">${formattedPt} PT</span>`;
   };
+
+  // Listen to dev data or nickname updates to immediately sync header points
+  window.addEventListener('devDataUpdated', () => {
+    window.updateNicknameDisplay();
+  });
+  window.addEventListener('forumNicknameChanged', (e) => {
+    window.updateNicknameDisplay(e.detail?.nickname);
+  });
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'forumNickname' || (e.key && e.key.startsWith('dev_custom_'))) {
+      window.updateNicknameDisplay();
+    }
+  });
 
   // 초기 로드 시 저장된 닉네임 확인
   const showNicknameModal = () => {
