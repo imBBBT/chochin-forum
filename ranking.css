@@ -265,6 +265,28 @@ html, body {
   text-overflow: ellipsis;
 }
 
+.player-hardest-link {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.3);
+  transition: color 0.15s ease, border-bottom-color 0.15s ease, text-shadow 0.15s ease;
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
+
+.player-hardest-link:hover {
+  color: #00d2ff;
+  border-bottom-color: #00d2ff;
+  text-shadow: 0 0 8px rgba(0, 210, 255, 0.5);
+}
+
+.low-spec-mode .player-hardest-link:hover {
+  text-shadow: none !important;
+}
+
 /* Global Floating Tooltip for Clears Breakdown */
 .ranking-global-tooltip {
   position: fixed;

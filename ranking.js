@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   };
 
   // Process and sort player statistics for Classic, Challenge, Platformer
-  const processModeRanking = (levels) => {
+  const processModeRanking = (levels, modeName = 'classic') => {
     const playerMap = {};
 
     levels.forEach((lvl, idx) => {
@@ -53,7 +53,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             firstVictorCount: 0,
             normalClearCount: 0,
             hardestRank: 9999,
-            hardestTitle: '-'
+            hardestTitle: '-',
+            hardestLevelTitle: '',
+            hardestLevelId: '',
+            hardestMode: modeName
           };
         }
 
@@ -75,6 +78,9 @@ document.addEventListener('DOMContentLoaded', async () => {
           if (rankIndex < playerMap[playerKey].hardestRank) {
             playerMap[playerKey].hardestRank = rankIndex;
             playerMap[playerKey].hardestTitle = `#${rankIndex} ${lvl.title || 'Untitled'}`;
+            playerMap[playerKey].hardestLevelTitle = lvl.title || '';
+            playerMap[playerKey].hardestLevelId = lvl.id != null ? lvl.id : '';
+            playerMap[playerKey].hardestMode = modeName;
           }
         }
       });
@@ -147,9 +153,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       let rankingData = [];
       if (currentMode === 'all') {
-        const classicRanking = processModeRanking(classicLevels || []);
-        const challengeRanking = processModeRanking(challengeLevels || []);
-        const platformerRanking = processModeRanking(platformerLevels || []);
+        const classicRanking = processModeRanking(classicLevels || [], 'classic');
+        const challengeRanking = processModeRanking(challengeLevels || [], 'challenge');
+        const platformerRanking = processModeRanking(platformerLevels || [], 'platformer');
 
         const totalPlayerMap = {};
         [...classicRanking, ...challengeRanking, ...platformerRanking].forEach(item => {
@@ -163,7 +169,10 @@ document.addEventListener('DOMContentLoaded', async () => {
               firstVictorCount: 0,
               normalClearCount: 0,
               hardestRank: 9999,
-              hardestTitle: '-'
+              hardestTitle: '-',
+              hardestLevelTitle: '',
+              hardestLevelId: '',
+              hardestMode: 'classic'
             };
           }
           totalPlayerMap[key].points += item.points;
@@ -174,6 +183,9 @@ document.addEventListener('DOMContentLoaded', async () => {
           if (item.hardestRank < totalPlayerMap[key].hardestRank) {
             totalPlayerMap[key].hardestRank = item.hardestRank;
             totalPlayerMap[key].hardestTitle = item.hardestTitle;
+            totalPlayerMap[key].hardestLevelTitle = item.hardestLevelTitle;
+            totalPlayerMap[key].hardestLevelId = item.hardestLevelId;
+            totalPlayerMap[key].hardestMode = item.hardestMode;
           }
         });
         rankingData = Object.values(totalPlayerMap);
@@ -183,7 +195,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (currentMode === 'classic') targetLevels = classicLevels;
         if (currentMode === 'challenge') targetLevels = challengeLevels;
         if (currentMode === 'platformer') targetLevels = platformerLevels;
-        rankingData = processModeRanking(targetLevels || []);
+        rankingData = processModeRanking(targetLevels || [], currentMode);
       }
 
       if (rankingData.length === 0) {
@@ -216,7 +228,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             clearCount: cust.clearCount || 0,
             verifyCount: 0,
             firstVictorCount: 0,
-            normalClearCount: cust.clearCount || 0
+            normalClearCount: cust.clearCount || 0,
+            hardestLevelTitle: '',
+            hardestLevelId: '',
+            hardestMode: currentMode !== 'all' ? currentMode : 'classic'
           });
         }
       });
@@ -241,6 +256,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         const normalClearCount = item.normalClearCount || 0;
         const tooltipSummary = `베리파이: ${verifyCount}개 | 최초 클리어: ${firstVictorCount}개 | 일반 클리어: ${normalClearCount}개`;
 
+        // Generate hardest level link
+        let hardestHtml = esc(item.hardestTitle || '-');
+        if (item.hardestTitle && item.hardestTitle !== '-') {
+          const rawTitle = item.hardestLevelTitle || item.hardestTitle.replace(/^#\d+\s*/, '').trim();
+          const targetMode = item.hardestMode || (currentMode !== 'all' ? currentMode : 'classic');
+          const targetId = item.hardestLevelId;
+
+          const query = targetId
+            ? `id=${encodeURIComponent(targetId)}`
+            : `title=${encodeURIComponent(rawTitle)}`;
+          const url = `level/${targetMode}.html?${query}`;
+
+          hardestHtml = `<a href="${url}" class="player-hardest-link" title="${esc(item.hardestTitle)} (클릭하여 레벨 페이지로 이동)">${esc(item.hardestTitle)}</a>`;
+        }
+
         const row = document.createElement('div');
         row.className = `ranking-row-card rank-${rank} ${isMe ? 'is-current-user' : ''}`;
         row.innerHTML = `
@@ -250,7 +280,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             ${isMe ? '<span class="user-me-badge">나</span>' : ''}
           </span>
           <span class="player-pt">${Math.round(item.points).toLocaleString()} PT</span>
-          <span class="player-hardest">${esc(item.hardestTitle)}</span>
+          <span class="player-hardest">${hardestHtml}</span>
           <div class="player-clears-wrapper" data-verify="${verifyCount}" data-first="${firstVictorCount}" data-normal="${normalClearCount}" title="${tooltipSummary}">
             <span class="player-clears">${item.clearCount}개</span>
           </div>
