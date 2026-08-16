@@ -1336,6 +1336,8 @@ document.addEventListener('DOMContentLoaded', () => {
     devLevelAddOpenBtn.addEventListener('click', () => {
       hideAllSubPanels();
       if (devLevelAddArea) devLevelAddArea.style.display = 'block';
+      const addRatingEl = document.getElementById('dev-add-rating');
+      if (addRatingEl) addRatingEl.value = '';
       devAddSelectedTags.clear();
       renderDevTagPicker('add');
     });
