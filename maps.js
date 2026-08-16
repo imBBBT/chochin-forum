@@ -120,10 +120,11 @@ document.addEventListener('DOMContentLoaded', () => {
       };
     }
 
-    // Check 100% clears
+    // Check 100% full clears only
     const clears = Array.isArray(level.clears) ? level.clears : [];
     for (const c of clears) {
-      const isFull = c.percent == null || Number(c.percent) >= 100;
+      if (!c) continue;
+      const isFull = c.percent == null || (!isNaN(parseFloat(String(c.percent).replace(/[^0-9.]/g, ''))) && parseFloat(String(c.percent).replace(/[^0-9.]/g, '')) >= 100);
       if (isFull) {
         const p = (c.player || c.user || c.name || '').trim().toLowerCase();
         if (p === target) {
@@ -156,10 +157,11 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // 100% Clears
+    // 100% Clears only
     const clears = Array.isArray(level.clears) ? level.clears : [];
     clears.forEach(c => {
-      const isFull = c.percent == null || Number(c.percent) >= 100;
+      if (!c) return;
+      const isFull = c.percent == null || (!isNaN(parseFloat(String(c.percent).replace(/[^0-9.]/g, ''))) && parseFloat(String(c.percent).replace(/[^0-9.]/g, '')) >= 100);
       if (isFull) {
         const pName = (c.player || c.user || c.name || '').trim();
         if (pName) {

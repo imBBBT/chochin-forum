@@ -31,13 +31,18 @@ document.addEventListener('DOMContentLoaded', async () => {
       const verifier = (lvl.verifier || '').trim();
       const verifierKey = verifier.toLowerCase();
       const clears = Array.isArray(lvl.clears) ? lvl.clears : [];
-      const fullClears = clears.filter(c => c.percent == null || Number(c.percent) >= 100);
+      const fullClears = clears.filter(c => {
+        if (!c) return false;
+        if (c.percent == null) return true;
+        const num = parseFloat(String(c.percent).replace(/[^0-9.]/g, ''));
+        return !isNaN(num) && num >= 100;
+      });
       const firstClearer = fullClears.length > 0 ? (fullClears[0].player || fullClears[0].user || fullClears[0].name || '').trim().toLowerCase() : '';
 
-      // Collect all players involved in this level
+      // Collect all players involved in this level (only verifier and 100% full clearers)
       const involvedPlayers = new Set();
       if (verifier) involvedPlayers.add(verifier);
-      clears.forEach(c => {
+      fullClears.forEach(c => {
         const pName = (c.player || c.user || c.name || '').trim();
         if (pName) involvedPlayers.add(pName);
       });

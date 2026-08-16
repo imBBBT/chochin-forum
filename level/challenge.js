@@ -112,17 +112,22 @@ function getUserNickname() {
 
 function isLevelClearedByUser(level) {
   const user = getUserNickname();
-  if (!user) return false;
+  if (!user || !level) return false;
   const userLower = user.toLowerCase();
 
-  if (Array.isArray(level.clears) && level.clears.some(c => {
-    const p = (c.player || c.name || c.user || '').trim().toLowerCase();
-    return p === userLower;
-  })) {
-    return true;
-  }
   if (level.verifier && String(level.verifier).trim().toLowerCase() === userLower) {
     return true;
+  }
+
+  if (Array.isArray(level.clears)) {
+    return level.clears.some(c => {
+      if (!c) return false;
+      const p = (c.player || c.name || c.user || '').trim().toLowerCase();
+      if (p !== userLower) return false;
+      if (c.percent == null) return true;
+      const num = parseFloat(String(c.percent).replace(/[^0-9.]/g, ''));
+      return !isNaN(num) && num >= 100;
+    });
   }
   return false;
 }

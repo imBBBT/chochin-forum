@@ -217,8 +217,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (clears.length > 0) {
-      // Find 100% clears (or clears without percent explicitly specified)
-      const fullClears = clears.filter(c => c.percent == null || Number(c.percent) >= 100);
+      // Only 100% clears (or clears without percent explicitly specified) are counted as clears
+      const fullClears = clears.filter(c => {
+        if (!c) return false;
+        if (c.percent == null) return true;
+        const num = parseFloat(String(c.percent).replace(/[^0-9.]/g, ''));
+        return !isNaN(num) && num >= 100;
+      });
+
       if (fullClears.length > 0) {
         const firstClearer = (fullClears[0].player || fullClears[0].user || fullClears[0].name || '').trim().toLowerCase();
         // First Victor gets 1.3x points
@@ -232,15 +238,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isFullClearer) {
           return base * 1.0;
         }
-      }
-
-      // Any other recorded clear gets 1.0x points
-      const isClearer = clears.some(c => {
-        const p = (c.player || c.user || c.name || '').trim().toLowerCase();
-        return p === target;
-      });
-      if (isClearer) {
-        return base * 1.0;
       }
     }
 

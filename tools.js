@@ -122,15 +122,19 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   function isLevelCleared(level, nickname) {
-    if (!nickname) return false;
+    if (!nickname || !level) return false;
     const target = nickname.trim().toLowerCase();
     if (level.verifier && String(level.verifier).trim().toLowerCase() === target) {
       return true;
     }
     const clears = Array.isArray(level.clears) ? level.clears : [];
     return clears.some(c => {
+      if (!c) return false;
       const p = (c.player || c.user || c.name || '').trim().toLowerCase();
-      return p === target;
+      if (p !== target) return false;
+      if (c.percent == null) return true;
+      const num = parseFloat(String(c.percent).replace(/[^0-9.]/g, ''));
+      return !isNaN(num) && num >= 100;
     });
   }
 
