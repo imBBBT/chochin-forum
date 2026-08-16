@@ -535,10 +535,10 @@
         {
           "player": "Choco",
           "name": "Choco",
-          "percent": 58,
-          "date": "2026-02-07",
-          "link": "",
-          "video": ""
+          "percent": 100,
+          "date": "2026-08-15",
+          "link": "https://youtu.be/A_QqwOuyFGg",
+          "video": "https://youtu.be/A_QqwOuyFGg"
         }
       ],
       "mapId": "126886071",
@@ -1176,6 +1176,54 @@
       "length": "33s",
       "objects": "1326",
       "targetRank": 21
+    },
+    {
+      "id": 1786794696401,
+      "title": "jumper startpos 2",
+      "creator": "Timo",
+      "verifier": "Timo",
+      "rating": "",
+      "video": "https://www.youtube.com/embed/nR5qOrBWEJI",
+      "mapId": "147031235",
+      "length": "43s",
+      "objects": "1,691",
+      "uploadDate": "2026-08-15",
+      "map": {
+        "mapId": "147031235",
+        "length": "43s",
+        "objects": "1,691",
+        "uploadDate": "2026-08-15"
+      },
+      "song": {
+        "name": "Jumper",
+        "artist": "Waterflame",
+        "id": "6"
+      },
+      "description": "Jumper from 2",
+      "tags": [
+        "Standard",
+        "Wave",
+        "Robot",
+        "2P",
+        "Recreation",
+        "Slow Paced",
+        "Duals",
+        "Timing",
+        "High CPS",
+        "Nerve Control",
+        "Learny"
+      ],
+      "targetRank": 22,
+      "clears": [
+        {
+          "player": "Choco",
+          "name": "Choco",
+          "percent": 100,
+          "date": "2026-08-15",
+          "link": "https://youtu.be/eAoKF7SxiTE",
+          "video": "https://youtu.be/eAoKF7SxiTE"
+        }
+      ]
     },
     {
       "id": 22,
@@ -2460,6 +2508,13 @@
     }
   ],
   "history": [
+    {
+      "id": 1786794696417,
+      "type": "add",
+      "title": "jumper startpos 2",
+      "detail": "\"jumper startpos 2\" 새로운 레벨이 22위에 등록되었습니다.",
+      "time": "2026. 8. 15."
+    },
     {
       "id": 1786718870069,
       "type": "add",
