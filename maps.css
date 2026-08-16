@@ -613,6 +613,11 @@ html, body {
   transform: translateY(-1px);
 }
 
+.map-level-item.user-cleared-item {
+  background: rgba(46, 213, 115, 0.08) !important;
+  border-color: rgba(46, 213, 115, 0.3) !important;
+}
+
 .map-level-info {
   display: flex;
   align-items: center;
@@ -649,6 +654,14 @@ html, body {
   text-align: left;
 }
 
+.map-level-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
 .map-level-name {
   font-family: 'Paperozi', sans-serif;
   font-size: 0.98rem;
@@ -659,7 +672,47 @@ html, body {
   text-overflow: ellipsis;
   text-align: left;
   display: block;
-  width: 100%;
+  max-width: 100%;
+}
+
+.map-level-link {
+  font-family: 'Paperozi', sans-serif;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.15s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.map-level-link:hover {
+  color: #c084fc;
+  text-decoration: underline;
+}
+
+.map-level-user-badge {
+  font-family: 'Paperozi', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 0.1rem 0.45rem;
+  border-radius: 0.25rem;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+
+.map-level-user-badge.is-cleared {
+  color: #2ed573;
+  background: rgba(46, 213, 115, 0.15);
+  border: 1px solid rgba(46, 213, 115, 0.35);
+}
+
+.map-level-user-badge.is-verified {
+  color: #00d2ff;
+  background: rgba(0, 210, 255, 0.15);
+  border: 1px solid rgba(0, 210, 255, 0.35);
 }
 
 .map-level-author {

@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   let allPacks = [];
+  let allLevelsData = [];
   let currentTier = 'all';
   let searchQuery = '';
   let selectedPackId = null;
@@ -12,9 +13,265 @@ document.addEventListener('DOMContentLoaded', () => {
   const mapsSearchClear = document.getElementById('maps-search-clear');
   const tierTabs = document.querySelectorAll('.maps-tier-tab');
 
-  // 1. Fetch mappack.json
+  // --- 1. Level Database & Matching Logic ---
+  const fetchLevelsData = async () => {
+    try {
+      if (typeof window.calculateAllPlayerPoints === 'function') {
+        const { classicLevels, challengeLevels, platformerLevels } = await window.calculateAllPlayerPoints(true);
+        allLevelsData = [
+          ...(classicLevels || []).map(l => ({ ...l, _mode: 'classic' })),
+          ...(challengeLevels || []).map(l => ({ ...l, _mode: 'challenge' })),
+          ...(platformerLevels || []).map(l => ({ ...l, _mode: 'platformer' }))
+        ];
+      } else {
+        const [classicRes, challengeRes, platformerRes] = await Promise.all([
+          fetch('level/classic.json').then(r => r.ok ? r.json() : { levels: [] }).catch(() => ({ levels: [] })),
+          fetch('level/challenge.json').then(r => r.ok ? r.json() : { levels: [] }).catch(() => ({ levels: [] })),
+          fetch('level/platformer.json').then(r => r.ok ? r.json() : { levels: [] }).catch(() => ({ levels: [] }))
+        ]);
+
+        const getLevels = (data, mode) => {
+          if (window.applyDevCustomData) {
+            return window.applyDevCustomData(data.levels ?? [], data.history ?? [], mode).levels;
+          }
+          return data.levels || [];
+        };
+
+        allLevelsData = [
+          ...getLevels(classicRes, 'classic').map(l => ({ ...l, _mode: 'classic' })),
+          ...getLevels(challengeRes, 'challenge').map(l => ({ ...l, _mode: 'challenge' })),
+          ...getLevels(platformerRes, 'platformer').map(l => ({ ...l, _mode: 'platformer' }))
+        ];
+      }
+    } catch (e) {
+      console.error("Failed to load levels data for map packs:", e);
+      allLevelsData = [];
+    }
+  };
+
+  const normalizeLevelTitle = (str) => {
+    return String(str || '').trim().toLowerCase().replace(/[^a-z0-9가-힣]/g, '');
+  };
+
+  const findLevelInDatabase = (packLvl) => {
+    if (!packLvl || !allLevelsData || allLevelsData.length === 0) return null;
+
+    let rawName = '';
+    let rawAuthor = '';
+    let rawId = null;
+
+    if (typeof packLvl === 'string') {
+      rawName = packLvl.trim();
+    } else if (typeof packLvl === 'object') {
+      rawName = (packLvl.name || packLvl.title || '').trim();
+      rawAuthor = (packLvl.author || packLvl.creator || '').trim();
+      rawId = packLvl.id || packLvl.mapId || null;
+    }
+
+    // 1. Match by ID if present
+    if (rawId != null) {
+      const byId = allLevelsData.find(l => 
+        String(l.id) === String(rawId) || 
+        String(l.map?.mapId) === String(rawId) || 
+        String(l.mapId) === String(rawId)
+      );
+      if (byId) return byId;
+    }
+
+    // 2. Match by normalized title
+    const norm = normalizeLevelTitle(rawName);
+    let match = allLevelsData.find(l => normalizeLevelTitle(l.title) === norm);
+
+    // 3. Known aliases or special naming variations
+    if (!match) {
+      if (norm === 'yaahangenegaji') {
+        match = allLevelsData.find(l => normalizeLevelTitle(l.title) === 'yaahange4gaji');
+      }
+    }
+
+    // 4. Author tie-break / fuzzy fallback
+    if (!match && rawAuthor) {
+      const normAuthor = normalizeLevelTitle(rawAuthor);
+      match = allLevelsData.find(l => {
+        const titleNorm = normalizeLevelTitle(l.title);
+        const matchTitle = titleNorm.includes(norm) || norm.includes(titleNorm);
+        const creatorNorm = normalizeLevelTitle(l.creator);
+        const verifierNorm = normalizeLevelTitle(l.verifier);
+        const matchAuth = creatorNorm.includes(normAuthor) || verifierNorm.includes(normAuthor);
+        return matchTitle && matchAuth;
+      });
+    }
+
+    return match || null;
+  };
+
+  const isPlayerCompletedLevel = (level, playerNickname) => {
+    if (!level || !playerNickname) return { completed: false };
+    const target = String(playerNickname).trim().toLowerCase();
+    if (!target) return { completed: false };
+
+    // Check verifier (100% complete)
+    const verifier = (level.verifier || '').trim().toLowerCase();
+    if (verifier && verifier !== '-' && verifier === target) {
+      return {
+        completed: true,
+        role: 'verifier',
+        date: level.uploadDate || level.map?.uploadDate || ''
+      };
+    }
+
+    // Check 100% clears
+    const clears = Array.isArray(level.clears) ? level.clears : [];
+    for (const c of clears) {
+      const isFull = c.percent == null || Number(c.percent) >= 100;
+      if (isFull) {
+        const p = (c.player || c.user || c.name || '').trim().toLowerCase();
+        if (p === target) {
+          return {
+            completed: true,
+            role: 'clearer',
+            date: c.date || ''
+          };
+        }
+      }
+    }
+
+    return { completed: false };
+  };
+
+  const getLevelVictorsMap = (level) => {
+    const victors = new Map(); // playerKey -> { player, date, isVerifier, isClearer }
+    if (!level) return victors;
+
+    // Verifier
+    const verifier = (level.verifier || '').trim();
+    if (verifier && verifier !== '-') {
+      const vKey = verifier.toLowerCase();
+      const vDate = level.uploadDate || level.map?.uploadDate || '';
+      victors.set(vKey, {
+        player: verifier,
+        date: vDate,
+        isVerifier: true,
+        isClearer: false
+      });
+    }
+
+    // 100% Clears
+    const clears = Array.isArray(level.clears) ? level.clears : [];
+    clears.forEach(c => {
+      const isFull = c.percent == null || Number(c.percent) >= 100;
+      if (isFull) {
+        const pName = (c.player || c.user || c.name || '').trim();
+        if (pName) {
+          const pKey = pName.toLowerCase();
+          const existing = victors.get(pKey);
+          const cDate = c.date || '';
+          if (existing) {
+            existing.isClearer = true;
+            if (cDate && (!existing.date || cDate > existing.date)) {
+              existing.date = cDate;
+            }
+          } else {
+            victors.set(pKey, {
+              player: pName,
+              date: cDate,
+              isVerifier: false,
+              isClearer: true
+            });
+          }
+        }
+      }
+    });
+
+    return victors;
+  };
+
+  // Computes combined clears (manual clears in JSON + automatic clears from all levels in pack)
+  const getPackCombinedClears = (pack) => {
+    if (!pack) return [];
+    const levels = Array.isArray(pack.levels) ? pack.levels : [];
+    const autoClearPlayers = [];
+
+    if (levels.length > 0 && allLevelsData.length > 0) {
+      const matchedLevels = levels.map(findLevelInDatabase);
+      const validLevels = matchedLevels.filter(Boolean);
+
+      // If all levels in the pack are identified in the database
+      if (validLevels.length === levels.length) {
+        const victorsList = validLevels.map(getLevelVictorsMap);
+        const firstLevelVictors = victorsList[0];
+
+        firstLevelVictors.forEach((info, playerKey) => {
+          let clearedAll = true;
+          let latestDate = info.date || '';
+          let canonicalName = info.player || '';
+
+          for (let i = 1; i < victorsList.length; i++) {
+            const vMap = victorsList[i];
+            if (!vMap.has(playerKey)) {
+              clearedAll = false;
+              break;
+            }
+            const lvlInfo = vMap.get(playerKey);
+            if (lvlInfo.date && (!latestDate || lvlInfo.date > latestDate)) {
+              latestDate = lvlInfo.date;
+            }
+            if (!canonicalName && lvlInfo.player) {
+              canonicalName = lvlInfo.player;
+            }
+          }
+
+          if (clearedAll) {
+            autoClearPlayers.push({
+              player: canonicalName,
+              date: latestDate || '',
+              isAuto: true
+            });
+          }
+        });
+      }
+    }
+
+    // Merge manual clears with auto-calculated clears
+    const manualClears = Array.isArray(pack.clears) ? pack.clears : [];
+    const mergedClears = [];
+    const seenPlayerKeys = new Set();
+
+    manualClears.forEach(c => {
+      const pName = (c.player || c.name || '').trim();
+      if (pName) {
+        const pKey = pName.toLowerCase();
+        seenPlayerKeys.add(pKey);
+        mergedClears.push({
+          player: pName,
+          date: c.date || '',
+          isAuto: false
+        });
+      }
+    });
+
+    autoClearPlayers.forEach(auto => {
+      const pKey = (auto.player || '').toLowerCase();
+      if (seenPlayerKeys.has(pKey)) {
+        // If already in manual clears, backfill date if empty
+        const existing = mergedClears.find(m => m.player.toLowerCase() === pKey);
+        if (existing && !existing.date && auto.date) {
+          existing.date = auto.date;
+        }
+      } else {
+        seenPlayerKeys.add(pKey);
+        mergedClears.push(auto);
+      }
+    });
+
+    return mergedClears;
+  };
+
+  // --- 2. Fetch mappack.json & Initialize ---
   const fetchMapPacks = async () => {
     try {
+      await fetchLevelsData();
+
       const response = await fetch('mappack.json');
       if (!response.ok) throw new Error(`HTTP error ${response.status}`);
       const data = await response.json();
@@ -34,6 +291,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       renderPacksList();
+
+      // If a pack was already selected, refresh detail view
+      if (selectedPackId) {
+        const currentPack = allPacks.find(p => String(p.id) === String(selectedPackId));
+        if (currentPack) {
+          selectPack(currentPack);
+        }
+      }
     } catch (err) {
       console.error("Failed to load mappack.json:", err);
       if (mapsListBody) {
@@ -47,11 +312,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return match ? parseInt(match[0], 10) : 999;
   };
 
-  const parsePackIdNum = (idStr) => {
-    const match = (idStr || '').match(/\d+/);
-    return match ? parseInt(match[0], 10) : 999;
-  };
-
   const getUserNickname = () => {
     return (localStorage.getItem('forumNickname') || '').trim();
   };
@@ -60,12 +320,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const user = getUserNickname();
     if (!user) return false;
     const userLower = user.toLowerCase();
-    return Array.isArray(pack.clears) && pack.clears.some(c => 
+    const clears = getPackCombinedClears(pack);
+    return clears.some(c => 
       c.player && String(c.player).trim().toLowerCase() === userLower
     );
   };
 
-  // 2. Filter & Render List
+  // --- 3. Filter & Render List ---
   const renderPacksList = () => {
     if (!mapsListBody) return;
 
@@ -79,9 +340,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const q = searchQuery.toLowerCase();
         const titleMatch = (pack.title || '').toLowerCase().includes(q);
         const descMatch = (pack.description || '').toLowerCase().includes(q);
-        const levelMatch = (pack.levels || []).some(l => 
-          (l.name || '').toLowerCase().includes(q) || (l.author || '').toLowerCase().includes(q)
-        );
+        const levelMatch = (pack.levels || []).some(l => {
+          const name = typeof l === 'string' ? l : (l.name || l.title || '');
+          const author = typeof l === 'object' ? (l.author || l.creator || '') : '';
+          return name.toLowerCase().includes(q) || author.toLowerCase().includes(q);
+        });
         if (!titleMatch && !descMatch && !levelMatch) return false;
       }
       return true;
@@ -112,15 +375,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const esc = window.escapeHtml || (s => s == null ? '' : String(s));
     const fragment = document.createDocumentFragment();
+
     filtered.forEach(pack => {
       const card = document.createElement('div');
+      const combinedClears = getPackCombinedClears(pack);
       const isUserCleared = isPackClearedByUser(pack);
       const clearedClass = isUserCleared ? 'card-cleared' : '';
       card.className = `map-pack-card ${clearedClass} ${selectedPackId === pack.id ? 'active-card' : ''}`.trim();
       card.dataset.packId = String(pack.id);
       
       const tierNum = pack.tier ? pack.tier.replace(/[^0-9]/g, '') : '1';
-      const isCleared = (pack.clears || []).length > 0;
+      const isCleared = combinedClears.length > 0;
       const userClearBadgeHtml = isUserCleared
         ? `<span class="map-pack-user-clear-badge">✓ CLEAR</span>`
         : '';
@@ -137,7 +402,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="map-pack-bottom-info">
           <span class="map-pack-level-count">${(pack.levels || []).length}개의 레벨</span>
           <span class="map-pack-clear-status ${isCleared ? 'cleared' : 'uncleared'}">
-            ${isCleared ? `클리어 (${pack.clears.length}명)` : '미클리어'}
+            ${isCleared ? `클리어 (${combinedClears.length}명)` : '미클리어'}
           </span>
         </div>
       `;
@@ -165,9 +430,9 @@ document.addEventListener('DOMContentLoaded', () => {
     return backdrop;
   };
 
-  // 3. Select Pack & Render Detail
+  // --- 4. Select Pack & Render Detail ---
   const selectPack = (pack, cardElement) => {
-    if (selectedPackId === pack.id) {
+    if (selectedPackId === pack.id && mapsDetailContainer.classList.contains('active')) {
       closeDetail();
       return;
     }
@@ -194,8 +459,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const esc = window.escapeHtml || (s => s == null ? '' : String(s));
     const tierNum = pack.tier ? pack.tier.replace(/[^0-9]/g, '') : '1';
     const levels = pack.levels || [];
-    const clears = pack.clears || [];
+    const combinedClears = getPackCombinedClears(pack);
     const isUserCleared = isPackClearedByUser(pack);
+    const currentUser = getUserNickname();
     const userClearBadgeHtml = isUserCleared
       ? `<span class="map-pack-user-clear-badge">✓ CLEAR</span>`
       : '';
@@ -219,6 +485,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
       <div class="map-detail-levels-grid">
         ${levels.length > 0 ? levels.map((lvl, idx) => {
+          const matchedLevel = findLevelInDatabase(lvl);
           let name = '';
           let author = '';
           let id = '';
@@ -231,12 +498,37 @@ document.addEventListener('DOMContentLoaded', () => {
             id = lvl.id || '';
           }
 
+          if (matchedLevel) {
+            if (!name) name = matchedLevel.title;
+            if (!author) author = matchedLevel.creator;
+            if (!id && matchedLevel.id != null) id = matchedLevel.id;
+          }
+
+          // Check if current logged-in user cleared or verified this level
+          const userCompletion = currentUser && matchedLevel ? isPlayerCompletedLevel(matchedLevel, currentUser) : { completed: false };
+          const isClearedByMe = userCompletion.completed;
+          const userBadge = isClearedByMe
+            ? `<span class="map-level-user-badge ${userCompletion.role === 'verifier' ? 'is-verified' : 'is-cleared'}" title="${userCompletion.role === 'verifier' ? '베리파이 완료' : '클리어 완료'}">${userCompletion.role === 'verifier' ? 'VERIFIED' : '✓ CLEAR'}</span>`
+            : '';
+
+          // Level link URL if matched
+          const levelUrl = matchedLevel && matchedLevel._mode
+            ? `level/${matchedLevel._mode}.html?id=${encodeURIComponent(matchedLevel.id)}`
+            : null;
+
+          const titleHtml = levelUrl
+            ? `<a href="${levelUrl}" class="map-level-link" title="${esc(name)} (레벨 페이지로 이동)">${esc(name)}</a>`
+            : `<span class="map-level-name">${esc(name)}</span>`;
+
           return `
-            <div class="map-level-item">
+            <div class="map-level-item ${isClearedByMe ? 'user-cleared-item' : ''}">
               <div class="map-level-info">
                 <span class="map-level-num">${idx + 1}</span>
                 <div class="map-level-text-group">
-                  <span class="map-level-name">${esc(name)}</span>
+                  <div class="map-level-title-row">
+                    ${titleHtml}
+                    ${userBadge}
+                  </div>
                   ${author ? `<span class="map-level-author">by ${esc(author)}</span>` : ''}
                 </div>
               </div>
@@ -247,15 +539,18 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
 
       <div class="map-detail-section-title">
-        클리어 유저 명단 <span>(${clears.length}명)</span>
+        클리어 유저 명단 <span>(${combinedClears.length}명)</span>
       </div>
       <div class="map-clears-list">
-        ${clears.length > 0 ? clears.map(c => `
-          <div class="map-clear-item">
-            <span class="map-clear-player">🏆 ${esc(c.player || c.name || '알 수 없음')}</span>
-            <span class="map-clear-date">${esc(c.date || '')}</span>
-          </div>
-        `).join('') : '<div class="map-clears-empty">아직 클리어한 유저가 없습니다. 첫 클리어에 도전해보세요!</div>'}
+        ${combinedClears.length > 0 ? combinedClears.map(c => {
+          const dateStr = c.date ? c.date : (c.isAuto ? '자동 달성' : '');
+          return `
+            <div class="map-clear-item">
+              <span class="map-clear-player">🏆 ${esc(c.player || c.name || '알 수 없음')}</span>
+              <span class="map-clear-date">${esc(dateStr)}</span>
+            </div>
+          `;
+        }).join('') : '<div class="map-clears-empty">아직 클리어한 유저가 없습니다. 첫 클리어에 도전해보세요!</div>'}
       </div>
     `;
 
@@ -268,7 +563,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // 4. Close Detail View
+  // --- 5. Close Detail View ---
   const closeDetail = () => {
     selectedPackId = null;
     mapsListContainer.classList.remove('has-detail');
@@ -295,7 +590,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 5. Tier Tabs Handler
+  // --- 6. Tier Tabs Handler ---
   tierTabs.forEach(tab => {
     tab.addEventListener('click', () => {
       tierTabs.forEach(t => t.classList.remove('active'));
@@ -305,7 +600,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 6. Search Input Handler
+  // --- 7. Search Input Handler ---
   if (mapsSearchInput) {
     const handleMapsSearch = window.debounce ? window.debounce((val) => {
       searchQuery = val.trim();
@@ -330,7 +625,38 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 7. Developer Tools Logic for Map Packs
+  // --- 8. Event Listeners for Live Nickname & DevData Sync ---
+  window.addEventListener('forumNicknameChanged', () => {
+    renderPacksList();
+    if (selectedPackId) {
+      const pack = allPacks.find(p => String(p.id) === String(selectedPackId));
+      if (pack) selectPack(pack);
+    }
+  });
+
+  window.addEventListener('devDataUpdated', async () => {
+    await fetchLevelsData();
+    renderPacksList();
+    if (selectedPackId) {
+      const pack = allPacks.find(p => String(p.id) === String(selectedPackId));
+      if (pack) selectPack(pack);
+    }
+  });
+
+  window.addEventListener('storage', async (e) => {
+    if (e.key === 'forumNickname') {
+      renderPacksList();
+      if (selectedPackId) {
+        const pack = allPacks.find(p => String(p.id) === String(selectedPackId));
+        if (pack) selectPack(pack);
+      }
+    } else if (e.key && e.key.startsWith('dev_custom_')) {
+      await fetchLevelsData();
+      await fetchMapPacks();
+    }
+  });
+
+  // --- 9. Developer Tools Logic for Map Packs ---
   const devMainControls = document.getElementById('dev-main-controls');
   const devPackAddArea = document.getElementById('dev-pack-add-area');
   const devPackEditArea = document.getElementById('dev-pack-edit-area');
@@ -341,7 +667,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const devPackEditOpenBtn = document.getElementById('dev-pack-edit-open-btn');
   const devPackClearOpenBtn = document.getElementById('dev-pack-clear-open-btn');
   const devSettingsOpenBtn = document.getElementById('dev-settings-open-btn');
-  const devLogClearBtn = document.getElementById('dev-log-clear-btn');
 
   const devPackAddBackBtn = document.getElementById('dev-pack-add-back-btn');
   const devPackEditBackBtn = document.getElementById('dev-pack-edit-back-btn');
@@ -535,6 +860,9 @@ document.addEventListener('DOMContentLoaded', () => {
       alert(`'${title}' 맵 팩 정보가 수정되었습니다.`);
       hideAllDevSubPanels();
       renderPacksList();
+      if (selectedPackId === targetPack.id) {
+        selectPack(targetPack);
+      }
     });
   }
 
@@ -559,7 +887,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 3) 맵 팩 클리어 기록 갱신
+  // 3) 맵 팩 클리어 기록 수동 갱신
   const devPackClearSubmitBtn = document.getElementById('dev-pack-clear-submit-btn');
   if (devPackClearSubmitBtn) {
     devPackClearSubmitBtn.addEventListener('click', () => {
@@ -697,7 +1025,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const devResetDataBtn = document.getElementById('dev-reset-data-btn');
-
   if (devResetDataBtn) {
     devResetDataBtn.addEventListener('click', async () => {
       if (confirm('로컬에 저장된 맵 팩 변경사항을 모두 초기화하고 원본 mappack.json으로 되돌리시겠습니까?')) {
@@ -709,6 +1036,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 8. Initial Load
+  // --- 10. Initial Load ---
   fetchMapPacks();
 });
