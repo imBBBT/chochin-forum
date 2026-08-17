@@ -117,6 +117,39 @@
       "clears": []
     },
     {
+      "id": 1786959100975,
+      "title": "Solution",
+      "creator": "Choco",
+      "verifier": "Choco",
+      "rating": "",
+      "video": "https://www.youtube.com/embed/9Ao6blxAGl4",
+      "mapId": "147170432",
+      "length": "3s",
+      "objects": "1,780",
+      "uploadDate": "2026-08-17",
+      "map": {
+        "mapId": "147170432",
+        "length": "3s",
+        "objects": "1,780",
+        "uploadDate": "2026-08-17"
+      },
+      "song": {
+        "name": "NH22 - Isolation",
+        "artist": "NightHawk22",
+        "id": "76743"
+      },
+      "description": "60FPS SCL 겜플입니다.\n2키 연타에 자신있는 사람들은 도전해라 ㅇㅇ",
+      "tags": [
+        "Standard",
+        "Effect",
+        "Fast Paced",
+        "High CPS",
+        "Wave"
+      ],
+      "targetRank": 4,
+      "clears": []
+    },
+    {
       "id": 4,
       "title": "B1TCH",
       "creator": "Choco",
@@ -269,8 +302,11 @@
       "clears": [
         {
           "player": "Choco",
+          "name": "Choco",
           "percent": 100,
-          "date": "2026-01-03"
+          "date": "2026-01-03",
+          "link": "",
+          "video": ""
         }
       ]
     },
@@ -598,6 +634,13 @@
     }
   ],
   "history": [
+    {
+      "id": 1786959100976,
+      "type": "add",
+      "title": "Solution",
+      "detail": "\"Solution\" 새로운 레벨이 4위에 등록되었습니다.",
+      "time": "2026. 8. 17."
+    },
     {
       "time": "2026-08-14 14:05",
       "type": "add",
