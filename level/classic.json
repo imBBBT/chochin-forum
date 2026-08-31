@@ -2505,9 +2505,63 @@
       "length": "20s",
       "objects": "1040",
       "targetRank": 44
+    },
+    {
+      "id": 1788161674644,
+      "title": "the hardest wave map",
+      "creator": "Timo",
+      "verifier": "Timo",
+      "rating": "",
+      "video": "https://www.youtube.com/embed/WYHEKAaKAy8",
+      "mapId": "148006759",
+      "length": "21s",
+      "objects": "4,121",
+      "uploadDate": "2026-08-30",
+      "map": {
+        "mapId": "148006759",
+        "length": "21s",
+        "objects": "4,121",
+        "uploadDate": "2026-08-30"
+      },
+      "song": {
+        "name": "BEST DROP OF ALL TIME",
+        "artist": "Demonicity",
+        "id": "1137996"
+      },
+      "description": "개쳐 어려운 무자비한 급격한 악마 바로바로 the hardest wave map 급의 레벨을, 당신은 클리어할 수 있겠습니까??\n이 맵이 최하위로 보이신다구요? 착각입니다.",
+      "tags": [
+        "Standard",
+        "Effect",
+        "Simplism",
+        "Happy",
+        "Lyrics",
+        "Flashy",
+        "Humorous",
+        "Slow Paced",
+        "High CPS",
+        "Wave"
+      ],
+      "targetRank": 46,
+      "clears": [
+        {
+          "player": "Choco",
+          "name": "Choco",
+          "percent": 100,
+          "date": "2026-08-31",
+          "link": "https://youtu.be/nTRDMp-0F2I",
+          "video": "https://youtu.be/nTRDMp-0F2I"
+        }
+      ]
     }
   ],
   "history": [
+    {
+      "id": 1788161674646,
+      "type": "add",
+      "title": "the hardest wave map",
+      "detail": "\"the hardest wave map\" 새로운 레벨이 46위에 등록되었습니다.",
+      "time": "2026. 8. 31."
+    },
     {
       "id": 1786794696417,
       "type": "add",
