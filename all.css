@@ -1053,13 +1053,15 @@ body.menu-open::after {
 
 /* =========================================================
    Low-Spec Mode (저사양 최적화 모드)
-   - Completely eliminate all animations and transitions (0s / none)
-   - Completely remove all box-shadows, text-shadows, glows, filters, and backdrop-filter
+   - Completely eliminate all animations, transitions, and transforms
+   - Remove all box-shadows, text-shadows, glows, filters, and backdrop-filters
+   - Replace expensive gradient/blurred backgrounds with clean solid colors
+   - Release GPU layer memory (will-change: auto)
    ========================================================= */
-.low-spec-mode,
-.low-spec-mode *,
-.low-spec-mode *::before,
-.low-spec-mode *::after {
+html.low-spec-mode,
+html.low-spec-mode *,
+html.low-spec-mode *::before,
+html.low-spec-mode *::after {
   animation: none !important;
   animation-duration: 0s !important;
   animation-delay: 0s !important;
@@ -1073,62 +1075,101 @@ body.menu-open::after {
   text-shadow: none !important;
   box-shadow: none !important;
   filter: none !important;
+  will-change: auto !important;
 }
 
-.low-spec-mode header,
-.low-spec-mode header.header {
+html.low-spec-mode body {
   background-color: #121216 !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background-image: none !important;
 }
 
-.low-spec-mode .optionmenu {
+html.low-spec-mode .bg {
+  background: #121216 !important;
+  background-image: none !important;
+}
+
+html.low-spec-mode header,
+html.low-spec-mode header.header {
+  background-color: #121216 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  outline-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+html.low-spec-mode .optionmenu {
   background-color: #181820 !important;
-  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  box-shadow: none !important;
 }
 
-.low-spec-mode .nickname-modal-overlay,
-.low-spec-mode .bg-modal-overlay,
-.low-spec-mode .dev-modal-overlay {
+html.low-spec-mode .nickname-modal-overlay,
+html.low-spec-mode .bg-modal-overlay,
+html.low-spec-mode .dev-modal-overlay {
   background-color: rgba(0, 0, 0, 0.88) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
-.low-spec-mode .nickname-input-box,
-.low-spec-mode .dev-panel,
-.low-spec-mode .roulette-win-box {
+html.low-spec-mode .nickname-input-box,
+html.low-spec-mode .dev-panel,
+html.low-spec-mode .roulette-win-box {
   background-color: #181822 !important;
-  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  box-shadow: none !important;
 }
 
-.low-spec-mode .box,
-.low-spec-mode .classic-panel-left,
-.low-spec-mode .classic-panel-right,
-.low-spec-mode .classic-detail-box,
-.low-spec-mode .maps-panel-left,
-.low-spec-mode .maps-panel-right,
-.low-spec-mode .maps-detail-box,
-.low-spec-mode .ranking-container,
-.low-spec-mode .tool-box,
-.low-spec-mode .tool-card {
+html.low-spec-mode .box,
+html.low-spec-mode .classic-panel-left,
+html.low-spec-mode .classic-panel-right,
+html.low-spec-mode .classic-detail-box,
+html.low-spec-mode .maps-panel-left,
+html.low-spec-mode .maps-panel-right,
+html.low-spec-mode .maps-detail-box,
+html.low-spec-mode .ranking-container,
+html.low-spec-mode .tool-box,
+html.low-spec-mode .tool-card {
   background-color: #14141c !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
-.low-spec-mode .classic-level-card,
-.low-spec-mode .map-pack-card,
-.low-spec-mode .ranking-row-card {
-  background-color: #1e1e28 !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-}
-
-.low-spec-mode .classic-level-card:hover,
-.low-spec-mode .map-pack-card:hover,
-.low-spec-mode .ranking-row-card:hover {
-  background-color: #2a2a38 !important;
+html.low-spec-mode .classic-level-card,
+html.low-spec-mode .map-pack-card,
+html.low-spec-mode .ranking-row-card {
+  background-color: #1a1a24 !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: none !important;
   transform: none !important;
 }
 
-.low-spec-mode .shadow {
+html.low-spec-mode .classic-level-card:hover,
+html.low-spec-mode .map-pack-card:hover,
+html.low-spec-mode .ranking-row-card:hover {
+  background-color: #242432 !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+html.low-spec-mode .shadow {
   display: none !important;
+}
+
+/* Minimal flat scrollbars for low-spec mode to prevent scroll repaint lag */
+html.low-spec-mode ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25) !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 3px !important;
+}
+
+html.low-spec-mode ::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3) !important;
+  box-shadow: none !important;
 }
 
 /* --- Overlay Backdrop Global (Disabled on Desktop so dual-panel list clicks work) --- */

@@ -287,3 +287,51 @@
     transform: translate(-50%, 0) !important;
   }
 }
+
+/* =========================================================
+   Low-Spec Mode Overrides for Level Hub
+   ========================================================= */
+html.low-spec-mode .box.level-banner-box {
+  background-color: #14141c !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html.low-spec-mode .level-banner-title {
+  text-shadow: none !important;
+}
+
+html.low-spec-mode .mode-card {
+  background-color: #1a1a24 !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transition: none !important;
+  transform: none !important;
+}
+
+html.low-spec-mode .mode-card:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+html.low-spec-mode .mode-card::before,
+html.low-spec-mode .mode-card:hover::before {
+  filter: none !important;
+  transform: none !important;
+  transition: none !important;
+  opacity: 0.3 !important;
+}
+
+html.low-spec-mode .mode-title {
+  text-shadow: none !important;
+}
+
+html.low-spec-mode .mode-action-btn,
+html.low-spec-mode .mode-card:hover .mode-action-btn {
+  box-shadow: none !important;
+  transition: none !important;
+}

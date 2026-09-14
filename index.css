@@ -439,3 +439,50 @@
     font-size: 0.8em !important;
   }
 }
+
+/* =========================================================
+   Low-Spec Mode Overrides for Index
+   ========================================================= */
+html.low-spec-mode .box.index-panel-hero,
+html.low-spec-mode .box.index-panel-discord,
+html.low-spec-mode .box.index-news-header,
+html.low-spec-mode .box.index-news-body {
+  background-color: #14141c !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html.low-spec-mode .hero-main-title,
+html.low-spec-mode .hero-subtitle,
+html.low-spec-mode .discord-main-title {
+  text-shadow: none !important;
+}
+
+html.low-spec-mode .discord-title-icon {
+  filter: none !important;
+}
+
+html.low-spec-mode .hero-version-badge {
+  box-shadow: none !important;
+}
+
+html.low-spec-mode .discord_button,
+html.low-spec-mode .discord_button:hover {
+  box-shadow: none !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+html.low-spec-mode .news-item {
+  background-color: #1a1a24 !important;
+  box-shadow: none !important;
+  transition: none !important;
+}
+
+html.low-spec-mode .box.index-news-body::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25) !important;
+  box-shadow: none !important;
+  border: none !important;
+}

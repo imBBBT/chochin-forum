@@ -1907,3 +1907,152 @@ html, body {
     visibility: visible !important;
   }
 }
+
+/* =========================================================
+   Low-Spec Mode Overrides for Classic/Level Lists
+   ========================================================= */
+html.low-spec-mode .classic-top-banner {
+  background-color: #14141c !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html.low-spec-mode .classic-banner-title {
+  text-shadow: none !important;
+}
+
+html.low-spec-mode .classic-list-box,
+html.low-spec-mode .classic-detail-box {
+  background-color: #14141c !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transition: none !important;
+  will-change: auto !important;
+}
+
+html.low-spec-mode .classic-list-header {
+  background-color: #181822 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Off-screen card layout/paint virtualization */
+html.low-spec-mode .classic-level-card {
+  content-visibility: auto !important;
+  contain-intrinsic-size: auto 130px !important;
+  background-color: #1a1a24 !important;
+  background-image: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: none !important;
+  transition: none !important;
+  transform: none !important;
+  will-change: auto !important;
+}
+
+html.low-spec-mode .classic-level-card:hover {
+  background-color: #242432 !important;
+  background-image: none !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+html.low-spec-mode .classic-level-card.selected {
+  background-color: #28283a !important;
+  background-image: none !important;
+  border-color: rgba(255, 255, 255, 0.45) !important;
+  box-shadow: none !important;
+}
+
+/* Rating Card Overrides in Low-Spec Mode */
+html.low-spec-mode .classic-level-card.card-featured,
+html.low-spec-mode .classic-level-card.card-featured:hover {
+  border: 1.5px solid #ffe600 !important;
+  box-shadow: none !important;
+}
+
+html.low-spec-mode .classic-level-card.card-legendary,
+html.low-spec-mode .classic-level-card.card-legendary:hover {
+  border: 1.5px solid #ff00ff !important;
+  box-shadow: none !important;
+}
+
+html.low-spec-mode .classic-level-card.card-mythic,
+html.low-spec-mode .classic-level-card.card-mythic:hover {
+  border: 1.5px solid #00ffff !important;
+  box-shadow: none !important;
+}
+
+/* Cleared Card Overrides in Low-Spec Mode */
+html.low-spec-mode .classic-level-card.card-cleared {
+  background: #14281c !important;
+  border-color: rgba(46, 213, 115, 0.5) !important;
+  box-shadow: none !important;
+}
+
+html.low-spec-mode .classic-level-card.card-cleared:hover {
+  background: #1c3826 !important;
+  border-color: rgba(46, 213, 115, 0.75) !important;
+  box-shadow: none !important;
+}
+
+html.low-spec-mode .classic-level-card.card-featured.card-cleared,
+html.low-spec-mode .classic-level-card.card-featured.card-cleared:hover {
+  border: 1.5px solid #ffe600 !important;
+  box-shadow: none !important;
+}
+
+html.low-spec-mode .classic-level-card.card-legendary.card-cleared,
+html.low-spec-mode .classic-level-card.card-legendary.card-cleared:hover {
+  border: 1.5px solid #ff00ff !important;
+  box-shadow: none !important;
+}
+
+html.low-spec-mode .classic-level-card.card-mythic.card-cleared,
+html.low-spec-mode .classic-level-card.card-mythic.card-cleared:hover {
+  border: 1.5px solid #00ffff !important;
+  box-shadow: none !important;
+}
+
+/* Badge Overrides */
+html.low-spec-mode .classic-level-badge,
+html.low-spec-mode .classic-level-badge.badge-featured,
+html.low-spec-mode .classic-level-badge.badge-legendary,
+html.low-spec-mode .classic-level-badge.badge-mythic {
+  box-shadow: none !important;
+  text-shadow: none !important;
+  transition: none !important;
+}
+
+/* Tags Overrides */
+html.low-spec-mode .classic-tag-chip,
+html.low-spec-mode .detail-tag-pill {
+  box-shadow: none !important;
+  text-shadow: none !important;
+  transition: none !important;
+}
+
+html.low-spec-mode .classic-tag-chips-wrapper::-webkit-scrollbar-thumb,
+html.low-spec-mode .classic-level-list::-webkit-scrollbar-thumb,
+html.low-spec-mode .classic-detail-box::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25) !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Detail Panel Items Virtualization & Simplification */
+html.low-spec-mode .detail-clears-tr,
+html.low-spec-mode .detail-history-item {
+  content-visibility: auto !important;
+  contain-intrinsic-size: auto 45px !important;
+  box-shadow: none !important;
+  transition: none !important;
+}
+
+html.low-spec-mode .detail-history-peak-badge {
+  box-shadow: none !important;
+  text-shadow: none !important;
+}

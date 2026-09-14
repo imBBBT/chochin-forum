@@ -1039,6 +1039,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const winner = flattenedPool[winPoolIdx];
     lastSpinWinner = winner;
 
+    const isLowSpec = document.documentElement.classList.contains('low-spec-mode');
+
     if (currentRouletteType === 'wheel') {
       // --- Circular Wheel Spin Engine ---
       const poolLen = flattenedPool.length;
@@ -1047,14 +1049,14 @@ document.addEventListener('DOMContentLoaded', async () => {
       const jitter = (Math.random() - 0.5) * sliceAngle * 0.5;
 
       let targetRotation = (1.5 * Math.PI) - (winSliceCenter + jitter);
-      const minSpins = 6;
+      const minSpins = isLowSpec ? 3 : 6;
       while (targetRotation < wheelCurrentRotation + Math.PI * 2 * minSpins) {
         targetRotation += Math.PI * 2;
       }
 
       const startRotation = wheelCurrentRotation;
       const totalDistance = targetRotation - startRotation;
-      const duration = 4500;
+      const duration = isLowSpec ? 1200 : 4500;
       const startTime = performance.now();
 
       function easeOutCubic(t) {
@@ -1076,7 +1078,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             showWinModal(winner);
             isSpinningRoulette = false;
             spinBtn.disabled = false;
-          }, 400);
+          }, isLowSpec ? 150 : 400);
         }
       }
 
@@ -1085,12 +1087,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     } else {
       // --- Horizontal Slot Reel Spin Engine ---
       const poolLen = flattenedPool.length;
-      const minPassItems = 50;
-      const repeatCount = Math.max(6, Math.ceil(minPassItems / poolLen));
+      const minPassItems = isLowSpec ? 15 : 50;
+      const repeatCount = Math.max(isLowSpec ? 2 : 6, Math.ceil(minPassItems / poolLen));
       const targetIndex = (repeatCount * poolLen) + winPoolIdx;
 
       let displaySequence = [];
-      const totalSequenceLength = targetIndex + poolLen * 3;
+      const totalSequenceLength = targetIndex + (isLowSpec ? poolLen : poolLen * 3);
       while (displaySequence.length < totalSequenceLength) {
         displaySequence = displaySequence.concat(flattenedPool);
       }
@@ -1126,7 +1128,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const targetX = targetCardCenter - (viewportWidth / 2);
 
       const startTime = performance.now();
-      const duration = 4500;
+      const duration = isLowSpec ? 1200 : 4500;
 
       function easeOutCubic(t) {
         return 1 - Math.pow(1 - t, 3);
@@ -1146,15 +1148,17 @@ document.addEventListener('DOMContentLoaded', async () => {
           const winnerCard = reelTrack.children[targetIndex];
           if (winnerCard) {
             winnerCard.style.borderColor = '#ffe600';
-            winnerCard.style.transform = 'scale(1.08)';
-            winnerCard.style.boxShadow = '0 0 30px rgba(255, 230, 0, 0.85)';
+            if (!isLowSpec) {
+              winnerCard.style.transform = 'scale(1.08)';
+              winnerCard.style.boxShadow = '0 0 30px rgba(255, 230, 0, 0.85)';
+            }
           }
 
           setTimeout(() => {
             showWinModal(winner);
             isSpinningRoulette = false;
             spinBtn.disabled = false;
-          }, 400);
+          }, isLowSpec ? 150 : 400);
         }
       }
 

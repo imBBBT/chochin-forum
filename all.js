@@ -93,8 +93,12 @@ window.toggleLowSpecMode = function () {
   window.dispatchEvent(new CustomEvent('forumLowSpecModeChanged', { detail: { enabled: newState } }));
 };
 
+window.isLowSpecMode = function () {
+  return document.documentElement.classList.contains('low-spec-mode');
+};
+
 window.updateLowSpecButtonText = function () {
-  const isLow = document.documentElement.classList.contains('low-spec-mode');
+  const isLow = window.isLowSpecMode();
   const btn = document.querySelector('.option-item-low-spec');
   if (btn) {
     btn.textContent = isLow ? '저사양 모드: ON' : '저사양 모드: OFF';

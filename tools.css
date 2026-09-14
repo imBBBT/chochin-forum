@@ -1495,3 +1495,81 @@ input:checked + .slider:before {
     flex-direction: column !important;
   }
 }
+
+/* =========================================================
+   Low-Spec Mode Overrides for Tools
+   ========================================================= */
+html.low-spec-mode .box.tool-box {
+  background-color: #14141c !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html.low-spec-mode .tool-banner-title,
+html.low-spec-mode .tool-banner-desc {
+  text-shadow: none !important;
+}
+
+html.low-spec-mode .tool-card {
+  background-color: #1a1a24 !important;
+  background-image: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html.low-spec-mode .roulette-item {
+  content-visibility: auto !important;
+  contain-intrinsic-size: auto 55px !important;
+  background-color: #1a1a24 !important;
+  background-image: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: none !important;
+  transition: none !important;
+  transform: none !important;
+}
+
+html.low-spec-mode .roulette-item:hover {
+  background-color: #242432 !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+html.low-spec-mode .reel-viewport {
+  border: 2px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: none !important;
+  background: #121216 !important;
+}
+
+html.low-spec-mode .reel-item {
+  background-color: #1a1a24 !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: none !important;
+}
+
+html.low-spec-mode .picker-result-box {
+  background-color: #1a1a24 !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html.low-spec-mode .roulette-win-box {
+  background-color: #181822 !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html.low-spec-mode .roulette-pool-list::-webkit-scrollbar-thumb,
+html.low-spec-mode .roulette-available-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25) !important;
+  box-shadow: none !important;
+  border: none !important;
+}

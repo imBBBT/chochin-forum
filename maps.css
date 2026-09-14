@@ -825,3 +825,101 @@ html, body {
     transform: translate(-50%, 0) !important;
   }
 }
+
+/* =========================================================
+   Low-Spec Mode Overrides for Maps
+   ========================================================= */
+html.low-spec-mode .maps-list-box,
+html.low-spec-mode .maps-detail-box {
+  background-color: #14141c !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transition: none !important;
+  will-change: auto !important;
+}
+
+html.low-spec-mode .maps-list-header {
+  background-color: #181822 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+html.low-spec-mode .maps-tier-tab.active {
+  box-shadow: none !important;
+}
+
+/* Map Pack Card Virtualization */
+html.low-spec-mode .map-pack-card {
+  content-visibility: auto !important;
+  contain-intrinsic-size: auto 140px !important;
+  background-color: #1a1a24 !important;
+  background-image: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: none !important;
+  transition: none !important;
+  transform: none !important;
+  will-change: auto !important;
+}
+
+html.low-spec-mode .map-pack-card:hover {
+  background-color: #242432 !important;
+  background-image: none !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+html.low-spec-mode .map-pack-card.active-card {
+  background-color: #28283a !important;
+  background-image: none !important;
+  border-color: rgba(168, 85, 247, 0.6) !important;
+  box-shadow: none !important;
+}
+
+html.low-spec-mode .map-pack-card.card-cleared {
+  background: #14281c !important;
+  border-color: rgba(46, 213, 115, 0.5) !important;
+  box-shadow: none !important;
+}
+
+html.low-spec-mode .map-pack-card.card-cleared:hover {
+  background: #1c3826 !important;
+  border-color: rgba(46, 213, 115, 0.75) !important;
+  box-shadow: none !important;
+}
+
+html.low-spec-mode .map-pack-user-clear-badge {
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+html.low-spec-mode .tier-badge-1,
+html.low-spec-mode .tier-badge-2,
+html.low-spec-mode .tier-badge-3,
+html.low-spec-mode .tier-badge-4,
+html.low-spec-mode .tier-badge-5,
+html.low-spec-mode .tier-badge-6 {
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+html.low-spec-mode .maps-detail-level-card {
+  content-visibility: auto !important;
+  contain-intrinsic-size: auto 60px !important;
+  box-shadow: none !important;
+  transition: none !important;
+}
+
+html.low-spec-mode .map-clear-row {
+  content-visibility: auto !important;
+  contain-intrinsic-size: auto 45px !important;
+  box-shadow: none !important;
+}
+
+html.low-spec-mode .maps-level-list::-webkit-scrollbar-thumb,
+html.low-spec-mode .maps-detail-box::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25) !important;
+  box-shadow: none !important;
+  border: none !important;
+}

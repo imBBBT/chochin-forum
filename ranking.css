@@ -436,3 +436,79 @@ html, body {
     font-size: 0.9rem !important;
   }
 }
+
+/* =========================================================
+   Low-Spec Mode Overrides for Rankings
+   ========================================================= */
+html.low-spec-mode .box.ranking-container-box {
+  background-color: #14141c !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html.low-spec-mode .ranking-header-section {
+  background-color: #181822 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+html.low-spec-mode .ranking-tab.active {
+  box-shadow: none !important;
+}
+
+html.low-spec-mode .ranking-row-card {
+  content-visibility: auto !important;
+  contain-intrinsic-size: auto 60px !important;
+  background-color: #1a1a24 !important;
+  background-image: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: none !important;
+  transition: none !important;
+  transform: none !important;
+}
+
+html.low-spec-mode .ranking-row-card:hover {
+  background-color: #242432 !important;
+  background-image: none !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+html.low-spec-mode .ranking-row-card.rank-1 {
+  background: #242218 !important;
+  border: 1.5px solid #ffe600 !important;
+  box-shadow: none !important;
+}
+
+html.low-spec-mode .ranking-row-card.rank-2 {
+  background: #1e2228 !important;
+  border: 1.5px solid #c8d8e8 !important;
+  box-shadow: none !important;
+}
+
+html.low-spec-mode .ranking-row-card.rank-3 {
+  background: #241e18 !important;
+  border: 1.5px solid #cd7f32 !important;
+  box-shadow: none !important;
+}
+
+html.low-spec-mode .ranking-row-card.is-current-user {
+  border-color: #2ed573 !important;
+  box-shadow: none !important;
+}
+
+html.low-spec-mode .ranking-global-tooltip {
+  background: #181822 !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html.low-spec-mode .ranking-list-body::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25) !important;
+  box-shadow: none !important;
+  border: none !important;
+}
