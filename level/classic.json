@@ -1226,6 +1226,51 @@
       ]
     },
     {
+      "id": 1789820758948,
+      "title": "20 min challenge",
+      "creator": "Light",
+      "verifier": "Light",
+      "rating": "",
+      "video": "https://www.youtube.com/embed/vNppYZWi51o",
+      "mapId": "149111320",
+      "length": "20s",
+      "objects": "865",
+      "uploadDate": "2026-09-19",
+      "map": {
+        "mapId": "149111320",
+        "length": "20s",
+        "objects": "865",
+        "uploadDate": "2026-09-19"
+      },
+      "song": {
+        "name": "Archangel",
+        "artist": "Rameses B",
+        "id": "10012980"
+      },
+      "description": "단 20분만에 제작하고, 단 20분만에 베리파이된 맵입니다.\nEndless Dreaming 이후로 오랜만에 찾아온 Light의 자작맵입니다.",
+      "tags": [
+        "Standard",
+        "1.0",
+        "Humorous",
+        "Flow",
+        "Timing",
+        "High CPS",
+        "Nerve Control",
+        "Wave"
+      ],
+      "targetRank": 23,
+      "clears": [
+        {
+          "player": "Choco",
+          "name": "Choco",
+          "percent": 100,
+          "date": "2026-09-19",
+          "link": "https://youtu.be/tbYBPmGL9es",
+          "video": "https://youtu.be/tbYBPmGL9es"
+        }
+      ]
+    },
+    {
       "id": 22,
       "title": "PPPP",
       "creator": "Choco",
@@ -2555,6 +2600,13 @@
     }
   ],
   "history": [
+    {
+      "id": 1789820758949,
+      "type": "add",
+      "title": "20 min challenge",
+      "detail": "\"20 min challenge\" 새로운 레벨이 23위에 등록되었습니다.",
+      "time": "2026. 9. 19."
+    },
     {
       "id": 1788161674646,
       "type": "add",
