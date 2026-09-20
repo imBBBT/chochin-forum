@@ -1766,12 +1766,13 @@
       "title": "Trolled",
       "creator": "Light",
       "verifier": "Light",
-      "video": "https://www.youtube.com/embed/-",
+      "video": "https://www.youtube.com/embed/wsqQP4xDPTM",
       "rating": "",
       "map": {
         "mapId": "85646626",
         "length": "36s",
-        "objects": "553"
+        "objects": "553",
+        "uploadDate": "2022-11-13"
       },
       "song": {
         "name": "Youve been Trolled",
@@ -1830,7 +1831,8 @@
       "mapId": "85646626",
       "length": "36s",
       "objects": "553",
-      "targetRank": 31
+      "targetRank": 33,
+      "uploadDate": "2022-11-13"
     },
     {
       "id": 32,
@@ -1891,19 +1893,20 @@
       "title": "LT EP7",
       "creator": "Light",
       "verifier": "Light",
-      "video": "https://www.youtube.com/embed/-",
+      "video": "https://www.youtube.com/embed/XCRGXpjFMi0",
       "rating": "",
       "map": {
         "mapId": "85837732",
         "length": "1m 37s",
-        "objects": "2815"
+        "objects": "2815",
+        "uploadDate": "2022-11-19"
       },
       "song": {
         "name": "-Final Battle-",
         "artist": "Waterflame",
         "id": "598349"
       },
-      "description": "JPA EP5의 파생작입니다.",
+      "description": "JPA EP5의 파생작이자 LT 시리즈의 7번째 레벨입니다.",
       "enjoyment": "",
       "framePerfect": {
         "fps": {
@@ -1944,7 +1947,8 @@
       "mapId": "85837732",
       "length": "1m 37s",
       "objects": "2815",
-      "targetRank": 33
+      "targetRank": 35,
+      "uploadDate": "2022-11-19"
     },
     {
       "id": 34,
@@ -2098,12 +2102,13 @@
       "title": "LT EP6",
       "creator": "Light",
       "verifier": "Light",
-      "video": "https://www.youtube.com/embed/-",
+      "video": "https://www.youtube.com/embed/MahN5b-vndQ",
       "rating": "",
       "map": {
         "mapId": "85605798",
         "length": "43s",
-        "objects": "1628"
+        "objects": "1628",
+        "uploadDate": "2022-11-12"
       },
       "song": {
         "name": "Ocean of Stars",
@@ -2155,19 +2160,21 @@
       "mapId": "85605798",
       "length": "43s",
       "objects": "1628",
-      "targetRank": 37
+      "targetRank": 39,
+      "uploadDate": "2022-11-12"
     },
     {
       "id": 38,
       "title": "LT EP4",
       "creator": "Light",
       "verifier": "Light",
-      "video": "https://www.youtube.com/embed/-",
+      "video": "https://www.youtube.com/embed/w5ORMQQpQ3A",
       "rating": "",
       "map": {
         "mapId": "85191093",
         "length": "45s",
-        "objects": "1785"
+        "objects": "1785",
+        "uploadDate": "2022-10-31"
       },
       "song": {
         "name": "Xenogenesis",
@@ -2208,19 +2215,21 @@
       "mapId": "85191093",
       "length": "45s",
       "objects": "1785",
-      "targetRank": 38
+      "targetRank": 40,
+      "uploadDate": "2022-10-31"
     },
     {
       "id": 39,
       "title": "LT EP5",
       "creator": "Light",
       "verifier": "Light",
-      "video": "https://www.youtube.com/embed/-",
+      "video": "https://www.youtube.com/embed/fTvi1lCxZzo",
       "rating": "",
       "map": {
         "mapId": "85596289",
         "length": "53s",
-        "objects": "1492"
+        "objects": "1492",
+        "uploadDate": "2022-11-12"
       },
       "song": {
         "name": "Okiba Crackdown",
@@ -2261,7 +2270,8 @@
       "mapId": "85596289",
       "length": "53s",
       "objects": "1492",
-      "targetRank": 39
+      "targetRank": 41,
+      "uploadDate": "2022-11-12"
     },
     {
       "id": 40,
@@ -2389,12 +2399,13 @@
       "title": "LT EP3",
       "creator": "Light",
       "verifier": "Light",
-      "video": "https://www.youtube.com/embed/-",
+      "video": "https://www.youtube.com/embed/usRMxJ9BXIY",
       "rating": "",
       "map": {
         "mapId": "84810667",
         "length": "39s",
-        "objects": "742"
+        "objects": "742",
+        "uploadDate": "2022-10-20"
       },
       "song": {
         "name": "Arcana",
@@ -2437,19 +2448,21 @@
       "mapId": "84810667",
       "length": "39s",
       "objects": "742",
-      "targetRank": 42
+      "targetRank": 44,
+      "uploadDate": "2022-10-20"
     },
     {
       "id": 43,
       "title": "LT EP2",
       "creator": "Light",
       "verifier": "Light",
-      "video": "https://www.youtube.com/embed/-",
+      "video": "https://www.youtube.com/embed/N_JRdYrawIc",
       "rating": "",
       "map": {
         "mapId": "84729138",
         "length": "1m 2s",
-        "objects": "2387"
+        "objects": "2387",
+        "uploadDate": "2022-10-17"
       },
       "song": {
         "name": "At the Speed of Light",
@@ -2494,7 +2507,8 @@
       "mapId": "84729138",
       "length": "1m 2s",
       "objects": "2387",
-      "targetRank": 43
+      "targetRank": 45,
+      "uploadDate": "2022-10-17"
     },
     {
       "id": 44,
