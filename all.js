@@ -1109,11 +1109,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 옵션 메뉴에 '테마 색상 설정' 버튼 추가
+  // 옵션 메뉴에 '시그니처 색상 설정' 버튼 추가
   if (optionMenu && !optionMenu.querySelector('.option-item-theme')) {
     const themeOptionItem = document.createElement('button');
     themeOptionItem.className = 'option-item option-item-theme';
-    themeOptionItem.textContent = '테마 색상 설정';
+    themeOptionItem.textContent = '시그니처 색상 설정';
     if (bgSettingItem && bgSettingItem.nextSibling) {
       optionMenu.insertBefore(themeOptionItem, bgSettingItem.nextSibling);
     } else {
