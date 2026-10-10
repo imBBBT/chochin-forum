@@ -396,9 +396,9 @@ html, body {
     left: 50% !important;
     right: auto !important;
     transform: translateX(-50%) !important;
-    top: 124px !important;
-    bottom: calc(108px + env(safe-area-inset-bottom, 0px)) !important;
-    height: calc(100vh - 124px - 108px - env(safe-area-inset-bottom, 0px)) !important;
+    top: 82px !important;
+    bottom: calc(80px + env(safe-area-inset-bottom, 0px)) !important;
+    height: calc(100vh - 82px - 80px - env(safe-area-inset-bottom, 0px)) !important;
     max-height: none !important;
     border-radius: 1.25rem !important;
     padding: 1.2rem 1.1rem !important;
@@ -500,9 +500,16 @@ html, body {
     display: none !important;
   }
 
+  .ranking-table-header > *,
+  .ranking-row-card > * {
+    min-width: 0 !important;
+  }
+
   .player-rank {
     font-size: 1.25rem !important;
     font-weight: 700 !important;
+    white-space: nowrap !important;
+    text-align: center !important;
   }
 
   .player-name {
@@ -510,11 +517,14 @@ html, body {
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
+    min-width: 0 !important;
   }
 
   .player-pt {
     font-size: 1.18rem !important;
     font-weight: 700 !important;
+    white-space: nowrap !important;
+    text-align: right !important;
   }
 
   .player-clears {

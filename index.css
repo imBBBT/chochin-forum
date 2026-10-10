@@ -337,8 +337,8 @@
   }
 
   body {
-    padding-top: 124px !important;
-    padding-bottom: calc(116px + env(safe-area-inset-bottom, 0px)) !important;
+    padding-top: 82px !important;
+    padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)) !important;
     box-sizing: border-box !important;
   }
 
@@ -505,6 +505,8 @@
     margin-bottom: 0.8rem !important;
     border-radius: 0.9rem !important;
     line-height: 1.55 !important;
+    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
   }
 
   .news-item:active {
