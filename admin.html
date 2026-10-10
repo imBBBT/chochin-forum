@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="초친 포럼 - 관리자 제출 검토 및 승인 대시보드" />
+  <title>관리자 검토 대시보드 - 초친 포럼</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="level.css?v=2" />
+  <link rel="stylesheet" href="all.css?v=2" />
+  <link rel="stylesheet" href="submit.css?v=2" />
+  <link rel="stylesheet" href="admin.css?v=2" />
+</head>
+
+<body>
+  <div class="bg"></div>
+  <header class="header">
+    <span class="header-nickname"></span>
+    <div class="header-main-buttons">
+      <a href="index.html">
+        <button class="button">
+          <span class="icon">홈</span>
+        </button>
+      </a>
+      <a href="level.html">
+        <button class="button">
+          <span class="icon">레벨</span>
+        </button>
+      </a>
+      <a href="maps.html">
+        <button class="button">
+          <span class="icon">맵 팩</span>
+        </button>
+      </a>
+      <a href="ranking.html">
+        <button class="button">
+          <span class="icon">랭킹</span>
+        </button>
+      </a>
+      <a href="tools.html">
+        <button class="button">
+          <span class="icon">도구</span>
+        </button>
+      </a>
+      <a href="submit.html">
+        <button class="button">
+          <span class="icon">제출</span>
+        </button>
+      </a>
+    </div>
+    <button class="optionbutton"><span class="icon">▼</span></button>
+    <div class="optionmenu">
+      <button class="option-item option-item-account">계정 선택</button>
+      <button class="option-item option-item-bg">배경 설정</button>
+      <button class="option-item option-item-low-spec">저사양 모드: OFF</button>
+    </div>
+  </header>
+
+  <!-- 관리자 로그인 인증 오버레이 -->
+  <div id="admin-auth-overlay" class="auth-overlay">
+    <div class="auth-card">
+      <h2 class="auth-title">관리자 인증</h2>
+      <p class="auth-desc">초친 포럼 관리자 패널에 접근하기 위한 비밀번호를 입력해주세요.</p>
+      <form id="admin-login-form" class="auth-form">
+        <input type="password" id="admin-password-input" class="auth-input" placeholder="관리자 비밀번호" required autofocus />
+        <button type="submit" class="submit-main-btn auth-submit-btn">인증 및 접속</button>
+        <span id="auth-error-msg" class="auth-error" style="display: none;">비밀번호가 올바르지 않습니다.</span>
+      </form>
+      <a href="submit.html" class="auth-back-link">제출 페이지로 돌아가기</a>
+    </div>
+  </div>
+
+  <main id="admin-main-view" class="admin-main-container" style="display: none;">
+    <!-- Banner Box -->
+    <div class="box admin-banner-box">
+      <div class="admin-banner-content">
+        <h1 class="admin-banner-title">관리자 검토 센터</h1>
+        <p class="admin-banner-desc">유저들이 제출한 신규 레벨 및 클리어 기록을 검토하고 원클릭으로 사이트에 승인 등록합니다.</p>
+      </div>
+      <div class="admin-top-actions">
+        <button id="admin-import-open-btn" class="admin-head-btn">패킷 가져오기</button>
+        <button id="admin-logout-btn" class="admin-head-btn btn-danger-soft">로그아웃</button>
+      </div>
+    </div>
+
+    <!-- 통계 요약 바 -->
+    <div class="admin-stats-row">
+      <div class="stat-card">
+        <span class="stat-label">대기 중인 레벨</span>
+        <span id="stat-pending-levels" class="stat-value val-yellow">0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">대기 중인 클리어</span>
+        <span id="stat-pending-clears" class="stat-value val-cyan">0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">누적 승인 완료</span>
+        <span id="stat-total-approved" class="stat-value val-green">0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">반려된 신청</span>
+        <span id="stat-total-rejected" class="stat-value val-red">0</span>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="admin-tab-bar">
+      <button class="admin-tab-btn active" data-tab="levels">
+        <span>레벨 검토</span>
+        <span id="badge-level-count" class="tab-pill">0</span>
+      </button>
+      <button class="admin-tab-btn" data-tab="clears">
+        <span>클리어 검토</span>
+        <span id="badge-clear-count" class="tab-pill">0</span>
+      </button>
+      <button class="admin-tab-btn" data-tab="processed">
+        <span>처리 완료 내역</span>
+      </button>
+      <button class="admin-tab-btn" data-tab="sync">
+        <span>JSON 내보내기 및 동기화</span>
+      </button>
+      <button class="admin-tab-btn" data-tab="settings">
+        <span>환경 설정</span>
+      </button>
+    </div>
+
+    <!-- Tab 1: 레벨 검토 대기열 -->
+    <section id="admin-tab-levels" class="admin-section active">
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <h2 class="admin-card-title">대기 중인 레벨 등록 신청</h2>
+          <div class="filter-controls">
+            <select id="filter-level-cat" class="form-select filter-select">
+              <option value="all">전체 모드 보기</option>
+              <option value="classic">Classic</option>
+              <option value="challenge">Challenge</option>
+              <option value="platformer">Platformer</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="admin-level-list" class="submissions-grid">
+          <!-- JS에서 대기 레벨 카드 렌더링 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 2: 클리어 검토 대기열 -->
+    <section id="admin-tab-clears" class="admin-section">
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <h2 class="admin-card-title">대기 중인 클리어 기록 신청</h2>
+          <div class="filter-controls">
+            <select id="filter-clear-cat" class="form-select filter-select">
+              <option value="all">전체 모드 보기</option>
+              <option value="classic">Classic</option>
+              <option value="challenge">Challenge</option>
+              <option value="platformer">Platformer</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="admin-clear-list" class="submissions-grid">
+          <!-- JS에서 대기 클리어 카드 렌더링 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 3: 처리 완료 내역 -->
+    <section id="admin-tab-processed" class="admin-section">
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <h2 class="admin-card-title">승인 및 반려 완료 기록</h2>
+          <button id="admin-clear-processed-btn" class="form-action-btn btn-danger-soft">완료 내역 정리</button>
+        </div>
+        <div id="admin-processed-list" class="submissions-grid">
+          <!-- JS에서 처리 완료 카드 렌더링 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 4: JSON 내보내기 & GitHub 동기화 -->
+    <section id="admin-tab-sync" class="admin-section">
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <div class="submit-card-title-group">
+            <h2 class="admin-card-title">데이터 내보내기 및 반영</h2>
+            <p class="submit-card-subtitle">승인 처리된 레벨과 클리어 데이터를 실제 정적 JSON 파일에 적용할 수 있습니다.</p>
+          </div>
+        </div>
+
+        <div class="sync-grid">
+          <!-- Classic JSON Box -->
+          <div class="sync-box">
+            <div class="sync-box-header">
+              <span class="sync-cat-title">Classic Levels (classic.json)</span>
+              <span id="sync-classic-badge" class="sync-status-badge">로드됨</span>
+            </div>
+            <p class="sync-box-desc">정규 메인 레벨 목록 및 순위 변동 이력입니다.</p>
+            <div class="sync-btn-group">
+              <button id="export-download-classic" class="sync-action-btn">classic.json 다운로드</button>
+              <button id="export-copy-classic" class="sync-action-btn">JSON 복사</button>
+            </div>
+          </div>
+
+          <!-- Challenge JSON Box -->
+          <div class="sync-box">
+            <div class="sync-box-header">
+              <span class="sync-cat-title">Challenge Levels (challenge.json)</span>
+              <span id="sync-challenge-badge" class="sync-status-badge">로드됨</span>
+            </div>
+            <p class="sync-box-desc">챌린지 칼타 레벨 목록 및 클리어 기록입니다.</p>
+            <div class="sync-btn-group">
+              <button id="export-download-challenge" class="sync-action-btn">challenge.json 다운로드</button>
+              <button id="export-copy-challenge" class="sync-action-btn">JSON 복사</button>
+            </div>
+          </div>
+
+          <!-- Platformer JSON Box -->
+          <div class="sync-box">
+            <div class="sync-box-header">
+              <span class="sync-cat-title">Platformer Levels (platformer.json)</span>
+              <span id="sync-platformer-badge" class="sync-status-badge">로드됨</span>
+            </div>
+            <p class="sync-box-desc">플랫포머 레벨 목록 및 클리어 기록입니다.</p>
+            <div class="sync-btn-group">
+              <button id="export-download-platformer" class="sync-action-btn">platformer.json 다운로드</button>
+              <button id="export-copy-platformer" class="sync-action-btn">JSON 복사</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- GitHub 원클릭 자동 푸시 (연동된 경우) -->
+        <div class="github-sync-panel">
+          <div class="gh-sync-left">
+            <h3 class="gh-title">GitHub 저장소 자동 커밋 및 푸시</h3>
+            <p class="gh-desc">GitHub Token이 설정되어 있는 경우, 다운로드 없이 저장소에 변경된 JSON 파일을 다이렉트로 푸시할 수 있습니다.</p>
+          </div>
+          <button id="admin-gh-sync-all-btn" class="submit-main-btn gh-push-btn">
+            <span>GitHub에 전체 푸시</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 5: 환경 설정 -->
+    <section id="admin-tab-settings" class="admin-section">
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <h2 class="admin-card-title">관리자 환경 설정</h2>
+        </div>
+
+        <div class="settings-form-container">
+          <!-- 비밀번호 변경 -->
+          <div class="settings-block">
+            <h3 class="settings-title">관리자 비밀번호 변경</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="set-new-pw" class="form-label">새 비밀번호</label>
+                <input type="password" id="set-new-pw" class="form-input" placeholder="새로운 비밀번호 입력" />
+              </div>
+              <div class="form-group">
+                <label for="set-new-pw-confirm" class="form-label">새 비밀번호 확인</label>
+                <input type="password" id="set-new-pw-confirm" class="form-input" placeholder="비밀번호 다시 입력" />
+              </div>
+            </div>
+            <button id="set-pw-save-btn" class="form-action-btn" style="margin-top: 1rem;">비밀번호 변경 저장</button>
+          </div>
+
+          <!-- 디스코드 웹훅 설정 -->
+          <div class="settings-block">
+            <h3 class="settings-title">디스코드 웹훅 알림 설정 (Discord Webhook)</h3>
+            <p class="form-hint" style="margin-bottom: 0.8rem;">
+              유저가 레벨이나 클리어를 제출했을 때 알림을 수신할 Discord 채널의 Webhook URL을 입력하세요.
+            </p>
+            <div class="input-with-button">
+              <input type="url" id="set-webhook-url" class="form-input" placeholder="https://discord.com/api/webhooks/..." />
+              <button id="set-webhook-test-btn" class="form-action-btn">테스트 발송</button>
+            </div>
+            <button id="set-webhook-save-btn" class="form-action-btn" style="margin-top: 1rem;">웹훅 URL 저장</button>
+          </div>
+
+          <!-- GitHub API 설정 연동 -->
+          <div class="settings-block">
+            <h3 class="settings-title">GitHub API 연동 설정</h3>
+            <div class="form-grid-3">
+              <div class="form-group">
+                <label for="set-gh-token" class="form-label">GitHub Personal Token</label>
+                <input type="password" id="set-gh-token" class="form-input" placeholder="ghp_..." />
+              </div>
+              <div class="form-group">
+                <label for="set-gh-owner" class="form-label">Repository Owner (소유자)</label>
+                <input type="text" id="set-gh-owner" class="form-input" placeholder="예: imBBBT" />
+              </div>
+              <div class="form-group">
+                <label for="set-gh-repo" class="form-label">Repository Name (저장소)</label>
+                <input type="text" id="set-gh-repo" class="form-input" placeholder="예: chochin-forum" />
+              </div>
+            </div>
+            <button id="set-gh-save-btn" class="form-action-btn" style="margin-top: 1rem;">GitHub 설정 저장</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 레벨 승인 모달 (순위 지정) -->
+  <div id="approve-level-modal" class="submit-modal-overlay" style="display: none;">
+    <div class="submit-modal-content admin-modal-wide">
+      <h3 class="submit-modal-title">레벨 승인 및 순위 배치</h3>
+      <p id="approve-modal-level-name" class="submit-modal-desc" style="color: #00d2ff; font-weight: 700;"></p>
+      
+      <div class="approve-form-box">
+        <div class="form-group">
+          <label for="approve-target-rank" class="form-label">배치할 순위 (Rank) <span class="required-star">*</span></label>
+          <div class="input-with-button">
+            <input type="number" id="approve-target-rank" class="form-input" min="1" value="1" />
+            <span class="rank-unit">위</span>
+          </div>
+          <span id="approve-rank-hint" class="form-hint">기존에 해당 순위에 있던 레벨들은 1단계씩 뒤로 순위가 밀리며, 순위 변동 이력이 자동으로 생성됩니다.</span>
+        </div>
+
+        <div class="form-group" style="margin-top: 1rem;">
+          <label for="approve-history-detail" class="form-label">히스토리 변동 코멘트</label>
+          <input type="text" id="approve-history-detail" class="form-input" value="" />
+        </div>
+      </div>
+
+      <div class="submit-modal-actions approve-actions-row">
+        <button id="approve-level-confirm-btn" class="submit-main-btn">승인 완료</button>
+        <button id="approve-level-cancel-btn" class="submit-secondary-btn">취소</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 외부 제출 데이터 Import 모달 -->
+  <div id="admin-import-modal" class="submit-modal-overlay" style="display: none;">
+    <div class="submit-modal-content admin-modal-wide">
+      <h3 class="submit-modal-title">제출 패킷 불러오기</h3>
+      <p class="submit-modal-desc">유저가 공유한 제출 JSON 텍스트를 붙여넣어 대기열에 추가합니다.</p>
+      <textarea id="import-json-textarea" class="packet-textarea" style="height: 180px;" placeholder='{"id": "LVL_...", "type": "level", ...}'></textarea>
+      <div class="submit-modal-actions approve-actions-row">
+        <button id="import-json-confirm-btn" class="submit-main-btn">대기열에 추가</button>
+        <button id="import-json-cancel-btn" class="submit-secondary-btn">닫기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 공통 닉네임 및 배경 모달 -->
+  <div class="nickname-modal-overlay">
+    <div class="nickname-modal">
+      <h2>계정 선택</h2>
+      <input type="text" id="nickname-input" placeholder="닉네임을 입력하세요" />
+      <div class="modal-buttons">
+        <button id="nickname-submit-btn" class="modal-btn confirm">확인</button>
+        <button id="nickname-cancel-btn" class="modal-btn cancel">취소</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-modal-overlay">
+    <div class="bg-modal">
+      <h2>배경 설정</h2>
+      <div class="bg-control-group">
+        <label>배경 유형:</label>
+        <button type="button" id="bg-type-toggle" class="bg-type-btn">단색</button>
+      </div>
+      <div class="bg-control-group">
+        <label for="bg-color1">색상 1:</label>
+        <div class="color-picker-wrapper">
+          <input type="color" id="bg-color1" value="#121212" />
+          <input type="text" id="bg-color1-hex" class="hex-input" value="#121212" maxlength="7" />
+        </div>
+      </div>
+      <div class="bg-control-group" id="bg-color2-group" style="display: none;">
+        <label for="bg-color2">색상 2:</label>
+        <div class="color-picker-wrapper">
+          <input type="color" id="bg-color2" value="#1a1a2e" />
+          <input type="text" id="bg-color2-hex" class="hex-input" value="#1a1a2e" maxlength="7" />
+        </div>
+      </div>
+      <div class="bg-control-group" id="bg-angle-group" style="display: none;">
+        <label for="bg-angle">그라데이션 각도: <span id="bg-angle-value">135°</span></label>
+        <input type="range" id="bg-angle" min="0" max="360" value="135" />
+      </div>
+      <div class="modal-buttons">
+        <button id="bg-submit-btn" class="modal-btn confirm">적용</button>
+        <button id="bg-reset-btn" class="modal-btn reset">초기화</button>
+        <button id="bg-cancel-btn" class="modal-btn cancel">취소</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="shadow"></div>
+
+  <!-- Scripts -->
+  <script src="all.js?v=2"></script>
+  <script src="admin.js?v=1"></script>
+</body>
+
+</html>

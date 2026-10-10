@@ -715,6 +715,9 @@ function renderLevelDetail(level, rank, detailContainer) {
       `;
 
     detailContainer.innerHTML = `
+    <div class="sheet-handle-zone">
+      <div class="sheet-handle-bar"></div>
+    </div>
     <div class="detail-header">
       <div class="detail-title-wrapper">
         <span class="detail-rank">${rank}</span>

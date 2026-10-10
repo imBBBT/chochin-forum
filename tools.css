@@ -1466,14 +1466,143 @@ input:checked + .slider:before {
 /* --- Mobile Responsive Optimizations for Tools --- */
 @media (max-width: 960px) {
   .tools-main-container {
-    width: 96vw !important;
+    width: calc(100vw - 20px) !important;
     max-width: 100% !important;
-    padding: 80px 0.5rem 2rem 0.5rem !important;
+    padding: 124px 0 calc(116px + env(safe-area-inset-bottom, 0px)) 0 !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
+  }
+
+  .tools-banner-box {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 1.35rem 1.25rem !important;
+    border-radius: 1.25rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .tools-banner-title {
+    font-size: 1.85rem !important;
+    margin-bottom: 0.45rem !important;
+  }
+
+  .tools-banner-desc {
+    font-size: 1.08rem !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+  }
+
+  /* 도구 탭 스와이프 필 칩 */
+  .tools-tab-bar {
+    display: flex !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    gap: 0.75rem !important;
+    padding: 0.2rem 0 1rem !important;
+    scroll-snap-type: x mandatory !important;
+    width: 100% !important;
+  }
+
+  .tools-tab-bar::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .tools-tab-btn {
+    flex: 1 !important;
+    min-height: 52px !important;
+    padding: 0.6rem 1.35rem !important;
+    font-size: 1.15rem !important;
+    border-radius: 999px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    touch-action: manipulation !important;
+    font-weight: 700 !important;
+  }
+
+  .tools-tab-btn.active {
+    background: var(--forum-accent, #38bdf8) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    box-shadow: 0 0 18px var(--forum-accent-glow, rgba(56, 189, 248, 0.7)) !important;
+  }
+
+  .tool-card {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 1.35rem 1.25rem !important;
+    border-radius: 1.25rem !important;
+    margin-bottom: 1.2rem !important;
+  }
+
+  .tool-card-title {
+    font-size: 1.38rem !important;
+    margin-bottom: 1.1rem !important;
   }
 
   .picker-controls-grid {
     grid-template-columns: 1fr !important;
-    gap: 0.8rem !important;
+    gap: 1.15rem !important;
+  }
+
+  .picker-field-label {
+    font-size: 1.1rem !important;
+    margin-bottom: 0.55rem !important;
+  }
+
+  .picker-select,
+  .picker-input {
+    height: 54px !important;
+    font-size: 1.15rem !important;
+    border-radius: 0.85rem !important;
+  }
+
+  /* 맵 추첨 및 룰렛 풀 너비 액션 버튼 */
+  .picker-action-btn,
+  #draw-btn,
+  #roulette-spin-btn {
+    width: 100% !important;
+    height: 62px !important;
+    font-size: 1.3rem !important;
+    border-radius: 1rem !important;
+    margin-top: 1rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    touch-action: manipulation !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px !important;
+  }
+
+  .picker-action-btn:active,
+  #draw-btn:active,
+  #roulette-spin-btn:active {
+    transform: scale(0.97) !important;
+  }
+
+  .roulette-type-bar {
+    width: 100% !important;
+    gap: 0.6rem !important;
+  }
+
+  .roulette-type-btn {
+    flex: 1 !important;
+    min-height: 48px !important;
+    font-size: 1.05rem !important;
+    padding: 0.5rem 0.8rem !important;
+  }
+
+  .mode-radio-btn {
+    min-height: 48px !important;
+    font-size: 1.05rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .range-chip {
+    min-height: 44px !important;
+    font-size: 0.98rem !important;
+    padding: 0.45rem 0.9rem !important;
   }
 
   .roulette-mgr-grid {
@@ -1487,12 +1616,20 @@ input:checked + .slider:before {
   }
 
   #roulette-canvas {
-    max-width: 90vw !important;
+    max-width: calc(100vw - 40px) !important;
+    width: 100% !important;
     height: auto !important;
   }
 
   .win-modal-actions {
     flex-direction: column !important;
+    gap: 0.6rem !important;
+  }
+
+  .win-modal-actions button {
+    width: 100% !important;
+    height: 48px !important;
+    font-size: 1.05rem !important;
   }
 }
 

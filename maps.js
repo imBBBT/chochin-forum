@@ -469,6 +469,9 @@ document.addEventListener('DOMContentLoaded', () => {
       : '';
 
     mapsDetailContainer.innerHTML = `
+      <div class="sheet-handle-zone">
+        <div class="sheet-handle-bar"></div>
+      </div>
       <div class="map-detail-header">
         <div class="map-detail-title-group">
           <span class="map-detail-title">${esc(pack.title)}</span>
@@ -548,7 +551,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const dateStr = c.date ? c.date : (c.isAuto ? '자동 달성' : '');
           return `
             <div class="map-clear-item">
-              <span class="map-clear-player">🏆 ${esc(c.player || c.name || '알 수 없음')}</span>
+              <span class="map-clear-player"><span class="map-clear-tag">CLEAR</span> ${esc(c.player || c.name || '알 수 없음')}</span>
               <span class="map-clear-date">${esc(dateStr)}</span>
             </div>
           `;

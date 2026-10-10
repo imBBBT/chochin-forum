@@ -390,50 +390,135 @@ html, body {
 /* --- Mobile Responsive Optimizations for Ranking --- */
 @media (max-width: 960px) {
   .box.ranking-container-box {
-    width: 96vw !important;
+    position: fixed !important;
+    width: calc(100vw - 20px) !important;
     max-width: 100% !important;
-    top: 80px !important;
-    bottom: 0.8rem !important;
-    max-height: calc(100vh - 92px) !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+    top: 124px !important;
+    bottom: calc(108px + env(safe-area-inset-bottom, 0px)) !important;
+    height: calc(100vh - 124px - 108px - env(safe-area-inset-bottom, 0px)) !important;
+    max-height: none !important;
+    border-radius: 1.25rem !important;
+    padding: 1.2rem 1.1rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-sizing: border-box !important;
+    z-index: 10 !important;
   }
 
   .ranking-header-section {
-    padding: 0.6rem 0.8rem !important;
+    padding: 0.7rem 0.2rem 1rem !important;
     flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 0.5rem !important;
+    align-items: stretch !important;
+    gap: 0.85rem !important;
+    flex-shrink: 0 !important;
+  }
+
+  .ranking-header-title-group {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.35rem !important;
+  }
+
+  .ranking-main-title {
+    font-size: 1.85rem !important;
+  }
+
+  .ranking-subtitle {
+    font-size: 1.05rem !important;
+    color: rgba(255, 255, 255, 0.75) !important;
+  }
+
+  /* 랭킹 모드 탭 스와이프 필 칩 */
+  .ranking-mode-tabs {
+    display: flex !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    gap: 0.65rem !important;
+    padding: 0.2rem 0 !important;
+    scroll-snap-type: x mandatory !important;
+  }
+
+  .ranking-mode-tabs::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .ranking-tab {
+    flex-shrink: 0 !important;
+    scroll-snap-align: start !important;
+    min-height: 50px !important;
+    padding: 0.55rem 1.3rem !important;
+    font-size: 1.08rem !important;
+    border-radius: 999px !important;
+    font-weight: 700 !important;
+  }
+
+  .ranking-tab.active {
+    background: var(--forum-accent, #38bdf8) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    box-shadow: 0 0 16px var(--forum-accent-glow, rgba(56, 189, 248, 0.65)) !important;
   }
 
   .ranking-table-header {
-    grid-template-columns: 3.2rem 1fr 5.5rem 4rem !important;
-    padding: 0.75rem 0.8rem !important;
-    font-size: 0.9rem !important;
+    grid-template-columns: 3.8rem 1fr 6.2rem 4.8rem !important;
+    padding: 0.85rem 1.15rem !important;
+    font-size: 1.05rem !important;
+    flex-shrink: 0 !important;
+    border-radius: 0.85rem !important;
   }
 
   .col-hardest {
     display: none !important;
   }
 
+  .ranking-list-body {
+    flex: 1 !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    gap: 0.75rem !important;
+    padding-right: 0.15rem !important;
+  }
+
   .ranking-row-card {
-    grid-template-columns: 3.2rem 1fr 5.5rem 4rem !important;
-    padding: 0.75rem 0.8rem !important;
-    font-size: 0.9rem !important;
+    grid-template-columns: 3.8rem 1fr 6.2rem 4.8rem !important;
+    padding: 1rem 1.15rem !important;
+    font-size: 1.15rem !important;
+    min-height: 64px !important;
+    border-radius: 0.95rem !important;
+    align-items: center !important;
+    touch-action: manipulation !important;
+  }
+
+  .ranking-row-card:active {
+    transform: scale(0.98) !important;
   }
 
   .player-hardest {
     display: none !important;
   }
 
+  .player-rank {
+    font-size: 1.25rem !important;
+    font-weight: 700 !important;
+  }
+
   .player-name {
-    font-size: 0.95rem !important;
+    font-size: 1.18rem !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
   }
 
   .player-pt {
-    font-size: 0.95rem !important;
+    font-size: 1.18rem !important;
+    font-weight: 700 !important;
   }
 
   .player-clears {
-    font-size: 0.9rem !important;
+    font-size: 1.05rem !important;
   }
 }
 

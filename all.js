@@ -37,6 +37,52 @@
   }
 })();
 
+/* =========================================================
+   Theme Accent Customization Engine
+   ========================================================= */
+(function initThemeAccentEngine() {
+  const THEME_KEY = 'chochin_theme_accent';
+  const DEFAULT_ACCENT = '#38bdf8'; // 기본값: 모던 스카이블루 (보라색 제거)
+
+  function hexToRgb(hex) {
+    let cleanHex = String(hex || '').replace(/^#/, '').trim();
+    if (cleanHex.length === 3) {
+      cleanHex = cleanHex.split('').map(c => c + c).join('');
+    }
+    const num = parseInt(cleanHex, 16);
+    if (isNaN(num) || cleanHex.length !== 6) return { r: 56, g: 189, b: 248 };
+    return {
+      r: (num >> 16) & 255,
+      g: (num >> 8) & 255,
+      b: num & 255
+    };
+  }
+
+  window.setForumThemeAccent = function (hexColor, save = true) {
+    if (!hexColor || !/^#[0-9A-Fa-f]{3,6}$/.test(hexColor)) {
+      hexColor = DEFAULT_ACCENT;
+    }
+    const rgb = hexToRgb(hexColor);
+    const root = document.documentElement;
+    root.style.setProperty('--forum-accent', hexColor);
+    root.style.setProperty('--forum-accent-rgb', `${rgb.r}, ${rgb.g}, ${rgb.b}`);
+    root.style.setProperty('--forum-accent-glow', `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.55)`);
+    root.style.setProperty('--forum-accent-subtle', `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.16)`);
+    root.style.setProperty('--forum-accent-border', `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.45)`);
+
+    if (save) {
+      localStorage.setItem(THEME_KEY, hexColor);
+    }
+  };
+
+  window.getForumThemeAccent = function () {
+    return localStorage.getItem(THEME_KEY) || DEFAULT_ACCENT;
+  };
+
+  // 즉시 저장된 테마 색상 적용
+  window.setForumThemeAccent(window.getForumThemeAccent(), false);
+})();
+
 window.escapeHtml = function (text) {
   if (text == null) return '';
   return String(text)
@@ -163,6 +209,100 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }, { passive: true });
   }
+
+  // --- Mobile Dedicated UI Shell Engine ---
+  (function initMobileUI() {
+    const isMobile = () => window.innerWidth <= 960;
+    const header = document.querySelector('header.header') || document.querySelector('header');
+    let brandLogo = header ? header.querySelector('.mobile-brand-title') : null;
+
+    const syncBrandLogo = () => {
+      if (!header) return;
+      if (isMobile()) {
+        if (!brandLogo) {
+          const isSub = window.location.pathname.toLowerCase().includes('/level/');
+          const homeLink = isSub ? '../index.html' : 'index.html';
+          brandLogo = document.createElement('a');
+          brandLogo.className = 'mobile-brand-title';
+          brandLogo.href = homeLink;
+          brandLogo.innerHTML = '<span class="brand-dot"></span><span>초친 포럼</span>';
+          header.insertBefore(brandLogo, header.firstChild);
+        } else {
+          brandLogo.style.display = 'flex';
+        }
+      } else {
+        if (brandLogo) {
+          brandLogo.style.display = 'none';
+        }
+      }
+    };
+
+    syncBrandLogo();
+    window.addEventListener('resize', syncBrandLogo);
+
+    if (!document.querySelector('.mobile-bottom-nav')) {
+      const curPath = window.location.pathname.toLowerCase();
+      const isSub = curPath.includes('/level/');
+      const nav = document.createElement('nav');
+      nav.className = 'mobile-bottom-nav';
+      nav.setAttribute('aria-label', '모바일 전용 내비게이션');
+
+      const tabs = [
+        {
+          label: '홈',
+          iconSvg: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>',
+          href: 'index.html',
+          test: p => p.endsWith('index.html') || p.endsWith('/') || p.endsWith('/chochin-forum/')
+        },
+        {
+          label: '레벨',
+          iconSvg: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>',
+          href: 'level.html',
+          test: p => p.includes('level')
+        },
+        {
+          label: '맵 팩',
+          iconSvg: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>',
+          href: 'maps.html',
+          test: p => p.includes('maps')
+        },
+        {
+          label: '랭킹',
+          iconSvg: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>',
+          href: 'ranking.html',
+          test: p => p.includes('ranking')
+        },
+        {
+          label: '도구',
+          iconSvg: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>',
+          href: 'tools.html',
+          test: p => p.includes('tools')
+        },
+        {
+          label: '제출',
+          iconSvg: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>',
+          href: 'submit.html',
+          test: p => p.includes('submit')
+        }
+      ];
+
+      nav.innerHTML = tabs.map(tab => {
+        const isActive = tab.test(curPath);
+        let href = tab.href;
+        if (isSub) {
+          href = (tab.href === 'level.html') ? '../level.html' : '../' + tab.href;
+        }
+        return `
+          <a href="${href}" class="mobile-nav-item ${isActive ? 'active' : ''}">
+            <span class="mobile-nav-icon">${tab.iconSvg}</span>
+            <span class="mobile-nav-label">${tab.label}</span>
+          </a>
+        `;
+      }).join('');
+
+      document.body.appendChild(nav);
+    }
+  })();
 
   // Nickname Modal Elements
   const nicknameModalOverlay = document.querySelector(
@@ -346,11 +486,304 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // ==========================================
+  // Account Profiles & Cross-Device Sync Engine
+  // ==========================================
+  const PROFILES_KEY = 'chochin_account_profiles';
+  const RECENT_ACCOUNTS_KEY = 'chochin_recent_accounts';
+
+  function getAccountProfiles() {
+    try {
+      return JSON.parse(localStorage.getItem(PROFILES_KEY) || '{}');
+    } catch (_) {
+      return {};
+    }
+  }
+
+  function saveAccountProfile(nickname, config = {}) {
+    if (!nickname || !nickname.trim()) return;
+    const nameKey = nickname.trim().toLowerCase();
+    const profiles = getAccountProfiles();
+    const existing = profiles[nameKey] || {};
+
+    profiles[nameKey] = {
+      nickname: nickname.trim(),
+      accent: config.accent || existing.accent || (window.getForumThemeAccent ? window.getForumThemeAccent() : '#38bdf8'),
+      bgColor1: config.bgColor1 || existing.bgColor1 || localStorage.getItem('forumBgColor1') || '#404040',
+      bgColor2: config.bgColor2 || existing.bgColor2 || localStorage.getItem('forumBgColor2') || '#202020',
+      bgAngle: config.bgAngle || existing.bgAngle || localStorage.getItem('forumBgAngle') || '135',
+      bgIsGradient: config.bgIsGradient !== undefined ? config.bgIsGradient : (existing.bgIsGradient !== undefined ? existing.bgIsGradient : (localStorage.getItem('forumBgIsGradient') !== 'false')),
+      isLowSpec: config.isLowSpec !== undefined ? config.isLowSpec : (existing.isLowSpec !== undefined ? existing.isLowSpec : (window.isLowSpecMode ? window.isLowSpecMode() : false)),
+      updatedAt: Date.now()
+    };
+    localStorage.setItem(PROFILES_KEY, JSON.stringify(profiles));
+    addRecentAccount(nickname.trim());
+  }
+
+  function loadAccountProfile(nickname) {
+    if (!nickname || !nickname.trim()) return false;
+    const profiles = getAccountProfiles();
+    const profile = profiles[nickname.trim().toLowerCase()];
+    if (!profile) return false;
+
+    // 1. 테마 시그니처 색상 불러오기
+    if (profile.accent && window.setForumThemeAccent) {
+      window.setForumThemeAccent(profile.accent, true);
+    }
+    // 2. 배경 설정 불러오기
+    const c1 = profile.bgColor1 || '#404040';
+    const c2 = profile.bgColor2 || '#202020';
+    const angle = profile.bgAngle || '135';
+    const isGradient = profile.bgIsGradient !== false;
+    localStorage.setItem('forumBgColor1', c1);
+    localStorage.setItem('forumBgColor2', c2);
+    localStorage.setItem('forumBgAngle', angle);
+    localStorage.setItem('forumBgIsGradient', isGradient);
+    updateBackground(c1, c2, angle, isGradient);
+
+    if (bgColor1Input) bgColor1Input.value = c1;
+    if (bgColor1Hex) bgColor1Hex.value = c1;
+    if (bgColor2Input) bgColor2Input.value = c2;
+    if (bgColor2Hex) bgColor2Hex.value = c2;
+    if (bgAngleInput) bgAngleInput.value = angle;
+    if (bgTypeToggle) {
+      bgTypeToggle.checked = isGradient;
+      toggleBgInputVisibility(isGradient);
+    }
+    // 3. 저사양 모드 동기화
+    if (profile.isLowSpec !== undefined && window.isLowSpecMode && window.isLowSpecMode() !== profile.isLowSpec) {
+      window.toggleLowSpecMode();
+    }
+    return true;
+  }
+
+  function getRecentAccounts() {
+    try {
+      const list = JSON.parse(localStorage.getItem(RECENT_ACCOUNTS_KEY) || '[]');
+      const cur = localStorage.getItem('forumNickname');
+      if (cur && !list.some(n => n.toLowerCase() === cur.toLowerCase())) {
+        list.unshift(cur);
+      }
+      return list;
+    } catch (_) {
+      return [];
+    }
+  }
+
+  function addRecentAccount(nickname) {
+    if (!nickname || !nickname.trim()) return;
+    const name = nickname.trim();
+    let list = getRecentAccounts().filter(n => n.toLowerCase() !== name.toLowerCase());
+    list.unshift(name);
+    if (list.length > 8) list = list.slice(0, 8);
+    localStorage.setItem(RECENT_ACCOUNTS_KEY, JSON.stringify(list));
+  }
+
+  // 기기 간 동기화 코드 생성
+  window.generateDeviceSyncCode = function () {
+    const curNick = localStorage.getItem('forumNickname') || '';
+    const data = {
+      n: curNick,
+      a: window.getForumThemeAccent ? window.getForumThemeAccent() : '#38bdf8',
+      b1: localStorage.getItem('forumBgColor1') || '#404040',
+      b2: localStorage.getItem('forumBgColor2') || '#202020',
+      ag: localStorage.getItem('forumBgAngle') || '135',
+      g: localStorage.getItem('forumBgIsGradient') !== 'false',
+      l: window.isLowSpecMode ? window.isLowSpecMode() : false,
+      t: Date.now()
+    };
+    try {
+      const json = JSON.stringify(data);
+      const b64 = btoa(unescape(encodeURIComponent(json)));
+      return 'CF:' + b64;
+    } catch (e) {
+      return '';
+    }
+  };
+
+  // 동기화 코드 적용
+  window.applyDeviceSyncCode = function (codeStr) {
+    if (!codeStr || !codeStr.trim()) return { success: false, msg: '동기화 코드를 입력해주세요.' };
+    let raw = codeStr.trim();
+    if (raw.startsWith('CF:')) raw = raw.slice(3);
+
+    try {
+      const json = decodeURIComponent(escape(atob(raw)));
+      const data = JSON.parse(json);
+
+      if (data.n) {
+        localStorage.setItem('forumNickname', data.n);
+        updateNicknameDisplay(data.n);
+        window.dispatchEvent(new CustomEvent('forumNicknameChanged', { detail: { nickname: data.n } }));
+      }
+      if (data.a && window.setForumThemeAccent) {
+        window.setForumThemeAccent(data.a, true);
+      }
+      if (data.b1) localStorage.setItem('forumBgColor1', data.b1);
+      if (data.b2) localStorage.setItem('forumBgColor2', data.b2);
+      if (data.ag) localStorage.setItem('forumBgAngle', data.ag);
+      if (data.g !== undefined) localStorage.setItem('forumBgIsGradient', data.g);
+
+      updateBackground(data.b1 || '#404040', data.b2 || '#202020', data.ag || '135', data.g !== false);
+      if (bgColor1Input) bgColor1Input.value = data.b1 || '#404040';
+      if (bgColor1Hex) bgColor1Hex.value = data.b1 || '#404040';
+      if (bgColor2Input) bgColor2Input.value = data.b2 || '#202020';
+      if (bgColor2Hex) bgColor2Hex.value = data.b2 || '#202020';
+      if (bgAngleInput) bgAngleInput.value = data.ag || '135';
+      if (bgTypeToggle) {
+        bgTypeToggle.checked = data.g !== false;
+        toggleBgInputVisibility(data.g !== false);
+      }
+
+      if (data.l !== undefined && window.isLowSpecMode && window.isLowSpecMode() !== data.l) {
+        window.toggleLowSpecMode();
+      }
+
+      if (data.n) {
+        saveAccountProfile(data.n, {
+          accent: data.a,
+          bgColor1: data.b1,
+          bgColor2: data.b2,
+          bgAngle: data.ag,
+          bgIsGradient: data.g,
+          isLowSpec: data.l
+        });
+      }
+
+      return { success: true, nickname: data.n };
+    } catch (err) {
+      return { success: false, msg: '올바르지 않은 동기화 코드입니다.' };
+    }
+  };
+
+  // URL ?sync=... 쿼리 파라미터 자동 로드 확인
+  (function checkUrlSyncParam() {
+    const params = new URLSearchParams(window.location.search);
+    const syncCode = params.get('sync');
+    if (syncCode) {
+      const res = window.applyDeviceSyncCode(syncCode);
+      if (res.success) {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('sync');
+        window.history.replaceState({}, '', url.toString());
+        if (window.showForumToast) {
+          window.showForumToast(`[${res.nickname}] 설정이 성공적으로 동기화되었습니다!`);
+        }
+      }
+    }
+  })();
+
   // 초기 로드 시 저장된 닉네임 확인
   const showNicknameModal = () => {
     nicknameModalOverlay.classList.add('active');
-    const currentNickname = localStorage.getItem('forumNickname');
-    nicknameInput.value = currentNickname || '';
+    const currentNickname = localStorage.getItem('forumNickname') || '';
+    nicknameInput.value = currentNickname;
+
+    // 모달 내부 동적 구성 (서브텍스트, 최근 계정 칩, 동기화 박스 보장)
+    const modalBox = nicknameModalOverlay.querySelector('.nickname-input-box');
+    if (modalBox) {
+      let subText = modalBox.querySelector('.account-modal-subtext');
+      if (!subText) {
+        subText = document.createElement('p');
+        subText.className = 'account-modal-subtext';
+        subText.innerHTML = '계정을 선택하면 해당 계정의 시그니처 색상과 배경 설정이 자동으로 로드됩니다.';
+        const h2 = modalBox.querySelector('h2');
+        if (h2 && h2.nextSibling) {
+          modalBox.insertBefore(subText, h2.nextSibling);
+        }
+      }
+
+      let recentSection = modalBox.querySelector('.account-recent-section');
+      if (!recentSection) {
+        recentSection = document.createElement('div');
+        recentSection.className = 'account-recent-section';
+        modalBox.insertBefore(recentSection, nicknameInput);
+      }
+
+      const recents = getRecentAccounts();
+      if (recents.length > 0) {
+        recentSection.style.display = 'block';
+        recentSection.innerHTML = `
+          <span class="account-section-label">최근 사용한 계정 (클릭 시 설정 자동 로드)</span>
+          <div class="account-chips-grid">
+            ${recents.map(acc => `
+              <button type="button" class="account-chip ${acc.toLowerCase() === currentNickname.toLowerCase() ? 'active' : ''}" data-nick="${window.escapeHtml(acc)}">
+                <span>👤</span><span>${window.escapeHtml(acc)}</span>
+              </button>
+            `).join('')}
+          </div>
+        `;
+        recentSection.querySelectorAll('.account-chip').forEach(chip => {
+          chip.addEventListener('click', () => {
+            const chosen = chip.dataset.nick;
+            nicknameInput.value = chosen;
+            recentSection.querySelectorAll('.account-chip').forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            loadAccountProfile(chosen); // 클릭 즉시 해당 계정의 설정 로드
+            if (window.showForumToast) {
+              window.showForumToast(`'${chosen}' 계정의 설정을 불러왔습니다.`);
+            }
+          });
+        });
+      } else {
+        recentSection.style.display = 'none';
+      }
+
+      let syncBox = modalBox.querySelector('.sync-box');
+      if (!syncBox) {
+        const divider = document.createElement('div');
+        divider.className = 'sync-divider';
+        syncBox = document.createElement('div');
+        syncBox.className = 'sync-box';
+        syncBox.innerHTML = `
+          <div class="sync-desc">
+            현재 기기의 계정 및 시그니처 색상·배경 설정을 다른 기기로 즉시 전송하거나 불러올 수 있습니다.
+          </div>
+          <div class="sync-actions-row">
+            <button type="button" class="sync-btn" id="account-copy-sync-btn">설정 코드 복사</button>
+            <input type="text" class="sync-code-input" id="account-paste-sync-input" placeholder="코드 붙여넣기" spellcheck="false">
+            <button type="button" class="sync-btn primary" id="account-apply-sync-btn">불러오기</button>
+          </div>
+        `;
+        const modalButtons = modalBox.querySelector('.modal-buttons');
+        modalBox.insertBefore(divider, modalButtons);
+        modalBox.insertBefore(syncBox, modalButtons);
+
+        const copyBtn = syncBox.querySelector('#account-copy-sync-btn');
+        const pasteInput = syncBox.querySelector('#account-paste-sync-input');
+        const applyBtn = syncBox.querySelector('#account-apply-sync-btn');
+
+        if (copyBtn) {
+          copyBtn.addEventListener('click', async () => {
+            const code = window.generateDeviceSyncCode();
+            if (code) {
+              try {
+                await navigator.clipboard.writeText(code);
+                if (window.showForumToast) window.showForumToast('동기화 코드가 복사되었습니다! 다른 기기에서 불러오세요.');
+                else alert('동기화 코드가 복사되었습니다!');
+              } catch (_) {
+                prompt('아래 동기화 코드를 복사하세요:', code);
+              }
+            }
+          });
+        }
+
+        if (applyBtn && pasteInput) {
+          applyBtn.addEventListener('click', () => {
+            const val = pasteInput.value.trim();
+            const res = window.applyDeviceSyncCode(val);
+            if (res.success) {
+              if (window.showForumToast) window.showForumToast(`[${res.nickname}] 계정 설정이 성공적으로 동기화되었습니다!`);
+              else alert(`[${res.nickname}] 계정 설정이 성공적으로 동기화되었습니다!`);
+              hideNicknameModal();
+            } else {
+              alert(res.msg || '동기화 코드를 확인해주세요.');
+            }
+          });
+        }
+      }
+    }
+
     nicknameInput.focus();
   };
 
@@ -398,6 +831,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const savedNickname = localStorage.getItem('forumNickname');
   if (savedNickname) {
     updateNicknameDisplay(savedNickname);
+    saveAccountProfile(savedNickname); // 초기 프로필 보장
   } else {
     // 닉네임이 없을 경우 헤더 닉네임 표시를 비워둠
     if (headerNicknameDisplay) {
@@ -446,11 +880,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const name = nicknameInput.value.trim();
     if (name !== '') {
       localStorage.setItem('forumNickname', name);
+      // 기존에 저장된 해당 유저의 설정이 있으면 불러오고, 없으면 현재 설정을 해당 유저 프로필에 저장
+      const loaded = loadAccountProfile(name);
+      if (!loaded) {
+        saveAccountProfile(name);
+      }
       updateNicknameDisplay(name);
       window.dispatchEvent(new CustomEvent('forumNicknameChanged', { detail: { nickname: name } }));
       hideNicknameModal();
+      if (window.showForumToast) {
+        window.showForumToast(`[${name}] 계정으로 변경되었습니다.`);
+      }
     } else {
-      alert('닉네임을 입력해주세요.'); // 사용자에게 닉네임 입력 요청
+      alert('닉네임을 입력해주세요.');
     }
   });
 
@@ -504,6 +946,11 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('forumBgAngle', angle);
     localStorage.setItem('forumBgIsGradient', isGradient);
 
+    const curNick = localStorage.getItem('forumNickname');
+    if (curNick) {
+      saveAccountProfile(curNick, { bgColor1: c1, bgColor2: c2, bgAngle: angle, bgIsGradient: isGradient });
+    }
+
     updateBackground(c1, c2, angle, isGradient);
     bgModalOverlay.classList.remove('active');
   });
@@ -542,9 +989,151 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ==========================================
+  // 테마 시그니처 색상 커스텀 모달 및 옵션 메뉴 연동
+  // ==========================================
+  let themeModalOverlay = document.querySelector('.theme-modal-overlay');
+  if (!themeModalOverlay) {
+    themeModalOverlay = document.createElement('div');
+    themeModalOverlay.className = 'theme-modal-overlay';
+    themeModalOverlay.innerHTML = `
+      <div class="theme-modal-box">
+        <h2>시그니처 색상 설정</h2>
+        <p class="theme-modal-desc">포럼의 시그니처 강조 색상을 원하는 색으로 커스텀하세요.<br>아래 프리셋을 선택하거나 직접 색상을 지정할 수 있습니다.</p>
+        
+        <div class="theme-presets-grid">
+          <button class="theme-color-chip" data-color="#38bdf8" style="background:#38bdf8;" title="스카이 블루 (기본)"></button>
+          <button class="theme-color-chip" data-color="#10b981" style="background:#10b981;" title="에메랄드 그린"></button>
+          <button class="theme-color-chip" data-color="#f59e0b" style="background:#f59e0b;" title="앰버 골드"></button>
+          <button class="theme-color-chip" data-color="#f43f5e" style="background:#f43f5e;" title="로즈 핑크"></button>
+          <button class="theme-color-chip" data-color="#ef4444" style="background:#ef4444;" title="크림슨 레드"></button>
+          <button class="theme-color-chip" data-color="#e2e8f0" style="background:#e2e8f0;" title="쿨 실버"></button>
+          <button class="theme-color-chip" data-color="#a855f7" style="background:#a855f7;" title="사이버 퍼플"></button>
+        </div>
+
+        <div class="theme-custom-row">
+          <input type="color" id="theme-color-picker" value="${window.getForumThemeAccent()}">
+          <input type="text" id="theme-color-hex" value="${window.getForumThemeAccent()}" maxlength="7" spellcheck="false">
+        </div>
+
+        <div class="theme-modal-buttons">
+          <button class="theme-modal-btn primary" id="theme-save-btn">적용</button>
+          <button class="theme-modal-btn" id="theme-reset-btn">초기화</button>
+          <button class="theme-modal-btn" id="theme-cancel-btn">취소</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(themeModalOverlay);
+  }
+
+  const themePicker = themeModalOverlay.querySelector('#theme-color-picker');
+  const themeHexInput = themeModalOverlay.querySelector('#theme-color-hex');
+  const themeChips = themeModalOverlay.querySelectorAll('.theme-color-chip');
+  const themeSaveBtn = themeModalOverlay.querySelector('#theme-save-btn');
+  const themeResetBtn = themeModalOverlay.querySelector('#theme-reset-btn');
+  const themeCancelBtn = themeModalOverlay.querySelector('#theme-cancel-btn');
+
+  let themeInitialColor = window.getForumThemeAccent();
+  let themeCurrentColor = themeInitialColor;
+
+  const updateThemeUI = (color) => {
+    themeCurrentColor = color;
+    const lower = color.toLowerCase();
+    themeChips.forEach(chip => {
+      chip.classList.toggle('active', chip.dataset.color.toLowerCase() === lower);
+    });
+    if (themePicker) themePicker.value = color;
+    if (themeHexInput) themeHexInput.value = color.toUpperCase();
+  };
+
+  const openThemeModal = () => {
+    themeInitialColor = window.getForumThemeAccent();
+    updateThemeUI(themeInitialColor);
+    themeModalOverlay.classList.add('active');
+  };
+
+  const closeThemeModal = () => {
+    themeModalOverlay.classList.remove('active');
+  };
+
+  themeChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const c = chip.dataset.color;
+      updateThemeUI(c);
+      window.setForumThemeAccent(c, false); // 라이브 프리뷰
+    });
+  });
+
+  if (themePicker) {
+    themePicker.addEventListener('input', () => {
+      const c = themePicker.value;
+      updateThemeUI(c);
+      window.setForumThemeAccent(c, false);
+    });
+  }
+
+  if (themeHexInput) {
+    themeHexInput.addEventListener('input', () => {
+      let val = themeHexInput.value.trim();
+      if (!val.startsWith('#')) val = '#' + val;
+      if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
+        updateThemeUI(val);
+        window.setForumThemeAccent(val, false);
+      }
+    });
+  }
+
+  if (themeSaveBtn) {
+    themeSaveBtn.addEventListener('click', () => {
+      window.setForumThemeAccent(themeCurrentColor, true);
+      const curNick = localStorage.getItem('forumNickname');
+      if (curNick) {
+        saveAccountProfile(curNick, { accent: themeCurrentColor });
+      }
+      closeThemeModal();
+      if (window.showForumToast) window.showForumToast('시그니처 색상이 성공적으로 변경되었습니다.');
+    });
+  }
+
+  if (themeResetBtn) {
+    themeResetBtn.addEventListener('click', () => {
+      updateThemeUI('#38bdf8');
+      window.setForumThemeAccent('#38bdf8', false);
+    });
+  }
+
+  if (themeCancelBtn) {
+    themeCancelBtn.addEventListener('click', () => {
+      window.setForumThemeAccent(themeInitialColor, false);
+      closeThemeModal();
+    });
+  }
+
+  // 옵션 메뉴에 '테마 색상 설정' 버튼 추가
+  if (optionMenu && !optionMenu.querySelector('.option-item-theme')) {
+    const themeOptionItem = document.createElement('button');
+    themeOptionItem.className = 'option-item option-item-theme';
+    themeOptionItem.textContent = '테마 색상 설정';
+    if (bgSettingItem && bgSettingItem.nextSibling) {
+      optionMenu.insertBefore(themeOptionItem, bgSettingItem.nextSibling);
+    } else {
+      optionMenu.appendChild(themeOptionItem);
+    }
+
+    themeOptionItem.addEventListener('click', () => {
+      optionMenu.classList.remove('active');
+      body.classList.remove('menu-open');
+      openThemeModal();
+    });
+  }
+
   // 모달 오버레이 안전 닫기 바인딩
   attachSafeOverlayClose(nicknameModalOverlay, hideNicknameModal);
   attachSafeOverlayClose(bgModalOverlay, revertBgToSaved);
+  attachSafeOverlayClose(themeModalOverlay, () => {
+    window.setForumThemeAccent(themeInitialColor, false);
+    closeThemeModal();
+  });
 
   // Escape 키 누르면 모달 닫기
   document.addEventListener('keydown', (e) => {
@@ -552,6 +1141,10 @@ document.addEventListener('DOMContentLoaded', () => {
       hideNicknameModal();
       if (bgModalOverlay && bgModalOverlay.classList.contains('active')) {
         revertBgToSaved();
+      }
+      if (themeModalOverlay && themeModalOverlay.classList.contains('active')) {
+        window.setForumThemeAccent(themeInitialColor, false);
+        closeThemeModal();
       }
     }
   });
@@ -570,7 +1163,8 @@ document.addEventListener('DOMContentLoaded', () => {
       !optionBtn.contains(e.target) &&
       !optionMenu.contains(e.target) &&
       !(nicknameModalOverlay && nicknameModalOverlay.contains(e.target)) &&
-      !(bgModalOverlay && bgModalOverlay.contains(e.target))
+      !(bgModalOverlay && bgModalOverlay.contains(e.target)) &&
+      !(themeModalOverlay && themeModalOverlay.contains(e.target))
     );
   });
 
@@ -580,7 +1174,8 @@ document.addEventListener('DOMContentLoaded', () => {
       !optionBtn.contains(e.target) &&
       !optionMenu.contains(e.target) &&
       !(nicknameModalOverlay && nicknameModalOverlay.contains(e.target)) &&
-      !(bgModalOverlay && bgModalOverlay.contains(e.target))
+      !(bgModalOverlay && bgModalOverlay.contains(e.target)) &&
+      !(themeModalOverlay && themeModalOverlay.contains(e.target))
     ) {
       optionMenu.classList.remove('active');
       body.classList.remove('menu-open');
@@ -1154,10 +1749,40 @@ document.addEventListener('DOMContentLoaded', () => {
     if (devSettingsArea) devSettingsArea.style.display = 'none';
   };
 
+  const ensureAdminDashboardBtn = () => {
+    const grids = document.querySelectorAll('.dev-button-grid');
+    grids.forEach(grid => {
+      if (!grid.querySelector('#dev-admin-dashboard-btn')) {
+        const btn = document.createElement('a');
+        btn.id = 'dev-admin-dashboard-btn';
+        btn.className = 'modal-btn dev-action-btn dev-btn-admin';
+        const targetPath = window.location.pathname.includes('/level/') ? '../admin.html' : 'admin.html';
+        btn.href = targetPath;
+        btn.innerHTML = '<span>검토 센터 대시보드 [A]</span>';
+        btn.title = '관리자 검토 대시보드로 이동 (단축키: A)';
+        grid.appendChild(btn);
+      }
+    });
+  };
+
   const showMainControls = () => {
     hideAllSubPanels();
+    ensureAdminDashboardBtn();
     if (devMainControls) devMainControls.style.display = 'block';
   };
+
+  // 개발자 도구 열려 있을 때 A 키 누르면 관리자 대시보드로 바로 이동
+  document.addEventListener('keydown', (e) => {
+    if (devOverlay && devOverlay.classList.contains('active') && devContentSection && devContentSection.style.display === 'block') {
+      const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
+      if (activeTag === 'input' || activeTag === 'textarea' || activeTag === 'select') return;
+      if (e.key === 'a' || e.key === 'A' || e.code === 'KeyA') {
+        e.preventDefault();
+        const targetPath = window.location.pathname.includes('/level/') ? '../admin.html' : 'admin.html';
+        window.location.href = targetPath;
+      }
+    }
+  });
 
   // --- 개발자 도구 태그 피커 로직 ---
   const GLOBAL_TAG_CATEGORIES = [
@@ -1462,46 +2087,66 @@ document.addEventListener('DOMContentLoaded', () => {
     const cleanId = String(mapId).replace(/\D/g, '');
     if (!cleanId) throw new Error('유효한 숫자 형식의 맵 ID를 입력해주세요.');
 
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 8000);
+    let data = null;
 
+    // 1차 시도: gdbrowser 직접 호출
     try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 4000);
       const response = await fetch(`https://gdbrowser.com/api/level/${cleanId}`, {
         signal: controller.signal
       });
       clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        if (response.status === 404 || response.status === 400) {
-          throw new Error('GD 서버에서 해당 맵 ID를 찾을 수 없습니다.');
-        }
-        throw new Error(`GD API 응답 오류 (HTTP ${response.status})`);
+      if (response.ok) {
+        data = await response.json();
       }
-
-      const data = await response.json();
-      if (!data || data.id === '-1' || !data.name) {
-        throw new Error('해당 레벨의 정보를 찾을 수 없습니다.');
-      }
-
-      const todayStr = new Date().toISOString().slice(0, 10);
-      return {
-        name: data.name || '',
-        author: data.author || '',
-        objects: data.objects != null ? String(data.objects) : '',
-        length: data.length || '',
-        songName: data.songName || '',
-        songArtist: data.songAuthor || '',
-        songId: data.songID != null ? String(data.songID) : (data.customSong != null ? String(data.customSong) : ''),
-        description: data.description || '',
-        uploadDate: todayStr
-      };
-    } catch (err) {
-      clearTimeout(timeoutId);
-      if (err.name === 'AbortError') {
-        throw new Error('GD 서버 응답 시간이 초과되었습니다.');
-      }
-      throw err;
+    } catch (e) {
+      // CORS 또는 Cloudflare WAF 차단 시 프록시 체인으로 전환
     }
+
+    // 2차 시도: allorigins /get JSON 래퍼 (CORS 차단 없는 안전한 엔드포인트)
+    if (!data || data.id === '-1' || !data.name) {
+      try {
+        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://gdbrowser.com/api/level/${cleanId}`)}`;
+        const proxyRes = await fetch(proxyUrl);
+        if (proxyRes.ok) {
+          const wrapper = await proxyRes.json();
+          if (wrapper && wrapper.contents) {
+            try {
+              data = JSON.parse(wrapper.contents);
+            } catch (pe) {}
+          }
+        }
+      } catch (proxyErr) {}
+    }
+
+    // 3차 시도: codetabs 프록시
+    if (!data || data.id === '-1' || !data.name) {
+      try {
+        const ctUrl = `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(`https://gdbrowser.com/api/level/${cleanId}`)}`;
+        const ctRes = await fetch(ctUrl);
+        if (ctRes.ok) {
+          data = await ctRes.json();
+        }
+      } catch (ctErr) {}
+    }
+
+    if (!data || data.id === '-1' || !data.name) {
+      throw new Error(`해당 맵 ID(${cleanId})의 레벨 정보를 찾을 수 없습니다. 올바른 GD 맵 ID인지 확인해주세요.`);
+    }
+
+    const todayStr = new Date().toISOString().slice(0, 10);
+    return {
+      name: data.name || '',
+      author: data.author || '',
+      objects: data.objects != null ? String(data.objects) : '',
+      length: data.length || '',
+      songName: data.songName || '',
+      songArtist: data.songAuthor || '',
+      songId: data.songID != null ? String(data.songID) : (data.customSong != null ? String(data.customSong) : ''),
+      description: data.description || '',
+      uploadDate: todayStr
+    };
   }
   window.fetchGdLevelData = fetchGdLevelData;
 
@@ -2021,4 +2666,231 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', updatePageHeight);
     window.addEventListener('load', updatePageHeight);
   }
+
+  // ==========================================
+  // Mobile Bottom Sheet Gesture Engine
+  // - Drag down handle or header to dismiss
+  // - Overscroll down at top of sheet to dismiss
+  // - Fast flick down detection
+  // - Haptic vibration feedback
+  // - Backdrop tap to close
+  // ==========================================
+  function initMobileBottomSheetGestures() {
+    const isMobile = () => window.innerWidth <= 960;
+
+    function setupSheet(sheetEl) {
+      if (!sheetEl || sheetEl._hasGestureInit) return;
+      sheetEl._hasGestureInit = true;
+
+      const ensureHandleZone = () => {
+        let handleZone = sheetEl.querySelector('.sheet-handle-zone');
+        let handleBar = sheetEl.querySelector('.sheet-handle-bar');
+        if (!handleZone && !handleBar) {
+          handleZone = document.createElement('div');
+          handleZone.className = 'sheet-handle-zone';
+          handleBar = document.createElement('div');
+          handleBar.className = 'sheet-handle-bar';
+          handleZone.appendChild(handleBar);
+          sheetEl.insertBefore(handleZone, sheetEl.firstChild);
+        } else if (handleBar && !handleZone) {
+          handleZone = document.createElement('div');
+          handleZone.className = 'sheet-handle-zone';
+          sheetEl.insertBefore(handleZone, handleBar);
+          handleZone.appendChild(handleBar);
+        }
+      };
+
+      ensureHandleZone();
+
+      let startY = 0;
+      let startX = 0;
+      let currentY = 0;
+      let startTime = 0;
+      let isDragging = false;
+      let canDragFromContent = false;
+      let hasVibrated = false;
+
+      const getCloseButton = () => {
+        return sheetEl.querySelector('#detail-close-btn, #maps-detail-close, .detail-close-btn, .map-detail-close-btn');
+      };
+
+      const triggerClose = () => {
+        sheetEl.classList.remove('is-dragging-sheet');
+        sheetEl.style.setProperty('transition', 'transform 0.28s cubic-bezier(0.32, 0.72, 0, 1)', 'important');
+        sheetEl.style.setProperty('transform', 'translateY(110%)', 'important');
+
+        setTimeout(() => {
+          sheetEl.style.removeProperty('transform');
+          sheetEl.style.removeProperty('transition');
+          const closeBtn = getCloseButton();
+          if (closeBtn) {
+            closeBtn.click();
+          } else {
+            sheetEl.classList.remove('active');
+            const bd = document.getElementById('detail-overlay-backdrop');
+            if (bd) bd.classList.remove('active');
+          }
+        }, 260);
+      };
+
+      const resetPosition = () => {
+        sheetEl.classList.remove('is-dragging-sheet');
+        sheetEl.style.setProperty('transition', 'transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1)', 'important');
+        sheetEl.style.setProperty('transform', 'translateY(0)', 'important');
+        setTimeout(() => {
+          sheetEl.style.removeProperty('transform');
+          sheetEl.style.removeProperty('transition');
+        }, 300);
+      };
+
+      const onTouchStart = (e) => {
+        if (!isMobile()) return;
+        if (!sheetEl.classList.contains('active')) return;
+        if (e.touches.length !== 1) return;
+
+        const touch = e.touches[0];
+        startY = touch.clientY;
+        startX = touch.clientX;
+        currentY = touch.clientY;
+        startTime = Date.now();
+        isDragging = false;
+        hasVibrated = false;
+
+        const target = e.target;
+        const isHandle = target.closest('.sheet-handle-zone') || target.closest('.sheet-handle-bar');
+        const isHeader = target.closest('.map-detail-header') || target.closest('.detail-header');
+        const isInteractive = target.closest('button, a, input, select, iframe');
+
+        if ((isHandle || isHeader) && !isInteractive) {
+          canDragFromContent = true;
+          isDragging = true;
+          sheetEl.classList.add('is-dragging-sheet');
+        } else if (sheetEl.scrollTop <= 2 && !isInteractive) {
+          canDragFromContent = true;
+        } else {
+          canDragFromContent = false;
+        }
+      };
+
+      const onTouchMove = (e) => {
+        if (!isMobile() || !canDragFromContent) return;
+        if (e.touches.length !== 1) return;
+
+        const touch = e.touches[0];
+        const deltaY = touch.clientY - startY;
+        const deltaX = touch.clientX - startX;
+
+        if (!isDragging) {
+          // Detect downward intent vs horizontal intent
+          if (deltaY > 6 && Math.abs(deltaY) > Math.abs(deltaX) * 1.2 && sheetEl.scrollTop <= 1) {
+            isDragging = true;
+            sheetEl.classList.add('is-dragging-sheet');
+          } else if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            canDragFromContent = false;
+            return;
+          }
+        }
+
+        if (isDragging) {
+          if (e.cancelable) e.preventDefault();
+          currentY = touch.clientY;
+          if (deltaY > 0) {
+            sheetEl.style.setProperty('transform', `translateY(${deltaY}px)`, 'important');
+            // Haptic vibration feedback once crossing threshold
+            if (deltaY >= 80 && !hasVibrated) {
+              hasVibrated = true;
+              if (navigator.vibrate) {
+                try { navigator.vibrate(12); } catch (_) {}
+              }
+            } else if (deltaY < 80) {
+              hasVibrated = false;
+            }
+          } else {
+            // Elastic upward dampening
+            const damp = Math.min(25, -deltaY * 0.15);
+            sheetEl.style.setProperty('transform', `translateY(-${damp}px)`, 'important');
+          }
+        }
+      };
+
+      const onTouchEnd = () => {
+        if (!isDragging) {
+          canDragFromContent = false;
+          return;
+        }
+
+        isDragging = false;
+        canDragFromContent = false;
+
+        const deltaY = currentY - startY;
+        const elapsedTime = Math.max(1, Date.now() - startTime);
+        const velocity = deltaY / elapsedTime;
+
+        if (deltaY >= 80 || (velocity > 0.38 && deltaY > 30)) {
+          triggerClose();
+        } else {
+          resetPosition();
+        }
+      };
+
+      sheetEl.addEventListener('touchstart', onTouchStart, { passive: true });
+      sheetEl.addEventListener('touchmove', onTouchMove, { passive: false });
+      sheetEl.addEventListener('touchend', onTouchEnd, { passive: true });
+      sheetEl.addEventListener('touchcancel', resetPosition, { passive: true });
+    }
+
+    const observeSheets = () => {
+      const selectors = ['#maps-detail-container', '#classic-detail-container', '.maps-detail-box', '.classic-detail-box'];
+      selectors.forEach(sel => {
+        document.querySelectorAll(sel).forEach(el => setupSheet(el));
+      });
+
+      const observer = new MutationObserver(() => {
+        selectors.forEach(sel => {
+          document.querySelectorAll(sel).forEach(sheet => {
+            if (sheet.classList.contains('active')) {
+              let handleZone = sheet.querySelector('.sheet-handle-zone');
+              let handleBar = sheet.querySelector('.sheet-handle-bar');
+              if (!handleZone && !handleBar) {
+                handleZone = document.createElement('div');
+                handleZone.className = 'sheet-handle-zone';
+                handleBar = document.createElement('div');
+                handleBar.className = 'sheet-handle-bar';
+                handleZone.appendChild(handleBar);
+                sheet.insertBefore(handleZone, sheet.firstChild);
+              } else if (handleBar && !handleZone) {
+                handleZone = document.createElement('div');
+                handleZone.className = 'sheet-handle-zone';
+                sheet.insertBefore(handleZone, handleBar);
+                handleZone.appendChild(handleBar);
+              }
+            }
+            setupSheet(sheet);
+          });
+        });
+      });
+
+      observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
+    };
+
+    observeSheets();
+
+    // Mobile Backdrop Instant Touch-to-Close
+    document.addEventListener('touchstart', (e) => {
+      if (!isMobile()) return;
+      if (e.target && e.target.id === 'detail-overlay-backdrop') {
+        e.preventDefault();
+        const closeBtn = document.querySelector('#detail-close-btn, #maps-detail-close, .detail-close-btn, .map-detail-close-btn');
+        if (closeBtn) {
+          closeBtn.click();
+        } else {
+          e.target.classList.remove('active');
+          document.querySelectorAll('.maps-detail-box.active, .classic-detail-box.active').forEach(s => s.classList.remove('active'));
+        }
+      }
+    }, { passive: false });
+  }
+
+  initMobileBottomSheetGestures();
 });
+

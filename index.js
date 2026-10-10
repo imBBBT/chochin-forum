@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (mainNewsContainer) {
       mainNewsContainer.innerHTML = '';
       if (!news || news.length === 0) {
-        mainNewsContainer.innerHTML = '<p style="color: rgba(255,255,255,0.4); text-align: center; padding: 3vw 1vw; font-size: 1.2vw; font-family: \'Paperozi\', sans-serif;">등록된 뉴스가 없습니다.</p>';
+        mainNewsContainer.innerHTML = '<p class="news-empty-message">등록된 뉴스가 없습니다.</p>';
       } else {
         news.forEach(item => {
           const mainNewsItem = document.createElement('div');

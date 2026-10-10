@@ -328,7 +328,7 @@
   font-weight: 700;
 }
 
-/* --- Mobile & Tablet Responsive Optimizations for Home Page --- */
+/* --- Mobile Responsive Optimizations for Home Page --- */
 @media (max-width: 960px) {
   html, body {
     overflow-y: auto !important;
@@ -337,9 +337,9 @@
   }
 
   body {
-    padding-top: calc(5vw + 45px);
-    padding-bottom: 2rem;
-    box-sizing: border-box;
+    padding-top: 124px !important;
+    padding-bottom: calc(116px + env(safe-area-inset-bottom, 0px)) !important;
+    box-sizing: border-box !important;
   }
 
   .box.index-panel-left {
@@ -347,54 +347,105 @@
     top: auto !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
-    width: 96vw !important;
+    width: calc(100vw - 20px) !important;
     max-width: 100% !important;
     height: auto !important;
     min-height: auto !important;
-    margin-bottom: 1.2rem !important;
-    padding: 1.8rem 1.2rem !important;
+    margin-bottom: 0.9rem !important;
+    padding: 1.8rem 1.25rem !important;
+    border-radius: 1.2rem !important;
+    box-sizing: border-box !important;
+  }
+
+  .hero-header-group {
+    gap: 16px !important;
+    margin-bottom: 10px !important;
   }
 
   .hero-main-title {
-    font-size: clamp(2.2rem, 8vw, 3.2rem) !important;
-    letter-spacing: 0.05em !important;
+    font-size: clamp(2.6rem, 9vw, 3.6rem) !important;
+    letter-spacing: 0.04em !important;
   }
 
   .hero-version-badge {
-    font-size: clamp(0.75rem, 3vw, 1rem) !important;
-    padding: 0.2rem 0.5rem !important;
+    font-size: 1.1rem !important;
+    padding: 0.3rem 0.8rem !important;
+    border-radius: 999px !important;
+    font-weight: 700 !important;
   }
 
   .hero-subtitle {
-    font-size: clamp(1.05rem, 4vw, 1.4rem) !important;
-    margin-bottom: 0.5rem !important;
+    font-size: clamp(1.25rem, 4.5vw, 1.55rem) !important;
+    margin-bottom: 0.65rem !important;
+    color: #f1f5f9 !important;
+    font-weight: 700 !important;
+    line-height: 1.35 !important;
   }
 
   .hero-desc-text {
-    font-size: clamp(0.85rem, 3.2vw, 1.05rem) !important;
-    line-height: 1.45 !important;
+    font-size: clamp(1rem, 3.6vw, 1.2rem) !important;
+    line-height: 1.55 !important;
+    color: rgba(255, 255, 255, 0.82) !important;
+    word-break: keep-all !important;
+  }
+
+  .discord-header-group {
+    margin-bottom: 0.85rem !important;
+    gap: 12px !important;
+  }
+
+  .discord-title-icon {
+    width: 40px !important;
+    height: 40px !important;
   }
 
   .discord-main-title {
-    font-size: clamp(1.6rem, 5vw, 2.2rem) !important;
+    font-size: clamp(1.8rem, 6vw, 2.3rem) !important;
+  }
+
+  .box.index-panel-discord h2 {
+    font-size: 1.15rem !important;
+    margin-bottom: 1.1rem !important;
+    word-break: keep-all !important;
+    line-height: 1.45 !important;
+    color: rgba(255, 255, 255, 0.85) !important;
   }
 
   .discord-buttons-container {
     flex-direction: column !important;
     width: 100% !important;
     gap: 0.75rem !important;
-    align-items: center !important;
+    align-items: stretch !important;
+  }
+
+  .discord-buttons-container a {
+    width: 100% !important;
+    display: block !important;
   }
 
   .discord_button {
     width: 100% !important;
-    max-width: 320px !important;
-    height: 3rem !important;
-    font-size: 1rem !important;
+    max-width: 100% !important;
+    height: 58px !important;
+    font-size: 1.25rem !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 0.5rem !important;
+    gap: 0.8rem !important;
+    border-radius: 0.95rem !important;
+    border-width: 2.5px !important;
+    touch-action: manipulation !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px !important;
+  }
+
+  .discord-btn-icon {
+    width: 26px !important;
+    height: 26px !important;
+  }
+
+  .discord_button:active {
+    transform: scale(0.97) !important;
   }
 
   .box.index-panel-right {
@@ -402,10 +453,11 @@
     top: auto !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
-    width: 96vw !important;
+    width: calc(100vw - 20px) !important;
     max-width: 100% !important;
     height: auto !important;
-    margin-bottom: 1.5rem !important;
+    margin-bottom: 1.4rem !important;
+    box-sizing: border-box !important;
   }
 
   .box.index-news-header {
@@ -414,6 +466,13 @@
     left: 0 !important;
     width: 100% !important;
     transform: none !important;
+    border-radius: 1.2rem 1.2rem 0 0 !important;
+    padding: 1.15rem 1.3rem !important;
+  }
+
+  .index-news-title {
+    font-size: 1.85rem !important;
+    font-weight: 700 !important;
   }
 
   .box.index-news-body {
@@ -422,21 +481,40 @@
     left: 0 !important;
     width: 100% !important;
     transform: none !important;
-    max-height: 360px !important;
+    border-radius: 0 0 1.2rem 1.2rem !important;
+    max-height: 440px !important;
     overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
     height: auto !important;
     min-height: 180px !important;
+    padding: 1.1rem !important;
+  }
+
+  .news-empty-message {
+    color: rgba(255, 255, 255, 0.45) !important;
+    text-align: center !important;
+    padding: 3rem 1rem !important;
+    font-size: 1.3rem !important;
+    font-family: 'Paperozi', sans-serif !important;
+    margin: 0 !important;
   }
 
   .news-item {
-    padding: 0.8rem 1rem !important;
-    font-size: 0.95rem !important;
-    margin-bottom: 0.6rem !important;
+    padding: 1.15rem 1.25rem !important;
+    font-size: 1.2rem !important;
+    margin-bottom: 0.8rem !important;
+    border-radius: 0.9rem !important;
+    line-height: 1.55 !important;
+  }
+
+  .news-item:active {
+    transform: scale(0.98) !important;
   }
 
   .news-date-tag {
-    padding: 0.15rem 0.4rem !important;
-    font-size: 0.8em !important;
+    padding: 0.25rem 0.65rem !important;
+    font-size: 0.92rem !important;
+    border-radius: 999px !important;
   }
 }
 

@@ -271,8 +271,8 @@ html, body {
 
 .map-pack-card.active-card {
   background: rgba(45, 45, 45, 0.95);
-  border-color: rgba(168, 85, 247, 0.6);
-  box-shadow: 0 0 15px rgba(168, 85, 247, 0.25);
+  border-color: var(--forum-accent-border, rgba(56, 189, 248, 0.5));
+  box-shadow: 0 0 15px var(--forum-accent-subtle, rgba(56, 189, 248, 0.2));
 }
 
 .map-pack-card-top {
@@ -631,9 +631,9 @@ html, body {
   font-family: 'Paperozi', sans-serif;
   font-size: 0.85rem;
   font-weight: 700;
-  color: #a855f7;
-  background: rgba(168, 85, 247, 0.15);
-  border: 1px solid rgba(168, 85, 247, 0.3);
+  color: var(--forum-accent, #38bdf8);
+  background: var(--forum-accent-subtle, rgba(56, 189, 248, 0.15));
+  border: 1px solid var(--forum-accent-border, rgba(56, 189, 248, 0.35));
   width: 1.85rem;
   height: 1.85rem;
   border-radius: 50%;
@@ -796,33 +796,276 @@ html, body {
 @media (max-width: 960px) {
   .maps-list-box,
   .maps-list-box.has-detail {
-    width: 96vw !important;
+    position: fixed !important;
+    width: calc(100vw - 20px) !important;
     max-width: 100% !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    top: 80px !important;
-    bottom: 0.8rem !important;
-    max-height: calc(100vh - 92px) !important;
-  }
-
-  .maps-detail-box {
-    top: auto !important;
-    bottom: 0 !important;
     left: 50% !important;
     right: auto !important;
-    width: 96vw !important;
-    max-width: 100% !important;
-    max-height: calc(100vh - 80px) !important;
-    border-radius: 0.75rem 0.75rem 0 0 !important;
-    padding: 1.6rem 1.2rem !important;
-    background-color: rgba(18, 18, 18, 0.98) !important;
-    transform: translate(-50%, 100%) !important;
-    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, visibility 0.3s ease !important;
-    z-index: 100 !important;
+    transform: translateX(-50%) !important;
+    top: 124px !important;
+    bottom: calc(108px + env(safe-area-inset-bottom, 0px)) !important;
+    height: calc(100vh - 124px - 108px - env(safe-area-inset-bottom, 0px)) !important;
+    max-height: none !important;
+    border-radius: 1.25rem !important;
+    padding: 1.2rem 1.1rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-sizing: border-box !important;
+    z-index: 10 !important;
+  }
+
+  .maps-list-header {
+    padding-bottom: 1rem !important;
+    margin-bottom: 1rem !important;
+    flex-shrink: 0 !important;
+  }
+
+  .maps-list-header-top {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.9rem !important;
+    margin-bottom: 0.9rem !important;
+  }
+
+  .maps-list-title-group {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+
+  .maps-list-main-title {
+    font-size: 1.85rem !important;
+  }
+
+  .maps-banner-badge {
+    font-size: 0.95rem !important;
+    padding: 0.35rem 0.8rem !important;
+    border-radius: 999px !important;
+  }
+
+  /* 티어 탭 스와이프 친화적 가로 스크롤 */
+  .maps-tier-tabs {
+    display: flex !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    gap: 0.65rem !important;
+    padding: 0.2rem 0 !important;
+    scroll-snap-type: x mandatory !important;
+  }
+
+  .maps-tier-tabs::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .maps-tier-tab {
+    flex-shrink: 0 !important;
+    scroll-snap-align: start !important;
+    min-height: 50px !important;
+    padding: 0.55rem 1.3rem !important;
+    font-size: 1.08rem !important;
+    border-radius: 999px !important;
+    font-weight: 700 !important;
+  }
+
+  .maps-tier-tab.active {
+    background: var(--forum-accent, #38bdf8) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    box-shadow: 0 0 16px var(--forum-accent-glow, rgba(56, 189, 248, 0.65)) !important;
+  }
+
+  /* 검색창 터치 최적화 */
+  .maps-search-box {
+    height: 56px !important;
+    padding: 0 1.15rem !important;
+    border-radius: 1rem !important;
+  }
+
+  .maps-search-box input {
+    font-size: 1.15rem !important;
+  }
+
+  .maps-search-icon {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  .maps-search-clear {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 1.05rem !important;
+  }
+
+  /* 맵 카드 리스트 터치 영역 확대 */
+  .maps-level-list {
+    flex: 1 !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    gap: 0.95rem !important;
+    padding-right: 0.2rem !important;
+  }
+
+  .map-pack-card {
+    padding: 1.25rem 1.35rem !important;
+    border-radius: 1.15rem !important;
+    gap: 0.65rem !important;
+    touch-action: manipulation !important;
+  }
+
+  .map-pack-card:active {
+    transform: scale(0.98) !important;
+  }
+
+  .map-pack-title {
+    font-size: 1.38rem !important;
+  }
+
+  .map-pack-desc {
+    font-size: 1.05rem !important;
+    line-height: 1.5 !important;
+    color: rgba(255, 255, 255, 0.78) !important;
+  }
+
+  .map-pack-tier-badge {
+    font-size: 0.92rem !important;
+    padding: 0.35rem 0.75rem !important;
+    border-radius: 0.45rem !important;
+  }
+
+  .map-pack-user-clear-badge {
+    font-size: 0.92rem !important;
+    padding: 0.25rem 0.6rem !important;
+  }
+
+  .map-pack-bottom-info {
+    margin-top: 0.35rem !important;
+    padding-top: 0.65rem !important;
+  }
+
+  .map-pack-level-count,
+  .map-pack-clear-status {
+    font-size: 0.95rem !important;
+  }
+
+  /* 모바일 전용 바텀시트 상세 뷰 */
+  .maps-detail-box {
+    position: fixed !important;
+    top: auto !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: auto !important;
+    max-height: 88vh !important;
+    border-radius: 1.6rem 1.6rem 0 0 !important;
+    border: 1px solid rgba(255, 255, 255, 0.16) !important;
+    border-bottom: none !important;
+    padding: 1.6rem 1.3rem calc(110px + env(safe-area-inset-bottom, 0px)) !important;
+    background-color: rgba(14, 14, 20, 0.98) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.85) !important;
+    transform: translateY(105%) !important;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease !important;
+    z-index: 950 !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    display: block !important;
   }
 
   .maps-detail-box.active {
-    transform: translate(-50%, 0) !important;
+    transform: translateY(0) !important;
+  }
+
+  .maps-detail-empty {
+    display: none !important;
+  }
+
+  .map-detail-header {
+    margin-bottom: 1.2rem !important;
+    align-items: center !important;
+  }
+
+  .map-detail-title {
+    font-size: 1.75rem !important;
+  }
+
+  .map-detail-close-btn {
+    width: 48px !important;
+    height: 48px !important;
+    font-size: 1.35rem !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+  }
+
+  .map-detail-close-btn:active {
+    transform: scale(0.9) !important;
+  }
+
+  .map-detail-desc-box {
+    font-size: 1.15rem !important;
+    line-height: 1.6 !important;
+    padding: 1.15rem 1.25rem !important;
+    border-radius: 0.95rem !important;
+    margin-bottom: 1.3rem !important;
+  }
+
+  .map-detail-section-title {
+    font-size: 1.35rem !important;
+    margin-bottom: 0.85rem !important;
+  }
+
+  .map-level-item {
+    min-height: 62px !important;
+    padding: 0.95rem 1.15rem !important;
+    border-radius: 0.9rem !important;
+    gap: 0.8rem !important;
+  }
+
+  .map-level-num {
+    font-size: 1.15rem !important;
+  }
+
+  .map-level-name,
+  .map-level-link {
+    font-size: 1.2rem !important;
+  }
+
+  .map-level-author {
+    font-size: 1rem !important;
+  }
+
+  .map-level-id {
+    font-size: 0.95rem !important;
+  }
+
+  .map-clear-item {
+    min-height: 56px !important;
+    padding: 0.9rem 1.15rem !important;
+    border-radius: 0.85rem !important;
+    font-size: 1.15rem !important;
+  }
+
+  .map-clear-tag {
+    font-size: 0.85rem !important;
+    padding: 0.25rem 0.65rem !important;
+    border-radius: 999px !important;
+    background: rgba(168, 85, 247, 0.25) !important;
+    border: 1px solid rgba(168, 85, 247, 0.6) !important;
+    color: #f3e8ff !important;
+    margin-right: 0.5rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px !important;
+  }
+
+  .map-clear-date {
+    font-size: 0.95rem !important;
   }
 }
 
