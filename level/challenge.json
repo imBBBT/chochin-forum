@@ -79,6 +79,42 @@
       "clears": []
     },
     {
+      "id": 1792300840903,
+      "title": "DARKNESS",
+      "creator": "Choco",
+      "verifier": "Choco",
+      "rating": "",
+      "video": "https://www.youtube.com/embed/SDNHATA9XM0",
+      "mapId": "150788757",
+      "length": "6s",
+      "objects": "323",
+      "uploadDate": "2026-10-18",
+      "map": {
+        "mapId": "150788757",
+        "length": "6s",
+        "objects": "323",
+        "uploadDate": "2026-10-18"
+      },
+      "song": {
+        "name": "Time Gorge",
+        "artist": "Lapse",
+        "id": "970503"
+      },
+      "description": "2.209가 업데이트되었습니다! ...어쨋든, 매우 빠른 한 손 CPS에 자신 있다면 이 CCL 레퍼런스 레벨을 플레이해보세요! 마지막 클릭만큼은 조심하셔야 할겁니다.",
+      "tags": [
+        "Layout",
+        "Simplism",
+        "Dark",
+        "Slow Paced",
+        "High CPS",
+        "Nerve Control",
+        "Chokepoints",
+        "Wave"
+      ],
+      "targetRank": 3,
+      "clears": []
+    },
+    {
       "id": 3,
       "title": "404",
       "creator": "Choco",
@@ -634,6 +670,13 @@
     }
   ],
   "history": [
+    {
+      "id": 1792300840919,
+      "type": "add",
+      "title": "DARKNESS",
+      "detail": "\"DARKNESS\" 새로운 레벨이 3위에 등록되었습니다.",
+      "time": "2026. 10. 18."
+    },
     {
       "id": 1786959100976,
       "type": "add",
