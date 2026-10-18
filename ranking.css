@@ -73,6 +73,13 @@ html, body {
   padding: 0.2rem;
   border-radius: 0.45rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ranking-mode-tabs::-webkit-scrollbar {
+  display: none;
 }
 
 .ranking-tab {
@@ -142,7 +149,8 @@ html, body {
 
 /* Ranking List Body */
 .ranking-list-body {
-  flex: 1;
+  flex: 1 1 0%;
+  min-height: 0;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   padding: 1rem 1.4rem;
@@ -150,6 +158,7 @@ html, body {
   flex-direction: column;
   gap: 0.8rem;
   box-sizing: border-box;
+  overscroll-behavior-y: contain;
 }
 
 .ranking-list-body::-webkit-scrollbar {
@@ -399,6 +408,7 @@ html, body {
     top: 82px !important;
     bottom: calc(80px + env(safe-area-inset-bottom, 0px)) !important;
     height: calc(100vh - 82px - 80px - env(safe-area-inset-bottom, 0px)) !important;
+    height: calc(100dvh - 82px - 80px - env(safe-area-inset-bottom, 0px)) !important;
     max-height: none !important;
     border-radius: 1.25rem !important;
     padding: 1.2rem 1.1rem !important;
@@ -443,6 +453,8 @@ html, body {
     scroll-snap-type: x mandatory !important;
     width: 100% !important;
     box-sizing: border-box !important;
+    touch-action: pan-x !important;
+    flex-shrink: 0 !important;
   }
 
   .ranking-mode-tabs::-webkit-scrollbar {
@@ -515,9 +527,13 @@ html, body {
   }
 
   .ranking-list-body {
-    flex: 1 !important;
+    flex: 1 1 0% !important;
+    min-height: 0 !important;
+    height: 0 !important;
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
+    touch-action: pan-y !important;
+    overscroll-behavior-y: contain !important;
     gap: 0.55rem !important;
     padding: 0.3rem 4px 0.8rem 4px !important;
     width: 100% !important;
@@ -532,7 +548,7 @@ html, body {
     min-height: 52px !important;
     border-radius: 0.75rem !important;
     align-items: center !important;
-    touch-action: manipulation !important;
+    touch-action: pan-y !important;
     box-sizing: border-box !important;
     width: 100% !important;
     min-width: 0 !important;
