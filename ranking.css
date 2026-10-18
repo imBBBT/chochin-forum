@@ -463,15 +463,32 @@ html, body {
   }
 
   .ranking-table-header {
-    grid-template-columns: 2.4rem 1fr 4.2rem 3.4rem !important;
-    padding: 0.65rem 0.75rem !important;
-    font-size: 0.92rem !important;
+    grid-template-columns: 2.2rem 1fr 5.2rem 4.2rem !important;
+    gap: 0.4rem !important;
+    padding: 0.65rem 0.85rem !important;
+    margin: 0 0 0.45rem 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    font-size: 0.88rem !important;
     flex-shrink: 0 !important;
-    border-radius: 0.75rem !important;
+    border-radius: 0.65rem !important;
+    align-items: center !important;
   }
 
   .ranking-table-header.mode-hardest {
-    grid-template-columns: 2.6rem 1fr 4.8rem !important;
+    grid-template-columns: 2.2rem 1fr 6.5rem !important;
+  }
+
+  .col-rank {
+    text-align: center !important;
+  }
+
+  .col-name {
+    text-align: left !important;
+  }
+
+  .col-pt {
+    text-align: right !important;
   }
 
   .col-hardest {
@@ -483,6 +500,12 @@ html, body {
     text-align: right !important;
   }
 
+  .col-clears {
+    text-align: right !important;
+    font-size: 0.8rem !important;
+    line-height: 1.15 !important;
+  }
+
   .ranking-table-header.mode-hardest .col-clears {
     display: none !important;
   }
@@ -491,26 +514,28 @@ html, body {
     flex: 1 !important;
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
-    gap: 0.65rem !important;
-    padding-right: 0.15rem !important;
+    gap: 0.55rem !important;
+    padding: 0.2rem 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
 
   .ranking-row-card {
-    grid-template-columns: 2.4rem 1fr 4.2rem 3.4rem !important;
-    padding: 0.75rem 0.75rem !important;
+    grid-template-columns: 2.2rem 1fr 5.2rem 4.2rem !important;
+    gap: 0.4rem !important;
+    padding: 0.75rem 0.85rem !important;
     font-size: 1rem !important;
-    min-height: 54px !important;
-    border-radius: 0.85rem !important;
+    min-height: 52px !important;
+    border-radius: 0.75rem !important;
     align-items: center !important;
     touch-action: manipulation !important;
     box-sizing: border-box !important;
     width: 100% !important;
     min-width: 0 !important;
-    overflow: hidden !important;
   }
 
   .ranking-row-card.mode-hardest {
-    grid-template-columns: 2.6rem 1fr 4.8rem !important;
+    grid-template-columns: 2.2rem 1fr 6.5rem !important;
   }
 
   .ranking-row-card:active {
@@ -527,11 +552,11 @@ html, body {
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     white-space: nowrap !important;
-    font-size: 0.88rem !important;
+    font-size: 0.85rem !important;
     color: #e0e0e0 !important;
   }
 
-  .ranking-row-card.mode-hardest .player-clears {
+  .ranking-row-card.mode-hardest .player-clears-wrapper {
     display: none !important;
   }
 
@@ -546,28 +571,39 @@ html, body {
     font-weight: 700 !important;
     white-space: nowrap !important;
     text-align: center !important;
+    justify-content: center !important;
   }
 
   .player-name {
-    font-size: 1.02rem !important;
+    font-size: 0.98rem !important;
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     min-width: 0 !important;
     gap: 0.35rem !important;
+    text-align: left !important;
   }
 
   .user-me-badge {
-    font-size: 0.72rem !important;
-    padding: 0.12rem 0.35rem !important;
+    font-size: 0.7rem !important;
+    padding: 0.1rem 0.3rem !important;
     flex-shrink: 0 !important;
   }
 
   .player-pt {
-    font-size: 1.02rem !important;
+    font-size: 0.98rem !important;
     font-weight: 700 !important;
     white-space: nowrap !important;
     text-align: right !important;
+    justify-content: flex-end !important;
+    display: flex !important;
+  }
+
+  .player-clears-wrapper {
+    display: flex !important;
+    justify-content: flex-end !important;
+    width: 100% !important;
+    min-width: 0 !important;
   }
 
   .player-clears {
