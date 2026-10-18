@@ -1504,8 +1504,9 @@ input:checked + .slider:before {
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch !important;
     scrollbar-width: none !important;
-    gap: 0.6rem !important;
-    padding: 0.2rem 0 0.8rem !important;
+    justify-content: flex-start !important;
+    gap: 0.55rem !important;
+    padding: 0.45rem 0.6rem 0.85rem !important;
     scroll-snap-type: x mandatory !important;
     width: 100% !important;
     box-sizing: border-box !important;
@@ -1516,18 +1517,19 @@ input:checked + .slider:before {
   }
 
   .tools-tab-btn {
-    flex: 1 !important;
+    flex: 0 0 auto !important;
     min-height: 44px !important;
-    padding: 0.5rem 0.85rem !important;
-    font-size: 0.95rem !important;
+    padding: 0.5rem 1rem !important;
+    font-size: clamp(0.85rem, 2.7vw, 0.95rem) !important;
     border-radius: 999px !important;
-    display: flex !important;
+    display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
     touch-action: manipulation !important;
     font-weight: 700 !important;
     white-space: nowrap !important;
     flex-shrink: 0 !important;
+    scroll-snap-align: start !important;
     box-sizing: border-box !important;
   }
 

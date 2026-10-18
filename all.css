@@ -1534,13 +1534,15 @@ html.low-spec-mode ::-webkit-scrollbar-track {
   .maps-tier-tabs,
   .tools-tab-bar,
   .submit-tab-bar,
-  .ranking-mode-tabs {
+  .ranking-mode-tabs,
+  .admin-tab-bar {
     display: flex !important;
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch !important;
     scrollbar-width: none !important;
-    gap: 0.65rem !important;
-    padding: 0.4rem 0.2rem !important;
+    justify-content: flex-start !important;
+    gap: 0.55rem !important;
+    padding: 0.45rem 0.6rem !important;
     scroll-snap-type: x mandatory !important;
     width: 100% !important;
     box-sizing: border-box !important;
@@ -1550,18 +1552,15 @@ html.low-spec-mode ::-webkit-scrollbar-track {
   .maps-tier-tabs::-webkit-scrollbar,
   .tools-tab-bar::-webkit-scrollbar,
   .submit-tab-bar::-webkit-scrollbar,
-  .ranking-mode-tabs::-webkit-scrollbar {
+  .ranking-mode-tabs::-webkit-scrollbar,
+  .admin-tab-bar::-webkit-scrollbar {
     display: none !important;
   }
 
   /* 터치 타깃 확대 및 미세 피드백 */
   button,
   .button,
-  .modal-btn,
-  .maps-tier-tab,
-  .tools-tab-btn,
-  .submit-tab-btn,
-  .ranking-tab {
+  .modal-btn {
     min-height: 50px !important;
     touch-action: manipulation !important;
     font-size: 1.08rem !important;

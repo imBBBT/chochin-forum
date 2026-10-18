@@ -797,11 +797,12 @@
 /* Responsive Styles */
 @media (max-width: 960px) {
   .submit-main-container {
-    width: calc(100vw - 20px) !important;
+    width: calc(100% - 16px) !important;
     max-width: 100% !important;
     margin: 0 auto !important;
     padding: 82px 0 calc(84px + env(safe-area-inset-bottom, 0px)) 0 !important;
     box-sizing: border-box !important;
+    overflow-x: hidden !important;
   }
 
   .submit-banner-box {
@@ -829,10 +830,12 @@
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch !important;
     scrollbar-width: none !important;
-    gap: 0.75rem !important;
-    padding: 0.2rem 0 1rem !important;
+    justify-content: flex-start !important;
+    gap: 0.55rem !important;
+    padding: 0.45rem 0.6rem 0.85rem !important;
     scroll-snap-type: x mandatory !important;
     width: 100% !important;
+    box-sizing: border-box !important;
   }
 
   .submit-tab-bar::-webkit-scrollbar {
@@ -840,19 +843,21 @@
   }
 
   .submit-tab-btn {
-    flex: 1 !important;
-    min-height: 46px !important;
-    font-size: 0.98rem !important;
-    padding: 0.5rem 1rem !important;
+    flex: 0 0 auto !important;
+    min-height: 44px !important;
+    font-size: clamp(0.85rem, 2.7vw, 0.96rem) !important;
+    padding: 0.45rem 0.85rem !important;
     border-radius: 999px !important;
     white-space: nowrap !important;
     flex-shrink: 0 !important;
-    display: flex !important;
+    display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 0.45rem !important;
+    gap: 0.4rem !important;
     touch-action: manipulation !important;
     font-weight: 700 !important;
+    scroll-snap-align: start !important;
+    box-sizing: border-box !important;
   }
 
   .submit-tab-btn.active {

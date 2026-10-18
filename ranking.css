@@ -437,9 +437,12 @@ html, body {
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch !important;
     scrollbar-width: none !important;
-    gap: 0.65rem !important;
-    padding: 0.2rem 0 !important;
+    justify-content: flex-start !important;
+    gap: 0.55rem !important;
+    padding: 0.4rem 0.6rem !important;
     scroll-snap-type: x mandatory !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
 
   .ranking-mode-tabs::-webkit-scrollbar {
@@ -449,11 +452,12 @@ html, body {
   .ranking-tab {
     flex-shrink: 0 !important;
     scroll-snap-align: start !important;
-    min-height: 50px !important;
-    padding: 0.55rem 1.3rem !important;
-    font-size: 1.08rem !important;
+    min-height: 44px !important;
+    padding: 0.5rem 1.05rem !important;
+    font-size: clamp(0.85rem, 2.7vw, 0.98rem) !important;
     border-radius: 999px !important;
     font-weight: 700 !important;
+    box-sizing: border-box !important;
   }
 
   .ranking-tab.active {
