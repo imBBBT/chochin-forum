@@ -369,6 +369,7 @@
     letter-spacing: 0.02em !important;
     line-height: 1.15 !important;
     word-break: break-word !important;
+    white-space: normal !important;
   }
 
   .hero-version-badge {
@@ -376,6 +377,8 @@
     padding: 0.2rem 0.65rem !important;
     border-radius: 999px !important;
     font-weight: 700 !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
   }
 
   .hero-subtitle {
@@ -385,6 +388,8 @@
     font-weight: 700 !important;
     line-height: 1.35 !important;
     word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    white-space: normal !important;
   }
 
   .hero-desc-text {
@@ -392,6 +397,8 @@
     line-height: 1.5 !important;
     color: rgba(255, 255, 255, 0.82) !important;
     word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    white-space: normal !important;
   }
 
   .discord-header-group {
@@ -407,14 +414,18 @@
   .discord-main-title {
     font-size: clamp(1.4rem, 5.5vw, 1.9rem) !important;
     word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    white-space: normal !important;
   }
 
   .box.index-panel-discord h2 {
     font-size: 1.05rem !important;
     margin-bottom: 1rem !important;
     word-break: break-word !important;
+    overflow-wrap: break-word !important;
     line-height: 1.4 !important;
     color: rgba(255, 255, 255, 0.85) !important;
+    white-space: normal !important;
   }
 
   .discord-buttons-container {
