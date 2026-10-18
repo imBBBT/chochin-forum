@@ -2015,21 +2015,20 @@ html, body {
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
     padding-right: 0.15rem !important;
-    gap: 0.65rem !important;
+    gap: 0.75rem !important;
   }
 
   .classic-level-card {
-    min-height: auto !important;
-    padding: 0.75rem 0.85rem !important;
+    min-height: 5.4rem !important;
+    padding: 0.85rem 0.95rem !important;
     border-radius: 0.85rem !important;
-    gap: 0.65rem !important;
+    gap: 0.75rem !important;
     touch-action: manipulation !important;
     display: flex !important;
     align-items: center !important;
     box-sizing: border-box !important;
     width: 100% !important;
     min-width: 0 !important;
-    overflow: hidden !important;
   }
 
   .classic-level-card:active {
@@ -2037,45 +2036,55 @@ html, body {
   }
 
   .classic-level-thumb {
-    width: 5.2rem !important;
+    width: 5.4rem !important;
     height: 3.6rem !important;
+    aspect-ratio: 16 / 10 !important;
+    object-fit: cover !important;
     flex-shrink: 0 !important;
-    border-radius: 0.45rem !important;
+    border-radius: 0.5rem !important;
   }
 
   .classic-level-info {
     flex: 1 1 0% !important;
     min-width: 0 !important;
-    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
   }
 
   .classic-level-title-row {
-    gap: 0.35rem !important;
-    margin-bottom: 0.2rem !important;
+    display: flex !important;
+    align-items: baseline !important;
+    gap: 0.4rem !important;
+    margin-bottom: 0.25rem !important;
     min-width: 0 !important;
-    overflow: hidden !important;
   }
 
   .classic-level-rank {
-    font-size: 1.15rem !important;
+    font-size: 1.25rem !important;
+    font-weight: 800 !important;
     flex-shrink: 0 !important;
-    line-height: 1.2 !important;
+    line-height: 1.35 !important;
+    letter-spacing: -0.02em !important;
   }
 
   .classic-level-title {
-    font-size: 1.1rem !important;
+    font-size: 1.15rem !important;
+    font-weight: 800 !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     white-space: nowrap !important;
-    line-height: 1.2 !important;
+    line-height: 1.35 !important;
   }
 
   .classic-level-meta {
-    font-size: 0.82rem !important;
+    font-size: 0.88rem !important;
+    font-weight: 500 !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     white-space: nowrap !important;
-    line-height: 1.25 !important;
+    line-height: 1.35 !important;
+    color: rgba(255, 255, 255, 0.65) !important;
   }
 
   .classic-level-actions {
@@ -2083,27 +2092,31 @@ html, body {
     display: flex !important;
     flex-direction: column !important;
     align-items: flex-end !important;
-    gap: 0.25rem !important;
-    align-self: center !important;
+    justify-content: center !important;
+    gap: 0.32rem !important;
   }
 
   .classic-level-badge {
-    font-size: 0.75rem !important;
-    padding: 0.15rem 0.45rem !important;
-    border-radius: 0.3rem !important;
+    font-size: 0.72rem !important;
+    padding: 0.18rem 0.52rem !important;
+    border-radius: 0.35rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.3px !important;
   }
 
   .classic-level-pt-badge {
     font-size: 0.72rem !important;
-    padding: 0.15rem 0.45rem !important;
-    border-radius: 0.3rem !important;
+    padding: 0.18rem 0.52rem !important;
+    border-radius: 0.35rem !important;
     white-space: nowrap !important;
+    font-weight: 600 !important;
   }
 
   .classic-level-clear-badge {
     font-size: 0.72rem !important;
-    padding: 0.12rem 0.4rem !important;
-    border-radius: 0.3rem !important;
+    padding: 0.15rem 0.45rem !important;
+    border-radius: 0.35rem !important;
+    font-weight: 600 !important;
   }
 
   .classic-detail-box {
