@@ -179,6 +179,7 @@ html, body {
   padding: 0.45rem 0.8rem;
   box-sizing: border-box;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
 }
 
 .maps-search-box:focus-within {
@@ -196,6 +197,8 @@ html, body {
 
 #maps-search-input {
   flex: 1;
+  min-width: 0;
+  width: 100%;
   background: transparent;
   border: none;
   outline: none;
@@ -203,10 +206,26 @@ html, body {
   font-family: 'Paperozi', sans-serif;
   font-size: 0.9rem;
   padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#maps-search-input::-webkit-search-decoration,
+#maps-search-input::-webkit-search-cancel-button,
+#maps-search-input::-webkit-search-results-button,
+#maps-search-input::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
 }
 
 #maps-search-input::placeholder {
   color: rgba(255, 255, 255, 0.4);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .maps-search-clear {
@@ -880,24 +899,50 @@ html, body {
 
   /* 검색창 터치 최적화 */
   .maps-search-box {
-    height: 56px !important;
-    padding: 0 1.15rem !important;
-    border-radius: 1rem !important;
+    height: 48px !important;
+    padding: 0 0.85rem !important;
+    border-radius: 0.75rem !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
   }
 
-  .maps-search-box input {
-    font-size: 1.15rem !important;
+  .maps-search-box input,
+  #maps-search-input {
+    min-width: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    font-size: 1.02rem !important;
+    line-height: normal !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  #maps-search-input::placeholder {
+    font-size: clamp(0.82rem, 2.7vw, 0.95rem) !important;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
   }
 
   .maps-search-icon {
-    width: 24px !important;
-    height: 24px !important;
+    width: 20px !important;
+    height: 20px !important;
+    flex-shrink: 0 !important;
+    margin-right: 0.5rem !important;
   }
 
   .maps-search-clear {
-    width: 36px !important;
-    height: 36px !important;
-    font-size: 1.05rem !important;
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 1rem !important;
+    flex-shrink: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 
   /* 맵 카드 리스트 터치 영역 확대 및 가독성 개선 */

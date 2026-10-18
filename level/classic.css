@@ -168,6 +168,7 @@ html, body {
   padding: 0.4rem 0.7rem;
   box-sizing: border-box;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
 }
 
 .classic-search-box:focus-within {
@@ -185,6 +186,8 @@ html, body {
 
 #classic-search-input {
   flex: 1;
+  min-width: 0;
+  width: 100%;
   background: transparent;
   border: none;
   outline: none;
@@ -192,6 +195,8 @@ html, body {
   font-family: 'Paperozi', sans-serif;
   font-size: 0.9rem;
   padding: 0;
+  margin: 0;
+  box-sizing: border-box;
   -webkit-appearance: none;
   appearance: none;
 }
@@ -207,6 +212,9 @@ html, body {
 
 #classic-search-input::placeholder {
   color: rgba(255, 255, 255, 0.4);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .classic-search-clear {
@@ -1944,10 +1952,30 @@ html, body {
     height: 48px !important;
     padding: 0 0.85rem !important;
     border-radius: 0.75rem !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
   }
 
+  .classic-search-box input,
   #classic-search-input {
-    font-size: 1.05rem !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    font-size: 1.02rem !important;
+    line-height: normal !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  #classic-search-input::placeholder {
+    font-size: clamp(0.82rem, 2.7vw, 0.95rem) !important;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
   }
 
   .classic-tag-filter-info {
