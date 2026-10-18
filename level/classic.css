@@ -1883,65 +1883,129 @@ html, body {
   /* 모바일 리스트 헤더 및 태그 필터: 레벨 리스트 영역 보장 */
   .classic-list-header {
     flex-shrink: 0 !important;
-    padding-bottom: 0.6rem !important;
+    padding-bottom: 0.55rem !important;
     margin-bottom: 0.4rem !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
   }
 
+  .classic-list-header-top {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.55rem !important;
+    margin-bottom: 0.65rem !important;
+  }
+
+  .classic-list-title-group {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+  }
+
+  .classic-list-main-title {
+    font-size: 1.55rem !important;
+    margin: 0 !important;
+    line-height: 1.1 !important;
+  }
+
+  .classic-banner-badge {
+    font-size: 0.82rem !important;
+    padding: 0.2rem 0.55rem !important;
+  }
+
+  .classic-mode-tabs {
+    display: flex !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    gap: 0.35rem !important;
+    padding: 0.25rem !important;
+    background: rgba(0, 0, 0, 0.5) !important;
+    border-radius: 0.65rem !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  }
+
+  .classic-mode-tab {
+    flex: 1 !important;
+    text-align: center !important;
+    padding: 0.45rem 0.2rem !important;
+    font-size: 0.95rem !important;
+    border-radius: 0.45rem !important;
+    white-space: nowrap !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
   .classic-search-box {
-    height: 52px !important;
-    padding: 0 1rem !important;
-    border-radius: 0.85rem !important;
+    height: 48px !important;
+    padding: 0 0.85rem !important;
+    border-radius: 0.75rem !important;
   }
 
   #classic-search-input {
-    font-size: 1.12rem !important;
+    font-size: 1.05rem !important;
+  }
+
+  .classic-tag-filter-info {
+    flex-wrap: wrap !important;
+    gap: 0.35rem !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+  }
+
+  .classic-tag-guide-text {
+    font-size: 0.72rem !important;
+  }
+
+  .classic-tag-action-btns {
+    gap: 0.3rem !important;
   }
 
   .classic-tag-toggle-btn,
   .classic-tag-reset-btn {
-    min-height: 38px !important;
-    font-size: 0.92rem !important;
-    padding: 0.35rem 0.85rem !important;
-    border-radius: 0.55rem !important;
+    min-height: 32px !important;
+    font-size: 0.82rem !important;
+    padding: 0.25rem 0.65rem !important;
+    border-radius: 0.45rem !important;
   }
 
   .classic-tag-chips-wrapper {
-    max-height: 155px !important;
+    max-height: 140px !important;
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
-    padding: 0.55rem 0.65rem !important;
+    padding: 0.5rem 0.6rem !important;
     border-radius: 0.75rem !important;
     border: 1px solid rgba(255, 255, 255, 0.14) !important;
     background: rgba(18, 18, 24, 0.96) !important;
     margin-top: 0.4rem !important;
-    gap: 0.45rem !important;
+    gap: 0.4rem !important;
   }
 
   .classic-tag-category-row {
     flex-direction: column !important;
     align-items: flex-start !important;
-    gap: 0.3rem !important;
-    padding-bottom: 0.35rem !important;
-    margin-bottom: 0.25rem !important;
+    gap: 0.25rem !important;
+    padding-bottom: 0.3rem !important;
+    margin-bottom: 0.2rem !important;
   }
 
   .classic-tag-cat-badge {
-    font-size: 0.78rem !important;
-    padding: 0.15rem 0.5rem !important;
+    font-size: 0.74rem !important;
+    padding: 0.12rem 0.45rem !important;
   }
 
   .classic-tag-chips-group {
     display: flex !important;
     flex-wrap: wrap !important;
-    gap: 0.35rem !important;
+    gap: 0.3rem !important;
     width: 100% !important;
   }
 
   .classic-tag-chip {
-    font-size: 0.85rem !important;
-    padding: 0.3rem 0.65rem !important;
-    min-height: 32px !important;
+    font-size: 0.8rem !important;
+    padding: 0.25rem 0.55rem !important;
+    min-height: 28px !important;
   }
 
   /* 레벨 리스트: 태그 필터가 열려도 남은 높이를 채우며 매끄럽게 스크롤 */
@@ -1951,14 +2015,21 @@ html, body {
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
     padding-right: 0.15rem !important;
+    gap: 0.65rem !important;
   }
 
   .classic-level-card {
     min-height: auto !important;
-    padding: 1rem 1.15rem !important;
-    border-radius: 1rem !important;
-    gap: 1rem !important;
+    padding: 0.75rem 0.85rem !important;
+    border-radius: 0.85rem !important;
+    gap: 0.65rem !important;
     touch-action: manipulation !important;
+    display: flex !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
   }
 
   .classic-level-card:active {
@@ -1966,22 +2037,73 @@ html, body {
   }
 
   .classic-level-thumb {
-    width: 6.8rem !important;
-    height: 4.8rem !important;
-    border-radius: 0.6rem !important;
+    width: 5.2rem !important;
+    height: 3.6rem !important;
+    flex-shrink: 0 !important;
+    border-radius: 0.45rem !important;
+  }
+
+  .classic-level-info {
+    flex: 1 1 0% !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .classic-level-title-row {
+    gap: 0.35rem !important;
+    margin-bottom: 0.2rem !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .classic-level-rank {
+    font-size: 1.15rem !important;
+    flex-shrink: 0 !important;
+    line-height: 1.2 !important;
   }
 
   .classic-level-title {
-    font-size: 1.25rem !important;
+    font-size: 1.1rem !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    line-height: 1.2 !important;
   }
 
-  .classic-level-author {
-    font-size: 0.95rem !important;
+  .classic-level-meta {
+    font-size: 0.82rem !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    line-height: 1.25 !important;
+  }
+
+  .classic-level-actions {
+    flex-shrink: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+    gap: 0.25rem !important;
+    align-self: center !important;
   }
 
   .classic-level-badge {
-    font-size: 0.92rem !important;
-    padding: 0.25rem 0.6rem !important;
+    font-size: 0.75rem !important;
+    padding: 0.15rem 0.45rem !important;
+    border-radius: 0.3rem !important;
+  }
+
+  .classic-level-pt-badge {
+    font-size: 0.72rem !important;
+    padding: 0.15rem 0.45rem !important;
+    border-radius: 0.3rem !important;
+    white-space: nowrap !important;
+  }
+
+  .classic-level-clear-badge {
+    font-size: 0.72rem !important;
+    padding: 0.12rem 0.4rem !important;
+    border-radius: 0.3rem !important;
   }
 
   .classic-detail-box {
@@ -2107,6 +2229,10 @@ html, body {
     line-height: 1.3 !important;
   }
 
+  .detail-info-item.detail-info-item-wide {
+    grid-column: 1 / -1 !important;
+  }
+
   .detail-tags-container {
     margin-bottom: 0.75rem !important;
   }
@@ -2123,6 +2249,78 @@ html, body {
     padding: 0.25rem 0.6rem !important;
     min-height: 28px !important;
     word-break: break-all !important;
+  }
+
+  /* 모바일 기록 명단 테이블 최적화 (가로 넘침 방지) */
+  .detail-clears-box {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .detail-clears-title {
+    font-size: 1.05rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .detail-clears-count {
+    font-size: 0.85rem !important;
+    padding: 0.15rem 0.55rem !important;
+  }
+
+  .detail-clears-table {
+    width: 100% !important;
+    table-layout: fixed !important;
+    border-collapse: collapse !important;
+  }
+
+  .detail-clears-th {
+    font-size: 0.75rem !important;
+    padding: 0.4rem 0.2rem !important;
+  }
+
+  .detail-clears-td {
+    font-size: 0.78rem !important;
+    padding: 0.4rem 0.2rem !important;
+  }
+
+  .th-rank, .td-rank {
+    width: 9% !important;
+    font-size: 0.72rem !important;
+  }
+
+  .th-name, .td-name {
+    width: 36% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    font-size: 0.78rem !important;
+  }
+
+  .th-percent, .td-percent {
+    width: 18% !important;
+    font-size: 0.78rem !important;
+    white-space: nowrap !important;
+  }
+
+  .th-date, .td-date {
+    width: 23% !important;
+    font-size: 0.72rem !important;
+    white-space: nowrap !important;
+    letter-spacing: -0.5px !important;
+  }
+
+  .th-link, .td-link {
+    width: 14% !important;
+  }
+
+  .detail-clears-link {
+    font-size: 0.72rem !important;
+    padding: 0.15rem 0.35rem !important;
+    border-radius: 0.3rem !important;
+    white-space: nowrap !important;
   }
 
   .detail-overlay-backdrop {

@@ -841,16 +841,16 @@
 
   .submit-tab-btn {
     flex: 1 !important;
-    min-height: 52px !important;
-    font-size: 1.12rem !important;
-    padding: 0.6rem 1.35rem !important;
+    min-height: 46px !important;
+    font-size: 0.98rem !important;
+    padding: 0.5rem 1rem !important;
     border-radius: 999px !important;
     white-space: nowrap !important;
     flex-shrink: 0 !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 0.55rem !important;
+    gap: 0.45rem !important;
     touch-action: manipulation !important;
     font-weight: 700 !important;
   }
@@ -862,14 +862,20 @@
   }
 
   .tab-icon {
-    font-size: 1.25rem !important;
+    font-size: 1.1rem !important;
+  }
+
+  .preview-iframe-wrapper {
+    max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
 
   .category-radio-group,
   .form-grid,
   .form-grid-3 {
     grid-template-columns: 1fr !important;
-    gap: 1.15rem !important;
+    gap: 0.95rem !important;
   }
 
   .category-radio-card {

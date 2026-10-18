@@ -1509,15 +1509,17 @@ input:checked + .slider:before {
 
   .tools-tab-btn {
     flex: 1 !important;
-    min-height: 52px !important;
-    padding: 0.6rem 1.35rem !important;
-    font-size: 1.15rem !important;
+    min-height: 46px !important;
+    padding: 0.5rem 1.05rem !important;
+    font-size: 0.98rem !important;
     border-radius: 999px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     touch-action: manipulation !important;
     font-weight: 700 !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
   }
 
   .tools-tab-btn.active {

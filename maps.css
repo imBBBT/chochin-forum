@@ -910,41 +910,61 @@ html, body {
     border-radius: 1.15rem !important;
     gap: 0.65rem !important;
     touch-action: manipulation !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
   }
 
   .map-pack-card:active {
     transform: scale(0.98) !important;
   }
 
+  .map-pack-title-row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 0.45rem !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+  }
+
   .map-pack-title {
-    font-size: 1.38rem !important;
+    font-size: 1.25rem !important;
+    word-break: break-word !important;
+    line-height: 1.25 !important;
   }
 
   .map-pack-desc {
-    font-size: 1.05rem !important;
-    line-height: 1.5 !important;
+    font-size: 0.95rem !important;
+    line-height: 1.45 !important;
     color: rgba(255, 255, 255, 0.78) !important;
+    word-break: break-word !important;
   }
 
   .map-pack-tier-badge {
-    font-size: 0.92rem !important;
-    padding: 0.35rem 0.75rem !important;
-    border-radius: 0.45rem !important;
+    font-size: 0.82rem !important;
+    padding: 0.25rem 0.6rem !important;
+    border-radius: 0.4rem !important;
+    flex-shrink: 0 !important;
   }
 
   .map-pack-user-clear-badge {
-    font-size: 0.92rem !important;
-    padding: 0.25rem 0.6rem !important;
+    font-size: 0.82rem !important;
+    padding: 0.2rem 0.55rem !important;
+    flex-shrink: 0 !important;
   }
 
   .map-pack-bottom-info {
     margin-top: 0.35rem !important;
     padding-top: 0.65rem !important;
+    flex-wrap: wrap !important;
+    gap: 0.4rem !important;
   }
 
   .map-pack-level-count,
   .map-pack-clear-status {
-    font-size: 0.95rem !important;
+    font-size: 0.88rem !important;
   }
 
   /* 모바일 전용 바텀시트 상세 뷰 */
@@ -1048,10 +1068,19 @@ html, body {
   }
 
   .map-level-item {
-    min-height: 52px !important;
-    padding: 0.75rem 0.95rem !important;
+    min-height: 48px !important;
+    padding: 0.65rem 0.85rem !important;
     border-radius: 0.75rem !important;
-    gap: 0.65rem !important;
+    gap: 0.55rem !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .map-level-info {
+    min-width: 0 !important;
+    flex: 1 !important;
   }
 
   .map-level-num {

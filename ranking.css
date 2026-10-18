@@ -463,14 +463,27 @@ html, body {
   }
 
   .ranking-table-header {
-    grid-template-columns: 3.8rem 1fr 6.2rem 4.8rem !important;
-    padding: 0.85rem 1.15rem !important;
-    font-size: 1.05rem !important;
+    grid-template-columns: 2.4rem 1fr 4.2rem 3.4rem !important;
+    padding: 0.65rem 0.75rem !important;
+    font-size: 0.92rem !important;
     flex-shrink: 0 !important;
-    border-radius: 0.85rem !important;
+    border-radius: 0.75rem !important;
+  }
+
+  .ranking-table-header.mode-hardest {
+    grid-template-columns: 2.6rem 1fr 4.8rem !important;
   }
 
   .col-hardest {
+    display: none !important;
+  }
+
+  .ranking-table-header.mode-hardest .col-hardest {
+    display: block !important;
+    text-align: right !important;
+  }
+
+  .ranking-table-header.mode-hardest .col-clears {
     display: none !important;
   }
 
@@ -478,18 +491,26 @@ html, body {
     flex: 1 !important;
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
-    gap: 0.75rem !important;
+    gap: 0.65rem !important;
     padding-right: 0.15rem !important;
   }
 
   .ranking-row-card {
-    grid-template-columns: 3.8rem 1fr 6.2rem 4.8rem !important;
-    padding: 1rem 1.15rem !important;
-    font-size: 1.15rem !important;
-    min-height: 64px !important;
-    border-radius: 0.95rem !important;
+    grid-template-columns: 2.4rem 1fr 4.2rem 3.4rem !important;
+    padding: 0.75rem 0.75rem !important;
+    font-size: 1rem !important;
+    min-height: 54px !important;
+    border-radius: 0.85rem !important;
     align-items: center !important;
     touch-action: manipulation !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .ranking-row-card.mode-hardest {
+    grid-template-columns: 2.6rem 1fr 4.8rem !important;
   }
 
   .ranking-row-card:active {
@@ -500,35 +521,59 @@ html, body {
     display: none !important;
   }
 
+  .ranking-row-card.mode-hardest .player-hardest {
+    display: block !important;
+    text-align: right !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    font-size: 0.88rem !important;
+    color: #e0e0e0 !important;
+  }
+
+  .ranking-row-card.mode-hardest .player-clears {
+    display: none !important;
+  }
+
   .ranking-table-header > *,
   .ranking-row-card > * {
     min-width: 0 !important;
   }
 
+  .rank-badge,
   .player-rank {
-    font-size: 1.25rem !important;
+    font-size: 1.05rem !important;
     font-weight: 700 !important;
     white-space: nowrap !important;
     text-align: center !important;
   }
 
   .player-name {
-    font-size: 1.18rem !important;
+    font-size: 1.02rem !important;
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     min-width: 0 !important;
+    gap: 0.35rem !important;
+  }
+
+  .user-me-badge {
+    font-size: 0.72rem !important;
+    padding: 0.12rem 0.35rem !important;
+    flex-shrink: 0 !important;
   }
 
   .player-pt {
-    font-size: 1.18rem !important;
+    font-size: 1.02rem !important;
     font-weight: 700 !important;
     white-space: nowrap !important;
     text-align: right !important;
   }
 
   .player-clears {
-    font-size: 1.05rem !important;
+    font-size: 0.92rem !important;
+    text-align: right !important;
+    white-space: nowrap !important;
   }
 }
 

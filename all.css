@@ -1294,16 +1294,17 @@ html.low-spec-mode ::-webkit-scrollbar-track {
   }
 
   .header-nickname {
-    font-size: 1.25rem !important;
-    gap: 0.55rem !important;
+    font-size: 1.12rem !important;
+    gap: 0.45rem !important;
     display: flex !important;
     align-items: center !important;
     white-space: nowrap !important;
-    max-width: calc(100vw - 110px) !important;
+    max-width: calc(100vw - 180px) !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     font-weight: 700 !important;
     min-width: 0 !important;
+    flex-shrink: 1 !important;
   }
 
   .header-nickname .nick-name-text {
@@ -1311,11 +1312,12 @@ html.low-spec-mode ::-webkit-scrollbar-track {
     text-overflow: ellipsis !important;
     white-space: nowrap !important;
     display: inline-block !important;
+    min-width: 0 !important;
   }
 
   .header-user-pt-badge {
-    font-size: 0.95rem !important;
-    padding: 0.28rem 0.75rem !important;
+    font-size: 0.82rem !important;
+    padding: 0.2rem 0.55rem !important;
     border-width: 1.5px !important;
     border-radius: 999px !important;
     background: var(--forum-accent-subtle) !important;
@@ -1323,6 +1325,7 @@ html.low-spec-mode ::-webkit-scrollbar-track {
     color: #ffffff !important;
     font-weight: 800 !important;
     flex-shrink: 0 !important;
+    white-space: nowrap !important;
   }
 
   header .optionbutton,
@@ -1470,13 +1473,15 @@ html.low-spec-mode ::-webkit-scrollbar-track {
   /* 모달 및 패널 */
   .dev-panel,
   .nickname-input-box,
-  .roulette-win-box {
-    width: 92vw !important;
-    max-width: 480px !important;
-    padding: 1.5rem !important;
+  .roulette-win-box,
+  .theme-modal-box {
+    width: calc(100vw - 28px) !important;
+    max-width: 420px !important;
+    padding: 1.35rem 1.15rem !important;
     max-height: 85vh !important;
     overflow-y: auto !important;
     border-radius: 1.2rem !important;
+    box-sizing: border-box !important;
   }
 
   .nickname-input-box h2 {
@@ -1489,9 +1494,34 @@ html.low-spec-mode ::-webkit-scrollbar-track {
     font-size: 1.15rem !important;
   }
 
+  .modal-buttons {
+    display: flex !important;
+    gap: 0.65rem !important;
+    width: 100% !important;
+  }
+
   .modal-btn {
-    height: 52px !important;
-    font-size: 1.15rem !important;
+    flex: 1 !important;
+    height: 48px !important;
+    font-size: 1.05rem !important;
+    padding: 0 0.8rem !important;
+  }
+
+  .sync-actions-row {
+    flex-wrap: wrap !important;
+    gap: 0.45rem !important;
+  }
+
+  .sync-code-input {
+    width: 100% !important;
+    flex: 1 1 100% !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  .sync-btn {
+    flex: 1 1 auto !important;
+    font-size: 0.85rem !important;
+    padding: 0 0.75rem !important;
   }
 
   .dev-button-grid {
