@@ -684,8 +684,8 @@ function renderLevelDetail(level, rank, detailContainer) {
       : `<div class="detail-no-video"><p>등록된 영상이 없습니다.</p></div>`);
 
   const ptBadgeHtml = earnedPt > 0
-    ? `<span class="classic-level-pt-badge pt-earned" title="획득 완료한 포인트">획득: +${Math.round(earnedPt)} PT</span>`
-    : `<span class="classic-level-pt-badge pt-potential" title="클리어 시 획득 기본 포인트">클리어 시 +${basePt} PT</span>`;
+    ? `<span class="classic-level-pt-badge pt-earned" title="획득 완료한 포인트"><span class="pt-prefix">획득: </span>+${Math.round(earnedPt)} PT</span>`
+    : `<span class="classic-level-pt-badge pt-potential" title="클리어 시 획득 기본 포인트"><span class="pt-prefix">클리어 시 </span>+${basePt} PT</span>`;
 
   const ratingBadgeHtml = rating
     ? `<span class="classic-level-badge ${ratingClass}">${escapeHtml(rating)}</span>`
@@ -901,8 +901,8 @@ function createLevelCard(level, index, total) {
   const earnedPt = userNick && window.calcPlayerLevelPoints ? window.calcPlayerLevelPoints(level, rankNum, userNick) : 0;
 
   const ptBadgeHtml = earnedPt > 0
-    ? `<span class="classic-level-pt-badge pt-earned" title="획득 완료한 포인트">획득: +${Math.round(earnedPt)} PT</span>`
-    : `<span class="classic-level-pt-badge pt-potential" title="클리어 시 획득 기본 포인트">클리어 시 +${basePt} PT</span>`;
+    ? `<span class="classic-level-pt-badge pt-earned" title="획득 완료한 포인트"><span class="pt-prefix">획득: </span>+${Math.round(earnedPt)} PT</span>`
+    : `<span class="classic-level-pt-badge pt-potential" title="클리어 시 획득 기본 포인트"><span class="pt-prefix">클리어 시 </span>+${basePt} PT</span>`;
 
   const clearBadgeHtml = isCleared
     ? `<span class="classic-level-clear-badge">✓ CLEAR</span>`
