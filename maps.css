@@ -834,15 +834,17 @@ html, body {
   }
 
   .maps-list-header {
-    padding-bottom: 0.35rem !important;
+    padding: 0 0 0.35rem 0 !important;
     margin-bottom: 0.35rem !important;
+    background: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
     flex-shrink: 0 !important;
   }
 
   .maps-list-header-top {
     flex-direction: column !important;
     align-items: stretch !important;
-    gap: 0.35rem !important;
+    gap: 0.3rem !important;
     margin-bottom: 0.35rem !important;
   }
 
@@ -853,13 +855,14 @@ html, body {
   }
 
   .maps-list-main-title {
-    font-size: 1.25rem !important;
+    font-size: 1.18rem !important;
+    margin: 0 !important;
     line-height: 1.15 !important;
   }
 
   .maps-banner-badge {
-    font-size: 0.78rem !important;
-    padding: 0.2rem 0.55rem !important;
+    font-size: 0.74rem !important;
+    padding: 0.12rem 0.45rem !important;
     border-radius: 999px !important;
   }
 
@@ -870,11 +873,13 @@ html, body {
     -webkit-overflow-scrolling: touch !important;
     scrollbar-width: none !important;
     justify-content: flex-start !important;
-    gap: 0.35rem !important;
-    padding: 0.2rem 0.25rem !important;
+    gap: 0.3rem !important;
+    padding: 0.15rem 0.2rem !important;
     scroll-snap-type: x mandatory !important;
     width: 100% !important;
     box-sizing: border-box !important;
+    background: rgba(0, 0, 0, 0.45) !important;
+    border-radius: 0.55rem !important;
   }
 
   .maps-tier-tabs::-webkit-scrollbar {
@@ -884,9 +889,9 @@ html, body {
   .maps-tier-tab {
     flex-shrink: 0 !important;
     scroll-snap-align: start !important;
-    min-height: 32px !important;
-    padding: 0.3rem 0.75rem !important;
-    font-size: clamp(0.78rem, 2.5vw, 0.88rem) !important;
+    min-height: 28px !important;
+    padding: 0.2rem 0.65rem !important;
+    font-size: clamp(0.75rem, 2.4vw, 0.84rem) !important;
     border-radius: 999px !important;
     font-weight: 700 !important;
     box-sizing: border-box !important;
@@ -900,9 +905,9 @@ html, body {
 
   /* 검색창 터치 최적화 */
   .maps-search-box {
-    height: 38px !important;
-    padding: 0 0.75rem !important;
-    border-radius: 0.65rem !important;
+    height: 36px !important;
+    padding: 0 0.7rem !important;
+    border-radius: 0.55rem !important;
     width: 100% !important;
     box-sizing: border-box !important;
     overflow: hidden !important;
@@ -913,7 +918,7 @@ html, body {
     min-width: 0 !important;
     width: 100% !important;
     height: 100% !important;
-    font-size: 0.92rem !important;
+    font-size: 0.88rem !important;
     line-height: normal !important;
     -webkit-appearance: none !important;
     appearance: none !important;
@@ -923,23 +928,23 @@ html, body {
   }
 
   #maps-search-input::placeholder {
-    font-size: clamp(0.78rem, 2.5vw, 0.88rem) !important;
+    font-size: clamp(0.75rem, 2.4vw, 0.84rem) !important;
     text-overflow: ellipsis !important;
     overflow: hidden !important;
     white-space: nowrap !important;
   }
 
   .maps-search-icon {
-    width: 17px !important;
-    height: 17px !important;
+    width: 16px !important;
+    height: 16px !important;
     flex-shrink: 0 !important;
-    margin-right: 0.4rem !important;
+    margin-right: 0.35rem !important;
   }
 
   .maps-search-clear {
-    width: 28px !important;
-    height: 28px !important;
-    font-size: 0.9rem !important;
+    width: 26px !important;
+    height: 26px !important;
+    font-size: 0.88rem !important;
     flex-shrink: 0 !important;
     display: flex !important;
     align-items: center !important;
@@ -951,19 +956,18 @@ html, body {
     flex: 1 !important;
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
-    gap: 0.55rem !important;
-    padding-right: 0.15rem !important;
-    padding-bottom: calc(2.2rem + env(safe-area-inset-bottom, 0px)) !important;
+    gap: 0.45rem !important;
+    padding: 0.15rem 0.15rem calc(2.2rem + env(safe-area-inset-bottom, 0px)) 0.15rem !important;
   }
 
   .map-pack-card {
     display: flex !important;
     flex-direction: column !important;
     justify-content: center !important;
-    min-height: 4.2rem !important;
-    padding: 0.65rem 0.85rem !important;
-    border-radius: 0.75rem !important;
-    gap: 0.35rem !important;
+    min-height: 3.8rem !important;
+    padding: 0.55rem 0.75rem !important;
+    border-radius: 0.65rem !important;
+    gap: 0.25rem !important;
     touch-action: manipulation !important;
     box-sizing: border-box !important;
     width: 100% !important;
@@ -991,9 +995,9 @@ html, body {
   }
 
   .map-pack-title {
-    font-size: 1.15rem !important;
+    font-size: 1.05rem !important;
     font-weight: 700 !important;
-    line-height: 1.35 !important;
+    line-height: 1.25 !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     white-space: nowrap !important;
@@ -1001,8 +1005,8 @@ html, body {
   }
 
   .map-pack-desc {
-    font-size: 0.85rem !important;
-    line-height: 1.35 !important;
+    font-size: 0.78rem !important;
+    line-height: 1.25 !important;
     color: rgba(255, 255, 255, 0.65) !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
@@ -1011,8 +1015,8 @@ html, body {
   }
 
   .map-pack-tier-badge {
-    font-size: 0.75rem !important;
-    padding: 0.18rem 0.55rem !important;
+    font-size: 0.72rem !important;
+    padding: 0.15rem 0.45rem !important;
     border-radius: 0.35rem !important;
     flex-shrink: 0 !important;
     font-weight: 700 !important;

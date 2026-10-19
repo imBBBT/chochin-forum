@@ -1891,11 +1891,11 @@ html, body {
     z-index: 10 !important;
   }
 
-  /* 모바일 리스트 헤더 및 태그 필터: 레벨 리스트 영역 보장 */
   .classic-list-header {
     flex-shrink: 0 !important;
-    padding-bottom: 0.35rem !important;
+    padding: 0 0 0.35rem 0 !important;
     margin-bottom: 0.35rem !important;
+    background: transparent !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
   }
 
@@ -2049,15 +2049,13 @@ html, body {
     display: none !important;
   }
 
-  /* 레벨 리스트: 태그 필터가 열려도 남은 높이를 채우며 매끄럽게 스크롤 */
   .classic-level-list {
     flex: 1 1 0% !important;
     min-height: 0 !important;
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
-    padding-right: 0.15rem !important;
-    padding-bottom: calc(2.2rem + env(safe-area-inset-bottom, 0px)) !important;
-    gap: 0.55rem !important;
+    padding: 0.15rem 0.15rem calc(2.2rem + env(safe-area-inset-bottom, 0px)) 0.15rem !important;
+    gap: 0.45rem !important;
   }
 
   .classic-level-card {
