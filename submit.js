@@ -354,6 +354,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       const isLevel = submission.type === 'level';
+      let packetContent = JSON.stringify(submission, null, 2);
+      if (packetContent.length > 1700) {
+        packetContent = JSON.stringify(submission);
+      }
+      if (packetContent.length > 1850) {
+        packetContent = packetContent.slice(0, 1840) + '...}';
+      }
+
+      const adminUrl = window.location.protocol.startsWith('http')
+        ? window.location.href.replace(/submit\.html.*/i, 'admin.html')
+        : 'https://imbbbt.github.io/chochin-forum/admin.html';
+
       const embed = {
         title: isLevel ? `[신규 레벨 신청] ${submission.data.title}` : `[클리어 기록 제출] ${submission.data.levelTitle} (${submission.data.percent}%)`,
         color: isLevel ? 0x00d2ff : 0x2ed573,
@@ -377,13 +389,15 @@ document.addEventListener('DOMContentLoaded', () => {
         timestamp: new Date().toISOString()
       };
 
+      const webhookBody = {
+        content: `📥 **[초친 포럼 새로운 검토 신청서 접수]**\n아래 코드블록 우측의 **\`복사\`** 버튼을 눌러 JSON 패킷을 복사한 뒤, **[관리자 검토 센터](${adminUrl})**의 **[패킷 가져오기]**에서 불러오세요.\n\`\`\`json\n${packetContent}\n\`\`\``,
+        embeds: [embed]
+      };
+
       await fetch(webhookUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          content: '**초친 포럼에 새로운 검토 신청서가 접수되었습니다.**',
-          embeds: [embed]
-        })
+        body: JSON.stringify(webhookBody)
       });
     } catch (err) {
       console.warn('Discord Webhook 발송 실패:', err);

@@ -655,10 +655,107 @@ document.addEventListener('DOMContentLoaded', () => {
   const importConfirmBtn = document.getElementById('import-json-confirm-btn');
   const importCancelBtn = document.getElementById('import-json-cancel-btn');
   const importTextarea = document.getElementById('import-json-textarea');
+  const importPasteBtn = document.getElementById('import-json-paste-btn');
+
+  function extractJsonFromText(rawText) {
+    if (!rawText || typeof rawText !== 'string') return null;
+    let str = rawText.trim();
+
+    // 1. Check for markdown codeblock ```json ... ``` or ``` ... ```
+    const codeBlockMatch = str.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
+    if (codeBlockMatch && codeBlockMatch[1]) {
+      str = codeBlockMatch[1].trim();
+    } else {
+      // 2. Strip starting or ending backticks if partially copied
+      str = str.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim();
+    }
+
+    // 3. If there's surrounding text (e.g. copied full discord message), find outermost { ... } or [ ... ]
+    const startObj = str.indexOf('{');
+    const startArr = str.indexOf('[');
+    let startIdx = -1;
+    let endIdx = -1;
+
+    if (startObj !== -1 && (startArr === -1 || startObj < startArr)) {
+      startIdx = startObj;
+      endIdx = str.lastIndexOf('}');
+    } else if (startArr !== -1) {
+      startIdx = startArr;
+      endIdx = str.lastIndexOf(']');
+    }
+
+    if (startIdx !== -1 && endIdx > startIdx) {
+      str = str.slice(startIdx, endIdx + 1);
+    }
+
+    return JSON.parse(str);
+  }
+
+  function executeImportJson(val) {
+    const raw = (val || '').trim();
+    if (!raw) {
+      alert('불러올 JSON 패킷을 입력하거나 붙여넣어주세요.');
+      return;
+    }
+
+    try {
+      const parsed = extractJsonFromText(raw);
+      if (!parsed) throw new Error('유효한 JSON 패킷을 찾을 수 없습니다.');
+
+      const currentList = getSubmissions();
+      let addedCount = 0;
+      let updatedCount = 0;
+      let targetTab = 'levels';
+
+      const processItem = (item) => {
+        if (!item || !item.id) return;
+        if (item.type === 'clear') targetTab = 'clears';
+        const existingIdx = currentList.findIndex(c => c.id === item.id);
+        if (existingIdx !== -1) {
+          currentList[existingIdx] = item;
+          updatedCount++;
+        } else {
+          currentList.unshift(item);
+          addedCount++;
+        }
+      };
+
+      if (Array.isArray(parsed)) {
+        parsed.forEach(processItem);
+      } else if (parsed && parsed.id) {
+        processItem(parsed);
+      } else {
+        throw new Error('올바른 신청서 패킷 구조(id, type 등)가 아닙니다.');
+      }
+
+      saveSubmissions(currentList);
+
+      // 자동 탭 전환
+      const targetBtn = document.querySelector(`.admin-tab-btn[data-tab="${targetTab}"]`);
+      if (targetBtn) targetBtn.click();
+
+      let msg = '';
+      if (addedCount > 0 && updatedCount > 0) {
+        msg = `신규 신청서 ${addedCount}건 추가, 기존 신청서 ${updatedCount}건 갱신 완료!`;
+      } else if (addedCount > 0) {
+        msg = `성공적으로 ${addedCount}건의 신청서를 검토 대기열에 추가했습니다!`;
+      } else if (updatedCount > 0) {
+        msg = `이미 등록되어 있던 ${updatedCount}건의 신청서 정보를 최신으로 갱신했습니다!`;
+      } else {
+        msg = '가져올 수 있는 유효한 신청서 항목이 없습니다.';
+      }
+
+      alert(msg);
+      importModal.style.display = 'none';
+      if (importTextarea) importTextarea.value = '';
+    } catch (err) {
+      alert(`패킷 파싱 오류:\n${err.message}\n\n디스코드 웹훅의 코드블록을 복사했는지 확인해주세요.`);
+    }
+  }
 
   if (importOpenBtn) {
     importOpenBtn.addEventListener('click', () => {
-      importTextarea.value = '';
+      if (importTextarea) importTextarea.value = '';
       importModal.style.display = 'flex';
     });
   }
@@ -669,41 +766,29 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  if (importPasteBtn) {
+    importPasteBtn.addEventListener('click', async () => {
+      try {
+        if (!navigator.clipboard || !navigator.clipboard.readText) {
+          alert('브라우저가 클립보드 읽기를 지원하지 않거나 권한이 없습니다. 텍스트 상자에 Ctrl+V로 붙여넣어주세요.');
+          return;
+        }
+        const text = await navigator.clipboard.readText();
+        if (!text || !text.trim()) {
+          alert('클립보드에 복사된 텍스트가 없습니다. 디스코드에서 먼저 패킷을 복사해주세요.');
+          return;
+        }
+        if (importTextarea) importTextarea.value = text;
+        executeImportJson(text);
+      } catch (err) {
+        alert('클립보드 읽기 권한이 허용되지 않았습니다. 아래 텍스트 상자에 Ctrl+V로 직접 붙여넣어주세요.');
+      }
+    });
+  }
+
   if (importConfirmBtn) {
     importConfirmBtn.addEventListener('click', () => {
-      const val = (importTextarea?.value || '').trim();
-      if (!val) {
-        alert('불러올 JSON 텍스트를 입력해주세요.');
-        return;
-      }
-
-      try {
-        const parsed = JSON.parse(val);
-        const currentList = getSubmissions();
-
-        if (Array.isArray(parsed)) {
-          parsed.forEach(p => {
-            if (p.id && !currentList.some(c => c.id === p.id)) {
-              currentList.unshift(p);
-            }
-          });
-        } else if (parsed && parsed.id) {
-          if (!currentList.some(c => c.id === parsed.id)) {
-            currentList.unshift(parsed);
-          } else {
-            alert('이미 존재하는 신청서 ID입니다.');
-            return;
-          }
-        } else {
-          throw new Error('올바른 신청서 패킷 구조가 아닙니다.');
-        }
-
-        saveSubmissions(currentList);
-        alert('성공적으로 신청서를 대기열에 추가했습니다!');
-        importModal.style.display = 'none';
-      } catch (err) {
-        alert(`JSON 파싱 오류: ${err.message}`);
-      }
+      executeImportJson(importTextarea?.value);
     });
   }
 
@@ -781,10 +866,45 @@ document.addEventListener('DOMContentLoaded', () => {
     alert('GitHub 설정이 저장되었습니다.');
   });
 
+  // 드래그 앤 드롭 파일 불러오기 지원
+  if (importModal) {
+    importModal.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+    });
+    importModal.addEventListener('drop', async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const files = e.dataTransfer?.files;
+      if (files && files.length > 0) {
+        try {
+          const text = await files[0].text();
+          if (importTextarea) importTextarea.value = text;
+          executeImportJson(text);
+        } catch (err) {
+          alert(`파일 읽기 오류: ${err.message}`);
+        }
+      }
+    });
+  }
+
   // 대시보드 초기화
   async function initDashboard() {
     await loadAllSiteData();
     refreshDashboardViews();
+
+    // URL 쿼리에 ?packet=...이 있을 경우 자동 불러오기
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const packetParam = urlParams.get('packet');
+      if (packetParam) {
+        setTimeout(() => {
+          if (confirm('전달받은 신청서 패킷을 검토 대기열에 추가하시겠습니까?')) {
+            executeImportJson(decodeURIComponent(packetParam));
+          }
+        }, 300);
+      }
+    } catch (_) {}
   }
 
   // 시작
