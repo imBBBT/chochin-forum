@@ -8,9 +8,9 @@
   <title>제출 - 초친 포럼</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="level.css?v=2" />
-  <link rel="stylesheet" href="all.css?v=2" />
-  <link rel="stylesheet" href="submit.css?v=3" />
+  <link rel="stylesheet" href="level.css?v=6" />
+  <link rel="stylesheet" href="all.css?v=6" />
+  <link rel="stylesheet" href="submit.css?v=6" />
 </head>
 
 <body>
@@ -390,46 +390,53 @@
 
   <!-- 공통 닉네임 모달 -->
   <div class="nickname-modal-overlay">
-    <div class="nickname-modal">
-      <h2>계정 선택</h2>
-      <input type="text" id="nickname-input" placeholder="닉네임을 입력하세요" />
+    <div class="nickname-input-box">
+      <h2>닉네임 설정</h2>
+      <input type="text" id="nickname-input" placeholder="새 닉네임을 입력하세요" />
       <div class="modal-buttons">
-        <button id="nickname-submit-btn" class="modal-btn confirm">확인</button>
-        <button id="nickname-cancel-btn" class="modal-btn cancel">취소</button>
+        <button id="nickname-submit-btn" class="modal-btn">확인</button>
+        <button id="nickname-cancel-btn" class="modal-btn">취소</button>
       </div>
     </div>
   </div>
 
   <!-- 공통 배경 모달 -->
   <div class="bg-modal-overlay">
-    <div class="bg-modal">
+    <div class="nickname-input-box">
       <h2>배경 설정</h2>
-      <div class="bg-control-group">
-        <label>배경 유형:</label>
-        <button type="button" id="bg-type-toggle" class="bg-type-btn">단색</button>
-      </div>
-      <div class="bg-control-group">
-        <label for="bg-color1">색상 1:</label>
-        <div class="color-picker-wrapper">
-          <input type="color" id="bg-color1" value="#121212" />
-          <input type="text" id="bg-color1-hex" class="hex-input" value="#121212" maxlength="7" />
+      <div class="bg-input-group">
+        <label>배경 유형</label>
+        <div class="switch-container">
+          <span>단색</span>
+          <label class="switch">
+            <input type="checkbox" id="bg-type-toggle" checked />
+            <span class="slider"></span>
+          </label>
+          <span>그라데이션</span>
         </div>
       </div>
-      <div class="bg-control-group" id="bg-color2-group" style="display: none;">
-        <label for="bg-color2">색상 2:</label>
-        <div class="color-picker-wrapper">
-          <input type="color" id="bg-color2" value="#1a1a2e" />
-          <input type="text" id="bg-color2-hex" class="hex-input" value="#1a1a2e" maxlength="7" />
+      <div class="bg-input-group">
+        <label>시작 색상 (Hex)</label>
+        <div class="color-picker-row">
+          <input type="color" id="bg-color1" value="#404040" />
+          <input type="text" id="bg-color1-hex" value="#404040" maxlength="7" />
         </div>
       </div>
-      <div class="bg-control-group" id="bg-angle-group" style="display: none;">
-        <label for="bg-angle">그라데이션 각도: <span id="bg-angle-value">135°</span></label>
-        <input type="range" id="bg-angle" min="0" max="360" value="135" />
+      <div class="bg-input-group" id="bg-color2-group">
+        <label>종료 색상 (Hex)</label>
+        <div class="color-picker-row">
+          <input type="color" id="bg-color2" value="#202020" />
+          <input type="text" id="bg-color2-hex" value="#202020" maxlength="7" />
+        </div>
+      </div>
+      <div class="bg-input-group" id="bg-angle-group">
+        <label>그라데이션 각도 (deg)</label>
+        <input type="number" id="bg-angle" value="135" min="0" max="360" />
       </div>
       <div class="modal-buttons">
-        <button id="bg-submit-btn" class="modal-btn confirm">적용</button>
-        <button id="bg-reset-btn" class="modal-btn reset">초기화</button>
-        <button id="bg-cancel-btn" class="modal-btn cancel">취소</button>
+        <button id="bg-submit-btn" class="modal-btn">적용</button>
+        <button id="bg-reset-btn" class="modal-btn">초기화</button>
+        <button id="bg-cancel-btn" class="modal-btn">취소</button>
       </div>
     </div>
   </div>
@@ -437,8 +444,8 @@
   <div class="shadow"></div>
 
   <!-- Scripts -->
-  <script src="all.js?v=2"></script>
-  <script src="submit.js?v=1"></script>
+  <script src="all.js?v=6"></script>
+  <script src="submit.js?v=6"></script>
 </body>
 
 </html>

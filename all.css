@@ -1921,7 +1921,7 @@ button.theme-color-chip.active,
   width: 100%;
   height: 1px;
   background: rgba(255, 255, 255, 0.12);
-  margin: 1.4rem 0 1.2rem 0;
+  margin: 1.3rem 0 1.15rem 0;
   position: relative;
 }
 
@@ -1931,11 +1931,11 @@ button.theme-color-chip.active,
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(18, 18, 24, 1);
+  background: #161822;
   padding: 0 0.75rem;
   font-family: 'Paperozi', sans-serif;
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.55);
   font-weight: 700;
   white-space: nowrap;
 }
@@ -1943,67 +1943,115 @@ button.theme-color-chip.active,
 .sync-box {
   width: 100%;
   box-sizing: border-box;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px dashed rgba(255, 255, 255, 0.18);
-  border-radius: 0.9rem;
-  padding: 1rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 0.85rem;
+  padding: 0.95rem;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
 }
 
 .sync-desc {
   font-family: 'Paperozi', sans-serif;
-  font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 0.85rem;
-  line-height: 1.35;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.4;
+  margin: 0;
 }
 
-.sync-actions-row {
+.sync-export-group {
+  width: 100%;
+}
+
+.sync-import-group {
   display: flex;
   gap: 0.5rem;
+  width: 100%;
   align-items: center;
 }
 
 .sync-code-input {
   flex: 1;
-  height: 42px !important;
-  min-height: 42px !important;
-  font-size: 0.9rem !important;
-  padding: 0 0.8rem !important;
-  background: rgba(0, 0, 0, 0.35) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  border-radius: 0.6rem !important;
+  min-width: 0;
+  height: 38px !important;
+  min-height: 38px !important;
+  font-size: 0.84rem !important;
+  padding: 0 0.75rem !important;
+  background: rgba(0, 0, 0, 0.45) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  border-radius: 0.55rem !important;
   color: #ffffff !important;
   font-family: monospace !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sync-code-input:focus {
+  border-color: var(--forum-accent, #00d2ff) !important;
+  outline: none;
+  box-shadow: 0 0 8px rgba(0, 210, 255, 0.25);
+}
+
+.sync-code-input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+  font-family: 'Paperozi', sans-serif;
 }
 
 .sync-btn {
-  height: 42px !important;
-  min-height: 42px !important;
-  padding: 0 0.95rem !important;
-  font-size: 0.92rem !important;
+  height: 38px !important;
+  min-height: 38px !important;
   font-family: 'Paperozi', sans-serif;
   font-weight: 700;
-  border-radius: 0.6rem;
+  border-radius: 0.55rem;
   cursor: pointer;
   white-space: nowrap;
   transition: all 0.2s ease;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  color: #ffffff;
+  box-sizing: border-box;
 }
 
-.sync-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
+.sync-btn-export {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0 0.8rem !important;
+  font-size: 0.84rem !important;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #f1f5f9;
 }
 
-.sync-btn.primary {
-  background: var(--forum-accent);
-  border-color: var(--forum-accent);
-  color: #0c101c;
-  font-weight: 800;
+.sync-btn-export:hover {
+  background: rgba(0, 210, 255, 0.12);
+  border-color: rgba(0, 210, 255, 0.45);
+  color: #00d2ff;
 }
 
-.sync-btn.primary:hover {
+.sync-btn-export:active {
+  transform: scale(0.98);
+}
+
+.sync-btn-import {
+  flex-shrink: 0;
+  padding: 0 0.95rem !important;
+  font-size: 0.84rem !important;
+  background: var(--forum-accent, #00d2ff);
+  border: 1px solid var(--forum-accent, #00d2ff);
+  color: #081018;
+}
+
+.sync-btn-import:hover {
   filter: brightness(1.15);
+}
+
+.sync-btn-import:active {
+  transform: scale(0.96);
+}
+
+.nickname-input-box .sync-box + .modal-buttons {
+  margin-top: 1.25rem;
 }

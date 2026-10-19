@@ -737,12 +737,20 @@ document.addEventListener('DOMContentLoaded', () => {
         syncBox.className = 'sync-box';
         syncBox.innerHTML = `
           <div class="sync-desc">
-            현재 기기의 계정 및 시그니처 색상·배경 설정을 다른 기기로 즉시 전송하거나 불러올 수 있습니다.
+            현재 기기의 계정 및 시그니처 색상·배경 설정을 다른 기기와 동기화합니다.
           </div>
-          <div class="sync-actions-row">
-            <button type="button" class="sync-btn" id="account-copy-sync-btn">설정 코드 복사</button>
-            <input type="text" class="sync-code-input" id="account-paste-sync-input" placeholder="코드 붙여넣기" spellcheck="false">
-            <button type="button" class="sync-btn primary" id="account-apply-sync-btn">불러오기</button>
+          <div class="sync-export-group">
+            <button type="button" class="sync-btn sync-btn-export" id="account-copy-sync-btn">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              <span>현재 기기 설정 코드 복사</span>
+            </button>
+          </div>
+          <div class="sync-import-group">
+            <input type="text" class="sync-code-input" id="account-paste-sync-input" placeholder="동기화 코드 붙여넣기..." spellcheck="false" autocomplete="off">
+            <button type="button" class="sync-btn sync-btn-import" id="account-apply-sync-btn">불러오기</button>
           </div>
         `;
         const modalButtons = modalBox.querySelector('.modal-buttons');
