@@ -406,12 +406,11 @@ html, body {
     right: auto !important;
     transform: translateX(-50%) !important;
     top: 82px !important;
-    bottom: calc(80px + env(safe-area-inset-bottom, 0px)) !important;
-    height: calc(100vh - 82px - 80px - env(safe-area-inset-bottom, 0px)) !important;
-    height: calc(100dvh - 82px - 80px - env(safe-area-inset-bottom, 0px)) !important;
-    max-height: none !important;
+    bottom: calc(84px + env(safe-area-inset-bottom, 0px)) !important;
+    height: auto !important;
+    max-height: calc(100dvh - 82px - 84px - env(safe-area-inset-bottom, 0px)) !important;
     border-radius: 1.25rem !important;
-    padding: 1.2rem 1.1rem !important;
+    padding: 1.2rem 1.1rem 0.6rem 1.1rem !important;
     display: flex !important;
     flex-direction: column !important;
     box-sizing: border-box !important;
@@ -424,21 +423,35 @@ html, body {
     align-items: stretch !important;
     gap: 0.85rem !important;
     flex-shrink: 0 !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
 
   .ranking-header-title-group {
     display: flex !important;
     flex-direction: column !important;
     gap: 0.35rem !important;
+    min-width: 0 !important;
+    width: 100% !important;
   }
 
   .ranking-main-title {
-    font-size: 1.85rem !important;
+    font-size: clamp(1.25rem, 5.5vw, 1.75rem) !important;
+    white-space: normal !important;
+    word-break: keep-all !important;
+    overflow-wrap: break-word !important;
+    line-height: 1.25 !important;
+    min-width: 0 !important;
   }
 
   .ranking-subtitle {
-    font-size: 1.05rem !important;
+    font-size: clamp(0.82rem, 3.2vw, 1rem) !important;
     color: rgba(255, 255, 255, 0.75) !important;
+    white-space: normal !important;
+    word-break: keep-all !important;
+    line-height: 1.35 !important;
+    min-width: 0 !important;
   }
 
   /* 랭킹 모드 탭 스와이프 필 칩 */
@@ -535,7 +548,7 @@ html, body {
     touch-action: pan-y !important;
     overscroll-behavior-y: contain !important;
     gap: 0.55rem !important;
-    padding: 0.3rem 4px 0.8rem 4px !important;
+    padding: 0.3rem 4px calc(2.2rem + env(safe-area-inset-bottom, 0px)) 4px !important;
     width: 100% !important;
     box-sizing: border-box !important;
   }
