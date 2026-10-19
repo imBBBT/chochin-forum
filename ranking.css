@@ -405,12 +405,12 @@ html, body {
     left: 50% !important;
     right: auto !important;
     transform: translateX(-50%) !important;
-    top: 82px !important;
+    top: 76px !important;
     bottom: calc(84px + env(safe-area-inset-bottom, 0px)) !important;
     height: auto !important;
-    max-height: calc(100dvh - 82px - 84px - env(safe-area-inset-bottom, 0px)) !important;
+    max-height: calc(100dvh - 76px - 84px - env(safe-area-inset-bottom, 0px)) !important;
     border-radius: 1.25rem !important;
-    padding: 1.2rem 1.1rem 0.6rem 1.1rem !important;
+    padding: 0.65rem 0.85rem 0.4rem 0.85rem !important;
     display: flex !important;
     flex-direction: column !important;
     box-sizing: border-box !important;
@@ -418,10 +418,10 @@ html, body {
   }
 
   .ranking-header-section {
-    padding: 0.7rem 0.2rem 1rem !important;
+    padding: 0.35rem 0.1rem 0.4rem !important;
     flex-direction: column !important;
     align-items: stretch !important;
-    gap: 0.85rem !important;
+    gap: 0.35rem !important;
     flex-shrink: 0 !important;
     min-width: 0 !important;
     width: 100% !important;
@@ -431,26 +431,26 @@ html, body {
   .ranking-header-title-group {
     display: flex !important;
     flex-direction: column !important;
-    gap: 0.35rem !important;
+    gap: 0.2rem !important;
     min-width: 0 !important;
     width: 100% !important;
   }
 
   .ranking-main-title {
-    font-size: clamp(1.25rem, 5.5vw, 1.75rem) !important;
+    font-size: clamp(1.15rem, 4.5vw, 1.45rem) !important;
     white-space: normal !important;
     word-break: keep-all !important;
     overflow-wrap: break-word !important;
-    line-height: 1.25 !important;
+    line-height: 1.2 !important;
     min-width: 0 !important;
   }
 
   .ranking-subtitle {
-    font-size: clamp(0.82rem, 3.2vw, 1rem) !important;
-    color: rgba(255, 255, 255, 0.75) !important;
+    font-size: clamp(0.74rem, 2.7vw, 0.84rem) !important;
+    color: rgba(255, 255, 255, 0.72) !important;
     white-space: normal !important;
     word-break: keep-all !important;
-    line-height: 1.35 !important;
+    line-height: 1.2 !important;
     min-width: 0 !important;
   }
 
@@ -461,8 +461,8 @@ html, body {
     -webkit-overflow-scrolling: touch !important;
     scrollbar-width: none !important;
     justify-content: flex-start !important;
-    gap: 0.55rem !important;
-    padding: 0.4rem 0.6rem !important;
+    gap: 0.35rem !important;
+    padding: 0.2rem 0.35rem !important;
     scroll-snap-type: x mandatory !important;
     width: 100% !important;
     box-sizing: border-box !important;
@@ -477,9 +477,9 @@ html, body {
   .ranking-tab {
     flex-shrink: 0 !important;
     scroll-snap-align: start !important;
-    min-height: 44px !important;
-    padding: 0.5rem 1.05rem !important;
-    font-size: clamp(0.85rem, 2.7vw, 0.98rem) !important;
+    min-height: 32px !important;
+    padding: 0.3rem 0.75rem !important;
+    font-size: clamp(0.78rem, 2.5vw, 0.86rem) !important;
     border-radius: 999px !important;
     font-weight: 700 !important;
     box-sizing: border-box !important;
@@ -494,13 +494,13 @@ html, body {
   .ranking-table-header {
     grid-template-columns: 2.2rem 1fr 5.0rem 3.8rem !important;
     gap: 0.35rem !important;
-    padding: 0.65rem 0.8rem !important;
-    margin: 0 4px 0.45rem 4px !important;
+    padding: 0.35rem 0.6rem !important;
+    margin: 0 4px 0.3rem 4px !important;
     width: calc(100% - 8px) !important;
     box-sizing: border-box !important;
-    font-size: 0.88rem !important;
+    font-size: 0.78rem !important;
     flex-shrink: 0 !important;
-    border-radius: 0.65rem !important;
+    border-radius: 0.55rem !important;
     align-items: center !important;
   }
 
@@ -547,8 +547,8 @@ html, body {
     -webkit-overflow-scrolling: touch !important;
     touch-action: pan-y !important;
     overscroll-behavior-y: contain !important;
-    gap: 0.55rem !important;
-    padding: 0.3rem 4px calc(2.2rem + env(safe-area-inset-bottom, 0px)) 4px !important;
+    gap: 0.45rem !important;
+    padding: 0.2rem 4px calc(2.2rem + env(safe-area-inset-bottom, 0px)) 4px !important;
     width: 100% !important;
     box-sizing: border-box !important;
   }
@@ -556,10 +556,10 @@ html, body {
   .ranking-row-card {
     grid-template-columns: 2.2rem 1fr 5.0rem 3.8rem !important;
     gap: 0.35rem !important;
-    padding: 0.75rem 0.8rem !important;
-    font-size: 1rem !important;
-    min-height: 52px !important;
-    border-radius: 0.75rem !important;
+    padding: 0.55rem 0.65rem !important;
+    font-size: 0.92rem !important;
+    min-height: 44px !important;
+    border-radius: 0.65rem !important;
     align-items: center !important;
     touch-action: pan-y !important;
     box-sizing: border-box !important;

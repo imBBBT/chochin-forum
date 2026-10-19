@@ -1879,12 +1879,12 @@ html, body {
     width: calc(100vw - 20px) !important;
     max-width: 100% !important;
     transform: translateX(-50%) !important;
-    top: 82px !important;
+    top: 76px !important;
     bottom: calc(84px + env(safe-area-inset-bottom, 0px)) !important;
     height: auto !important;
-    max-height: calc(100dvh - 82px - 84px - env(safe-area-inset-bottom, 0px)) !important;
+    max-height: calc(100dvh - 76px - 84px - env(safe-area-inset-bottom, 0px)) !important;
     border-radius: 1.25rem !important;
-    padding: 1.2rem 1.1rem 0.6rem 1.1rem !important;
+    padding: 0.65rem 0.85rem 0.4rem 0.85rem !important;
     display: flex !important;
     flex-direction: column !important;
     box-sizing: border-box !important;
@@ -1894,8 +1894,8 @@ html, body {
   /* 모바일 리스트 헤더 및 태그 필터: 레벨 리스트 영역 보장 */
   .classic-list-header {
     flex-shrink: 0 !important;
-    padding-bottom: 0.55rem !important;
-    margin-bottom: 0.4rem !important;
+    padding-bottom: 0.35rem !important;
+    margin-bottom: 0.35rem !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
   }
 
@@ -1903,8 +1903,8 @@ html, body {
     display: flex !important;
     flex-direction: column !important;
     align-items: stretch !important;
-    gap: 0.55rem !important;
-    margin-bottom: 0.65rem !important;
+    gap: 0.35rem !important;
+    margin-bottom: 0.35rem !important;
   }
 
   .classic-list-title-group {
@@ -1915,43 +1915,44 @@ html, body {
   }
 
   .classic-list-main-title {
-    font-size: 1.55rem !important;
+    font-size: 1.25rem !important;
     margin: 0 !important;
-    line-height: 1.1 !important;
+    line-height: 1.15 !important;
   }
 
   .classic-banner-badge {
-    font-size: 0.82rem !important;
-    padding: 0.2rem 0.55rem !important;
+    font-size: 0.76rem !important;
+    padding: 0.15rem 0.5rem !important;
   }
 
   .classic-mode-tabs {
     display: flex !important;
     width: 100% !important;
     box-sizing: border-box !important;
-    gap: 0.35rem !important;
-    padding: 0.25rem !important;
+    gap: 0.25rem !important;
+    padding: 0.15rem !important;
     background: rgba(0, 0, 0, 0.5) !important;
-    border-radius: 0.65rem !important;
+    border-radius: 0.55rem !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
   }
 
   .classic-mode-tab {
     flex: 1 !important;
     text-align: center !important;
-    padding: 0.45rem 0.2rem !important;
-    font-size: 0.95rem !important;
-    border-radius: 0.45rem !important;
+    padding: 0.3rem 0.2rem !important;
+    font-size: 0.82rem !important;
+    border-radius: 0.4rem !important;
     white-space: nowrap !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    min-height: 30px !important;
   }
 
   .classic-search-box {
-    height: 48px !important;
-    padding: 0 0.85rem !important;
-    border-radius: 0.75rem !important;
+    height: 38px !important;
+    padding: 0 0.75rem !important;
+    border-radius: 0.65rem !important;
     width: 100% !important;
     box-sizing: border-box !important;
     overflow: hidden !important;
@@ -1962,7 +1963,7 @@ html, body {
     min-width: 0 !important;
     width: 100% !important;
     height: 100% !important;
-    font-size: 1.02rem !important;
+    font-size: 0.92rem !important;
     line-height: normal !important;
     -webkit-appearance: none !important;
     appearance: none !important;
@@ -1972,45 +1973,50 @@ html, body {
   }
 
   #classic-search-input::placeholder {
-    font-size: clamp(0.82rem, 2.7vw, 0.95rem) !important;
+    font-size: clamp(0.78rem, 2.5vw, 0.88rem) !important;
     text-overflow: ellipsis !important;
     overflow: hidden !important;
     white-space: nowrap !important;
   }
 
+  .classic-tag-filter-section {
+    margin-top: 0.25rem !important;
+    gap: 0.25rem !important;
+  }
+
   .classic-tag-filter-info {
     flex-wrap: wrap !important;
-    gap: 0.35rem !important;
+    gap: 0.25rem !important;
     justify-content: space-between !important;
     width: 100% !important;
   }
 
   .classic-tag-guide-text {
-    font-size: 0.72rem !important;
+    font-size: 0.7rem !important;
   }
 
   .classic-tag-action-btns {
-    gap: 0.3rem !important;
+    gap: 0.25rem !important;
   }
 
   .classic-tag-toggle-btn,
   .classic-tag-reset-btn {
-    min-height: 32px !important;
-    font-size: 0.82rem !important;
-    padding: 0.25rem 0.65rem !important;
-    border-radius: 0.45rem !important;
+    min-height: 26px !important;
+    font-size: 0.76rem !important;
+    padding: 0.15rem 0.5rem !important;
+    border-radius: 0.4rem !important;
   }
 
   .classic-tag-chips-wrapper {
-    max-height: 140px !important;
+    max-height: 110px !important;
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
-    padding: 0.5rem 0.6rem !important;
-    border-radius: 0.75rem !important;
+    padding: 0.4rem 0.5rem !important;
+    border-radius: 0.65rem !important;
     border: 1px solid rgba(255, 255, 255, 0.14) !important;
     background: rgba(18, 18, 24, 0.96) !important;
-    margin-top: 0.4rem !important;
-    gap: 0.4rem !important;
+    margin-top: 0.3rem !important;
+    gap: 0.35rem !important;
   }
 
   .classic-tag-category-row {
@@ -2051,14 +2057,14 @@ html, body {
     -webkit-overflow-scrolling: touch !important;
     padding-right: 0.15rem !important;
     padding-bottom: calc(2.2rem + env(safe-area-inset-bottom, 0px)) !important;
-    gap: 0.65rem !important;
+    gap: 0.55rem !important;
   }
 
   .classic-level-card {
-    min-height: 4.8rem !important;
-    padding: 0.75rem 0.75rem !important;
+    min-height: 4.2rem !important;
+    padding: 0.55rem 0.65rem !important;
     border-radius: 0.75rem !important;
-    gap: 0.55rem !important;
+    gap: 0.5rem !important;
     touch-action: manipulation !important;
     display: flex !important;
     align-items: center !important;
@@ -2072,8 +2078,8 @@ html, body {
   }
 
   .classic-level-thumb {
-    width: 4.5rem !important;
-    height: 3.1rem !important;
+    width: 4.2rem !important;
+    height: 2.9rem !important;
     aspect-ratio: 16 / 11 !important;
     object-fit: cover !important;
     flex-shrink: 0 !important;

@@ -325,12 +325,12 @@
     left: 50% !important;
     right: auto !important;
     transform: translateX(-50%) !important;
-    top: 82px !important;
+    top: 76px !important;
     bottom: calc(84px + env(safe-area-inset-bottom, 0px)) !important;
     height: auto !important;
-    max-height: calc(100dvh - 82px - 84px - env(safe-area-inset-bottom, 0px)) !important;
+    max-height: calc(100dvh - 76px - 84px - env(safe-area-inset-bottom, 0px)) !important;
     border-radius: 1.25rem !important;
-    padding: 1.2rem 1.1rem 0.6rem 1.1rem !important;
+    padding: 0.65rem 0.85rem 0.4rem 0.85rem !important;
     display: flex !important;
     flex-direction: column !important;
     box-sizing: border-box !important;
