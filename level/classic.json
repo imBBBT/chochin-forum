@@ -1226,6 +1226,51 @@
       ]
     },
     {
+      "id": 1789820758948,
+      "title": "20 min challenge",
+      "creator": "Light",
+      "verifier": "Light",
+      "rating": "",
+      "video": "https://www.youtube.com/embed/vNppYZWi51o",
+      "mapId": "149111320",
+      "length": "20s",
+      "objects": "865",
+      "uploadDate": "2026-09-19",
+      "map": {
+        "mapId": "149111320",
+        "length": "20s",
+        "objects": "865",
+        "uploadDate": "2026-09-19"
+      },
+      "song": {
+        "name": "Archangel",
+        "artist": "Rameses B",
+        "id": "10012980"
+      },
+      "description": "단 20분만에 제작하고, 단 20분만에 베리파이된 맵입니다.\nEndless Dreaming 이후로 오랜만에 찾아온 Light의 자작맵입니다.",
+      "tags": [
+        "Standard",
+        "1.0",
+        "Humorous",
+        "Flow",
+        "Timing",
+        "High CPS",
+        "Nerve Control",
+        "Wave"
+      ],
+      "targetRank": 23,
+      "clears": [
+        {
+          "player": "Choco",
+          "name": "Choco",
+          "percent": 100,
+          "date": "2026-09-19",
+          "link": "https://youtu.be/tbYBPmGL9es",
+          "video": "https://youtu.be/tbYBPmGL9es"
+        }
+      ]
+    },
+    {
       "id": 22,
       "title": "PPPP",
       "creator": "Choco",
@@ -1721,12 +1766,13 @@
       "title": "Trolled",
       "creator": "Light",
       "verifier": "Light",
-      "video": "https://www.youtube.com/embed/-",
+      "video": "https://www.youtube.com/embed/wsqQP4xDPTM",
       "rating": "",
       "map": {
         "mapId": "85646626",
         "length": "36s",
-        "objects": "553"
+        "objects": "553",
+        "uploadDate": "2022-11-13"
       },
       "song": {
         "name": "Youve been Trolled",
@@ -1785,7 +1831,8 @@
       "mapId": "85646626",
       "length": "36s",
       "objects": "553",
-      "targetRank": 31
+      "targetRank": 33,
+      "uploadDate": "2022-11-13"
     },
     {
       "id": 32,
@@ -1846,19 +1893,20 @@
       "title": "LT EP7",
       "creator": "Light",
       "verifier": "Light",
-      "video": "https://www.youtube.com/embed/-",
+      "video": "https://www.youtube.com/embed/XCRGXpjFMi0",
       "rating": "",
       "map": {
         "mapId": "85837732",
         "length": "1m 37s",
-        "objects": "2815"
+        "objects": "2815",
+        "uploadDate": "2022-11-19"
       },
       "song": {
         "name": "-Final Battle-",
         "artist": "Waterflame",
         "id": "598349"
       },
-      "description": "JPA EP5의 파생작입니다.",
+      "description": "JPA EP5의 파생작이자 LT 시리즈의 7번째 레벨입니다.",
       "enjoyment": "",
       "framePerfect": {
         "fps": {
@@ -1899,7 +1947,8 @@
       "mapId": "85837732",
       "length": "1m 37s",
       "objects": "2815",
-      "targetRank": 33
+      "targetRank": 35,
+      "uploadDate": "2022-11-19"
     },
     {
       "id": 34,
@@ -2053,12 +2102,13 @@
       "title": "LT EP6",
       "creator": "Light",
       "verifier": "Light",
-      "video": "https://www.youtube.com/embed/-",
+      "video": "https://www.youtube.com/embed/MahN5b-vndQ",
       "rating": "",
       "map": {
         "mapId": "85605798",
         "length": "43s",
-        "objects": "1628"
+        "objects": "1628",
+        "uploadDate": "2022-11-12"
       },
       "song": {
         "name": "Ocean of Stars",
@@ -2110,19 +2160,21 @@
       "mapId": "85605798",
       "length": "43s",
       "objects": "1628",
-      "targetRank": 37
+      "targetRank": 39,
+      "uploadDate": "2022-11-12"
     },
     {
       "id": 38,
       "title": "LT EP4",
       "creator": "Light",
       "verifier": "Light",
-      "video": "https://www.youtube.com/embed/-",
+      "video": "https://www.youtube.com/embed/w5ORMQQpQ3A",
       "rating": "",
       "map": {
         "mapId": "85191093",
         "length": "45s",
-        "objects": "1785"
+        "objects": "1785",
+        "uploadDate": "2022-10-31"
       },
       "song": {
         "name": "Xenogenesis",
@@ -2163,19 +2215,21 @@
       "mapId": "85191093",
       "length": "45s",
       "objects": "1785",
-      "targetRank": 38
+      "targetRank": 40,
+      "uploadDate": "2022-10-31"
     },
     {
       "id": 39,
       "title": "LT EP5",
       "creator": "Light",
       "verifier": "Light",
-      "video": "https://www.youtube.com/embed/-",
+      "video": "https://www.youtube.com/embed/fTvi1lCxZzo",
       "rating": "",
       "map": {
         "mapId": "85596289",
         "length": "53s",
-        "objects": "1492"
+        "objects": "1492",
+        "uploadDate": "2022-11-12"
       },
       "song": {
         "name": "Okiba Crackdown",
@@ -2216,7 +2270,8 @@
       "mapId": "85596289",
       "length": "53s",
       "objects": "1492",
-      "targetRank": 39
+      "targetRank": 41,
+      "uploadDate": "2022-11-12"
     },
     {
       "id": 40,
@@ -2344,12 +2399,13 @@
       "title": "LT EP3",
       "creator": "Light",
       "verifier": "Light",
-      "video": "https://www.youtube.com/embed/-",
+      "video": "https://www.youtube.com/embed/usRMxJ9BXIY",
       "rating": "",
       "map": {
         "mapId": "84810667",
         "length": "39s",
-        "objects": "742"
+        "objects": "742",
+        "uploadDate": "2022-10-20"
       },
       "song": {
         "name": "Arcana",
@@ -2392,19 +2448,21 @@
       "mapId": "84810667",
       "length": "39s",
       "objects": "742",
-      "targetRank": 42
+      "targetRank": 44,
+      "uploadDate": "2022-10-20"
     },
     {
       "id": 43,
       "title": "LT EP2",
       "creator": "Light",
       "verifier": "Light",
-      "video": "https://www.youtube.com/embed/-",
+      "video": "https://www.youtube.com/embed/N_JRdYrawIc",
       "rating": "",
       "map": {
         "mapId": "84729138",
         "length": "1m 2s",
-        "objects": "2387"
+        "objects": "2387",
+        "uploadDate": "2022-10-17"
       },
       "song": {
         "name": "At the Speed of Light",
@@ -2449,7 +2507,8 @@
       "mapId": "84729138",
       "length": "1m 2s",
       "objects": "2387",
-      "targetRank": 43
+      "targetRank": 45,
+      "uploadDate": "2022-10-17"
     },
     {
       "id": 44,
@@ -2505,9 +2564,70 @@
       "length": "20s",
       "objects": "1040",
       "targetRank": 44
+    },
+    {
+      "id": 1788161674644,
+      "title": "the hardest wave map",
+      "creator": "Timo",
+      "verifier": "Timo",
+      "rating": "",
+      "video": "https://www.youtube.com/embed/WYHEKAaKAy8",
+      "mapId": "148006759",
+      "length": "21s",
+      "objects": "4,121",
+      "uploadDate": "2026-08-30",
+      "map": {
+        "mapId": "148006759",
+        "length": "21s",
+        "objects": "4,121",
+        "uploadDate": "2026-08-30"
+      },
+      "song": {
+        "name": "BEST DROP OF ALL TIME",
+        "artist": "Demonicity",
+        "id": "1137996"
+      },
+      "description": "개쳐 어려운 무자비한 급격한 악마 바로바로 the hardest wave map 급의 레벨을, 당신은 클리어할 수 있겠습니까??\n이 맵이 최하위로 보이신다구요? 착각입니다.",
+      "tags": [
+        "Standard",
+        "Effect",
+        "Simplism",
+        "Happy",
+        "Lyrics",
+        "Flashy",
+        "Humorous",
+        "Slow Paced",
+        "High CPS",
+        "Wave"
+      ],
+      "targetRank": 46,
+      "clears": [
+        {
+          "player": "Choco",
+          "name": "Choco",
+          "percent": 100,
+          "date": "2026-08-31",
+          "link": "https://youtu.be/nTRDMp-0F2I",
+          "video": "https://youtu.be/nTRDMp-0F2I"
+        }
+      ]
     }
   ],
   "history": [
+    {
+      "id": 1789820758949,
+      "type": "add",
+      "title": "20 min challenge",
+      "detail": "\"20 min challenge\" 새로운 레벨이 23위에 등록되었습니다.",
+      "time": "2026. 9. 19."
+    },
+    {
+      "id": 1788161674646,
+      "type": "add",
+      "title": "the hardest wave map",
+      "detail": "\"the hardest wave map\" 새로운 레벨이 46위에 등록되었습니다.",
+      "time": "2026. 8. 31."
+    },
     {
       "id": 1786794696417,
       "type": "add",
