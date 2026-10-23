@@ -670,6 +670,62 @@
       "targetRank": 12
     },
     {
+      "id": 17,
+      "title": "BOOBAWAVEBA",
+      "creator": "Choco",
+      "verifier": "Choco",
+      "video": "https://www.youtube.com/embed/NCW_519mfoc",
+      "rating": "Featured",
+      "map": {
+        "mapId": "129453627",
+        "length": "28s (19s)",
+        "objects": "1431",
+        "uploadDate": ""
+      },
+      "song": {
+        "name": "Portal To The Other Side (feat. Hatsune Miku)",
+        "artist": "nandinanubis",
+        "id": "941913"
+      },
+      "description": "프퍼펙이 적다고 꼭 쉬워야할까요? BOOBAWAVEBA는 최강의 암기맵 BOOBAWAMBA의 웨이브 버전으로, 원본 맵 특유의 암막 겜플을 웨이브 원모드와 합쳤습니다. 하지만 기본적인 간격도 꽤나 만만치 않아 보이네요. 아, 반투명한 오브젝트와 아예 보이지 않는 오브젝트 역시 주의해야 할 겁니다.",
+      "enjoyment": "9",
+      "framePerfect": {
+        "fps": {
+          "30": 1,
+          "60": 0,
+          "120": 0,
+          "240": 0
+        }
+      },
+      "gameplay": {
+        "modeRatio": {
+          "Wave": 100
+        },
+        "speedRatio": {
+          "1x": 97.9,
+          "4x": 2.1
+        }
+      },
+      "tags": [
+        "Standard",
+        "Simplism",
+        "Monochromatic",
+        "Slow Paced",
+        "Blinds",
+        "Memory",
+        "High CPS",
+        "Nerve Control",
+        "Learny",
+        "Wave"
+      ],
+      "clears": [],
+      "mapId": "129453627",
+      "length": "28s (19s)",
+      "objects": "1431",
+      "targetRank": 13,
+      "uploadDate": ""
+    },
+    {
       "id": 13,
       "title": "Sa Sip IL",
       "creator": "Choco",
@@ -888,60 +944,6 @@
       "length": "52s",
       "objects": "11645",
       "targetRank": 16
-    },
-    {
-      "id": 17,
-      "title": "BOOBAWAVEBA",
-      "creator": "Choco",
-      "verifier": "Choco",
-      "video": "https://www.youtube.com/embed/NCW_519mfoc",
-      "rating": "Featured",
-      "map": {
-        "mapId": "129453627",
-        "length": "28s (19s)",
-        "objects": "1431"
-      },
-      "song": {
-        "name": "Portal To The Other Side (feat. Hatsune Miku)",
-        "artist": "nandinanubis",
-        "id": "941913"
-      },
-      "description": "프퍼펙이 적다고 꼭 쉬워야할까요? BOOBAWAVEBA는 최강의 암기맵 BOOBAWAMBA의 웨이브 버전으로, 원본 맵 특유의 암막 겜플을 웨이브 원모드와 합쳤습니다. 하지만 기본적인 간격도 꽤나 만만치 않아 보이네요. 아, 반투명한 오브젝트와 아예 보이지 않는 오브젝트 역시 주의해야 할 겁니다.",
-      "enjoyment": "9",
-      "framePerfect": {
-        "fps": {
-          "30": 1,
-          "60": 0,
-          "120": 0,
-          "240": 0
-        }
-      },
-      "gameplay": {
-        "modeRatio": {
-          "Wave": 100
-        },
-        "speedRatio": {
-          "1x": 97.9,
-          "4x": 2.1
-        }
-      },
-      "tags": [
-        "Standard",
-        "Simplism",
-        "Monochromatic",
-        "Slow Paced",
-        "Blinds",
-        "Memory",
-        "High CPS",
-        "Nerve Control",
-        "Learny",
-        "Wave"
-      ],
-      "clears": [],
-      "mapId": "129453627",
-      "length": "28s (19s)",
-      "objects": "1431",
-      "targetRank": 17
     },
     {
       "id": 18,
@@ -2511,61 +2513,6 @@
       "uploadDate": "2022-10-17"
     },
     {
-      "id": 44,
-      "title": "Answer Me",
-      "creator": "Choco",
-      "verifier": "Choco",
-      "video": "https://www.youtube.com/embed/QKVv_6gxOFg",
-      "rating": "Featured",
-      "map": {
-        "mapId": "124680897",
-        "length": "20s",
-        "objects": "1040"
-      },
-      "song": {
-        "name": "Infinite Power",
-        "artist": "ThisIsTheFatRat",
-        "id": "621144"
-      },
-      "description": "Answer Me VS Infinite",
-      "enjoyment": "",
-      "framePerfect": {
-        "fps": {
-          "30": 0,
-          "60": 0,
-          "120": 0,
-          "240": 0
-        }
-      },
-      "gameplay": {
-        "modeRatio": {},
-        "speedRatio": {}
-      },
-      "tags": [
-        "Fast Paced",
-        "Sync",
-        "Learny",
-        "Effect",
-        "Standard",
-        "Simplism",
-        "Lyrics"
-      ],
-      "clears": [
-        {
-          "player": "Timo",
-          "name": "Timo",
-          "percent": 100,
-          "date": "2026-08-14",
-          "link": "https://youtu.be/dDGRShquKZI",
-          "video": "https://youtu.be/dDGRShquKZI"
-        }
-      ],
-      "mapId": "124680897",
-      "length": "20s",
-      "objects": "1040",
-      "targetRank": 44
-    },
-    {
       "id": 1788161674644,
       "title": "the hardest wave map",
       "creator": "Timo",
@@ -2611,9 +2558,80 @@
           "video": "https://youtu.be/nTRDMp-0F2I"
         }
       ]
+    },
+    {
+      "id": 44,
+      "title": "Answer Me",
+      "creator": "Choco",
+      "verifier": "Choco",
+      "video": "https://www.youtube.com/embed/QKVv_6gxOFg",
+      "rating": "Featured",
+      "map": {
+        "mapId": "124680897",
+        "length": "20s",
+        "objects": "1040",
+        "uploadDate": ""
+      },
+      "song": {
+        "name": "Infinite Power",
+        "artist": "ThisIsTheFatRat",
+        "id": "621144"
+      },
+      "description": "Answer Me VS Infinite",
+      "enjoyment": "",
+      "framePerfect": {
+        "fps": {
+          "30": 0,
+          "60": 0,
+          "120": 0,
+          "240": 0
+        }
+      },
+      "gameplay": {
+        "modeRatio": {},
+        "speedRatio": {}
+      },
+      "tags": [
+        "Fast Paced",
+        "Sync",
+        "Learny",
+        "Effect",
+        "Standard",
+        "Simplism",
+        "Lyrics"
+      ],
+      "clears": [
+        {
+          "player": "Timo",
+          "name": "Timo",
+          "percent": 100,
+          "date": "2026-08-14",
+          "link": "https://youtu.be/dDGRShquKZI",
+          "video": "https://youtu.be/dDGRShquKZI"
+        }
+      ],
+      "mapId": "124680897",
+      "length": "20s",
+      "objects": "1040",
+      "targetRank": 47,
+      "uploadDate": ""
     }
   ],
   "history": [
+    {
+      "id": 1792747931053,
+      "type": "move",
+      "title": "BOOBAWAVEBA",
+      "detail": "\"BOOBAWAVEBA\" 레벨 순위가 17위에서 13위로 변경되었습니다.",
+      "time": "2026. 10. 23."
+    },
+    {
+      "id": 1792747768151,
+      "type": "move",
+      "title": "Answer Me",
+      "detail": "\"Answer Me\" 레벨 순위가 46위에서 47위로 변경되었습니다.",
+      "time": "2026. 10. 23."
+    },
     {
       "id": 1789820758949,
       "type": "add",
