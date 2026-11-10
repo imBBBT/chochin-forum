@@ -1,22 +1,22 @@
 [
   {
     "name": "Choco",
-    "hardest": "Wasureta (AREDL #349)"
+    "hardest": "Wasureta (AREDL #370)"
   },
   {
     "name": "Light",
-    "hardest": "Kuzureta (AREDL #379)"
+    "hardest": "Kuzureta (AREDL #404)"
   },
   {
     "name": "Timo",
-    "hardest": "MISFIRE (AREDL #564)"
-  },
-  {
-    "name": "imBBBT",
-    "hardest": "Mizureta (AREDL #1499)"
+    "hardest": "MISFIRE (AREDL #599)"
   },
   {
     "name": "Cloud",
-    "hardest": "Acu (AREDL #1539)"
+    "hardest": "SHINE (AREDL #1308)"
+  },
+  {
+    "name": "imBBBT",
+    "hardest": "Mizureta (AREDL #1583)"
   }
 ]
