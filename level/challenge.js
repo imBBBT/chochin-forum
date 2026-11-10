@@ -1129,7 +1129,7 @@ async function initChallengePage() {
 
   const loadChallengeData = async () => {
     try {
-      const response = await fetch('challenge.json');
+      const response = await fetch(`challenge.json?t=${Date.now()}`, { cache: 'no-store' });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data = await response.json();
 

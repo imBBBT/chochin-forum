@@ -417,10 +417,22 @@ document.addEventListener('DOMContentLoaded', () => {
           return `level/${file}`;
         };
 
+        const fetchModeJson = async (mode) => {
+          const pushed = window.GitHubSyncEngine?.getRecentPushedData
+            ? window.GitHubSyncEngine.getRecentPushedData(`level/${mode}.json`)
+            : null;
+          if (pushed && Array.isArray(pushed.levels)) {
+            return pushed;
+          }
+          const url = `${getJsonUrl(`${mode}.json`)}?t=${Date.now()}`;
+          const r = await fetch(url, { cache: 'no-store' });
+          return r.ok ? await r.json() : { levels: [] };
+        };
+
         const [classicRes, challengeRes, platformerRes] = await Promise.all([
-          fetch(getJsonUrl('classic.json')).then(r => r.ok ? r.json() : { levels: [] }).catch(() => ({ levels: [] })),
-          fetch(getJsonUrl('challenge.json')).then(r => r.ok ? r.json() : { levels: [] }).catch(() => ({ levels: [] })),
-          fetch(getJsonUrl('platformer.json')).then(r => r.ok ? r.json() : { levels: [] }).catch(() => ({ levels: [] }))
+          fetchModeJson('classic').catch(() => ({ levels: [] })),
+          fetchModeJson('challenge').catch(() => ({ levels: [] })),
+          fetchModeJson('platformer').catch(() => ({ levels: [] }))
         ]);
 
         const getLevels = (data, mode) => {
@@ -1268,6 +1280,27 @@ document.addEventListener('DOMContentLoaded', () => {
       };
     },
 
+    getRecentPushedData(filePath, maxAgeMs = 120000) {
+      try {
+        const cleanPath = String(filePath || '').replace(/^\/+/, '');
+        const raw = localStorage.getItem(`gh_pushed_cache_${cleanPath}`);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        if (parsed && parsed.timestamp && (Date.now() - parsed.timestamp < maxAgeMs)) {
+          return parsed.data;
+        }
+        localStorage.removeItem(`gh_pushed_cache_${cleanPath}`);
+      } catch (e) {}
+      return null;
+    },
+
+    clearRecentPushedData(filePath) {
+      try {
+        const cleanPath = String(filePath || '').replace(/^\/+/, '');
+        localStorage.removeItem(`gh_pushed_cache_${cleanPath}`);
+      } catch (e) {}
+    },
+
     validateData(filePath, data) {
       const errors = [];
       const warnings = [];
@@ -1280,6 +1313,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (filePath.endsWith('news.json')) {
         if (!Array.isArray(data)) {
           errors.push('뉴스 데이터는 배열(Array) 형식이어야 합니다.');
+        } else if (data.length === 0) {
+          errors.push('뉴스 데이터 배열이 비어있습니다. 데이터 유실 방지를 위해 빈 배열 푸시는 차단됩니다.');
         } else {
           data.forEach((item, i) => {
             if (!item.content || !String(item.content).trim()) {
@@ -1291,11 +1326,14 @@ document.addEventListener('DOMContentLoaded', () => {
           });
         }
       } else if (filePath.endsWith('mappack.json')) {
-        if (!Array.isArray(data)) {
-          errors.push('맵 팩 데이터는 배열(Array) 형식이어야 합니다.');
+        const packsList = Array.isArray(data) ? data : (data && Array.isArray(data.packs) ? data.packs : null);
+        if (!packsList) {
+          errors.push('맵 팩 데이터(packs 배열)가 유효하지 않습니다.');
+        } else if (packsList.length === 0) {
+          errors.push('맵 팩 목록(packs)이 비어있습니다. 데이터 유실 방지를 위해 빈 배열 푸시는 차단됩니다.');
         } else {
           const idSet = new Set();
-          data.forEach((pack, i) => {
+          packsList.forEach((pack, i) => {
             if (!pack.title || !String(pack.title).trim()) {
               errors.push(`[맵 팩 #${i + 1}] 맵 팩 제목이 누락되었습니다.`);
             }
@@ -1313,6 +1351,8 @@ document.addEventListener('DOMContentLoaded', () => {
       } else if (filePath.endsWith('hardest.json')) {
         if (!Array.isArray(data)) {
           errors.push('하디스트 데이터는 배열(Array) 형식이어야 합니다.');
+        } else if (data.length === 0) {
+          errors.push('하디스트 데이터 배열이 비어있습니다. 데이터 유실 방지를 위해 빈 배열 푸시는 차단됩니다.');
         } else {
           data.forEach((user, i) => {
             if (!user.name || !String(user.name).trim()) {
@@ -1326,6 +1366,8 @@ document.addEventListener('DOMContentLoaded', () => {
       } else if (filePath.includes('level/') || filePath.endsWith('classic.json') || filePath.endsWith('challenge.json') || filePath.endsWith('platformer.json')) {
         if (!data.levels || !Array.isArray(data.levels)) {
           errors.push('levels 배열이 존재하지 않거나 유효하지 않습니다.');
+        } else if (data.levels.length === 0) {
+          errors.push('레벨 목록(levels)이 비어있습니다. 데이터 유실 방지를 위해 빈 데이터 푸시는 차단됩니다.');
         } else {
           const idSet = new Set();
           data.levels.forEach((lvl, i) => {
@@ -1429,6 +1471,16 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const result = await putRes.json();
+
+      // GitHub Pages 배포 지연(약 1~2분) 동안 이전 캐시로 덮어씌워지는 현상을 방지하기 위해 최근 푸시 데이터 보관
+      try {
+        const parsedData = typeof data === 'string' ? JSON.parse(data) : data;
+        localStorage.setItem(`gh_pushed_cache_${cleanPath}`, JSON.stringify({
+          timestamp: Date.now(),
+          data: parsedData
+        }));
+      } catch (cacheErr) {}
+
       return {
         success: true,
         commitSha: result.commit ? result.commit.sha : '',
@@ -1450,20 +1502,27 @@ document.addEventListener('DOMContentLoaded', () => {
           if (Array.isArray(parsed)) newsList = parsed;
         } catch (e) { }
       } else {
-        try {
-          const getNewsJsonUrl = () => {
-            const path = (window.location.pathname || '').replace(/\\/g, '/').toLowerCase();
-            if (path.includes('/level/')) {
-              return '../news.json';
+        const recentNews = window.GitHubSyncEngine?.getRecentPushedData
+          ? window.GitHubSyncEngine.getRecentPushedData('news.json')
+          : null;
+        if (Array.isArray(recentNews)) {
+          newsList = [...recentNews];
+        } else {
+          try {
+            const getNewsJsonUrl = () => {
+              const path = (window.location.pathname || '').replace(/\\/g, '/').toLowerCase();
+              if (path.includes('/level/')) {
+                return '../news.json';
+              }
+              return 'news.json';
+            };
+            const res = await fetch(`${getNewsJsonUrl()}?t=${Date.now()}`, { cache: 'no-store' });
+            if (res && res.ok) {
+              const data = await res.json();
+              if (Array.isArray(data)) newsList = data;
             }
-            return 'news.json';
-          };
-          const res = await fetch(getNewsJsonUrl());
-          if (res && res.ok) {
-            const data = await res.json();
-            if (Array.isArray(data)) newsList = data;
-          }
-        } catch (e) { }
+          } catch (e) { }
+        }
       }
 
       newsList.unshift(newEntry);
@@ -1476,12 +1535,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.applyDevCustomData = function (jsonLevels, jsonHistory, modeKey) {
     try {
+      const recentPushed = window.GitHubSyncEngine?.getRecentPushedData
+        ? window.GitHubSyncEngine.getRecentPushedData(`level/${modeKey}.json`)
+        : null;
+      const baseLevels = (recentPushed && Array.isArray(recentPushed.levels) && recentPushed.levels.length > 0)
+        ? recentPushed.levels
+        : (jsonLevels || []);
+      const baseHistory = (recentPushed && Array.isArray(recentPushed.history))
+        ? recentPushed.history
+        : (jsonHistory || []);
+
       const customLevels = JSON.parse(localStorage.getItem(`dev_custom_levels_${modeKey}`) || '[]');
       const customHistory = JSON.parse(localStorage.getItem(`dev_custom_history_${modeKey}`) || '[]');
       const customClears = JSON.parse(localStorage.getItem(`dev_custom_clears_${modeKey}`) || '{}');
 
-      let levels = (jsonLevels || []).map(l => ({ ...l }));
-      let history = [...customHistory, ...(jsonHistory || [])];
+      let levels = baseLevels.map(l => ({ ...l }));
+      let history = [...customHistory, ...baseHistory];
 
       customLevels.forEach(cust => {
         const idx = levels.findIndex(l => String(l.id) === String(cust.id) || String(l.title).toLowerCase() === String(cust.title).toLowerCase());
@@ -1625,9 +1694,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 데이터 초기화 버튼
+  const isLevelPage = () => {
+    const p = (window.location.pathname || '').replace(/\\/g, '/').toLowerCase();
+    return p.includes('/level/') || p.endsWith('classic.html') || p.endsWith('challenge.html') || p.endsWith('platformer.html');
+  };
+
+  // 데이터 초기화 버튼 (레벨 페이지 전용 — index/ranking/maps는 각자 스크립트에서 처리)
   const devResetDataBtn = document.getElementById('dev-reset-data-btn');
-  if (devResetDataBtn) {
+  if (devResetDataBtn && isLevelPage()) {
     devResetDataBtn.addEventListener('click', () => {
       const mode = getCurrentPageMode();
       const modeName = mode === 'classic' ? 'Classic' : (mode === 'challenge' ? 'Challenge' : 'Platformer');
@@ -1635,6 +1709,9 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.removeItem(`dev_custom_levels_${mode}`);
         localStorage.removeItem(`dev_custom_history_${mode}`);
         localStorage.removeItem(`dev_custom_clears_${mode}`);
+        if (window.GitHubSyncEngine?.clearRecentPushedData) {
+          window.GitHubSyncEngine.clearRecentPushedData(`level/${mode}.json`);
+        }
         logDevConsole(`[초기화] ${modeName} 모드의 테스트 데이터가 초기화되었습니다.`, '#ffe600');
         alert(`${modeName} 모드의 데이터가 원본 상태로 초기화되었습니다.`);
         window.dispatchEvent(new CustomEvent('devDataUpdated', { detail: { mode } }));
@@ -1646,9 +1723,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // GitHub 자동 커밋 & 푸시 동기화 버튼
+  // GitHub 자동 커밋 & 푸시 동기화 버튼 (레벨 페이지 전용 — index/ranking/maps는 각자 스크립트에서 처리)
   const devGithubSyncBtn = document.getElementById('dev-github-sync-btn');
-  if (devGithubSyncBtn) {
+  if (devGithubSyncBtn && isLevelPage()) {
     devGithubSyncBtn.addEventListener('click', async () => {
       const mode = getCurrentPageMode();
       const modeName = mode === 'classic' ? 'Classic' : (mode === 'challenge' ? 'Challenge' : 'Platformer');
@@ -1672,9 +1749,17 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         logDevConsole(`[GitHub] ${targetFilePath} 데이터 검증 및 푸시 시작...`, '#70a1ff');
 
-        const res = await fetch(`${mode}.json`);
-        const json = res.ok ? await res.json() : { levels: [], history: [] };
+        const jsonUrl = window.location.pathname.toLowerCase().includes('/level/') ? `${mode}.json` : `level/${mode}.json`;
+        const res = await fetch(`${jsonUrl}?t=${Date.now()}`, { cache: 'no-store' });
+        if (!res.ok) {
+          throw new Error(`${targetFilePath} 원본 데이터를 불러오지 못해 동기화를 중단했습니다 (HTTP ${res.status}).`);
+        }
+        const json = await res.json();
         const merged = window.applyDevCustomData(json.levels ?? [], json.history ?? [], mode);
+
+        if (!Array.isArray(merged.levels) || merged.levels.length === 0) {
+          throw new Error('병합된 레벨 목록이 비어있어 데이터 유실 방지를 위해 동기화를 중단했습니다.');
+        }
 
         const dataToPush = {
           levels: merged.levels,
@@ -2009,7 +2094,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const devSettingsSaveBtn = document.getElementById('dev-settings-save-btn');
   const devSettingsTestBtn = document.getElementById('dev-settings-test-btn');
 
-  if (devSettingsOpenBtn) {
+  if (devSettingsOpenBtn && isLevelPage()) {
     devSettingsOpenBtn.addEventListener('click', () => {
       hideAllSubPanels();
       if (devSettingsArea) devSettingsArea.style.display = 'block';
@@ -2019,7 +2104,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  if (devSettingsSaveBtn) {
+  if (devSettingsSaveBtn && isLevelPage()) {
     devSettingsSaveBtn.addEventListener('click', () => {
       const token = (devTokenInput?.value || '').trim();
       const owner = (devOwnerInput?.value || '').trim();
@@ -2034,7 +2119,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  if (devSettingsTestBtn) {
+  if (devSettingsTestBtn && isLevelPage()) {
     devSettingsTestBtn.addEventListener('click', async () => {
       const token = (devTokenInput?.value || '').trim();
       const owner = (devOwnerInput?.value || '').trim();
@@ -2063,10 +2148,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  ['dev-add-back-btn', 'dev-edit-back-btn', 'dev-clear-back-btn', 'dev-settings-back-btn'].forEach(id => {
+  ['dev-add-back-btn', 'dev-edit-back-btn', 'dev-clear-back-btn'].forEach(id => {
     const btn = document.getElementById(id);
     if (btn) btn.addEventListener('click', showMainControls);
   });
+  if (isLevelPage()) {
+    const settingsBackBtn = document.getElementById('dev-settings-back-btn');
+    if (settingsBackBtn) settingsBackBtn.addEventListener('click', showMainControls);
+  }
 
   function extractYoutubeId(urlOrId) {
     if (!urlOrId) return '';

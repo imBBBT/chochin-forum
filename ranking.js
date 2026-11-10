@@ -10,12 +10,36 @@ document.addEventListener('DOMContentLoaded', async () => {
     return (localStorage.getItem('forumNickname') || '').trim();
   };
 
-  // Fetch hardest.json
+  const extractAredlRank = (str) => {
+    if (!str) return Infinity;
+    const match = String(str).match(/#\s*(\d+)/);
+    if (match && match[1]) return parseInt(match[1], 10);
+    const numMatch = String(str).match(/(\d+)/);
+    return numMatch ? parseInt(numMatch[1], 10) : Infinity;
+  };
+
+  const sortHardestData = (arr) => {
+    if (!Array.isArray(arr)) return [];
+    return arr.sort((a, b) => extractAredlRank(a?.hardest) - extractAredlRank(b?.hardest));
+  };
+
+  // Fetch hardest.json (respecting recent GitHub push cache & avoiding stale browser cache)
   const fetchHardestData = async () => {
+    const recentPushed = window.GitHubSyncEngine?.getRecentPushedData
+      ? window.GitHubSyncEngine.getRecentPushedData('hardest.json')
+      : null;
+    if (Array.isArray(recentPushed) && recentPushed.length > 0) {
+      hardestData = sortHardestData(recentPushed.map(item => ({ ...item })));
+      return;
+    }
+
     try {
-      const res = await fetch('hardest.json');
+      const res = await fetch(`hardest.json?t=${Date.now()}`, { cache: 'no-store' });
       if (res.ok) {
-        hardestData = await res.json();
+        const json = await res.json();
+        if (Array.isArray(json)) {
+          hardestData = sortHardestData(json);
+        }
       }
     } catch (e) {
       console.warn("Failed to load hardest.json:", e);
@@ -39,16 +63,17 @@ document.addEventListener('DOMContentLoaded', async () => {
       });
       const firstClearer = fullClears.length > 0 ? (fullClears[0].player || fullClears[0].user || fullClears[0].name || '').trim().toLowerCase() : '';
 
-      // Collect all players involved in this level (only verifier and 100% full clearers)
-      const involvedPlayers = new Set();
-      if (verifier) involvedPlayers.add(verifier);
+      // Collect all players involved in this level (deduplicated by lowercase key)
+      const involvedPlayers = new Map();
+      if (verifier) involvedPlayers.set(verifierKey, verifier);
       fullClears.forEach(c => {
         const pName = (c.player || c.user || c.name || '').trim();
-        if (pName) involvedPlayers.add(pName);
+        if (pName && !involvedPlayers.has(pName.toLowerCase())) {
+          involvedPlayers.set(pName.toLowerCase(), pName);
+        }
       });
 
-      involvedPlayers.forEach(player => {
-        const playerKey = player.toLowerCase();
+      involvedPlayers.forEach((player, playerKey) => {
         if (!playerMap[playerKey]) {
           playerMap[playerKey] = {
             name: player,
@@ -117,6 +142,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (hardestData.length === 0) {
         await fetchHardestData();
       }
+      sortHardestData(hardestData);
 
       if (hardestData.length === 0) {
         rankingListBody.innerHTML = '<div class="ranking-empty-state">하디스트 랭킹 데이터가 없습니다.</div>';
@@ -419,8 +445,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   function saveCustomHardestData(arr) {
-    hardestData = arr;
-    localStorage.setItem('dev_custom_hardest', JSON.stringify(arr));
+    hardestData = sortHardestData(arr);
+    localStorage.setItem('dev_custom_hardest', JSON.stringify(hardestData));
   }
 
   function hideAllDevPanels() {
@@ -445,10 +471,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       populateUserSelects();
       showDevPanel(devUserEditArea);
     });
-  }
-
-  if (devSettingsOpenBtn) {
-    devSettingsOpenBtn.addEventListener('click', () => showDevPanel(devSettingsArea));
   }
 
   [devUserAddBackBtn, devUserEditBackBtn, devSettingsBackBtn].forEach(btn => {
@@ -636,6 +658,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       devGithubSyncBtn.textContent = '동기화 중... ⏳';
 
       try {
+        sortHardestData(hardestData);
         const result = await window.GitHubSyncEngine.commitAndPush(
           'hardest.json',
           hardestData,
@@ -646,7 +669,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         const shortCommit = result.commitSha ? result.commitSha.substring(0, 7) : 'Success';
         alert(`🎉 하디스트 랭킹 데이터가 GitHub에 성공적으로 커밋 & 푸시되었습니다!\n(Commit: ${shortCommit})`);
         hideAllDevPanels();
-        await fetchHardestData();
         renderRanking();
       } catch (err) {
         alert(`동기화 중 오류가 발생했습니다:\n\n${err.message}`);
@@ -663,6 +685,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     devResetDataBtn.addEventListener('click', async () => {
       if (confirm('로컬에 저장된 하디스트 변경사항을 모두 초기화하고 원본 hardest.json으로 되돌리시겠습니까?')) {
         localStorage.removeItem('dev_custom_hardest');
+        if (window.GitHubSyncEngine?.clearRecentPushedData) {
+          window.GitHubSyncEngine.clearRecentPushedData('hardest.json');
+        }
         await fetchHardestData();
         renderRanking();
         alert('하디스트 랭킹 데이터가 원본 상태로 초기화되었습니다.');
@@ -671,11 +696,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
+  // Listen to level/clear/nickname updates so ranking & hardest level reflect immediately
+  window.addEventListener('devDataUpdated', async () => {
+    if (window.invalidatePointsCache) window.invalidatePointsCache();
+    await renderRanking();
+  });
+  window.addEventListener('forumNicknameChanged', () => {
+    renderRanking();
+  });
+  window.addEventListener('storage', async (e) => {
+    if (e.key === 'forumNickname' || (e.key && e.key.startsWith('dev_custom_'))) {
+      if (window.invalidatePointsCache) window.invalidatePointsCache();
+      await renderRanking();
+    }
+  });
+
   // Initial Fetch & Render
   await fetchHardestData();
   const customH = getCustomHardestData();
   if (customH && Array.isArray(customH) && customH.length > 0) {
-    hardestData = customH;
+    hardestData = sortHardestData(customH);
   }
   renderRanking();
 });

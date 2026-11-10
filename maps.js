@@ -274,10 +274,20 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       await fetchLevelsData();
 
-      const response = await fetch('mappack.json');
-      if (!response.ok) throw new Error(`HTTP error ${response.status}`);
-      const data = await response.json();
-      allPacks = data.packs || [];
+      const recentPushed = window.GitHubSyncEngine?.getRecentPushedData
+        ? window.GitHubSyncEngine.getRecentPushedData('mappack.json')
+        : null;
+      if (recentPushed) {
+        const recentPacks = Array.isArray(recentPushed) ? recentPushed : (recentPushed.packs || []);
+        if (recentPacks.length > 0) {
+          allPacks = recentPacks.map(p => ({ ...p }));
+        }
+      } else {
+        const response = await fetch(`mappack.json?t=${Date.now()}`, { cache: 'no-store' });
+        if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+        const data = await response.json();
+        allPacks = Array.isArray(data) ? data : (data.packs || []);
+      }
 
       // Check LocalStorage override if dev tools custom packs exist
       const devCustomPacks = localStorage.getItem('dev_custom_mappacks');
@@ -722,10 +732,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  if (devSettingsOpenBtn) {
-    devSettingsOpenBtn.addEventListener('click', () => showDevSubPanel(devSettingsArea));
-  }
-
   [devPackAddBackBtn, devPackEditBackBtn, devPackClearBackBtn, devSettingsBackBtn].forEach(btn => {
     if (btn) btn.addEventListener('click', hideAllDevSubPanels);
   });
@@ -1011,7 +1017,7 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         const result = await window.GitHubSyncEngine.commitAndPush(
           'mappack.json',
-          allPacks,
+          { packs: allPacks },
           'Update mappacks data via DevTools'
         );
 
@@ -1034,6 +1040,9 @@ document.addEventListener('DOMContentLoaded', () => {
     devResetDataBtn.addEventListener('click', async () => {
       if (confirm('로컬에 저장된 맵 팩 변경사항을 모두 초기화하고 원본 mappack.json으로 되돌리시겠습니까?')) {
         localStorage.removeItem('dev_custom_mappacks');
+        if (window.GitHubSyncEngine?.clearRecentPushedData) {
+          window.GitHubSyncEngine.clearRecentPushedData('mappack.json');
+        }
         await fetchMapPacks();
         alert('맵 팩 데이터가 원본 상태로 초기화되었습니다.');
         hideAllDevSubPanels();

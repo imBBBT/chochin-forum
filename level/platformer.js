@@ -1154,7 +1154,7 @@ async function initPlatformerPage() {
 
   const loadPlatformerData = async () => {
     try {
-      const response = await fetch('platformer.json');
+      const response = await fetch(`platformer.json?t=${Date.now()}`, { cache: 'no-store' });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data = await response.json();
 

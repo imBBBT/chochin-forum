@@ -92,7 +92,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const modes = ['classic', 'challenge', 'platformer'];
     for (const mode of modes) {
       try {
-        const res = await fetch(`level/${mode}.json`);
+        const recent = window.GitHubSyncEngine?.getRecentPushedData
+          ? window.GitHubSyncEngine.getRecentPushedData(`level/${mode}.json`)
+          : null;
+        if (recent && Array.isArray(recent.levels) && recent.levels.length > 0) {
+          siteData[mode].levels = recent.levels.map(l => ({ ...l }));
+          siteData[mode].history = Array.isArray(recent.history) ? recent.history.map(h => ({ ...h })) : [];
+          continue;
+        }
+        const res = await fetch(`level/${mode}.json?t=${Date.now()}`, { cache: 'no-store' });
         if (res.ok) {
           const json = await res.json();
           siteData[mode].levels = Array.isArray(json.levels) ? json.levels : [];
@@ -638,6 +646,19 @@ document.addEventListener('DOMContentLoaded', () => {
         await window.GitHubSyncEngine.commitAndPush('level/classic.json', siteData.classic, 'Update classic levels via Admin Portal');
         await window.GitHubSyncEngine.commitAndPush('level/challenge.json', siteData.challenge, 'Update challenge levels via Admin Portal');
         await window.GitHubSyncEngine.commitAndPush('level/platformer.json', siteData.platformer, 'Update platformer levels via Admin Portal');
+
+        const pendingNewsRaw = localStorage.getItem('dev_custom_news');
+        if (pendingNewsRaw) {
+          try {
+            const parsedNews = JSON.parse(pendingNewsRaw);
+            if (Array.isArray(parsedNews) && parsedNews.length > 0) {
+              await window.GitHubSyncEngine.commitAndPush('news.json', parsedNews, 'Auto update news.json via Admin Portal');
+              localStorage.removeItem('dev_custom_news');
+            }
+          } catch (newsErr) {
+            console.warn('Admin auto news sync skipped or failed:', newsErr);
+          }
+        }
 
         alert('모든 레벨 데이터가 GitHub에 성공적으로 자동 커밋 & 푸시되었습니다.');
       } catch (err) {

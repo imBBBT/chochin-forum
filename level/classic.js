@@ -1126,7 +1126,7 @@ async function initClassicPage() {
 
   const loadClassicData = async () => {
     try {
-      const response = await fetch('classic.json');
+      const response = await fetch(`classic.json?t=${Date.now()}`, { cache: 'no-store' });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data = await response.json();
 

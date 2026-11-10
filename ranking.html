@@ -4,13 +4,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="초친 포럼 유저 랭킹 - 부문별 순위, 클리어 포인트, 하디스트 레벨 종합 리더보드" />
-  <title>유저 랭킹 - 초친 포럼</title>
+  <meta name="description" content="초친 ?�럼 ?��? ??�� - 부문별 ?�위, ?�리???�인?? ?�디?�트 ?�벨 종합 리더보드" />
+  <title>?��? ??�� - 초친 ?�럼</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="level.css?v=7" />
-  <link rel="stylesheet" href="all.css?v=7" />
-  <link rel="stylesheet" href="ranking.css?v=7" />
+  <link rel="stylesheet" href="level.css?v=8" />
+  <link rel="stylesheet" href="all.css?v=8" />
+  <link rel="stylesheet" href="ranking.css?v=8" />
 </head>
 
 <body>
@@ -20,40 +20,40 @@
     <div class="header-main-buttons">
       <a href="index.html">
         <button class="button">
-          <span class="icon">홈</span>
+          <span class="icon">??/span>
         </button>
       </a>
       <a href="level.html">
         <button class="button">
-          <span class="icon">레벨</span>
+          <span class="icon">?�벨</span>
         </button>
       </a>
       <a href="maps.html">
         <button class="button">
-          <span class="icon">맵 팩</span>
+          <span class="icon">�???/span>
         </button>
       </a>
       <a href="ranking.html">
         <button class="button active">
-          <span class="icon">랭킹</span>
+          <span class="icon">??��</span>
         </button>
       </a>
       <a href="tools.html">
         <button class="button">
-          <span class="icon">도구</span>
+          <span class="icon">?�구</span>
         </button>
       </a>
       <a href="submit.html">
         <button class="button">
-          <span class="icon">제출</span>
+          <span class="icon">?�출</span>
         </button>
       </a>
     </div>
-    <button class="optionbutton"><span class="icon">▼</span></button>
+    <button class="optionbutton"><span class="icon">??/span></button>
     <div class="optionmenu">
-      <button class="option-item option-item-account">계정 선택</button>
-      <button class="option-item option-item-bg">배경 설정</button>
-      <button class="option-item option-item-low-spec">저사양 모드: OFF</button>
+      <button class="option-item option-item-account">계정 ?�택</button>
+      <button class="option-item option-item-bg">배경 ?�정</button>
+      <button class="option-item option-item-low-spec">?�?�양 모드: OFF</button>
     </div>
   </header>
 
@@ -63,7 +63,7 @@
     <div class="ranking-header-section">
       <div class="ranking-header-title-group">
         <h2 class="ranking-main-title">Ranking Leaderboard</h2>
-        <p class="ranking-subtitle">초친 포럼 유저들의 분야별 순위 및 포인트 랭킹</p>
+        <p class="ranking-subtitle">초친 ?�럼 ?��??�의 분야�??�위 �??�인????��</p>
       </div>
 
       <div class="ranking-mode-tabs">
@@ -77,11 +77,11 @@
 
     <!-- Table Header Bar -->
     <div class="ranking-table-header" id="ranking-table-header">
-      <span class="col-rank">순위</span>
-      <span class="col-name">유저 이름</span>
-      <span class="col-pt">포인트</span>
-      <span class="col-hardest">하디스트 레벨</span>
-      <span class="col-clears">클리어 맵 개수</span>
+      <span class="col-rank">?�위</span>
+      <span class="col-name">?��? ?�름</span>
+      <span class="col-pt">?�인??/span>
+      <span class="col-hardest">?�디?�트 ?�벨</span>
+      <span class="col-clears">?�리??�?개수</span>
     </div>
 
     <!-- Scrollable Ranking List Body -->
@@ -93,10 +93,10 @@
   <!-- Nickname Input Modal -->
   <div class="nickname-modal-overlay">
     <div class="nickname-input-box">
-      <h2>닉네임 설정</h2>
-      <input type="text" id="nickname-input" placeholder="새 닉네임을 입력하세요" />
+      <h2>?�네???�정</h2>
+      <input type="text" id="nickname-input" placeholder="???�네?�을 ?�력?�세?? />
       <div class="modal-buttons">
-        <button id="nickname-submit-btn" class="modal-btn">확인</button>
+        <button id="nickname-submit-btn" class="modal-btn">?�인</button>
         <button id="nickname-cancel-btn" class="modal-btn">취소</button>
       </div>
     </div>
@@ -105,39 +105,39 @@
   <!-- Background Settings Modal -->
   <div class="bg-modal-overlay">
     <div class="nickname-input-box">
-      <h2>배경 설정</h2>
+      <h2>배경 ?�정</h2>
       <div class="bg-input-group">
-        <label>배경 유형</label>
+        <label>배경 ?�형</label>
         <div class="switch-container">
-          <span>단색</span>
+          <span>?�색</span>
           <label class="switch">
             <input type="checkbox" id="bg-type-toggle" checked>
             <span class="slider"></span>
           </label>
-          <span>그라데이션</span>
+          <span>그라?�이??/span>
         </div>
       </div>
       <div class="bg-input-group">
-        <label>시작 색상 (Hex)</label>
+        <label>?�작 ?�상 (Hex)</label>
         <div class="color-picker-row">
           <input type="color" id="bg-color1" value="#404040">
           <input type="text" id="bg-color1-hex" value="#404040" maxlength="7">
         </div>
       </div>
       <div class="bg-input-group" id="bg-color2-group">
-        <label>끝 색상 (Hex)</label>
+        <label>???�상 (Hex)</label>
         <div class="color-picker-row">
           <input type="color" id="bg-color2" value="#202020">
           <input type="text" id="bg-color2-hex" value="#202020" maxlength="7">
         </div>
       </div>
       <div class="bg-input-group" id="bg-angle-group">
-        <label>그라데이션 각도 (0~360°)</label>
+        <label>그라?�이??각도 (0~360°)</label>
         <input type="number" id="bg-angle" value="135" min="0" max="360">
       </div>
       <div class="modal-buttons">
-        <button id="bg-submit-btn" class="modal-btn">적용</button>
-        <button id="bg-reset-btn" class="modal-btn">초기화</button>
+        <button id="bg-submit-btn" class="modal-btn">?�용</button>
+        <button id="bg-reset-btn" class="modal-btn">초기??/button>
         <button id="bg-cancel-btn" class="modal-btn">취소</button>
       </div>
     </div>
@@ -147,88 +147,86 @@
   <div class="dev-modal-overlay">
     <div class="dev-panel">
       <div id="dev-password-section">
-        <h2>개발자 도구 인증</h2>
-        <p class="dev-desc">하디스트 랭킹 관리를 위해 시스템 비밀번호를 입력하세요.</p>
-        <input type="password" id="dev-pw-input" name="dev-password-field" autocomplete="new-password" placeholder="비밀번호 입력" class="dev-input" />
+        <h2>개발???�구 ?�증</h2>
+        <p class="dev-desc">?�디?�트 ??�� 관리�? ?�해 ?�스??비�?번호�??�력?�세??</p>
+        <input type="password" id="dev-pw-input" name="dev-password-field" autocomplete="new-password" placeholder="비�?번호 ?�력" class="dev-input" />
         <div class="modal-buttons">
-          <button id="dev-pw-submit" class="modal-btn">확인</button>
+          <button id="dev-pw-submit" class="modal-btn">?�인</button>
           <button id="dev-pw-cancel" class="modal-btn">취소</button>
         </div>
       </div>
       <div id="dev-content-section" style="display: none">
-        <h2>하디스트 랭킹 관리</h2>
+        <h2>?�디?�트 ??�� 관�?/h2>
         <div class="dev-console">
-          <p style="color: #0f0">> 하디스트 랭킹 관리자 접속 완료...</p>
+          <p style="color: #0f0">> ?�디?�트 ??�� 관리자 ?�속 ?�료...</p>
         </div>
         <div id="dev-main-controls">
           <div class="dev-button-grid">
             <button id="dev-user-add-open-btn" class="modal-btn dev-action-btn">
-              하디스트 등록
+              ?�디?�트 ?�록
             </button>
             <button id="dev-user-edit-open-btn" class="modal-btn dev-action-btn">
-              하디스트 수정/삭제
+              ?�디?�트 ?�정/??��
             </button>
             <button id="dev-github-sync-btn" class="modal-btn dev-action-btn dev-btn-sync">
-              GitHub 동기화
-            </button>
+              GitHub ?�기??            </button>
             <button id="dev-settings-open-btn" class="modal-btn dev-action-btn">
-              GitHub 설정
+              GitHub ?�정
             </button>
             <button id="dev-reset-data-btn" class="modal-btn dev-action-btn dev-btn-danger">
-              데이터 초기화
-            </button>
-            <a href="admin.html" id="dev-admin-dashboard-btn" class="modal-btn dev-action-btn dev-btn-admin" title="단축키: A">
-              검토 센터 대시보드 [A]
+              ?�이??초기??            </button>
+            <a href="admin.html" id="dev-admin-dashboard-btn" class="modal-btn dev-action-btn dev-btn-admin" title="?�축?? A">
+              검???�터 ?�?�보??[A]
             </a>
           </div>
         </div>
 
-        <!-- 1. 하디스트 신규 등록 서브 패널 -->
+        <!-- 1. ?�디?�트 ?�규 ?�록 ?�브 ?�널 -->
         <div id="dev-user-add-area" style="display: none" class="dev-sub-panel">
-          <p class="dev-desc"><strong>하디스트 랭킹 신규 등록</strong></p>
-          <input type="text" id="dev-user-add-name" placeholder="유저 닉네임 *" class="dev-input" />
-          <input type="text" id="dev-user-add-hardest" placeholder="하디스트 레벨 (ex: Wasureta (AREDL #349)) *" class="dev-input" />
+          <p class="dev-desc"><strong>?�디?�트 ??�� ?�규 ?�록</strong></p>
+          <input type="text" id="dev-user-add-name" placeholder="?��? ?�네??*" class="dev-input" />
+          <input type="text" id="dev-user-add-hardest" placeholder="?�디?�트 ?�벨 (ex: Wasureta (AREDL #349)) *" class="dev-input" />
           <div class="dev-button-grid">
-            <button id="dev-user-add-submit-btn" class="modal-btn dev-action-btn dev-btn-primary">등록 저장</button>
-            <button id="dev-user-add-back-btn" class="modal-btn dev-action-btn">뒤로</button>
+            <button id="dev-user-add-submit-btn" class="modal-btn dev-action-btn dev-btn-primary">?�록 ?�??/button>
+            <button id="dev-user-add-back-btn" class="modal-btn dev-action-btn">?�로</button>
           </div>
         </div>
 
-        <!-- 2. 하디스트 수정/삭제 서브 패널 -->
+        <!-- 2. ?�디?�트 ?�정/??�� ?�브 ?�널 -->
         <div id="dev-user-edit-area" style="display: none" class="dev-sub-panel">
-          <p class="dev-desc"><strong>하디스트 정보 수정 / 삭제</strong></p>
+          <p class="dev-desc"><strong>?�디?�트 ?�보 ?�정 / ??��</strong></p>
           <select id="dev-user-edit-select" class="dev-select">
-            <option value="">-- 수정할 유저 선택 --</option>
+            <option value="">-- ?�정???��? ?�택 --</option>
           </select>
           <div id="dev-user-edit-fields" style="display: none">
-            <input type="text" id="dev-user-edit-name" placeholder="유저 닉네임 *" class="dev-input" />
-            <input type="text" id="dev-user-edit-hardest" placeholder="하디스트 레벨 *" class="dev-input" />
+            <input type="text" id="dev-user-edit-name" placeholder="?��? ?�네??*" class="dev-input" />
+            <input type="text" id="dev-user-edit-hardest" placeholder="?�디?�트 ?�벨 *" class="dev-input" />
             <div class="dev-button-grid">
-              <button id="dev-user-edit-submit-btn" class="modal-btn dev-action-btn dev-btn-primary">수정 저장</button>
-              <button id="dev-user-edit-delete-btn" class="modal-btn dev-action-btn dev-btn-danger">유저 삭제</button>
+              <button id="dev-user-edit-submit-btn" class="modal-btn dev-action-btn dev-btn-primary">?�정 ?�??/button>
+              <button id="dev-user-edit-delete-btn" class="modal-btn dev-action-btn dev-btn-danger">?��? ??��</button>
             </div>
           </div>
           <div class="dev-button-grid" style="margin-top: 10px;">
-            <button id="dev-user-edit-back-btn" class="modal-btn dev-action-btn">뒤로</button>
+            <button id="dev-user-edit-back-btn" class="modal-btn dev-action-btn">?�로</button>
           </div>
         </div>
 
-        <!-- 3. GitHub 설정 서브 패널 -->
+        <!-- 3. GitHub ?�정 ?�브 ?�널 -->
         <div id="dev-settings-area" style="display: none" class="dev-sub-panel">
-          <p class="dev-desc"><strong>GitHub API 설정</strong></p>
+          <p class="dev-desc"><strong>GitHub API ?�정</strong></p>
           <input type="text" id="dev-gh-repo" placeholder="GitHub Repository (user/repo)" class="dev-input" />
           <input type="password" id="dev-gh-token" placeholder="GitHub Personal Access Token" class="dev-input" />
           <div class="dev-button-grid">
-            <button id="dev-gh-save-btn" class="modal-btn dev-action-btn dev-btn-primary">설정 저장</button>
-            <button id="dev-settings-back-btn" class="modal-btn dev-action-btn">뒤로</button>
+            <button id="dev-gh-save-btn" class="modal-btn dev-action-btn dev-btn-primary">?�정 ?�??/button>
+            <button id="dev-settings-back-btn" class="modal-btn dev-action-btn">?�로</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <script src="all.js?v=7"></script>
-  <script src="ranking.js?v=7"></script>
+  <script src="all.js?v=8"></script>
+  <script src="ranking.js?v=8"></script>
 </body>
 
 </html>

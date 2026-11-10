@@ -60,14 +60,20 @@ document.addEventListener('DOMContentLoaded', () => {
     return null;
   };
 
-  // 뉴스 데이터 가져오기 (로컬 커스텀 -> 원본 news.json)
+  // 뉴스 데이터 가져오기 (로컬 커스텀 -> 최근 푸시 캐시 -> 원본 news.json)
   const fetchNewsList = async () => {
     const custom = getLocalCustomNews();
     if (custom !== null) {
       return custom;
     }
+    const recentPushed = window.GitHubSyncEngine?.getRecentPushedData
+      ? window.GitHubSyncEngine.getRecentPushedData('news.json')
+      : null;
+    if (Array.isArray(recentPushed)) {
+      return recentPushed.map(item => ({ ...item }));
+    }
     try {
-      const response = await fetch('news.json');
+      const response = await fetch(`news.json?t=${Date.now()}`, { cache: 'no-store' });
       if (response.ok) {
         const data = await response.json();
         if (Array.isArray(data)) return data;
@@ -384,6 +390,9 @@ document.addEventListener('DOMContentLoaded', () => {
     devResetDataBtn.addEventListener('click', async () => {
       if (confirm('로컬에 저장된 뉴스 테스트 데이터를 모두 초기화하고 원본 news.json으로 되돌리시겠습니까?')) {
         localStorage.removeItem('dev_custom_news');
+        if (window.GitHubSyncEngine?.clearRecentPushedData) {
+          window.GitHubSyncEngine.clearRecentPushedData('news.json');
+        }
         await refreshNewsUI();
         alert('뉴스 데이터가 원본 상태로 초기화되었습니다.');
       }
