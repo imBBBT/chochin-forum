@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="초친 ?�럼 ?�벨 카테고리 - Classic, Challenge, Platformer 모드 ?�택">
-  <title>?�벨 부�??�택 - 초친 ?�럼</title>
+  <meta name="description" content="초친 포럼 레벨 카테고리 - Classic, Challenge, Platformer 모드 선택">
+  <title>레벨 부문 선택 - 초친 포럼</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="level.css?v=8">
@@ -19,49 +19,49 @@
     <div class="header-main-buttons">
       <a href="index.html">
         <button class="button">
-          <span class="icon">??/span>
+          <span class="icon">홈</span>
         </button>
       </a>
       <a href="level.html">
         <button class="button active">
-          <span class="icon">?�벨</span>
+          <span class="icon">레벨</span>
         </button>
       </a>
       <a href="maps.html">
         <button class="button">
-          <span class="icon">�???/span>
+          <span class="icon">맵 팩</span>
         </button>
       </a>
       <a href="ranking.html">
         <button class="button">
-          <span class="icon">??��</span>
+          <span class="icon">랭킹</span>
         </button>
       </a>
       <a href="tools.html">
         <button class="button">
-          <span class="icon">?�구</span>
+          <span class="icon">도구</span>
         </button>
       </a>
       <a href="submit.html">
         <button class="button">
-          <span class="icon">?�출</span>
+          <span class="icon">제출</span>
         </button>
       </a>
     </div>
-    <button class="optionbutton"><span class="icon">??/span></button>
+    <button class="optionbutton"><span class="icon">▼</span></button>
     <div class="optionmenu">
-      <button class="option-item option-item-account">계정 ?�택</button>
-      <button class="option-item option-item-bg">배경 ?�정</button>
-      <button class="option-item option-item-low-spec">?�?�양 모드: OFF</button>
+      <button class="option-item option-item-account">계정 선택</button>
+      <button class="option-item option-item-bg">배경 설정</button>
+      <button class="option-item option-item-low-spec">저사양 모드: OFF</button>
     </div>
   </header>
 
   <main class="level-main-container">
     <!-- Main Banner Box -->
     <div class="box level-banner-box">
-      <h1 class="level-banner-title">?�벨 리스??/h1>
-      <p class="level-banner-desc">초친 멤버?�이 ?�작??커스?� ?�벨???�이?��? 기�??�로 ??��???�눈 곳입?�다.</p>
-      <p class="level-banner-subdesc">?�래?? 챌린지(20�??�내), ?�랫?�머 모드 �??�하?�는 ?�벨 카테고리�??�택?�세??</p>
+      <h1 class="level-banner-title">레벨 리스트</h1>
+      <p class="level-banner-desc">초친 멤버들이 제작한 커스텀 레벨의 난이도를 기준으로 랭킹을 나눈 곳입니다.</p>
+      <p class="level-banner-subdesc">클래식, 챌린지(20초 이내), 플랫포머 모드 중 원하시는 레벨 카테고리를 선택하세요.</p>
     </div>
 
     <!-- 3 Mode Cards Grid Container -->
@@ -91,10 +91,10 @@
   <!-- Nickname Input Modal -->
   <div class="nickname-modal-overlay">
     <div class="nickname-input-box">
-      <h2>?�네???�정</h2>
-      <input type="text" id="nickname-input" placeholder="???�네?�을 ?�력?�세??>
+      <h2>닉네임 설정</h2>
+      <input type="text" id="nickname-input" placeholder="새 닉네임을 입력하세요">
       <div class="modal-buttons">
-        <button id="nickname-submit-btn" class="modal-btn">?�인</button>
+        <button id="nickname-submit-btn" class="modal-btn">확인</button>
         <button id="nickname-cancel-btn" class="modal-btn">취소</button>
       </div>
     </div>
@@ -103,39 +103,39 @@
   <!-- Background Settings Modal -->
   <div class="bg-modal-overlay">
     <div class="nickname-input-box">
-      <h2>배경 ?�정</h2>
+      <h2>배경 설정</h2>
       <div class="bg-input-group">
-        <label>배경 ?�형</label>
+        <label>배경 유형</label>
         <div class="switch-container">
-          <span>?�색</span>
+          <span>단색</span>
           <label class="switch">
             <input type="checkbox" id="bg-type-toggle" checked>
             <span class="slider"></span>
           </label>
-          <span>그라?�이??/span>
+          <span>그라데이션</span>
         </div>
       </div>
       <div class="bg-input-group">
-        <label>?�작 ?�상 (Hex)</label>
+        <label>시작 색상 (Hex)</label>
         <div class="color-picker-row">
           <input type="color" id="bg-color1" value="#404040">
           <input type="text" id="bg-color1-hex" value="#404040" maxlength="7">
         </div>
       </div>
       <div class="bg-input-group" id="bg-color2-group">
-        <label>종료 ?�상 (Hex)</label>
+        <label>종료 색상 (Hex)</label>
         <div class="color-picker-row">
           <input type="color" id="bg-color2" value="#202020">
           <input type="text" id="bg-color2-hex" value="#202020" maxlength="7">
         </div>
       </div>
       <div class="bg-input-group" id="bg-angle-group">
-        <label>그라?�이??각도 (deg)</label>
+        <label>그라데이션 각도 (deg)</label>
         <input type="number" id="bg-angle" value="135" min="0" max="360">
       </div>
       <div class="modal-buttons">
-        <button id="bg-submit-btn" class="modal-btn">?�용</button>
-        <button id="bg-reset-btn" class="modal-btn">초기??/button>
+        <button id="bg-submit-btn" class="modal-btn">적용</button>
+        <button id="bg-reset-btn" class="modal-btn">초기화</button>
         <button id="bg-cancel-btn" class="modal-btn">취소</button>
       </div>
     </div>

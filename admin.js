@@ -379,7 +379,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentLevelsCount = (siteData[cat]?.levels || []).length;
 
     approveLevelModalName.textContent = `[${cat.toUpperCase()}] "${item.data.title}" by ${item.data.creator}`;
-    
+
     let defaultRank = 1;
     if (item.data.expectedRank && !isNaN(item.data.expectedRank)) {
       defaultRank = Math.min(Math.max(1, parseInt(item.data.expectedRank, 10)), currentLevelsCount + 1);
@@ -925,7 +925,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }, 300);
       }
-    } catch (_) {}
+    } catch (_) { }
   }
 
   // 시작
