@@ -206,6 +206,48 @@
       "targetRank": 4
     },
     {
+      "id": 1794636467516,
+      "title": "Glimmer",
+      "creator": "Choco & Timo",
+      "verifier": "Choco",
+      "rating": "Featured",
+      "video": "https://www.youtube.com/embed/mV9_vWLsHog",
+      "mapId": "129941246",
+      "length": "38s",
+      "objects": "10649",
+      "uploadDate": "2026-11-14",
+      "map": {
+        "mapId": "129941246",
+        "length": "38s",
+        "objects": "10649",
+        "uploadDate": "2026-11-14"
+      },
+      "song": {
+        "name": "Glimmer (feat vmrrobotic)",
+        "artist": "turquoisedeath",
+        "id": "1336237"
+      },
+      "description": "과거의 극초살 불가능으로 자리잡았던 Glimmer가 리메이크와 너프를 거친 채 등장하였습니다. 처음부터 끝까지 3배속으로 결코 넓지 않은 간격들이 당신을 위협합니다.",
+      "tags": [
+        "Standard",
+        "Effect",
+        "Simplism",
+        "Lyrics",
+        "Collab",
+        "Remake",
+        "Overall",
+        "Flow",
+        "Fast Paced",
+        "Timing",
+        "High CPS",
+        "Chokepoints",
+        "UFO",
+        "Wave"
+      ],
+      "targetRank": 5,
+      "clears": []
+    },
+    {
       "id": 1786718870068,
       "title": "Heart 8",
       "creator": "Choco",
@@ -2618,6 +2660,13 @@
     }
   ],
   "history": [
+    {
+      "id": 1794636467519,
+      "type": "add",
+      "title": "Glimmer",
+      "detail": "\"Glimmer\" 새로운 레벨이 5위에 등록되었습니다.",
+      "time": "2026. 11. 14."
+    },
     {
       "id": 1792747931053,
       "type": "move",
