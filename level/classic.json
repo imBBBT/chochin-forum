@@ -1315,6 +1315,47 @@
       ]
     },
     {
+      "id": 1795242284150,
+      "title": "the trash",
+      "creator": "Light",
+      "verifier": "Light",
+      "rating": "",
+      "video": "https://www.youtube.com/embed/CQb79s2FSbQ",
+      "mapId": "142073872",
+      "length": "22s",
+      "objects": "2967",
+      "uploadDate": "2026-06-06",
+      "map": {
+        "mapId": "142073872",
+        "length": "22s",
+        "objects": "2967",
+        "uploadDate": "2026-06-06"
+      },
+      "song": {
+        "name": "Archangel",
+        "artist": "Rameses B",
+        "id": "10012980"
+      },
+      "description": "정확히 이름값을 하는 맵입니다. 공략 없이는 클리어하기 매우 힘들 수 있으니 주의하세요.",
+      "tags": [
+        "Standard",
+        "Lyrics",
+        "Fixed Hitboxes",
+        "Humorous",
+        "Slow Paced",
+        "Memory",
+        "Puzzle",
+        "High CPS",
+        "Nerve Control",
+        "Chokepoints",
+        "Gimmicky",
+        "Wave",
+        "Cube"
+      ],
+      "targetRank": 25,
+      "clears": []
+    },
+    {
       "id": 22,
       "title": "PPPP",
       "creator": "Choco",
@@ -2660,6 +2701,13 @@
     }
   ],
   "history": [
+    {
+      "id": 1795242284166,
+      "type": "add",
+      "title": "the trash",
+      "detail": "\"the trash\" 새로운 레벨이 25위에 등록되었습니다.",
+      "time": "2026. 11. 21."
+    },
     {
       "id": 1794636467519,
       "type": "add",
