@@ -2,7 +2,7 @@
   "levels": [
     {
       "id": 1,
-      "title": "GOAT!",
+      "title": "GOAT",
       "creator": "Choco",
       "verifier": "Choco",
       "video": "https://www.youtube.com/embed/swG-0J9TBug",
@@ -10,7 +10,8 @@
       "map": {
         "mapId": "132490623",
         "length": "35s",
-        "objects": "30931"
+        "objects": "30931",
+        "uploadDate": ""
       },
       "song": {
         "name": "GOAT!",
@@ -51,7 +52,8 @@
       "mapId": "132490623",
       "length": "35s",
       "objects": "30931",
-      "targetRank": 1
+      "targetRank": 1,
+      "uploadDate": ""
     },
     {
       "id": 2,
@@ -653,7 +655,7 @@
     },
     {
       "id": 12,
-      "title": "Which One?",
+      "title": "Which One",
       "creator": "Choco",
       "verifier": "Choco",
       "video": "https://www.youtube.com/embed/BFGHAEY52J4",
@@ -661,7 +663,8 @@
       "map": {
         "mapId": "130261964",
         "length": "26s",
-        "objects": "3483"
+        "objects": "3483",
+        "uploadDate": ""
       },
       "song": {
         "name": "Which One?",
@@ -709,7 +712,8 @@
       "mapId": "130261964",
       "length": "26s",
       "objects": "3483",
-      "targetRank": 12
+      "targetRank": 13,
+      "uploadDate": ""
     },
     {
       "id": 17,
