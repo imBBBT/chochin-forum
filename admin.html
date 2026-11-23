@@ -273,13 +273,14 @@
           <div class="settings-block">
             <h3 class="settings-title">디스코드 웹훅 알림 설정 (Discord Webhook)</h3>
             <p class="form-hint" style="margin-bottom: 0.8rem;">
-              유저가 레벨이나 클리어를 제출했을 때 알림을 수신할 Discord 채널의 Webhook URL을 입력하세요.
+              유저가 레벨이나 클리어를 제출했을 때 알림을 수신할 Discord 채널의 Webhook URL을 입력하세요.<br />
+              저장 시 GitHub API가 연동되어 있으면 <strong>webhook.json</strong>에도 자동 반영되어 모든 방문자에게 공유됩니다.
             </p>
             <div class="input-with-button">
               <input type="url" id="set-webhook-url" class="form-input" placeholder="https://discord.com/api/webhooks/..." />
               <button id="set-webhook-test-btn" class="form-action-btn">테스트 발송</button>
             </div>
-            <button id="set-webhook-save-btn" class="form-action-btn" style="margin-top: 1rem;">웹훅 URL 저장</button>
+            <button id="set-webhook-save-btn" class="form-action-btn" style="margin-top: 1rem;">웹훅 URL 저장 및 전체 공유</button>
           </div>
 
           <!-- GitHub API 설정 연동 -->
@@ -408,8 +409,8 @@
   <div class="shadow"></div>
 
   <!-- Scripts -->
-  <script src="all.js?v=8"></script>
-  <script src="admin.js?v=8"></script>
+  <script src="all.js?v=9"></script>
+  <script src="admin.js?v=9"></script>
 </body>
 
 </html>

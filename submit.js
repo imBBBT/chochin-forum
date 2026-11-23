@@ -334,22 +334,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function saveSubmission(item) {
+  async function saveSubmission(item) {
     const list = getStoredSubmissions();
     list.unshift(item);
     localStorage.setItem(SUBMISSIONS_STORAGE_KEY, JSON.stringify(list));
 
-    // 관리자 웹훅 전송 시도
-    sendDiscordWebhook(item);
+    // 관리자 웹훅 전송 시도 (공유 webhook.json -> localStorage 순)
+    const webhookResult = await sendDiscordWebhook(item);
 
     // 성공 모달 띄우기
-    showSuccessModal(item);
+    showSuccessModal(item, webhookResult);
+  }
+
+  async function resolveWebhookUrl() {
+    if (typeof window.getSharedDiscordWebhookUrl === 'function') {
+      return await window.getSharedDiscordWebhookUrl();
+    }
+    const localUrl = (localStorage.getItem(WEBHOOK_STORAGE_KEY) || '').trim();
+    return localUrl;
   }
 
   async function sendDiscordWebhook(submission) {
-    const webhookUrl = localStorage.getItem(WEBHOOK_STORAGE_KEY);
-    if (!webhookUrl || !webhookUrl.startsWith('https://discord.com/api/webhooks/')) {
-      return;
+    const webhookUrl = await resolveWebhookUrl();
+    if (!webhookUrl || !(webhookUrl.startsWith('https://discord.com/api/webhooks/') || webhookUrl.startsWith('https://discordapp.com/api/webhooks/'))) {
+      return { ok: false, reason: '관리자 디스코드 웹훅이 아직 설정/공유되지 않았습니다' };
     }
 
     try {
@@ -394,13 +402,18 @@ document.addEventListener('DOMContentLoaded', () => {
         embeds: [embed]
       };
 
-      await fetch(webhookUrl, {
+      const res = await fetch(webhookUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(webhookBody)
       });
+      if (!res.ok) {
+        return { ok: false, reason: `HTTP ${res.status}` };
+      }
+      return { ok: true };
     } catch (err) {
       console.warn('Discord Webhook 발송 실패:', err);
+      return { ok: false, reason: err?.message || '네트워크 오류' };
     }
   }
 
@@ -410,8 +423,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalCopyPacketBtn = document.getElementById('modal-copy-packet-btn');
   const modalPacketTextarea = document.getElementById('modal-packet-textarea');
 
-  function showSuccessModal(item) {
+  function showSuccessModal(item, webhookResult) {
     if (!successModal) return;
+    const descEl = successModal.querySelector('.submit-modal-desc');
+    if (descEl) {
+      if (webhookResult && !webhookResult.ok) {
+        const esc = window.escapeHtml || (s => String(s ?? '').replace(/</g, '&lt;').replace(/>/g, '&gt;'));
+        descEl.innerHTML = `신청서 패킷은 생성되었으나, 디스코드 알림 자동 전송에 실패했습니다 (${esc(webhookResult.reason || '오류')}).<br />아래 패킷을 복사하여 관리자에게 직접 전달해 주세요.`;
+      } else {
+        descEl.innerHTML = `작성하신 신청서가 정상적으로 접수되었습니다.<br />관리자의 검토를 거쳐 승인되면 공식 초친 포럼 목록에 등록됩니다.`;
+      }
+    }
     const packetString = JSON.stringify(item, null, 2);
     if (modalPacketTextarea) modalPacketTextarea.value = packetString;
     successModal.style.display = 'flex';
@@ -441,7 +463,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- 10. 레벨 제출 폼 제출 이벤트 ---
   const levelForm = document.getElementById('level-submit-form');
   if (levelForm) {
-    levelForm.addEventListener('submit', (e) => {
+    levelForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const category = document.querySelector('input[name="level-category"]:checked')?.value || 'classic';
@@ -496,18 +518,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       };
 
-      saveSubmission(submissionItem);
-      levelForm.reset();
-      syncUserNicknameToInputs();
-      const previewContainer = document.getElementById('lvl-video-preview-container');
-      if (previewContainer) previewContainer.style.display = 'none';
+      const submitBtn = document.getElementById('lvl-submit-btn') || levelForm.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
+      try {
+        await saveSubmission(submissionItem);
+        levelForm.reset();
+        syncUserNicknameToInputs();
+        const previewContainer = document.getElementById('lvl-video-preview-container');
+        if (previewContainer) previewContainer.style.display = 'none';
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+      }
     });
   }
 
   // --- 11. 클리어 제출 폼 제출 이벤트 ---
   const clearForm = document.getElementById('clear-submit-form');
   if (clearForm) {
-    clearForm.addEventListener('submit', (e) => {
+    clearForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const category = document.querySelector('input[name="clear-category"]:checked')?.value || 'classic';
@@ -559,10 +587,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       };
 
-      saveSubmission(submissionItem);
-      clearForm.reset();
-      syncUserNicknameToInputs();
-      document.getElementById('clear-video-preview-container').style.display = 'none';
+      const submitBtn = document.getElementById('clear-submit-btn') || clearForm.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
+      try {
+        await saveSubmission(submissionItem);
+        clearForm.reset();
+        syncUserNicknameToInputs();
+        document.getElementById('clear-video-preview-container').style.display = 'none';
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+      }
     });
   }
 

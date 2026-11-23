@@ -836,14 +836,59 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Discord Webhook
   const webhookInput = document.getElementById('set-webhook-url');
+  const webhookSaveBtn = document.getElementById('set-webhook-save-btn');
   if (webhookInput) {
     webhookInput.value = localStorage.getItem(WEBHOOK_STORAGE_KEY) || '';
   }
 
-  document.getElementById('set-webhook-save-btn')?.addEventListener('click', () => {
+  async function loadSharedWebhookIntoInput() {
+    if (!webhookInput || typeof window.getSharedDiscordWebhookUrl !== 'function') return;
+    const shared = await window.getSharedDiscordWebhookUrl();
+    if (shared && !webhookInput.value.trim()) {
+      webhookInput.value = shared;
+    } else if (shared) {
+      webhookInput.value = shared;
+    }
+  }
+
+  webhookSaveBtn?.addEventListener('click', async () => {
     const url = (webhookInput?.value || '').trim();
+    if (url && !(url.startsWith('https://discord.com/api/webhooks/') || url.startsWith('https://discordapp.com/api/webhooks/'))) {
+      alert('올바른 Discord Webhook URL(https://discord.com/api/webhooks/...)을 입력해주세요.');
+      return;
+    }
+
     localStorage.setItem(WEBHOOK_STORAGE_KEY, url);
-    alert('디스코드 웹훅 URL이 저장되었습니다.');
+
+    const ghConfig = window.GitHubSyncEngine?.getConfig ? window.GitHubSyncEngine.getConfig() : null;
+    if (!ghConfig || !ghConfig.owner || !ghConfig.repo || !ghConfig.token) {
+      alert('이 브라우저에는 웹훅 URL이 저장되었습니다.\n\n※ 다른 모든 사용자에게도 공유하려면 바로 아래 [GitHub API 연동 설정]을 입력·저장한 뒤 다시 한 번 저장을 눌러주세요.');
+      return;
+    }
+
+    const origText = webhookSaveBtn.textContent;
+    webhookSaveBtn.disabled = true;
+    webhookSaveBtn.textContent = '공유 설정 저장 중...';
+
+    try {
+      const payload = {
+        webhookB64: url ? btoa(unescape(encodeURIComponent(url))) : '',
+        updatedAt: new Date().toISOString()
+      };
+      await window.GitHubSyncEngine.commitAndPush(
+        'webhook.json',
+        payload,
+        'Update shared Discord webhook config via Admin Portal'
+      );
+      alert(url
+        ? '디스코드 웹훅 URL이 저장되었으며, GitHub(webhook.json)에 반영되어 모든 사용자에게 공유됩니다!'
+        : '공유 디스코드 웹훅 URL이 비워지고 GitHub(webhook.json)에 반영되었습니다.');
+    } catch (err) {
+      alert(`로컬 저장은 완료되었으나 GitHub(webhook.json) 공유 저장에 실패했습니다:\n\n${err.message}`);
+    } finally {
+      webhookSaveBtn.disabled = false;
+      webhookSaveBtn.textContent = origText;
+    }
   });
 
   document.getElementById('set-webhook-test-btn')?.addEventListener('click', async () => {
@@ -911,7 +956,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 대시보드 초기화
   async function initDashboard() {
-    await loadAllSiteData();
+    await Promise.all([loadAllSiteData(), loadSharedWebhookIntoInput()]);
     refreshDashboardViews();
 
     // URL 쿼리에 ?packet=...이 있을 경우 자동 불러오기

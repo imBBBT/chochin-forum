@@ -1363,6 +1363,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
           });
         }
+      } else if (filePath.endsWith('webhook.json')) {
+        if (typeof data !== 'object' || Array.isArray(data)) {
+          errors.push('웹훅 설정(webhook.json)은 객체 형식이어야 합니다.');
+        } else if (typeof data.webhookB64 !== 'string' && typeof data.webhookUrl !== 'string') {
+          errors.push('webhookB64 또는 webhookUrl 필드가 필요합니다.');
+        }
       } else if (filePath.includes('level/') || filePath.endsWith('classic.json') || filePath.endsWith('challenge.json') || filePath.endsWith('platformer.json')) {
         if (!data.levels || !Array.isArray(data.levels)) {
           errors.push('levels 배열이 존재하지 않거나 유효하지 않습니다.');
@@ -1487,6 +1493,52 @@ document.addEventListener('DOMContentLoaded', () => {
         filePath: cleanPath
       };
     }
+  };
+
+  window.isValidDiscordWebhookUrl = function (url) {
+    const s = String(url || '').trim();
+    return s.startsWith('https://discord.com/api/webhooks/') || s.startsWith('https://discordapp.com/api/webhooks/');
+  };
+
+  window.getSharedDiscordWebhookUrl = async function () {
+    const decodeCfg = (obj) => {
+      if (!obj || typeof obj !== 'object') return '';
+      if (obj.webhookB64) {
+        try {
+          return decodeURIComponent(escape(atob(String(obj.webhookB64).trim())));
+        } catch (_) {}
+      }
+      if (obj.webhookUrl) {
+        return String(obj.webhookUrl).trim();
+      }
+      return '';
+    };
+
+    try {
+      const recent = window.GitHubSyncEngine?.getRecentPushedData
+        ? window.GitHubSyncEngine.getRecentPushedData('webhook.json')
+        : null;
+      const recentUrl = decodeCfg(recent);
+      if (window.isValidDiscordWebhookUrl(recentUrl)) {
+        return recentUrl;
+      }
+
+      const path = (window.location.pathname || '').replace(/\\/g, '/').toLowerCase();
+      const prefix = path.includes('/level/') ? '../' : '';
+      const res = await fetch(`${prefix}webhook.json?t=${Date.now()}`, { cache: 'no-store' });
+      if (res.ok) {
+        const json = await res.json();
+        const sharedUrl = decodeCfg(json);
+        if (window.isValidDiscordWebhookUrl(sharedUrl)) {
+          return sharedUrl;
+        }
+      }
+    } catch (e) {
+      console.warn('webhook.json load failed:', e);
+    }
+
+    const localUrl = (localStorage.getItem('chochin_admin_webhook_url') || '').trim();
+    return window.isValidDiscordWebhookUrl(localUrl) ? localUrl : '';
   };
 
   window.addAutoForumNews = async function (content, customDate) {
