@@ -2660,7 +2660,7 @@
       "creator": "Cloud",
       "verifier": "Cloud",
       "video": "https://www.youtube.com/embed/Vl9AGyCDSNg",
-      "rating": "Featured",
+      "rating": "",
       "map": {
         "mapId": "140564386",
         "length": "Medium",
@@ -2672,7 +2672,7 @@
         "artist": "Waterflame",
         "id": "638150"
       },
-      "description": "",
+      "description": "지메를 처음 하는 이들을 위한 쉬운 종합 레벨입니다. 절대 드랍을 봐선 안돼 골끼야아아악",
       "enjoyment": "10",
       "framePerfect": {
         "fps": {},
@@ -2683,9 +2683,15 @@
         "speedRatio": {}
       },
       "tags": [
-        "Overall"
+        "Overall",
+        "Standard"
       ],
-      "clears": []
+      "clears": [],
+      "mapId": "140564386",
+      "length": "Medium",
+      "objects": "843",
+      "uploadDate": "2026-11-24",
+      "targetRank": 49
     },
     {
       "id": 50,
@@ -2755,12 +2761,6 @@
   ],
   "history": [
     {
-      "time": "2026-11-24",
-      "type": "add",
-      "title": "Hegun",
-      "detail": "Hegun이 베리파이되었으며, 49위에 등재되었습니다."
-    },
-    {
       "id": 1795242284166,
       "type": "add",
       "title": "the trash",
@@ -2815,6 +2815,12 @@
       "title": "Heart 8",
       "detail": "\"Heart 8\" 새로운 레벨이 5위에 등록되었습니다.",
       "time": "2026. 8. 14."
+    },
+    {
+      "time": "2026-11-24",
+      "type": "add",
+      "title": "Hegun",
+      "detail": "Hegun이 베리파이되었으며, 49위에 등재되었습니다."
     },
     {
       "time": "2026-08-14 13:23",
