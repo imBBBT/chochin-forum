@@ -2709,7 +2709,16 @@
       "tags": [
         "Overall"
       ],
-      "clears": []
+      "clears": [
+        {
+          "player": "Choco",
+          "name": "Choco",
+          "percent": 100,
+          "date": "2026-11-25",
+          "link": "https://youtu.be/9YRe6qt6ts4",
+          "video": "https://youtu.be/9YRe6qt6ts4"
+        }
+      ]
     },
     {
       "id": 50,
@@ -2779,12 +2788,6 @@
   ],
   "history": [
     {
-      "time": "2026-11-24",
-      "type": "add",
-      "title": "Hegun",
-      "detail": "Hegun이 베리파이되었으며, 49위에 등재되었습니다."
-    },
-    {
       "id": 1795242284166,
       "type": "add",
       "title": "the trash",
@@ -2839,6 +2842,12 @@
       "title": "Heart 8",
       "detail": "\"Heart 8\" 새로운 레벨이 5위에 등록되었습니다.",
       "time": "2026. 8. 14."
+    },
+    {
+      "time": "2026-11-24",
+      "type": "add",
+      "title": "Hegun",
+      "detail": "Hegun이 베리파이되었으며, 49위에 등재되었습니다."
     },
     {
       "time": "2026-08-14 13:23",
