@@ -2307,6 +2307,14 @@
           "date": "2026-01-30",
           "link": "https://youtu.be/2v-gH8a4bPw",
           "video": "https://youtu.be/2v-gH8a4bPw"
+        },
+        {
+          "player": "Cloud",
+          "name": "Cloud",
+          "percent": 100,
+          "date": "2026-11-25",
+          "link": "https://youtu.be/xBQqhNR89nY",
+          "video": "https://youtu.be/xBQqhNR89nY"
         }
       ],
       "mapId": "85191093",
@@ -2362,6 +2370,14 @@
           "date": "2026-01-27",
           "link": "https://youtu.be/7k5j87WtPkE",
           "video": "https://youtu.be/7k5j87WtPkE"
+        },
+        {
+          "player": "Cloud",
+          "name": "Cloud",
+          "percent": 100,
+          "date": "2026-11-25",
+          "link": "https://youtu.be/e8nyRpBCB_c",
+          "video": "https://youtu.be/e8nyRpBCB_c"
         }
       ],
       "mapId": "85596289",
@@ -2411,7 +2427,16 @@
         "Nerve Control",
         "Learny"
       ],
-      "clears": [],
+      "clears": [
+        {
+          "player": "Cloud",
+          "name": "Cloud",
+          "percent": 100,
+          "date": "2026-11-25",
+          "link": "https://youtu.be/FGgVdFQU_Dk",
+          "video": "https://youtu.be/FGgVdFQU_Dk"
+        }
+      ],
       "mapId": "122547026",
       "length": "2m 37s",
       "objects": "5683",
