@@ -1158,6 +1158,39 @@
     },
     {
       "id": 22,
+      "title": "Goina",
+      "creator": "Cloud",
+      "verifier": "Cloud",
+      "video": "https://www.youtube.com/embed/2aOAzyzRpEg",
+      "rating": "Featured",
+      "map": {
+        "mapId": "125902956",
+        "length": "Long",
+        "objects": "24034",
+        "uploadDate": "2026-11-27"
+      },
+      "song": {
+        "name": "This Isnt Science Rocket (2015 Edition)",
+        "artist": "F-777",
+        "id": "633746"
+      },
+      "description": "",
+      "enjoyment": "10",
+      "framePerfect": {
+        "fps": {},
+        "total": 0
+      },
+      "gameplay": {
+        "modeRatio": {},
+        "speedRatio": {}
+      },
+      "tags": [
+        "Overall"
+      ],
+      "clears": []
+    },
+    {
+      "id": 23,
       "title": "Reaper Wave",
       "creator": "Timo",
       "verifier": "Timo",
@@ -1226,7 +1259,7 @@
       "targetRank": 21
     },
     {
-      "id": 23,
+      "id": 24,
       "title": "jumper startpos 2",
       "creator": "Timo",
       "verifier": "Timo",
@@ -1274,7 +1307,7 @@
       ]
     },
     {
-      "id": 24,
+      "id": 25,
       "title": "20 min challenge",
       "creator": "Light",
       "verifier": "Light",
@@ -1319,7 +1352,7 @@
       ]
     },
     {
-      "id": 25,
+      "id": 26,
       "title": "the trash",
       "creator": "Light",
       "verifier": "Choco",
@@ -1360,7 +1393,7 @@
       "clears": []
     },
     {
-      "id": 26,
+      "id": 27,
       "title": "PPPP",
       "creator": "Choco",
       "verifier": "Choco",
@@ -1431,7 +1464,7 @@
       "targetRank": 22
     },
     {
-      "id": 27,
+      "id": 28,
       "title": "Endless Dreaming",
       "creator": "Light",
       "verifier": "Light",
@@ -1486,7 +1519,7 @@
       "targetRank": 23
     },
     {
-      "id": 28,
+      "id": 29,
       "title": "JPA EP8",
       "creator": "Choco",
       "verifier": "Choco",
@@ -1544,7 +1577,7 @@
       "targetRank": 24
     },
     {
-      "id": 29,
+      "id": 30,
       "title": "LT EP8",
       "creator": "Light",
       "verifier": "Choco",
@@ -1598,7 +1631,7 @@
       "targetRank": 25
     },
     {
-      "id": 30,
+      "id": 31,
       "title": "JPA EP7",
       "creator": "Choco",
       "verifier": "Choco",
@@ -1647,7 +1680,7 @@
       "targetRank": 26
     },
     {
-      "id": 31,
+      "id": 32,
       "title": "JPA EP4",
       "creator": "Choco",
       "verifier": "Choco",
@@ -1703,7 +1736,7 @@
       "targetRank": 27
     },
     {
-      "id": 32,
+      "id": 33,
       "title": "JPA EP5",
       "creator": "Choco",
       "verifier": "Choco",
@@ -1753,7 +1786,7 @@
       "targetRank": 28
     },
     {
-      "id": 33,
+      "id": 34,
       "title": "JPA EP2",
       "creator": "Choco",
       "verifier": "Choco",
@@ -1802,7 +1835,7 @@
       "targetRank": 29
     },
     {
-      "id": 34,
+      "id": 35,
       "title": "JPA EP1",
       "creator": "Choco",
       "verifier": "Choco",
@@ -1851,7 +1884,7 @@
       "targetRank": 30
     },
     {
-      "id": 35,
+      "id": 36,
       "title": "Trolled",
       "creator": "Light",
       "verifier": "Light",
@@ -1924,7 +1957,7 @@
       "uploadDate": "2022-11-13"
     },
     {
-      "id": 36,
+      "id": 37,
       "title": "JPA EP3",
       "creator": "Choco",
       "verifier": "Choco",
@@ -1978,7 +2011,7 @@
       "targetRank": 32
     },
     {
-      "id": 37,
+      "id": 38,
       "title": "LT EP7",
       "creator": "Light",
       "verifier": "Light",
@@ -2040,7 +2073,7 @@
       "uploadDate": "2022-11-19"
     },
     {
-      "id": 38,
+      "id": 39,
       "title": "JPA EP9",
       "creator": "Choco",
       "verifier": "Choco",
@@ -2092,7 +2125,7 @@
       "targetRank": 34
     },
     {
-      "id": 39,
+      "id": 40,
       "title": "JPA EP6",
       "creator": "Choco",
       "verifier": "Choco",
@@ -2143,7 +2176,7 @@
       "targetRank": 35
     },
     {
-      "id": 40,
+      "id": 41,
       "title": "Slow Challenge",
       "creator": "Choco",
       "verifier": "Choco",
@@ -2187,7 +2220,7 @@
       "targetRank": 36
     },
     {
-      "id": 41,
+      "id": 42,
       "title": "LT EP6",
       "creator": "Light",
       "verifier": "Light",
@@ -2261,7 +2294,7 @@
       "uploadDate": "2022-11-12"
     },
     {
-      "id": 42,
+      "id": 43,
       "title": "LT EP4",
       "creator": "Light",
       "verifier": "Light",
@@ -2324,7 +2357,7 @@
       "uploadDate": "2022-10-31"
     },
     {
-      "id": 43,
+      "id": 44,
       "title": "LT EP5",
       "creator": "Light",
       "verifier": "Light",
@@ -2387,7 +2420,7 @@
       "uploadDate": "2022-11-12"
     },
     {
-      "id": 44,
+      "id": 45,
       "title": "Glide Festival",
       "creator": "Choco",
       "verifier": "Choco",
@@ -2443,7 +2476,7 @@
       "targetRank": 40
     },
     {
-      "id": 45,
+      "id": 46,
       "title": "Egg Layout",
       "creator": "Light",
       "verifier": "Light",
@@ -2525,7 +2558,7 @@
       "targetRank": 41
     },
     {
-      "id": 46,
+      "id": 47,
       "title": "LT EP3",
       "creator": "Light",
       "verifier": "Light",
@@ -2590,7 +2623,7 @@
       "uploadDate": "2022-10-20"
     },
     {
-      "id": 47,
+      "id": 48,
       "title": "LT EP2",
       "creator": "Light",
       "verifier": "Light",
@@ -2657,7 +2690,7 @@
       "uploadDate": "2022-10-17"
     },
     {
-      "id": 48,
+      "id": 49,
       "title": "the hardest wave map",
       "creator": "Timo",
       "verifier": "Timo",
@@ -2712,7 +2745,7 @@
       ]
     },
     {
-      "id": 49,
+      "id": 50,
       "title": "Hegun",
       "creator": "Cloud",
       "verifier": "Cloud",
@@ -2754,7 +2787,7 @@
       ]
     },
     {
-      "id": 50,
+      "id": 51,
       "title": "Answer Me",
       "creator": "Choco",
       "verifier": "Choco",
@@ -2820,6 +2853,12 @@
     }
   ],
   "history": [
+    {
+      "time": "2026-11-27",
+      "type": "add",
+      "title": "Goina",
+      "detail": "22위에 새로운 레벨이 등록되었습니다."
+    },
     {
       "id": 1795242284166,
       "type": "add",
