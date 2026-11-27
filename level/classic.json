@@ -2213,7 +2213,16 @@
         "Standard",
         "Chokepoints"
       ],
-      "clears": [],
+      "clears": [
+        {
+          "player": "Cloud",
+          "name": "Cloud",
+          "percent": 100,
+          "date": "2026-11-27",
+          "link": "https://youtu.be/3rnIy0IBvRg",
+          "video": "https://youtu.be/3rnIy0IBvRg"
+        }
+      ],
       "mapId": "101683550",
       "length": "2m 55s",
       "objects": "1718",
